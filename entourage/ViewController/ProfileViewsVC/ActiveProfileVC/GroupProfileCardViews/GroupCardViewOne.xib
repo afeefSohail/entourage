@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GroupCardViewOne" customModule="entourage" customModuleProvider="target">
+            <connections>
+                <outlet property="containterView" destination="sMm-EH-Afq" id="cZs-mY-405"/>
+                <outlet property="firstGroupMemberImage" destination="vEy-1w-SRh" id="CVn-da-Ja3"/>
+                <outlet property="mainStackView" destination="hTX-tg-DTa" id="T7G-Zj-OZL"/>
+                <outlet property="secondMemberImage" destination="flv-ly-ldC" id="SGg-hy-tTK"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="sMm-EH-Afq">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="hTX-tg-DTa">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gOV-NL-tfP" userLabel="firstImageView">
+                            <rect key="frame" x="0.0" y="0.0" width="207" height="896"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ppic2" translatesAutoresizingMaskIntoConstraints="NO" id="vEy-1w-SRh">
+                                    <rect key="frame" x="0.0" y="0.0" width="207" height="896"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="vEy-1w-SRh" firstAttribute="leading" secondItem="gOV-NL-tfP" secondAttribute="leading" id="MZ2-82-swb"/>
+                                <constraint firstAttribute="trailing" secondItem="vEy-1w-SRh" secondAttribute="trailing" id="NMU-LV-J5r"/>
+                                <constraint firstAttribute="bottom" secondItem="vEy-1w-SRh" secondAttribute="bottom" id="a8b-9H-X5f"/>
+                                <constraint firstItem="vEy-1w-SRh" firstAttribute="top" secondItem="gOV-NL-tfP" secondAttribute="top" id="gYO-cX-Ca4"/>
+                            </constraints>
+                            <viewLayoutGuide key="safeArea" id="0N4-IP-JPN"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8bZ-WA-5wa" userLabel="firstImageView">
+                            <rect key="frame" x="207" y="0.0" width="207" height="896"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ppic3" translatesAutoresizingMaskIntoConstraints="NO" id="flv-ly-ldC">
+                                    <rect key="frame" x="0.0" y="0.0" width="207" height="896"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="flv-ly-ldC" firstAttribute="leading" secondItem="8bZ-WA-5wa" secondAttribute="leading" id="WKT-Rn-u3u"/>
+                                <constraint firstItem="flv-ly-ldC" firstAttribute="top" secondItem="8bZ-WA-5wa" secondAttribute="top" id="Xzr-4V-tDx"/>
+                                <constraint firstAttribute="trailing" secondItem="flv-ly-ldC" secondAttribute="trailing" id="dxU-vA-2fy"/>
+                                <constraint firstAttribute="bottom" secondItem="flv-ly-ldC" secondAttribute="bottom" id="y2L-NG-U7c"/>
+                            </constraints>
+                            <viewLayoutGuide key="safeArea" id="RQD-ZB-vhF"/>
+                        </view>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="hTX-tg-DTa" firstAttribute="leading" secondItem="mKp-g2-7Nw" secondAttribute="leading" id="Dst-bY-400"/>
+                <constraint firstAttribute="bottom" secondItem="hTX-tg-DTa" secondAttribute="bottom" id="PIq-RK-XlW"/>
+                <constraint firstAttribute="trailing" secondItem="hTX-tg-DTa" secondAttribute="trailing" id="ba9-Ed-OYl"/>
+                <constraint firstItem="hTX-tg-DTa" firstAttribute="top" secondItem="sMm-EH-Afq" secondAttribute="top" id="qTv-JY-4Du"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="mKp-g2-7Nw"/>
+            <point key="canvasLocation" x="57.971014492753625" y="35.491071428571423"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ppic2" width="708" height="792"/>
+        <image name="ppic3" width="712" height="792"/>
+    </resources>
+</document>

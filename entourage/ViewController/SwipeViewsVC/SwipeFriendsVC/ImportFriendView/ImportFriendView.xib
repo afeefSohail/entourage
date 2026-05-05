@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ImportFriendView" customModule="entourage" customModuleProvider="target">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                    <real key="value" value="8"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                    <real key="value" value="10.199999999999999"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                    <color key="value" red="0.65098039215686276" green="0.65490196078431373" blue="0.69411764705882351" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                    <size key="value" width="0.0" height="15"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="containerView" destination="iN0-l3-epB" id="UVL-qz-tIi"/>
+                <outlet property="importFriendsBtn" destination="z6u-p8-jTC" id="9TJ-6q-ffe"/>
+                <outlet property="linkBtn" destination="n0p-JW-Caf" id="R8x-RE-0Vz"/>
+                <outlet property="shareBtn" destination="lSg-ee-rBE" id="v3s-js-txW"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="importFriends" translatesAutoresizingMaskIntoConstraints="NO" id="8aC-fR-gi0">
+                    <rect key="frame" x="142" y="111" width="130" height="120"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="130" id="BEc-oF-aGD"/>
+                        <constraint firstAttribute="height" constant="120" id="rGq-AY-lIv"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Import Friends from Contacts to Create a Group" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fnm-e0-lkX">
+                    <rect key="frame" x="25" y="275" width="364" height="66"/>
+                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="24"/>
+                    <color key="textColor" red="0.1764705882" green="0.1764705882" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6u-p8-jTC">
+                    <rect key="frame" x="97" y="373" width="220" height="52"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="52" id="a2o-Ya-UYW"/>
+                    </constraints>
+                    <state key="normal" image="InviteFriendsbtn">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lSg-ee-rBE">
+                    <rect key="frame" x="97" y="449" width="220" height="34"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" name="Avenir-BlackOblique" family="Avenir" pointSize="16"/>
+                    <state key="normal" title="Share">
+                        <color key="titleColor" red="0.85098039219999999" green="0.86666666670000003" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You Can Only Swipe with an Active Group" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S2I-nL-H95">
+                    <rect key="frame" x="93" y="824.5" width="228" height="16.5"/>
+                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="12"/>
+                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What does this mean?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pza-hi-CVU">
+                    <rect key="frame" x="144" y="845" width="126" height="16.5"/>
+                    <fontDescription key="fontDescription" name="Avenir-BlackOblique" family="Avenir" pointSize="12"/>
+                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n0p-JW-Caf" userLabel="What does this means Btn">
+                    <rect key="frame" x="144" y="845" width="126" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="17" id="TBR-Bg-Uu2"/>
+                    </constraints>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="raH-3O-Bvu">
+                    <rect key="frame" x="144" y="862" width="126" height="1"/>
+                    <color key="backgroundColor" red="0.13333333333333333" green="0.19607843137254902" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="jJN-EP-q28"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="fnm-e0-lkX" firstAttribute="top" secondItem="8aC-fR-gi0" secondAttribute="bottom" constant="44" id="4ZK-5h-QrT"/>
+                <constraint firstItem="n0p-JW-Caf" firstAttribute="trailing" secondItem="Pza-hi-CVU" secondAttribute="trailing" id="5tv-fr-KLW"/>
+                <constraint firstItem="fnm-e0-lkX" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="25" id="A1i-YA-0oK"/>
+                <constraint firstItem="Pza-hi-CVU" firstAttribute="top" secondItem="S2I-nL-H95" secondAttribute="bottom" constant="4" id="CHG-ck-wvZ"/>
+                <constraint firstItem="raH-3O-Bvu" firstAttribute="trailing" secondItem="n0p-JW-Caf" secondAttribute="trailing" id="F1D-Ib-tic"/>
+                <constraint firstItem="z6u-p8-jTC" firstAttribute="top" secondItem="fnm-e0-lkX" secondAttribute="bottom" constant="32" id="GV3-ea-zUt"/>
+                <constraint firstItem="Pza-hi-CVU" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="JlZ-4y-xls"/>
+                <constraint firstItem="n0p-JW-Caf" firstAttribute="leading" secondItem="Pza-hi-CVU" secondAttribute="leading" id="K7U-Ge-imf"/>
+                <constraint firstItem="z6u-p8-jTC" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="SrS-Dd-jgQ"/>
+                <constraint firstItem="lSg-ee-rBE" firstAttribute="trailing" secondItem="z6u-p8-jTC" secondAttribute="trailing" id="VAP-8D-MIc"/>
+                <constraint firstItem="lSg-ee-rBE" firstAttribute="top" secondItem="z6u-p8-jTC" secondAttribute="bottom" constant="24" id="aqs-zj-3d8"/>
+                <constraint firstItem="S2I-nL-H95" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="duT-hf-KCs"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="fnm-e0-lkX" secondAttribute="trailing" constant="25" id="fgJ-kb-2wl"/>
+                <constraint firstItem="8aC-fR-gi0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="fy0-d5-HhB"/>
+                <constraint firstItem="raH-3O-Bvu" firstAttribute="leading" secondItem="n0p-JW-Caf" secondAttribute="leading" id="hfq-ts-8dO"/>
+                <constraint firstItem="raH-3O-Bvu" firstAttribute="top" secondItem="n0p-JW-Caf" secondAttribute="bottom" id="nwp-dl-my1"/>
+                <constraint firstAttribute="bottom" secondItem="raH-3O-Bvu" secondAttribute="bottom" constant="33" id="oyG-RF-coY"/>
+                <constraint firstItem="lSg-ee-rBE" firstAttribute="leading" secondItem="z6u-p8-jTC" secondAttribute="leading" id="qjm-f2-awI"/>
+                <constraint firstItem="n0p-JW-Caf" firstAttribute="top" secondItem="Pza-hi-CVU" secondAttribute="top" id="rNY-4b-IB3"/>
+                <constraint firstItem="n0p-JW-Caf" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="uph-76-Kmu"/>
+                <constraint firstItem="8aC-fR-gi0" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="67" id="vgO-8F-BNM"/>
+            </constraints>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="16"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="57.971014492753625" y="78.348214285714278"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="InviteFriendsbtn" width="220" height="52"/>
+        <image name="importFriends" width="140" height="125"/>
+    </resources>
+</document>

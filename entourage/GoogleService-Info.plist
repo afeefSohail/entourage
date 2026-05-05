@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>734795682835-rdpcfj48na57mjm1tqf0kfkf0a8v7895.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.734795682835-rdpcfj48na57mjm1tqf0kfkf0a8v7895</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCDeeDv75pdkMq9PiaUmZqZwDDJ5Ffu7F8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>734795682835</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.wbdigital.entourage</string>
+	<key>PROJECT_ID</key>
+	<string>entourage-12345</string>
+	<key>STORAGE_BUCKET</key>
+	<string>entourage-12345.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:734795682835:ios:6ea4b1c918acc658ac9be6</string>
+	<key>DATABASE_URL</key>
+	<string>https://entourage-12345.firebaseio.com</string>
+</dict>
+</plist>

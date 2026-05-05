@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ThreeMember" customModule="entourage" customModuleProvider="target">
+            <connections>
+                <outlet property="containerView" destination="usm-Np-n5w" id="WRn-iO-Aw2"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="usm-Np-n5w">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="FpP-bi-h0R">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Job-jA-adZ">
+                            <rect key="frame" x="0.0" y="0.0" width="205" height="896"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="eeJ-oN-jTi">
+                                    <rect key="frame" x="0.0" y="0.0" width="205" height="896"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="df9-fs-BXT">
+                                            <rect key="frame" x="0.0" y="0.0" width="205" height="446"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="20"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="2"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </imageView>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mhZ-6m-GUX">
+                                            <rect key="frame" x="0.0" y="450" width="205" height="446"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="20"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="2"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </imageView>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="eeJ-oN-jTi" secondAttribute="trailing" id="ChT-Sk-vdm"/>
+                                <constraint firstAttribute="bottom" secondItem="eeJ-oN-jTi" secondAttribute="bottom" id="b0E-2o-itT"/>
+                                <constraint firstItem="eeJ-oN-jTi" firstAttribute="leading" secondItem="Job-jA-adZ" secondAttribute="leading" id="djJ-iR-ldG"/>
+                                <constraint firstItem="eeJ-oN-jTi" firstAttribute="top" secondItem="Job-jA-adZ" secondAttribute="top" id="jmm-Wv-cE2"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tdt-g5-833">
+                            <rect key="frame" x="209" y="0.0" width="205" height="896"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V3l-ZX-ffH">
+                                    <rect key="frame" x="0.0" y="225" width="205" height="446"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="2"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="V3l-ZX-ffH" secondAttribute="trailing" id="9vp-EJ-J5s"/>
+                                <constraint firstItem="V3l-ZX-ffH" firstAttribute="centerY" secondItem="Tdt-g5-833" secondAttribute="centerY" id="VDt-OK-frX"/>
+                                <constraint firstItem="V3l-ZX-ffH" firstAttribute="leading" secondItem="Tdt-g5-833" secondAttribute="leading" id="xcz-fM-uOF"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="V3l-ZX-ffH" firstAttribute="height" secondItem="df9-fs-BXT" secondAttribute="height" id="yGV-W7-YQC"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="4FW-mw-WnG" firstAttribute="trailing" secondItem="FpP-bi-h0R" secondAttribute="trailing" id="Ida-f1-jW2"/>
+                <constraint firstItem="FpP-bi-h0R" firstAttribute="leading" secondItem="4FW-mw-WnG" secondAttribute="leading" id="NDH-91-egV"/>
+                <constraint firstAttribute="bottom" secondItem="FpP-bi-h0R" secondAttribute="bottom" id="QeF-ED-TUu"/>
+                <constraint firstItem="FpP-bi-h0R" firstAttribute="top" secondItem="usm-Np-n5w" secondAttribute="top" id="lVR-Z5-sCr"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="4FW-mw-WnG"/>
+        </view>
+    </objects>
+</document>

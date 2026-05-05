@@ -1,0 +1,322 @@
+PODS:
+  - Agrume (5.3.1):
+    - SwiftyGif
+  - Alamofire (4.9.1)
+  - AlamofireImage (3.5.2):
+    - Alamofire (~> 4.8)
+  - AvailableHapticFeedback (1.0.1)
+  - AwesomeEnum (2.2.1)
+  - BoringSSL-GRPC (0.0.3):
+    - BoringSSL-GRPC/Implementation (= 0.0.3)
+    - BoringSSL-GRPC/Interface (= 0.0.3)
+  - BoringSSL-GRPC/Implementation (0.0.3):
+    - BoringSSL-GRPC/Interface (= 0.0.3)
+  - BoringSSL-GRPC/Interface (0.0.3)
+  - CodableFirebase (0.2.1)
+  - Crashlytics (3.13.4):
+    - Fabric (~> 1.10.2)
+  - Fabric (1.10.2)
+  - FAPaginationLayout (2.0.1)
+  - Firebase/Auth (6.5.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 6.2.1)
+  - Firebase/Core (6.5.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 6.0.4)
+  - Firebase/CoreOnly (6.5.0):
+    - FirebaseCore (= 6.1.0)
+  - Firebase/Firestore (6.5.0):
+    - Firebase/CoreOnly
+    - FirebaseFirestore (~> 1.4.2)
+  - Firebase/Functions (6.5.0):
+    - Firebase/CoreOnly
+    - FirebaseFunctions (~> 2.5.1)
+  - Firebase/Messaging (6.5.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 4.1.1)
+  - Firebase/Storage (6.5.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 3.4.0)
+  - FirebaseAnalytics (6.0.4):
+    - FirebaseCore (~> 6.1)
+    - FirebaseInstanceID (~> 4.2)
+    - GoogleAppMeasurement (= 6.0.4)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (~> 0.3)
+  - FirebaseAnalyticsInterop (1.2.0)
+  - FirebaseAuth (6.2.1):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 6.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.2)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseAuthInterop (1.0.0)
+  - FirebaseCore (6.1.0):
+    - GoogleUtilities/Environment (~> 6.0)
+    - GoogleUtilities/Logger (~> 6.0)
+  - FirebaseFirestore (1.4.2):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 6.0)
+    - FirebaseFirestore/abseil-cpp (= 1.4.2)
+    - "gRPC-C++ (= 0.0.9)"
+    - leveldb-library (~> 1.20)
+    - nanopb (~> 0.3.901)
+    - Protobuf (~> 3.1)
+  - FirebaseFirestore/abseil-cpp (1.4.2):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 6.0)
+    - "gRPC-C++ (= 0.0.9)"
+    - leveldb-library (~> 1.20)
+    - nanopb (~> 0.3.901)
+    - Protobuf (~> 3.1)
+  - FirebaseFunctions (2.5.1):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 6.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseInstanceID (4.2.2):
+    - FirebaseCore (~> 6.0)
+    - GoogleUtilities/Environment (~> 6.0)
+    - GoogleUtilities/UserDefaults (~> 6.0)
+  - FirebaseMessaging (4.1.1):
+    - FirebaseAnalyticsInterop (~> 1.1)
+    - FirebaseCore (~> 6.0)
+    - FirebaseInstanceID (~> 4.1)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.2)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Reachability (~> 6.2)
+    - GoogleUtilities/UserDefaults (~> 6.2)
+    - Protobuf (~> 3.1)
+  - FirebaseStorage (3.4.0):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 6.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FittedSheets (1.4.5)
+  - FlagPhoneNumber (0.8.0):
+    - FlagPhoneNumber/libPhoneNumberiOS (= 0.8.0)
+  - FlagPhoneNumber/libPhoneNumberiOS (0.8.0)
+  - GoogleAppMeasurement (6.0.4):
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (~> 0.3)
+  - GoogleUtilities/AppDelegateSwizzler (6.2.3):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (6.2.3)
+  - GoogleUtilities/Logger (6.2.3):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (6.2.3):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (6.2.3):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (6.2.3)"
+  - GoogleUtilities/Reachability (6.2.3):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (6.2.3):
+    - GoogleUtilities/Logger
+  - "gRPC-C++ (0.0.9)":
+    - "gRPC-C++/Implementation (= 0.0.9)"
+    - "gRPC-C++/Interface (= 0.0.9)"
+  - "gRPC-C++/Implementation (0.0.9)":
+    - "gRPC-C++/Interface (= 0.0.9)"
+    - gRPC-Core (= 1.21.0)
+    - nanopb (~> 0.3)
+  - "gRPC-C++/Interface (0.0.9)"
+  - gRPC-Core (1.21.0):
+    - gRPC-Core/Implementation (= 1.21.0)
+    - gRPC-Core/Interface (= 1.21.0)
+  - gRPC-Core/Implementation (1.21.0):
+    - BoringSSL-GRPC (= 0.0.3)
+    - gRPC-Core/Interface (= 1.21.0)
+    - nanopb (~> 0.3)
+  - gRPC-Core/Interface (1.21.0)
+  - GTMSessionFetcher/Core (1.2.2)
+  - HGRippleRadarView (0.1.2)
+  - InputBarAccessoryView (4.2.2)
+  - KAPinField (5.0.1)
+  - Kingfisher (5.7.0)
+  - Koloda (5.0):
+    - pop (~> 1.0)
+  - leveldb-library (1.22)
+  - LZViewPager (1.1.0):
+    - SnapKit (~> 4.2.0)
+  - MessageKit (3.0.0):
+    - InputBarAccessoryView (~> 4.2.2)
+  - MiniLayout (1.4.2)
+  - MultiSlider (1.9.4):
+    - AvailableHapticFeedback
+    - MiniLayout
+  - nanopb (0.3.901):
+    - nanopb/decode (= 0.3.901)
+    - nanopb/encode (= 0.3.901)
+  - nanopb/decode (0.3.901)
+  - nanopb/encode (0.3.901)
+  - NVActivityIndicatorView (4.8.0):
+    - NVActivityIndicatorView/Presenter (= 4.8.0)
+  - NVActivityIndicatorView/Presenter (4.8.0)
+  - pop (1.0.12)
+  - Protobuf (3.9.0)
+  - RSSelectionMenu (7.1.2)
+  - SnapKit (4.2.0)
+  - SwiftDate (6.0.3)
+  - SwiftLocation (4.0.2)
+  - SwiftValidator (4.0.0)
+  - SwiftyGif (5.1.1)
+  - SwipeCellKit (2.6.0)
+  - TPKeyboardAvoiding (1.3.3)
+
+DEPENDENCIES:
+  - Agrume
+  - Alamofire
+  - AlamofireImage
+  - AwesomeEnum
+  - CodableFirebase
+  - Crashlytics
+  - Fabric
+  - FAPaginationLayout
+  - Firebase/Auth
+  - Firebase/Core
+  - Firebase/Firestore
+  - Firebase/Functions
+  - Firebase/Messaging
+  - Firebase/Storage
+  - FittedSheets
+  - FlagPhoneNumber
+  - HGRippleRadarView
+  - KAPinField
+  - Kingfisher
+  - Koloda
+  - LZViewPager
+  - MessageKit
+  - MultiSlider
+  - NVActivityIndicatorView
+  - RSSelectionMenu
+  - SwiftDate
+  - SwiftLocation
+  - SwiftValidator (from `https://github.com/ijameelkhan/SwiftValidator.git`)
+  - SwipeCellKit
+  - TPKeyboardAvoiding
+
+SPEC REPOS:
+  trunk:
+    - Agrume
+    - Alamofire
+    - AlamofireImage
+    - AvailableHapticFeedback
+    - AwesomeEnum
+    - BoringSSL-GRPC
+    - CodableFirebase
+    - Crashlytics
+    - Fabric
+    - FAPaginationLayout
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseAnalyticsInterop
+    - FirebaseAuth
+    - FirebaseAuthInterop
+    - FirebaseCore
+    - FirebaseFirestore
+    - FirebaseFunctions
+    - FirebaseInstanceID
+    - FirebaseMessaging
+    - FirebaseStorage
+    - FittedSheets
+    - FlagPhoneNumber
+    - GoogleAppMeasurement
+    - GoogleUtilities
+    - "gRPC-C++"
+    - gRPC-Core
+    - GTMSessionFetcher
+    - HGRippleRadarView
+    - InputBarAccessoryView
+    - KAPinField
+    - Kingfisher
+    - Koloda
+    - leveldb-library
+    - LZViewPager
+    - MessageKit
+    - MiniLayout
+    - MultiSlider
+    - nanopb
+    - NVActivityIndicatorView
+    - pop
+    - Protobuf
+    - RSSelectionMenu
+    - SnapKit
+    - SwiftDate
+    - SwiftLocation
+    - SwiftyGif
+    - SwipeCellKit
+    - TPKeyboardAvoiding
+
+EXTERNAL SOURCES:
+  SwiftValidator:
+    :git: https://github.com/ijameelkhan/SwiftValidator.git
+
+CHECKOUT OPTIONS:
+  SwiftValidator:
+    :commit: 2ed85f8d57d7719dbbdcbad1786625b67c9b6a45
+    :git: https://github.com/ijameelkhan/SwiftValidator.git
+
+SPEC CHECKSUMS:
+  Agrume: dd627819c7965ca99b08d2f76054bf3a3e824d34
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
+  AvailableHapticFeedback: 4c88299eb4baa09fd833e4a9170c8552bba8a5cb
+  AwesomeEnum: 9283d55c3d43eeb694168665609613df108662f8
+  BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
+  CodableFirebase: 0bf201991eeec35eb9fcd987d271ea463cf34a80
+  Crashlytics: d3e5090419ddee1003192c98ac0e6dfdb1dba266
+  Fabric: ea977e3cd9c20425516d3dafd3bf8c941c51223f
+  FAPaginationLayout: 5f9d95fbd94dff12f863c196640bd797abe68907
+  Firebase: dedc9e48ea3f3649ad5f6b982f8a0c73508a14b5
+  FirebaseAnalytics: 3fb375bc9d13779add4039716f868d233a473fad
+  FirebaseAnalyticsInterop: efbe45c8385ec626e29f9525e5ebd38520dfb6c1
+  FirebaseAuth: a06ad63e9bf4c86165b54cceb1c14d4f4c38d419
+  FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
+  FirebaseCore: aecf02fb2274ec361b9bebeac112f5daa18273bd
+  FirebaseFirestore: 41a035642eb017fc7206318985501626993840bd
+  FirebaseFunctions: 5af7c35d1c5e41608fecbb667eb6c4e672e318d0
+  FirebaseInstanceID: 662b8108a09fe9ed01aafdedba100fde8536b0f6
+  FirebaseMessaging: 6bb0bdaf64c55fef7a219b7bb1e94e94a0855ced
+  FirebaseStorage: 618dd8fd886b30adf6e5d1915b1f5c18cb5c3944
+  FittedSheets: 7f754c9f6fb4ea330cbc57c652b594255f2a6819
+  FlagPhoneNumber: 3712455b95f66cb0f2016fef7d9e34cddf8c7f9a
+  GoogleAppMeasurement: 183bd916af7f80deb67c01888368f1108d641832
+  GoogleUtilities: d2b0e277a95962e09bb27f5cd42f5f0b6a506c7d
+  "gRPC-C++": 9dfe7b44821e7b3e44aacad2af29d2c21f7cde83
+  gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
+  GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
+  HGRippleRadarView: 5379e27634c09222ebc836671c7425ad7b257cc4
+  InputBarAccessoryView: 2b937602598e2fab3149f37f51dd7ad795653812
+  KAPinField: 24d85205115c1bb6aef8ff809944f41ac8c2785f
+  Kingfisher: c7d211b54f1f30d8060aadab177d52b4349c825b
+  Koloda: 75302d21882cc3e274c1561b1155805ea5919dab
+  leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
+  LZViewPager: 7f02c7f135004aaf8aca51637719fec744b5f6cc
+  MessageKit: e892a9ca49ebe6d82684d3a93ad84021fa23e2c6
+  MiniLayout: f819ad87432712e6b2596081a62e633a4961bfc6
+  MultiSlider: 77ed4d2921beb797de3bb84e360e8d35bc7c4e3c
+  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
+  pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
+  Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
+  RSSelectionMenu: f803d0936e074b2fdac2c41bf1d0a5b0c7fdc3e1
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SwiftDate: 8d4f14bf1ef68e95094511504856547bf9e3e1a6
+  SwiftLocation: 4f030832331a21abaa4e0c5189d0f80ab8d3e377
+  SwiftValidator: 25ded5ca1f10c05adf57f6ac82a72d28ac8d91af
+  SwiftyGif: f7702483db93586a41f04f4927cd682852a2fa10
+  SwipeCellKit: 935ca28c187ec6e1ffb2b578cf8ddca842bfdcbb
+  TPKeyboardAvoiding: 6dd3fe3268b8f2627beb7ff3d82a3cacbdf66a36
+
+PODFILE CHECKSUM: e4ff7e6110922a91c0b064c1360227f03ae02b61
+
+COCOAPODS: 1.9.3

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddFriendsView" customModule="entourage" customModuleProvider="target">
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                    <real key="value" value="8"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                    <real key="value" value="10"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                    <color key="value" red="0.65098039215686276" green="0.65490196078431373" blue="0.69411764705882351" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                    <size key="value" width="0.0" height="15"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="addFriendsBtn" destination="U4L-kQ-fkR" id="Doz-3c-gfb"/>
+                <outlet property="containerView" destination="G1v-Ng-8F2" id="oaZ-cv-7cb"/>
+                <outlet property="importFriendsBtn" destination="mYd-Wo-Bs7" id="q4r-ja-wgs"/>
+                <outlet property="openAppLink" destination="Cg2-B0-Yre" id="i1u-2n-O1R"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="G1v-Ng-8F2">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addFriendImage" translatesAutoresizingMaskIntoConstraints="NO" id="HDK-VO-kHD">
+                    <rect key="frame" x="142" y="111" width="130" height="120"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="120" id="7ME-v9-sYh"/>
+                        <constraint firstAttribute="width" constant="130" id="haW-fo-MPe"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eT8-HN-Vpb">
+                    <rect key="frame" x="32" y="275" width="350" height="66"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="350" id="xJz-Pl-VjA"/>
+                    </constraints>
+                    <string key="text">Create a Group with Friends
+to Swipe Together.</string>
+                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="24"/>
+                    <color key="textColor" red="0.1764705882" green="0.1764705882" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U4L-kQ-fkR">
+                    <rect key="frame" x="97" y="373" width="220" height="52"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="52" id="E53-LY-IYO"/>
+                        <constraint firstAttribute="width" constant="220" id="pgY-Bn-Xl4"/>
+                    </constraints>
+                    <state key="normal" title="Create a Group" image="bttnCreateGroup">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mYd-Wo-Bs7">
+                    <rect key="frame" x="97" y="449" width="220" height="34"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" name="Avenir-BlackOblique" family="Avenir" pointSize="16"/>
+                    <state key="normal" title="Import Friends">
+                        <color key="titleColor" red="0.85098039215686272" green="0.8666666666666667" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What does this mean?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ASw-fk-nw1">
+                    <rect key="frame" x="144" y="845.5" width="126" height="16.5"/>
+                    <fontDescription key="fontDescription" name="Avenir-BlackOblique" family="Avenir" pointSize="12"/>
+                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cg2-B0-Yre" userLabel="What does this means Btn">
+                    <rect key="frame" x="144" y="845" width="126" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="17" id="0vM-v0-JLL"/>
+                    </constraints>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CTJ-cc-whG">
+                    <rect key="frame" x="144" y="862" width="126" height="1"/>
+                    <color key="backgroundColor" red="0.1333333333" green="0.1960784314" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="83F-8U-jHq"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You Can Only Swipe Together in Groups" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgY-oq-RqW">
+                    <rect key="frame" x="98" y="820.5" width="218" height="16.5"/>
+                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="12"/>
+                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="zYd-kq-wPk"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="wgY-oq-RqW" firstAttribute="centerX" secondItem="G1v-Ng-8F2" secondAttribute="centerX" id="0YE-pA-j7j"/>
+                <constraint firstItem="CTJ-cc-whG" firstAttribute="leading" secondItem="ASw-fk-nw1" secondAttribute="leading" id="0hQ-uW-qgF"/>
+                <constraint firstItem="CTJ-cc-whG" firstAttribute="top" secondItem="Cg2-B0-Yre" secondAttribute="bottom" id="2kg-hS-92H"/>
+                <constraint firstItem="mYd-Wo-Bs7" firstAttribute="top" secondItem="U4L-kQ-fkR" secondAttribute="bottom" constant="24" id="7MW-Id-J0s"/>
+                <constraint firstItem="Cg2-B0-Yre" firstAttribute="centerX" secondItem="G1v-Ng-8F2" secondAttribute="centerX" id="9Sq-Go-gdn"/>
+                <constraint firstItem="mYd-Wo-Bs7" firstAttribute="leading" secondItem="U4L-kQ-fkR" secondAttribute="leading" id="BRV-c5-gi1"/>
+                <constraint firstItem="mYd-Wo-Bs7" firstAttribute="trailing" secondItem="U4L-kQ-fkR" secondAttribute="trailing" id="Bft-BU-9b6"/>
+                <constraint firstItem="CTJ-cc-whG" firstAttribute="top" secondItem="ASw-fk-nw1" secondAttribute="bottom" id="Eeg-te-aqd"/>
+                <constraint firstItem="ASw-fk-nw1" firstAttribute="trailing" secondItem="Cg2-B0-Yre" secondAttribute="trailing" id="QEP-vs-mQS"/>
+                <constraint firstItem="CTJ-cc-whG" firstAttribute="trailing" secondItem="ASw-fk-nw1" secondAttribute="trailing" id="Tda-9W-NJv"/>
+                <constraint firstItem="HDK-VO-kHD" firstAttribute="top" secondItem="zYd-kq-wPk" secondAttribute="top" constant="67" id="Uvp-lM-zo9"/>
+                <constraint firstItem="eT8-HN-Vpb" firstAttribute="centerX" secondItem="G1v-Ng-8F2" secondAttribute="centerX" id="bCN-dZ-Q1Y"/>
+                <constraint firstItem="eT8-HN-Vpb" firstAttribute="top" secondItem="HDK-VO-kHD" secondAttribute="bottom" constant="44" id="cgZ-6q-Q39"/>
+                <constraint firstItem="U4L-kQ-fkR" firstAttribute="centerX" secondItem="G1v-Ng-8F2" secondAttribute="centerX" id="cup-WR-aFh"/>
+                <constraint firstItem="HDK-VO-kHD" firstAttribute="centerX" secondItem="G1v-Ng-8F2" secondAttribute="centerX" id="dj1-zp-gfE"/>
+                <constraint firstItem="Cg2-B0-Yre" firstAttribute="top" secondItem="wgY-oq-RqW" secondAttribute="bottom" constant="8" id="j0u-Mb-ADu"/>
+                <constraint firstItem="ASw-fk-nw1" firstAttribute="leading" secondItem="Cg2-B0-Yre" secondAttribute="leading" id="jdB-0N-iMN"/>
+                <constraint firstItem="U4L-kQ-fkR" firstAttribute="top" secondItem="eT8-HN-Vpb" secondAttribute="bottom" constant="32" id="tAB-im-ZpY"/>
+                <constraint firstAttribute="bottom" secondItem="CTJ-cc-whG" secondAttribute="bottom" constant="33" id="ucK-cX-hBr"/>
+            </constraints>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="16"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="137.68115942028987" y="82.366071428571431"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="addFriendImage" width="140" height="125"/>
+        <image name="bttnCreateGroup" width="220" height="52"/>
+    </resources>
+</document>
