@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import KAPinField
 import FirebaseAuth
+import KAPinField
 import Contacts
 
 class VerifyPinVC: BaseVC {
@@ -86,22 +86,26 @@ class VerifyPinVC: BaseVC {
         //set up TF
         pinCodeTF.textColor = .black //UIColor("#93a2b0") // Colors.themeColor.value
         pinCodeTF.font = UIFont(name: "HelveticaNeue-Regular", size: 15)
-        pinCodeTF.appearance.font = .menloBold(15)  // Default to appearance.MonospacedFont.menlo(40)
-        pinCodeTF.properties.delegate = self
-        pinCodeTF.properties.numberOfCharacters = 6 // Default to 4
-        pinCodeTF.appearance.kerning = (self.view.frame.width - 80) / 6
-        pinCodeTF.properties.token = " "
-        pinCodeTF.properties.animateFocus = false
-        pinCodeTF.appearance.tokenColor = UIColor.clear//UIColor("#f0f1f2")
-        pinCodeTF.appearance.tokenFocusColor = UIColor.clear//UIColor("#f0f1f2")
-        pinCodeTF.appearance.backColor = UIColor("#f0f1f2")//UIColor("#93a2b0")
-        pinCodeTF.appearance.backFocusColor = UIColor("#f0f1f2")
-        pinCodeTF.appearance.backCornerRadius = 3
-        pinCodeTF.appearance.backBorderColor = UIColor.clear
-        pinCodeTF.appearance.backBorderFocusColor = UIColor.clear
-        pinCodeTF.appearance.backBorderWidth = 0.0
-        pinCodeTF.appearance.backOffset = 8 // Backviews spacing between each other
-
+        pinCodeTF.updateAppearence(block: { KAPinFieldAppearance in
+            KAPinFieldAppearance.font = .menloBold(15) // Default to appearance.MonospacedFont.menlo(40)
+            KAPinFieldAppearance.kerning = (self.view.frame.width - 80) / 6
+            KAPinFieldAppearance.tokenColor = UIColor.clear//UIColor("#f0f1f2")
+            KAPinFieldAppearance.tokenFocusColor = UIColor.clear//UIColor("#f0f1f2")
+            KAPinFieldAppearance.backColor = UIColor("#f0f1f2")//UIColor("#93a2b0")
+            KAPinFieldAppearance.backFocusColor = UIColor("#f0f1f2")
+            KAPinFieldAppearance.backCornerRadius = 3
+            KAPinFieldAppearance.backBorderColor = UIColor.clear
+            KAPinFieldAppearance.backBorderFocusColor = UIColor.clear
+            KAPinFieldAppearance.backBorderWidth = 0.0
+            KAPinFieldAppearance.backOffset = 8 // Backviews spacing between each other
+        })
+        
+        pinCodeTF.updateProperties { KAPinFieldProperties in
+            KAPinFieldProperties.delegate = self
+            KAPinFieldProperties.numberOfCharacters = 6 // Default to 4
+            KAPinFieldProperties.token = "•"
+            KAPinFieldProperties.animateFocus = false
+        }
         
         
         pinCodeTF.becomeFirstResponder()
@@ -275,7 +279,7 @@ extension VerifyPinVC: KAPinFieldDelegate {
     func pinField(_ field: KAPinField, didFinishWith code: String) {
             
         if currentSeconds <= timeLimit{
-            if code == "555555" , userPhone == "+14016010550"{
+            if code == "555555" , userPhone == "+923034014009"{
                 resendTextLbl.isHidden = true
                 errorLbl.isHidden = true
                 self.showVerifyBtn(verifyStatus: true)

@@ -9,6 +9,7 @@
 import UIKit
 import NVActivityIndicatorView
 import SafariServices
+import NVActivityIndicatorViewExtended
 
 class BaseVC: UIViewController{
 

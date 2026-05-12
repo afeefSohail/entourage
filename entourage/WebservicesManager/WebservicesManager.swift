@@ -17,7 +17,7 @@ import Alamofire
  typealias WebServicesManagerCallback = (_ parse:Any? ,_ error: String?) -> Void
  
  /// Alamofirecallback
- fileprivate typealias AlamofireCallback = (DataResponse<Any>) -> Void
+ fileprivate typealias AlamofireCallback = (DataResponse<Any, AFError>) -> Void
  
  class WebServicesManager: NSObject {
  
@@ -56,7 +56,7 @@ import Alamofire
      fileprivate func completionHandler (parsingHandler: @escaping AlamofireCallback , callback: @escaping WebServicesManagerCallback) -> AlamofireCallback {
      
      //alamofire callback
-     let completionHandler: (DataResponse<Any>) -> Void = { (response) in
+     let completionHandler: (DataResponse<Any, AFError>) -> Void = { (response) in
         switch response.result {
             
             case .success:
@@ -112,7 +112,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/users/check_ios_version"),
+        AF.request(url(relative: "/api/v1/users/check_ios_version"),
                           method: .get,
                           parameters:params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -152,7 +152,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/users/user_signup"),
+        AF.request(url(relative: "/api/v1/users/user_signup"),
                           method: .post,
                           parameters:params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -194,7 +194,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/users/user_by_auth_token"),
+        AF.request(url(relative: "/api/v1/users/user_by_auth_token"),
                           method: .get,
                           parameters:params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -236,7 +236,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/users/user_by_phone_number"),
+        AF.request(url(relative: "/api/v1/users/user_by_phone_number"),
                           method: .get,
                           parameters:params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -288,7 +288,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/users/edit_profile"),
+        AF.request(url(relative: "/api/v1/users/edit_profile"),
                           method: .post,
                           parameters:params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -322,7 +322,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/users/user_name_available"),
+        AF.request(url(relative: "/api/v1/users/user_name_available"),
                           method: .get,
                           parameters:params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -352,7 +352,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/users/delete_account"),
+        AF.request(url(relative: "/api/v1/users/delete_account"),
                           method: .delete,
                           parameters:params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -391,7 +391,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/users/update_coordinates"),
+        AF.request(url(relative: "/api/v1/users/update_coordinates"),
                           method: .post,
                           parameters:params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -451,7 +451,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/users/search_by_user_name"),
+        AF.request(url(relative: "/api/v1/users/search_by_user_name"),
                           method: .get,
                           parameters:params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -468,40 +468,27 @@ extension WebServicesManager{
         ] as [String:Any]
         
         
-        Alamofire.upload(
-            multipartFormData: { multipartFormData in
-                if let data = image.imageData{
-                    multipartFormData.append(data, withName: "image", fileName: "Report_\(user.name()).png", mimeType: "image/png")
+        AF.upload(multipartFormData: { multipartFormData in
+            if let data = image.imageData {
+                multipartFormData.append(data, withName: "image", fileName: "Report_\(user.name()).png", mimeType: "image/png")
+            }
+            for (key, value) in params {
+                if value is String {
+                    multipartFormData.append((value as! String).data(using: String.Encoding.utf8)!, withName: key)
+                } else if value is Bool {
+                    multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key)
+                } else if value is Int {
+                    multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key)
                 }
-                
-                for (key, value) in params {
-                    if value is String {
-                        multipartFormData.append((value as! String).data(using: String.Encoding.utf8)!, withName: key as String)
-                    } else if value is Bool {
-                        multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
-                    }else if  value is Int {
-                        multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
-                    }
-                }
-            
-        },
-            to: url(relative: "/api/v1/users/report"),
-            method: .post,
-            encodingCompletion: { result in
-                switch result {
-                case .success(let upload, _, _):
-                    upload.responseJSON { response in
-                        
-                        if let _ = response.data{
-                          
-                            callback(nil, nil)
-                        }
-                    }
-                    
-                case .failure(let error):
-                    callback(nil, error as? String)
-                }
-        })
+            }
+        }, to: url(relative: "/api/v1/users/report"), method: .post)
+        .responseJSON { response in
+            if let _ = response.data {
+                callback(nil, nil)
+            } else if let error = response.error {
+                callback(nil, error.localizedDescription)
+            }
+        }
         
     }
 
@@ -524,7 +511,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/users/send_message_invite"),
+        AF.request(url(relative: "/api/v1/users/send_message_invite"),
                           method: .post,
                           parameters:params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -548,54 +535,41 @@ extension WebServicesManager{
             params ["is_primary"] = isPrimary
         }
 
-        Alamofire.upload(
-            multipartFormData: { multipartFormData in
+        AF.upload(multipartFormData: { multipartFormData in
                 let index = EntourageManager.shared.photos.count
                 multipartFormData.append(image, withName: "image", fileName: "File\(index).png", mimeType: "image/png")
                 
                 for (key, value) in params {
                     if value is String {
-                        multipartFormData.append((value as! String).data(using: String.Encoding.utf8)!, withName: key as String)
+                        multipartFormData.append((value as! String).data(using: String.Encoding.utf8)!, withName: key)
                     } else if value is Bool {
-                        multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
+                        multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key)
                     }else if  value is Int {
-                        multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
+                        multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key)
                     }
                 }
             
-        },
-            to: url(relative: "/api/v1/photos/upload_photo"),
-            method: .post,
-            encodingCompletion: { result in
-                switch result {
-                case .success(let upload, _, _):
-                    upload.responseJSON { response in
-                        
-                        if let responseData = response.data{
-                            do{
-                                
-                                
-                                
-                                let baseUser = try JSONDecoder().decode(BaseUser.self , from: responseData)
-                                
-                                EntourageManager.shared.user.photos = baseUser.user.photos
-                                EntourageManager.shared.photos = baseUser.user.photos
-
-                                callback(baseUser.user, nil)
-                                
-                                
-                            }catch let Err{
-                                callback(nil, nil)
-                                print("Error serializing json = >\n",Err)
-                            }
-                        }
-                    }
+        }, to: url(relative: "/api/v1/photos/upload_photo"), method: .post)
+        .responseJSON { response in
+            if let responseData = response.data{
+                do{
                     
-                case .failure(let error):
-                    callback(nil, error as? String)
-                }
-        })
+                    
+                    
+                    let baseUser = try JSONDecoder().decode(BaseUser.self , from: responseData)
+                    
+                    EntourageManager.shared.user.photos = baseUser.user.photos
+                    EntourageManager.shared.photos = baseUser.user.photos
 
+                    callback(baseUser.user, nil)
+                    
+                    
+                }catch let Err{
+                    callback(nil, nil)
+                    print("Error serializing json = >\n",Err)
+                }
+            }
+        }
     }
 
     //delete the Photo
@@ -630,7 +604,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/photos/delete_photo"),
+        AF.request(url(relative: "/api/v1/photos/delete_photo"),
                           method: .delete,
                           parameters:params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -675,7 +649,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/photos/set_order"),
+        AF.request(url(relative: "/api/v1/photos/set_order"),
                           method: .post,
                           parameters:params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -717,7 +691,7 @@ extension WebServicesManager{
                 let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
                 
                 //send to server
-                Alamofire.request(url(relative: "/api/v1/users/my_setting"),
+                AF.request(url(relative: "/api/v1/users/my_setting"),
                                   method: .get,
                                   parameters:params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -767,7 +741,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/users/edit_setting"),
+        AF.request(url(relative: "/api/v1/users/edit_setting"),
                           method: .post,
                           parameters:params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -796,7 +770,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/notifications/send_notification"),
+        AF.request(url(relative: "/api/v1/notifications/send_notification"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
     
@@ -843,7 +817,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/groups/create"),
+        AF.request(url(relative: "/api/v1/groups/create"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -882,7 +856,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/groups/add_member"),
+        AF.request(url(relative: "/api/v1/groups/add_member"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -931,7 +905,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/groups/my_group"),
+        AF.request(url(relative: "/api/v1/groups/my_group"),
                           method: .get,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -970,7 +944,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/groups/update_group_status"),
+        AF.request(url(relative: "/api/v1/groups/update_group_status"),
                           method: .put,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -998,7 +972,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/groups/leave_group"),
+        AF.request(url(relative: "/api/v1/groups/leave_group"),
                           method: .delete,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
     }
@@ -1030,7 +1004,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/groups/delete_invitation"),
+        AF.request(url(relative: "/api/v1/groups/delete_invitation"),
                           method: .delete,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -1076,7 +1050,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/groups/accept_group_invitation"),
+        AF.request(url(relative: "/api/v1/groups/accept_group_invitation"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -1108,7 +1082,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/groups/reject_group_invitation"),
+        AF.request(url(relative: "/api/v1/groups/reject_group_invitation"),
                           method: .delete,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -1146,7 +1120,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/groups/group_by_id"),
+        AF.request(url(relative: "/api/v1/groups/group_by_id"),
                           method: .get,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -1173,7 +1147,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/groups/enable_spot_light"),
+        AF.request(url(relative: "/api/v1/groups/enable_spot_light"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -1223,7 +1197,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/matches/find_groups"),
+        AF.request(url(relative: "/api/v1/matches/find_groups"),
                           method: .get,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -1259,7 +1233,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/matches/like_group"),
+        AF.request(url(relative: "/api/v1/matches/like_group"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -1296,7 +1270,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/matches/unlike_group"),
+        AF.request(url(relative: "/api/v1/matches/unlike_group"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -1335,7 +1309,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/matches/my_matches"),
+        AF.request(url(relative: "/api/v1/matches/my_matches"),
                           method: .get,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
     }
@@ -1357,7 +1331,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/matches/unmatch_group"),
+        AF.request(url(relative: "/api/v1/matches/unmatch_group"),
                           method: .delete,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
     }
@@ -1393,7 +1367,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/matches/instant_match"),
+        AF.request(url(relative: "/api/v1/matches/instant_match"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
     }
@@ -1418,7 +1392,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/matches/revert"),
+        AF.request(url(relative: "/api/v1/matches/revert"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
     }
@@ -1465,7 +1439,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/friendships/direct_friendship"),
+        AF.request(url(relative: "/api/v1/friendships/direct_friendship"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
     }
@@ -1499,7 +1473,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/friendships/friendes"),
+        AF.request(url(relative: "/api/v1/friendships/friendes"),
                           method: .get,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -1550,7 +1524,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/friendships/all_friends_and_requests"),
+        AF.request(url(relative: "/api/v1/friendships/all_friends_and_requests"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -1591,7 +1565,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/friendships/received_requests"),
+        AF.request(url(relative: "/api/v1/friendships/received_requests"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -1632,7 +1606,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/friendships/no_relation"),
+        AF.request(url(relative: "/api/v1/friendships/no_relation"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -1674,7 +1648,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/friendships/friends_and_no_relation"),
+        AF.request(url(relative: "/api/v1/friendships/friends_and_no_relation"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -1711,7 +1685,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/friendships/request"),
+        AF.request(url(relative: "/api/v1/friendships/request"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -1744,7 +1718,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/friendships/accept"),
+        AF.request(url(relative: "/api/v1/friendships/accept"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -1762,47 +1736,37 @@ extension WebServicesManager{
             params["reason"] = "Abusive content."
         }
         
-        Alamofire.upload(
-            multipartFormData: { multipartFormData in
-                if let data = abusiveMsg?.imageData{
-                    multipartFormData.append(data, withName: "image", fileName: "Block_\(frendId)).png", mimeType: "image/png")
-                }
-                
-                for (key, value) in params {
-                    if value is String {
-                        multipartFormData.append((value as! String).data(using: String.Encoding.utf8)!, withName: key as String)
-                    } else if value is Bool {
-                        multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
-                    }else if  value is Int {
-                        multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
-                    }
-                }
+        AF.upload(multipartFormData: { multipartFormData in
+            if let data = abusiveMsg?.imageData{
+                multipartFormData.append(data, withName: "image", fileName: "Block_\(frendId)).png", mimeType: "image/png")
+            }
             
-        },
-            to: url(relative: "/api/v1/friendships/block"),
-            method: .post,
-            encodingCompletion: { result in
-                switch result {
-                case .success(let upload, _, _):
-                    upload.responseJSON { response in
-                        
-                        if let responseData = response.data{
-                            
-                            do{
-                                let Friendship = try JSONDecoder().decode(FriendShip.self , from: responseData)
-                                
-                                callback(Friendship.friendship_user ,nil)
-
-                            }catch let Err{
-                                print("Error serializing json = >\n",Err)
-                            }
-                        }
-                    }
-                    
-                case .failure(let error):
-                    callback(nil, error as? String)
+            for (key, value) in params {
+                if value is String {
+                    multipartFormData.append((value as! String).data(using: String.Encoding.utf8)!, withName: key)
+                } else if value is Bool {
+                    multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key)
+                }else if  value is Int {
+                    multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key)
                 }
-        })
+            }
+        
+    }, to: url(relative: "/api/v1/friendships/block"), method: .post)
+        .responseJSON { response in
+            if let responseData = response.data{
+                
+                do{
+                    let Friendship = try JSONDecoder().decode(FriendShip.self , from: responseData)
+                    
+                    callback(Friendship.friendship_user ,nil)
+
+                }catch let Err{
+                    print("Error serializing json = >\n",Err)
+                }
+            } else if let error = response.error {
+                callback(nil, error.localizedDescription)
+            }
+        }
         
     }
 
@@ -1833,7 +1797,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/friendships/unfriend"),
+        AF.request(url(relative: "/api/v1/friendships/unfriend"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -1865,7 +1829,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/friendships/blocked"),
+        AF.request(url(relative: "/api/v1/friendships/blocked"),
                           method: .get,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -1890,7 +1854,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/friendships/unblock"),
+        AF.request(url(relative: "/api/v1/friendships/unblock"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -1925,7 +1889,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/friendships/status"),
+        AF.request(url(relative: "/api/v1/friendships/status"),
                           method: .get,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
 
@@ -1965,7 +1929,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/group_statuses/all"),
+        AF.request(url(relative: "/api/v1/group_statuses/all"),
                           method: .get,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
     }
@@ -1997,7 +1961,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/group_statuses/recent"),
+        AF.request(url(relative: "/api/v1/group_statuses/recent"),
                           method: .get,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
     }
@@ -2011,43 +1975,32 @@ extension WebServicesManager{
         
         
 
-        Alamofire.upload(
-            multipartFormData: { multipartFormData in
-                multipartFormData.append(image, withName: "icon", fileName: "Emojy\(statusName).png", mimeType: "image/png")
-                
-                for (key, value) in params {
-                    if value is String {
-                        multipartFormData.append((value as! String).data(using: String.Encoding.utf8)!, withName: key as String)
-                    }
-                }
+        AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(image, withName: "icon", fileName: "Emojy\(statusName).png", mimeType: "image/png")
             
-        },
-            to: url(relative: "/api/v1/group_statuses/create"),
-            method: .post,
-            encodingCompletion: { result in
-                switch result {
-                case .success(let upload, _, _):
-                    upload.responseJSON { response in
-                        
-                        if let responseData = response.data{
-                            
-                            do{
-                                
-                                let currGroupStatus = try JSONDecoder().decode(GroupStatus.self , from: responseData)
-
-                                callback(currGroupStatus.group_status!, nil)
-                                
-                                
-                            }catch let Err{
-                                print("Error serializing json = >\n",Err)
-                            }
-                        }
-                    }
-                    
-                case .failure(let error):
-                    callback(nil, error as? String)
+            for (key, value) in params {
+                if value is String {
+                    multipartFormData.append((value as! String).data(using: String.Encoding.utf8)!, withName: key)
                 }
-        })
+            }
+        
+    }, to: url(relative: "/api/v1/group_statuses/create"), method: .post)
+        .responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                if let responseData = response.data{
+                    do{
+                        let currGroupStatus = try JSONDecoder().decode(GroupStatus.self , from: responseData)
+
+                        callback(currGroupStatus.group_status!, nil)
+                    }catch let Err{
+                        print("Error serializing json = >\n",Err)
+                    }
+                }
+            case .failure(let error):
+                callback(nil, error.localizedDescription)
+            }
+        }
 
         
     }
@@ -2078,7 +2031,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request(url(relative: "/api/v1/devices/update_device_token"),
+        AF.request(url(relative: "/api/v1/devices/update_device_token"),
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
         
@@ -2118,7 +2071,7 @@ extension WebServicesManager{
         let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
         
         //send to server
-        Alamofire.request("https://us-east1-entourage-12345.cloudfunctions.net/sendNotificationToUsers",
+        AF.request("https://us-east1-entourage-12345.cloudfunctions.net/sendNotificationToUsers",
                           method: .post,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
     }
@@ -2126,3 +2079,4 @@ extension WebServicesManager{
 
     
 }
+

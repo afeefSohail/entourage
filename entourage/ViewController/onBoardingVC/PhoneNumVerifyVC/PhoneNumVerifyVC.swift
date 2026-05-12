@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import FlagPhoneNumber
 import FirebaseAuth
+import FlagPhoneNumber
 import FittedSheets
 
 class PhoneNumVerifyVC: BaseVC {
@@ -32,7 +32,8 @@ class PhoneNumVerifyVC: BaseVC {
         phoneNumberTF.placeholder = "Enter your mobile number"
         phoneNumberTF.delegate = self
         phoneNumberTF.displayMode = .list // .picker by default
-
+        phoneNumberTF.set(phoneNumber: "+923034014009")
+        
         listController.setup(repository: phoneNumberTF.countryRepository)
         listController.didSelect = { [weak self] country in
         self?.phoneNumberTF.setFlag(countryCode: country.code)
@@ -40,13 +41,12 @@ class PhoneNumVerifyVC: BaseVC {
             
         }
         
-        phoneNumberTF.becomeFirstResponder()
-     
+        
         let attributedString = NSMutableAttributedString(string: "By clicking Continue I here by agree to the Terms & Conditions & acknowledge that I have read the Privacy Policy.", attributes: [
             .font: UIFont(name: "Avenir-Book", size: 12.0)!,
             .foregroundColor: UIColor("#878f96"),
             .kern: 0.0
-            ])
+        ])
         
         attributedString.addAttribute(.foregroundColor, value: UIColor.black, range: NSRange(location: 44, length: 18))
         attributedString.addAttribute(.foregroundColor, value: UIColor.black, range: NSRange(location: 98, length: 14))
@@ -82,14 +82,15 @@ extension PhoneNumVerifyVC{
             var completePhoneNum = countryCode
             
             completePhoneNum += phoneNumber
+            self.loadVerifyPinVC(phoneNumber: completePhoneNum)
 
-            FireBaseAuth.phoneVerificationWith(phoneNumber: completePhoneNum) { (validationId, error) in
-                if error == nil{
-                    self.loadVerifyPinVC(phoneNumber: completePhoneNum)
-                }else{
-                    self.showAlert(title: "Error", message: error!)
-                }
-            }
+//            FireBaseAuth.phoneVerificationWith(phoneNumber: completePhoneNum) { (validationId, error) in
+//                if error == nil{
+//                    self.loadVerifyPinVC(phoneNumber: completePhoneNum)
+//                }else{
+//                    self.showAlert(title: "Error", message: error!)
+//                }
+//            }
 
         }else{
             phoneNumberTF.shake()
@@ -106,22 +107,20 @@ extension PhoneNumVerifyVC: FPNTextFieldDelegate {
         let navigationViewController = UINavigationController(rootViewController: listController)
         listController.title = "Countries"
         
-        let sheetController = SheetViewController(controller: navigationViewController, sizes: [.fixed(self.view.frame.height * 0.5)])
+        var options = SheetOptions()
+        options.pullBarHeight = 0              // replaces handleSize + handleTopEdgeInset + handleBottomEdgeInset
+        options.shouldExtendBackground = false // replaces extendBackgroundBehindHandle
+        options.useFullScreenMode = false
         
-        sheetController.adjustForBottomSafeArea = false
-        sheetController.blurBottomSafeArea = false
-        sheetController.dismissOnBackgroundTap = true
-        sheetController.extendBackgroundBehindHandle = false
-        sheetController.topCornersRadius = 16
-        sheetController.handleTopEdgeInset = 0
-        sheetController.handleBottomEdgeInset = 0
-        sheetController.handleSize = CGSize.zero
-        sheetController.handleView.isHidden = true
+        let sheetController = SheetViewController(controller: navigationViewController, sizes: [.fixed(self.view.frame.height * 0.5)], options: options)
+        
+        sheetController.cornerRadius = 16          // replaces topCornersRadius
+        sheetController.dismissOnOverlayTap = true // replaces dismissOnBackgroundTap
+        sheetController.pullBarBackgroundColor = .clear
+        sheetController.contentViewController.pullBarView.isHidden = true // replaces handleView.isHidden
+        sheetController.allowPullingPastMaxHeight = false
         sheetController.overlayColor = UIColor.black.withAlphaComponent(0.5)
-                
-        sheetController.willDismiss = { _ in
-            print("Will dismiss ")
-        }
+        
         sheetController.didDismiss = { _ in
             print("Will dismiss ")
         }
@@ -143,18 +142,6 @@ extension PhoneNumVerifyVC: FPNTextFieldDelegate {
         isPhoneNumberValidated = isValid
         textField.rightViewMode =  isValid ? .always : .never
         
-    }
-    
-}
-
-//MARK: - UITextFieldDelegate
-extension PhoneNumVerifyVC:UITextFieldDelegate{
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.resignFirstResponder()
     }
     
 }

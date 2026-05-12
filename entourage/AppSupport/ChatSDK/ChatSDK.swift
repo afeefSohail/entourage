@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import CodableFirebase
 import Firebase
+import FirebaseFirestore
 
 class ChatSDK{
     
@@ -20,8 +20,9 @@ class ChatSDK{
         
         let elements = documentChanges.compactMap({ (diff) -> ChatMessage? in
             do {
-                let data = diff.document.data()
-                let element = try FirestoreDecoder().decode(ChatMessage.self, from: data)
+                let element = try diff.document.data(as: ChatMessage.self)
+            
+                //let element = try FirestoreDecoder().decode(ChatMessage.self, from: data)
                 
                 //set id
                 if var identifiable = element as? Identifiable {
@@ -47,7 +48,10 @@ class ChatSDK{
     static func decodeElement<ChatMessage:Codable>(from data:[String:Any]) -> ChatMessage?{
         
         do {
-            let message = try FirestoreDecoder().decode(ChatMessage.self, from: data)
+//          let message = try FirestoreDecoder().decode(ChatMessage.self, from: data)
+            let jsonData = try JSONSerialization.data(withJSONObject: data)
+            let message  = try JSONDecoder().decode(ChatMessage.self, from: jsonData)
+            
             return message
         }catch (let error){
             print(error.localizedDescription)
@@ -61,8 +65,14 @@ class ChatSDK{
     /// - Returns: data
     static func encodeElement<ChatMessage:Codable>(from element:ChatMessage) -> [String:Any]{
         
-        let docData = try! FirestoreEncoder().encode(element)
-        return docData
+        do {
+            return try Firestore.Encoder().encode(element)
+        } catch {
+            print("Error encoding element: \(error)")
+            return [:]
+        }
+//        let docData = try! FirestoreEncoder().encode(element)
+//        return docData
     }
 }
 

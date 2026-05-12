@@ -9,7 +9,6 @@
 import UIKit
 import UserNotifications
 import Firebase
-import FirebaseInstanceID
 import FirebaseAuth
 
 @UIApplicationMain
@@ -79,6 +78,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         print("app terminte")
+    }
+    
+    func application(_ app: UIApplication,
+                     open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        return Auth.auth().canHandle(url)
     }
     
     func setUpFireBaseConfig(){
@@ -366,13 +372,7 @@ extension AppDelegate:MessagingDelegate{
         }
     }
     
-    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-        print(remoteMessage.appData) // or do whatever
-        
-    }
-    
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        print("AfeefSohail")
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         updateFirebasePushTokenIfNeeded()
     }
     

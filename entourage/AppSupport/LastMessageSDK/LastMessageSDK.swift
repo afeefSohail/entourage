@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import CodableFirebase
 import Firebase
+import FirebaseDatabase
 
 class LastMessageSDK{
     
@@ -20,8 +20,8 @@ class LastMessageSDK{
         
         let elements = documentChanges.compactMap({ (diff) -> LastMessage? in
             do {
-                let data = diff.document.data()
-                let element = try FirestoreDecoder().decode(LastMessage.self, from: data)
+                let element = try diff.document.data(as: LastMessage.self)
+                //let element = try FirestoreDecoder().decode(LastMessage.self, from: data)
                 
                 //                //set id
                 //                if var identifiable = element as? Identifiable {
@@ -46,7 +46,10 @@ class LastMessageSDK{
     static func decodeElement<LastMessage:Codable>(from data:[String:Any]) -> LastMessage?{
         
         do {
-            let message = try FirestoreDecoder().decode(LastMessage.self, from: data)
+            //let message = try FirestoreDecoder().decode(LastMessage.self, from: data)
+            let jsonData = try JSONSerialization.data(withJSONObject: data)
+            let message  = try JSONDecoder().decode(LastMessage.self, from: jsonData)
+
             return message
         }catch (let error){
             print(error.localizedDescription)
@@ -60,7 +63,13 @@ class LastMessageSDK{
     /// - Returns: data
     static func encodeElement<LastMessage:Codable>(from element:LastMessage) -> [String:Any]{
         
-        let docData = try! FirestoreEncoder().encode(element)
-        return docData
+        do {
+            return try Firestore.Encoder().encode(element)
+        } catch {
+            print("Error encoding element: \(error)")
+            return [:]
+        }
+//        let docData = try! FirestoreEncoder().encode(element)
+//        return docData
     }
 }

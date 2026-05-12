@@ -79,7 +79,7 @@ class SwipeFriendsVC: BaseVC {
         kolodaView.dataSource = self
         kolodaView.delegate = self
         kolodaView.appearanceAnimationDuration = 0.0
-        kolodaView.swipeLimit = Float(cardsSwipeLimit[cardSwipeLimitSelectedIndex]) ?? 0.4
+        //kolodaView.swipeLimit = Float(cardsSwipeLimit[cardSwipeLimitSelectedIndex]) ?? 0.4
         
         radarDiskView.animationDuration = 0.8
         setRadarView(status: true)
@@ -417,22 +417,18 @@ class SwipeFriendsVC: BaseVC {
             
         })
         
-        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(self.view.frame.height * 0.7 ),.fullScreen])
+        var options = SheetOptions()
+        options.pullBarHeight = 0
+        options.shouldExtendBackground = false
+        options.useFullScreenMode = false
+
         
-        sheetController.adjustForBottomSafeArea = false
-        sheetController.blurBottomSafeArea = false
-        sheetController.dismissOnBackgroundTap = true
-        sheetController.extendBackgroundBehindHandle = false
-        sheetController.topCornersRadius = 16
-        sheetController.handleView.isHidden = true
-        sheetController.handleTopEdgeInset = 0
-        sheetController.handleBottomEdgeInset = 0
-        sheetController.handleSize = CGSize.zero
+        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(self.view.frame.height * 0.7 ),.fullscreen], options: options)
         
+        sheetController.cornerRadius = 16
+        sheetController.dismissOnOverlayTap = true
+        sheetController.contentViewController.pullBarView.isHidden = true
         
-        sheetController.willDismiss = { _ in
-            print("Will dismiss ")
-        }
         sheetController.didDismiss = { _ in
             print("Will dismiss ")
         }
@@ -802,20 +798,17 @@ extension SwipeFriendsVC{
             
         }
         
-        let sheetController = SheetViewController(controller: vc2, sizes: [.fixed(self.view.frame.height * 0.7 ),.fullScreen])
-        sheetController.adjustForBottomSafeArea = false
-        sheetController.blurBottomSafeArea = false
-        sheetController.dismissOnBackgroundTap = true
-        sheetController.extendBackgroundBehindHandle = false
-        sheetController.topCornersRadius = 16
-        sheetController.handleView.isHidden = true
-        sheetController.handleTopEdgeInset = 0
-        sheetController.handleBottomEdgeInset = 0
-        sheetController.handleSize = CGSize.zero
+        var options = SheetOptions()
+        options.pullBarHeight = 0
+        options.shouldExtendBackground = false
+        options.useFullScreenMode = false
         
-        sheetController.willDismiss = { _ in
-            print("Will dismiss ")
-        }
+        let sheetController = SheetViewController(controller: vc2, sizes: [.fixed(self.view.frame.height * 0.7 ),.fullscreen], options: options)
+        
+        sheetController.cornerRadius = 16
+        sheetController.dismissOnOverlayTap = true
+        sheetController.contentViewController.pullBarView.isHidden = true
+        
         sheetController.didDismiss = { _ in
             print("Will dismiss ")
         }
@@ -839,21 +832,16 @@ extension SwipeFriendsVC{
             }
         })
         
-        let sheetController = SheetViewController(controller: vc, sizes: [.fullScreen])
+        var options = SheetOptions()
+        options.pullBarHeight = 0
+        options.shouldExtendBackground = false
+        options.useFullScreenMode = false
+        let sheetController = SheetViewController(controller: vc, sizes: [.fullscreen], options: options)
         
-        sheetController.adjustForBottomSafeArea = false
-        sheetController.blurBottomSafeArea = false
-        sheetController.dismissOnBackgroundTap = true
-        sheetController.extendBackgroundBehindHandle = false
-        sheetController.topCornersRadius = 16
-        sheetController.handleView.isHidden = true
-        sheetController.handleTopEdgeInset = 0
-        sheetController.handleBottomEdgeInset = 0
-        sheetController.handleSize = CGSize.zero
+        sheetController.cornerRadius = 16
+        sheetController.dismissOnOverlayTap = true
+        sheetController.contentViewController.pullBarView.isHidden = true
         
-        sheetController.willDismiss = { _ in
-            print("Will dismiss ")
-        }
         sheetController.didDismiss = { _ in
             print("Will dismiss ")
         }
@@ -1311,6 +1299,9 @@ extension SwipeFriendsVC: KolodaViewDelegate {
         
     }
     
+    private func kolodaSwipeThresholdRatioMargin(_ koloda: KolodaView) -> CGFloat {
+        return CGFloat(Float(cardsSwipeLimit[cardSwipeLimitSelectedIndex]) ?? 0.4)
+    }
     
 }
 
@@ -1418,7 +1409,7 @@ extension SwipeFriendsVC{
         
         selectionMenu.setSelectedItems(items: selectedList) { (selectedString , selectedIndex ,isSelected, selectedItems) in
             self.cardSwipeLimitSelectedIndex = selectedIndex
-            self.kolodaView.swipeLimit = Float(self.cardsSwipeLimit[selectedIndex]) ?? 0.4
+            //self.kolodaView.swipeLimit = Float(self.cardsSwipeLimit[selectedIndex]) ?? 0.4
             self.kolodaView.resetCurrentCardIndex()
         }
         

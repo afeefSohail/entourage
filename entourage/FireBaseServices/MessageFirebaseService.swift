@@ -8,7 +8,6 @@
 
 import Foundation
 import Firebase
-import CodableFirebase
 import UIKit
 
 /// This will talk to firebase and send and recieve model classes from firebase

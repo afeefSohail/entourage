@@ -45,9 +45,9 @@ struct Constants {
         
         switch enviroment {
         case .production:
-            return ""
+            return "http://localhost:3000"
         case .development:
-            return "http://elk.entourage-175085.development.c66.me"
+            return "http://localhost:3000"//http://elk.entourage-175085.development.c66.me
         }
         
     }

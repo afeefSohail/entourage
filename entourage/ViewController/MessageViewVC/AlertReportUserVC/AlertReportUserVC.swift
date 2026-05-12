@@ -46,7 +46,7 @@ class AlertReportUserVC: BaseVC {
         msgIV.image = msgImage.af_imageAspectScaled(toFit: msgIV.frame.size)
         
         titleLbl.text = report ? "Report User Content" : "Block User"
-        userNameLbl.text = user.user_name
+        userNameLbl.text = user.userName
         
         setUpConfirmBtn()
     }

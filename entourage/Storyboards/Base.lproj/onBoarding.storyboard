@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ozp-PI-ahw">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ozp-PI-ahw">
+    <device id="retina6_3" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -15,14 +15,14 @@
             <objects>
                 <viewController id="Msn-DU-MU3" customClass="SplashVC" customModule="entourage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="a0c-X5-uZu">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashback" translatesAutoresizingMaskIntoConstraints="NO" id="ReD-ae-vhb">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="BJU-C8-k0M">
-                                <rect key="frame" x="103" y="411" width="208" height="74"/>
+                                <rect key="frame" x="97" y="400" width="208" height="74"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="208" id="hoF-dn-tDL"/>
                                     <constraint firstAttribute="height" constant="74" id="tAh-ik-5H5"/>
@@ -51,28 +51,28 @@
             <objects>
                 <viewController storyboardIdentifier="TutorialVC" id="vfr-cB-N4C" customClass="TutorialVC" customModule="entourage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zvE-XR-pMz" customClass="IQPreviousNextView" customModule="IQKeyboardManagerSwift">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="group5" translatesAutoresizingMaskIntoConstraints="NO" id="V7K-li-xiD">
-                                <rect key="frame" x="63.5" y="407" width="287" height="82"/>
+                                <rect key="frame" x="57.666666666666657" y="396" width="287" height="82"/>
                                 <color key="tintColor" name="themeColor"/>
                             </imageView>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By tapping Continue with Phone Number, you  agree to our Terms. Learn how  we  proccess  your data  in our Privacy Policy." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qy7-BD-4fx">
-                                <rect key="frame" x="20" y="662" width="374" height="33"/>
+                                <rect key="frame" x="20" y="640" width="362" height="33"/>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HhS-vv-8Kx" userLabel="continueBtnView">
-                                <rect key="frame" x="24" y="743" width="366" height="52"/>
+                                <rect key="frame" x="24" y="721" width="354" height="52"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" image="Phone" translatesAutoresizingMaskIntoConstraints="NO" id="8Av-3h-aqZ">
-                                        <rect key="frame" x="38" y="15" width="20" height="22"/>
+                                        <rect key="frame" x="32" y="15" width="20" height="22"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p7z-Ym-6XR">
-                                        <rect key="frame" x="73" y="15" width="220" height="22"/>
+                                        <rect key="frame" x="67" y="15" width="220" height="22"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Continue ">
                                                 <attributes>
@@ -102,13 +102,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4CT-IA-k8H" userLabel="continueBtn">
-                                        <rect key="frame" x="0.0" y="0.0" width="366" height="52"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="354" height="52"/>
                                         <connections>
                                             <action selector="pressContniueBtn:" destination="vfr-cB-N4C" eventType="touchUpInside" id="62S-Ok-ehv"/>
                                         </connections>
                                     </button>
                                     <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="+3034014009" placeholder="+92" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mR5-TW-znp">
-                                        <rect key="frame" x="0.0" y="0.0" width="366" height="52"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="354" height="52"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -140,7 +140,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pzW-bo-EWF">
-                                <rect key="frame" x="155" y="825" width="104" height="29"/>
+                                <rect key="frame" x="149" y="803" width="104" height="29"/>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="12"/>
                                 <state key="normal" title="Trouble Signing In?">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -179,11 +179,11 @@
             <objects>
                 <viewController storyboardIdentifier="PhoneNumVerifyVC" id="TS7-CG-3zF" customClass="PhoneNumVerifyVC" customModule="entourage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UGs-hZ-ql5">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fCb-UN-UJ2">
-                                <rect key="frame" x="0.0" y="55.5" width="414" height="30"/>
+                                <rect key="frame" x="0.0" y="135.66666666666666" width="402" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="skg-6u-0qx"/>
@@ -198,22 +198,22 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verify Phone Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aS4-bw-Q7R">
-                                <rect key="frame" x="20" y="128.5" width="287" height="38.5"/>
+                                <rect key="frame" x="20" y="208.66666666666666" width="287" height="38.333333333333343"/>
                                 <fontDescription key="fontDescription" name="Avenir-BlackOblique" family="Avenir" pointSize="28"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter your mobile number." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g39-qi-5AO">
-                                <rect key="frame" x="20" y="167" width="240.5" height="22"/>
+                                <rect key="frame" x="19.999999999999986" y="247" width="240.66666666666663" height="22"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6s-c2-mI0">
-                                <rect key="frame" x="20" y="222" width="374" height="49"/>
+                                <rect key="frame" x="20" y="302" width="362" height="49"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your mobile number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-tU-dTQ" customClass="FPNTextField" customModule="FlagPhoneNumber">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="49"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="362" height="49"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" name="themeColor"/>
                                         <constraints>
@@ -222,9 +222,6 @@
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="TS7-CG-3zF" id="uKn-d0-TzJ"/>
-                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="0.85098039215686272" green="0.8666666666666667" blue="0.90588235294117647" alpha="0.13" colorSpace="custom" customColorSpace="displayP3"/>
@@ -244,7 +241,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dx2-3s-g1b">
-                                <rect key="frame" x="20" y="311" width="374" height="51"/>
+                                <rect key="frame" x="20" y="391" width="362" height="51"/>
                                 <color key="backgroundColor" name="themeColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="ffY-uf-oE2"/>
@@ -263,7 +260,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By clicking Continue I hereby agree to the Terms &amp; Conditions  &amp; acknowledge that I have read the Privacy Policy." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wlT-KI-Gaf">
-                                <rect key="frame" x="20" y="394" width="374" height="30.5"/>
+                                <rect key="frame" x="20" y="474" width="362" height="30.333333333333314"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="11"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -304,44 +301,44 @@
             <objects>
                 <viewController storyboardIdentifier="VerifyPinVC" id="wMB-hZ-JXn" customClass="VerifyPinVC" customModule="entourage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xve-oQ-8A8">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ku-Es-fWh" customClass="TPKeyboardAvoidingCollectionView" customModule="TPKeyboardAvoidingSwift">
-                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ku-Es-fWh">
+                                <rect key="frame" x="0.0" y="124" width="402" height="750"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZUS-7O-Z2u" userLabel="containerView">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="453"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="402" height="453"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M5v-vO-xc5">
-                                                <rect key="frame" x="0.0" y="79.5" width="414" height="353.5"/>
+                                                <rect key="frame" x="0.0" y="79.666666666666657" width="402" height="353.33333333333337"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verification Code" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7d9-Kn-iAE" userLabel="mainLabel">
-                                                        <rect key="frame" x="27" y="0.0" width="371" height="38.5"/>
+                                                        <rect key="frame" x="27" y="0.0" width="359" height="38.333333333333336"/>
                                                         <fontDescription key="fontDescription" name="Avenir-BlackOblique" family="Avenir" pointSize="28"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We sent a code to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9w-fX-t83">
-                                                        <rect key="frame" x="27" y="38.5" width="130.5" height="22"/>
+                                                        <rect key="frame" x="27" y="38.333333333333343" width="130.66666666666666" height="22"/>
                                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
                                                         <color key="textColor" red="0.58823529411764708" green="0.59607843137254901" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Wrong Code, Try again" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3l6-B0-LK5" userLabel="errorCodeLbl">
-                                                        <rect key="frame" x="27" y="72.5" width="217.5" height="22"/>
+                                                        <rect key="frame" x="26.999999999999986" y="72.333333333333343" width="217.66666666666663" height="22"/>
                                                         <fontDescription key="fontDescription" name="Avenir-BlackOblique" family="Avenir" pointSize="16"/>
                                                         <color key="textColor" red="0.94117647058823528" green="0.14117647058823529" blue="0.14117647058823529" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" +1 334*****8527" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q9W-qs-ljc">
-                                                        <rect key="frame" x="157.5" y="38.5" width="126.5" height="22"/>
+                                                        <rect key="frame" x="157.66666666666666" y="38.333333333333343" width="126.33333333333334" height="22"/>
                                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
                                                         <color key="textColor" name="themeColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k3j-Hn-ScX" customClass="KAPinField" customModule="KAPinField">
-                                                        <rect key="frame" x="20" y="115.5" width="374" height="49"/>
+                                                        <rect key="frame" x="20" y="115.33333333333334" width="362" height="49"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="49" id="cfg-J5-hLj"/>
@@ -351,7 +348,7 @@
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" textContentType="one-time-code"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hQU-yI-XK7">
-                                                        <rect key="frame" x="20" y="204.5" width="374" height="51"/>
+                                                        <rect key="frame" x="20" y="204.33333333333334" width="362" height="51"/>
                                                         <color key="backgroundColor" name="themeColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="51" id="0bb-xJ-aT8"/>
@@ -370,7 +367,7 @@
                                                         </connections>
                                                     </button>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zvb-hh-nZF">
-                                                        <rect key="frame" x="136.5" y="303.5" width="141" height="30"/>
+                                                        <rect key="frame" x="130.66666666666666" y="303.33333333333337" width="140.99999999999997" height="30"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9bn-hI-ytG">
                                                                 <rect key="frame" x="0.0" y="0.0" width="141" height="30"/>
@@ -460,16 +457,16 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="imI-eY-hTW">
-                                <rect key="frame" x="284.5" y="55.5" width="109.5" height="34"/>
+                                <rect key="frame" x="272.66666666666669" y="135.66666666666666" width="109.33333333333331" height="34"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send again 50s" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="keG-2Y-a4i">
-                                        <rect key="frame" x="0.0" y="0.0" width="109.5" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="109.33333333333333" height="34"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
                                         <color key="textColor" red="0.58823529409999997" green="0.59607843140000005" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8yA-HE-jQT">
-                                        <rect key="frame" x="0.0" y="0.0" width="109.5" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="109.33333333333333" height="34"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
                                         <connections>
                                             <action selector="codeReSendProcess:" destination="wMB-hZ-JXn" eventType="touchUpInside" id="PxU-qP-n5K"/>
@@ -530,17 +527,17 @@
             <objects>
                 <viewController storyboardIdentifier="GenderSelectionVC" id="Xj7-XV-lwA" customClass="GenderSelectionVC" customModule="entourage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Y7D-lQ-1BJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Gender Identity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2b1-Ij-wOY">
-                                <rect key="frame" x="41" y="130" width="193" height="25"/>
+                                <rect key="frame" x="41" y="210" width="193" height="25"/>
                                 <fontDescription key="fontDescription" name="Avenir-BlackOblique" family="Avenir" pointSize="18"/>
                                 <color key="textColor" red="0.77254901960784317" green="0.77647058823529413" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" tag="98" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDE-C9-X7N">
-                                <rect key="frame" x="40" y="179" width="334" height="50"/>
+                                <rect key="frame" x="40" y="259" width="322" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="qWp-Ui-Z8z"/>
                                 </constraints>
@@ -564,7 +561,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="99" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhw-q4-Fgt">
-                                <rect key="frame" x="40" y="254" width="334" height="50"/>
+                                <rect key="frame" x="40" y="334" width="322" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="gWD-j4-cV1"/>
                                 </constraints>
@@ -588,7 +585,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ch-T7-1dn">
-                                <rect key="frame" x="40" y="329" width="334" height="50"/>
+                                <rect key="frame" x="40" y="409" width="322" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="MeL-IW-nHE"/>
                                 </constraints>
@@ -612,7 +609,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofW-MA-lFq">
-                                <rect key="frame" x="130" y="472" width="154" height="50"/>
+                                <rect key="frame" x="124" y="552" width="154" height="50"/>
                                 <color key="backgroundColor" red="0.82352941176470584" green="0.82352941176470584" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="154" id="JGj-CZ-4X8"/>
@@ -664,26 +661,26 @@
             <objects>
                 <viewController storyboardIdentifier="UserBannedVC" id="VzW-V6-bgn" customClass="UserBannedVC" customModule="entourage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oCZ-O7-sBm">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bandCrossIcon" translatesAutoresizingMaskIntoConstraints="NO" id="y6H-7w-U24">
-                                <rect key="frame" x="104.5" y="281" width="205" height="123"/>
+                                <rect key="frame" x="98.666666666666686" y="361" width="205" height="123"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Banned Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pmy-UA-h02">
-                                <rect key="frame" x="88.5" y="428" width="237" height="36"/>
+                                <rect key="frame" x="82.666666666666686" y="508" width="237" height="36"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@faari12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GkQ-8c-8Eh">
-                                <rect key="frame" x="168.5" y="496" width="77" height="23.5"/>
+                                <rect key="frame" x="162.66666666666666" y="576" width="77" height="23.666666666666629"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                 <color key="textColor" red="0.72941176470588232" green="0.72941176470588232" blue="0.72941176470588232" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgf-T1-NX0">
-                                <rect key="frame" x="20" y="549.5" width="374" height="61"/>
+                                <rect key="frame" x="20" y="629.66666666666663" width="362" height="61"/>
                                 <string key="text">You have been banned from Entourage
 for activity that violates our Terms of 
 Use.</string>
@@ -692,7 +689,7 @@ Use.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HB7-ay-Jwt">
-                                <rect key="frame" x="0.0" y="815" width="414" height="42"/>
+                                <rect key="frame" x="0.0" y="793" width="402" height="42"/>
                                 <string key="text">Please note that if you are subscribed to any premium
 services through the App Store, you will need to cancel
 your subscription with the appropriate provider.</string>
@@ -701,7 +698,7 @@ your subscription with the appropriate provider.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cxd-Us-y2w">
-                                <rect key="frame" x="20" y="549.5" width="374" height="61"/>
+                                <rect key="frame" x="20" y="629.66666666666663" width="362" height="61"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="pressTermsServicesBtn:" destination="VzW-V6-bgn" eventType="touchUpInside" id="bO9-tZ-g44"/>
@@ -743,17 +740,17 @@ your subscription with the appropriate provider.</string>
             <objects>
                 <viewController storyboardIdentifier="ProfilePictureVC" id="EVe-ez-rHq" customClass="ProfilePictureVC" customModule="entourage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yzt-mx-KHS">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hold &amp; drag photos to change their order." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="6ZE-Ad-3oG">
-                                <rect key="frame" x="16" y="130" width="382" height="25"/>
+                                <rect key="frame" x="16" y="210" width="370" height="25"/>
                                 <fontDescription key="fontDescription" name="Avenir-BlackOblique" family="Avenir" pointSize="18"/>
                                 <color key="textColor" red="0.77254901960784317" green="0.77647058823529413" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="O6l-2G-acr">
-                                <rect key="frame" x="10" y="184" width="394" height="380"/>
+                                <rect key="frame" x="10" y="264" width="382" height="380"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="380" id="ZO7-W4-7Mg"/>
@@ -836,7 +833,7 @@ your subscription with the appropriate provider.</string>
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ghx-oH-8IS">
-                                <rect key="frame" x="110" y="633" width="194" height="50"/>
+                                <rect key="frame" x="110" y="713" width="182" height="50"/>
                                 <color key="backgroundColor" red="0.0" green="0.84705882349999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Shg-jJ-UCW"/>
@@ -883,32 +880,32 @@ your subscription with the appropriate provider.</string>
             <objects>
                 <viewController storyboardIdentifier="CreateUserNameVC" id="zNR-xh-WLP" customClass="CreateUserNameVC" customModule="entourage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fbn-4A-IcE">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick a Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCg-QZ-KjY">
-                                <rect key="frame" x="41" y="130" width="141" height="25"/>
+                                <rect key="frame" x="41" y="210" width="141" height="25"/>
                                 <fontDescription key="fontDescription" name="Avenir-BlackOblique" family="Avenir" pointSize="18"/>
                                 <color key="textColor" red="0.77254901960784317" green="0.77647058823529413" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your username will appear in the search so friends can find your profile and add you." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6gK-A7-RTM">
-                                <rect key="frame" x="23" y="263.5" width="368" height="38.5"/>
+                                <rect key="frame" x="23" y="343.66666666666669" width="356" height="38.333333333333314"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                 <color key="textColor" red="0.75686274509803919" green="0.75294117647058822" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NeY-2F-i9V">
-                                <rect key="frame" x="48" y="188.5" width="319" height="48"/>
+                                <rect key="frame" x="48" y="268.66666666666669" width="307" height="48"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnt-4n-WVk">
-                                        <rect key="frame" x="12" y="10" width="14.5" height="16"/>
+                                        <rect key="frame" x="12" y="10" width="14.666666666666664" height="16"/>
                                         <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="14"/>
                                         <color key="textColor" red="0.75686274509999996" green="0.75294117650000003" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dQ0-Yi-hvj">
-                                        <rect key="frame" x="30.5" y="0.0" width="243.5" height="36"/>
+                                        <rect key="frame" x="30.666666666666671" y="0.0" width="231.33333333333331" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="DYp-z9-HN5"/>
                                         </constraints>
@@ -921,7 +918,7 @@ your subscription with the appropriate provider.</string>
                                         </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bFO-mS-VD3">
-                                        <rect key="frame" x="278" y="11" width="14" height="14"/>
+                                        <rect key="frame" x="266" y="11" width="14" height="14"/>
                                         <subviews>
                                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="validTF" translatesAutoresizingMaskIntoConstraints="NO" id="vxg-vf-W6q">
                                                 <rect key="frame" x="0.0" y="0.0" width="14" height="14"/>
@@ -945,7 +942,7 @@ your subscription with the appropriate provider.</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RKL-Yc-fOO" userLabel="lineBreakView">
-                                        <rect key="frame" x="0.0" y="46" width="319" height="2"/>
+                                        <rect key="frame" x="0.0" y="46" width="307" height="2"/>
                                         <color key="backgroundColor" red="0.76862745098039209" green="0.76862745098039209" blue="0.76862745098039209" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="Q8s-We-qk3"/>
@@ -974,13 +971,13 @@ your subscription with the appropriate provider.</string>
                                 </constraints>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username Available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5YV-P3-ei0">
-                                <rect key="frame" x="45" y="162" width="113" height="16.5"/>
+                                <rect key="frame" x="45" y="242" width="113" height="16.666666666666686"/>
                                 <fontDescription key="fontDescription" name="Avenir-BlackOblique" family="Avenir" pointSize="12"/>
                                 <color key="textColor" red="0.31372549019607843" green="0.8901960784313725" blue="0.76078431372549016" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2oa-5g-3Jd">
-                                <rect key="frame" x="110" y="371" width="194" height="50"/>
+                                <rect key="frame" x="110" y="451" width="182" height="50"/>
                                 <color key="backgroundColor" name="themeColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="sb0-53-7B2"/>
@@ -1035,24 +1032,24 @@ your subscription with the appropriate provider.</string>
             <objects>
                 <viewController storyboardIdentifier="ContactPermissionVC" id="Rsg-yl-XoT" customClass="ContactPermissionVC" customModule="entourage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BCJ-Gf-oHN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_contacts" translatesAutoresizingMaskIntoConstraints="NO" id="LBd-63-3S9">
-                                <rect key="frame" x="147" y="92" width="120" height="61"/>
+                                <rect key="frame" x="141" y="172" width="120" height="61"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="bdc-vV-GLu"/>
                                     <constraint firstAttribute="height" constant="61" id="kJF-nS-saf"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Finding Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oDF-NI-MaB">
-                                <rect key="frame" x="128" y="177" width="158" height="30.5"/>
+                                <rect key="frame" x="122" y="257" width="158" height="30.666666666666686"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="22"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ne7-vv-Sgs">
-                                <rect key="frame" x="65" y="224.5" width="284.5" height="60.5"/>
+                                <rect key="frame" x="59" y="304.66666666666669" width="284.33333333333331" height="60.333333333333314"/>
                                 <string key="text">Turn on Contact Permissions
 to Continue</string>
                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="22"/>
@@ -1060,7 +1057,7 @@ to Continue</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ROb-Im-8BX">
-                                <rect key="frame" x="15" y="356" width="384" height="36"/>
+                                <rect key="frame" x="15" y="436" width="372" height="35.666666666666686"/>
                                 <string key="text">You cannot import friends on Entourage without your 
 contacts , head to Settings &gt; Entourage &gt; Contacts Allow</string>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="13"/>
@@ -1068,7 +1065,7 @@ contacts , head to Settings &gt; Entourage &gt; Contacts Allow</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QqU-rW-TjZ">
-                                <rect key="frame" x="130" y="444" width="154" height="50"/>
+                                <rect key="frame" x="124" y="523.66666666666663" width="154" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="GlE-Te-vZF"/>
@@ -1119,18 +1116,18 @@ contacts , head to Settings &gt; Entourage &gt; Contacts Allow</string>
             <objects>
                 <viewController storyboardIdentifier="AddFriendsVC" id="oNx-tI-AxH" customClass="AddFriendsVC" customModule="entourage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pe9-ik-rpx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Z7t-sl-NAI">
-                                <rect key="frame" x="0.0" y="264.5" width="414" height="543.5"/>
+                                <rect key="frame" x="0.0" y="369" width="402" height="417"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AddFriendVCCell" rowHeight="66" id="Wzx-Iv-UcL" customClass="AddFriendVCCell" customModule="entourage" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="66"/>
+                                        <rect key="frame" x="0.0" y="50" width="402" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Wzx-Iv-UcL" id="NBL-Tt-6Gt">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="66"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="402" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultImg" translatesAutoresizingMaskIntoConstraints="NO" id="eJt-ga-NQ4">
@@ -1162,19 +1159,19 @@ contacts , head to Settings &gt; Entourage &gt; Contacts Allow</string>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adam Stevens" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ytU-Se-FXi">
-                                                    <rect key="frame" x="74" y="23" width="91.5" height="20"/>
+                                                    <rect key="frame" x="74" y="23" width="91.666666666666686" height="20"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="14"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1-401-501-0273" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ErU-A7-Hxd">
-                                                    <rect key="frame" x="74" y="43" width="91.5" height="14"/>
+                                                    <rect key="frame" x="74" y="43" width="91.666666666666686" height="14"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="10"/>
                                                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tR3-oN-BCw">
-                                                    <rect key="frame" x="342" y="20" width="60" height="26"/>
+                                                    <rect key="frame" x="330" y="20" width="60" height="26"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="CEL-o0-P4v"/>
                                                         <constraint firstAttribute="height" constant="26" id="jxC-AC-xCr"/>
@@ -1227,22 +1224,22 @@ contacts , head to Settings &gt; Entourage &gt; Contacts Allow</string>
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gia-fX-IKF">
-                                <rect key="frame" x="0.0" y="44" width="414" height="220.5"/>
+                                <rect key="frame" x="0.0" y="124" width="402" height="245"/>
                                 <subviews>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fub-po-Va6">
-                                        <rect key="frame" x="194.5" y="58" width="25" height="23"/>
+                                        <rect key="frame" x="188.66666666666666" y="58" width="25" height="23"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                         <color key="textColor" red="0.85098039215686272" green="0.8666666666666667" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vouch in Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yIo-62-6zQ">
-                                        <rect key="frame" x="113" y="58" width="188" height="33"/>
+                                        <rect key="frame" x="107" y="58" width="188" height="33"/>
                                         <fontDescription key="fontDescription" name="Avenir-BlackOblique" family="Avenir" pointSize="24"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bsj-qU-BTS">
-                                        <rect key="frame" x="28" y="95" width="358" height="49.5"/>
+                                        <rect key="frame" x="28" y="95" width="346" height="74"/>
                                         <string key="text">Select add to vouch in friends to swipe with
 once they’re in you can #SwipeTogether.</string>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
@@ -1250,10 +1247,10 @@ once they’re in you can #SwipeTogether.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5P2-9i-8Oo">
-                                        <rect key="frame" x="11" y="174.5" width="392" height="38"/>
+                                        <rect key="frame" x="11" y="199" width="380" height="38"/>
                                         <subviews>
                                             <searchBar clipsSubviews="YES" contentMode="redraw" placeholder="Find Friends" translatesAutoresizingMaskIntoConstraints="NO" id="GUq-sM-9xZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="392" height="38"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="380" height="38"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
@@ -1296,7 +1293,7 @@ once they’re in you can #SwipeTogether.</string>
                                 </constraints>
                             </view>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pkw-bH-jec">
-                                <rect key="frame" x="16" y="56" width="30" height="30"/>
+                                <rect key="frame" x="16" y="136" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="emC-Zy-m14"/>
                                 </constraints>
@@ -1309,10 +1306,10 @@ once they’re in you can #SwipeTogether.</string>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jZy-OH-rnA">
-                                <rect key="frame" x="0.0" y="808" width="414" height="88"/>
+                                <rect key="frame" x="0.0" y="786" width="402" height="88"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Md5-1Q-xAZ">
-                                        <rect key="frame" x="16" y="21" width="382" height="46"/>
+                                        <rect key="frame" x="16" y="21" width="370" height="46"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="46" id="ycU-nS-CsK"/>
                                         </constraints>
@@ -1377,7 +1374,7 @@ once they’re in you can #SwipeTogether.</string>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ozp-PI-ahw" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qcx-lc-EHH">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="124" width="402" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1394,27 +1391,27 @@ once they’re in you can #SwipeTogether.</string>
             <objects>
                 <viewController storyboardIdentifier="LocationPermissionVC" id="Qu4-CN-joz" customClass="LocationPermissionVC" customModule="entourage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pNh-6b-Bcw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RgU-KI-MmE" userLabel="contentView">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_location" translatesAutoresizingMaskIntoConstraints="NO" id="MfY-sJ-n8n">
-                                        <rect key="frame" x="147" y="94" width="120" height="62"/>
+                                        <rect key="frame" x="141" y="174" width="120" height="62"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="62" id="iSJ-PL-QNw"/>
                                             <constraint firstAttribute="width" constant="120" id="rJ8-hd-6hF"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Locating your Group" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nEf-fd-amL">
-                                        <rect key="frame" x="99.5" y="180" width="215" height="30.5"/>
+                                        <rect key="frame" x="93.666666666666686" y="260" width="215" height="30.666666666666686"/>
                                         <fontDescription key="fontDescription" name="Avenir-BlackOblique" family="Avenir" pointSize="22"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UMj-uj-b0j">
-                                        <rect key="frame" x="79" y="227.5" width="256" height="60.5"/>
+                                        <rect key="frame" x="73" y="307.66666666666669" width="256" height="60.333333333333314"/>
                                         <string key="text">Turn on Location Services
 to Continue</string>
                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="22"/>
@@ -1422,7 +1419,7 @@ to Continue</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w0A-v3-q6Q">
-                                        <rect key="frame" x="15" y="359" width="384" height="36"/>
+                                        <rect key="frame" x="15" y="439" width="372" height="35.666666666666686"/>
                                         <string key="text">You cannot find groups on Entourage without your 
 location, head to Settings &gt; Entourage &gt; Allow Location</string>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="13"/>
@@ -1430,7 +1427,7 @@ location, head to Settings &gt; Entourage &gt; Allow Location</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KGG-pN-cQ1">
-                                        <rect key="frame" x="130" y="447" width="154" height="50"/>
+                                        <rect key="frame" x="124" y="526.66666666666663" width="154" height="50"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="POM-Kj-2Ao"/>
@@ -1491,17 +1488,17 @@ location, head to Settings &gt; Entourage &gt; Allow Location</string>
             <objects>
                 <viewController storyboardIdentifier="AddFirstNameVC" id="O6K-nP-qkH" customClass="AddFirstNameVC" customModule="entourage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gT2-zx-YNc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What’s your first name?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vcf-bB-tDO">
-                                <rect key="frame" x="41" y="130" width="203" height="25"/>
+                                <rect key="frame" x="41" y="210" width="203" height="25"/>
                                 <fontDescription key="fontDescription" name="Avenir-BlackOblique" family="Avenir" pointSize="18"/>
                                 <color key="textColor" red="0.77254901960784317" green="0.77647058823529413" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SjL-AC-r4v">
-                                <rect key="frame" x="48" y="185" width="319" height="26"/>
+                                <rect key="frame" x="48" y="265" width="307" height="26"/>
                                 <color key="tintColor" red="0.0" green="0.84705882352941175" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="NOr-kS-tng"/>
@@ -1514,7 +1511,7 @@ location, head to Settings &gt; Entourage &gt; Allow Location</string>
                                 </connections>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dbt-Gt-IQb">
-                                <rect key="frame" x="48" y="221" width="319" height="2"/>
+                                <rect key="frame" x="48" y="301" width="307" height="2"/>
                                 <color key="backgroundColor" red="0.7725490196" green="0.77647058820000003" blue="0.83529411760000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="p5n-tS-rP7"/>
@@ -1526,13 +1523,13 @@ location, head to Settings &gt; Entourage &gt; Allow Location</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is how it will appear on Entourage." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fw-I1-hmN">
-                                <rect key="frame" x="84.5" y="250" width="245" height="19.5"/>
+                                <rect key="frame" x="78.666666666666686" y="330" width="245" height="19.666666666666686"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                 <color key="textColor" red="0.75686274509803919" green="0.75294117647058822" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XBk-Xk-mdJ">
-                                <rect key="frame" x="110" y="338.5" width="194" height="50"/>
+                                <rect key="frame" x="110" y="418.66666666666669" width="182" height="50"/>
                                 <color key="backgroundColor" red="0.82352941176470584" green="0.82352941176470584" blue="0.82352941176470584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="nSl-k8-80u"/>
@@ -1585,17 +1582,17 @@ location, head to Settings &gt; Entourage &gt; Allow Location</string>
             <objects>
                 <viewController storyboardIdentifier="AddBirthdayDateVC" id="p5A-sO-gSu" customClass="AddBirthdayDateVC" customModule="entourage" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="utm-rC-pF0">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When’s your Birthday?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aaO-Rn-n4T">
-                                <rect key="frame" x="41" y="130" width="193" height="25"/>
+                                <rect key="frame" x="41" y="210" width="193" height="25"/>
                                 <fontDescription key="fontDescription" name="Avenir-BlackOblique" family="Avenir" pointSize="18"/>
                                 <color key="textColor" red="0.77254901960784317" green="0.77647058823529413" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ptq-fO-NBU">
-                                <rect key="frame" x="48" y="185" width="319" height="26"/>
+                                <rect key="frame" x="48" y="265" width="307" height="26"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="D6S-UY-qd8"/>
@@ -1608,7 +1605,7 @@ location, head to Settings &gt; Entourage &gt; Allow Location</string>
                                 </connections>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TRC-jn-fVl" userLabel="breakLine">
-                                <rect key="frame" x="48" y="221" width="319" height="2"/>
+                                <rect key="frame" x="48" y="301" width="307" height="2"/>
                                 <color key="backgroundColor" red="0.7725490196" green="0.77647058820000003" blue="0.83529411760000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="FDe-8Z-qgr"/>
@@ -1620,19 +1617,19 @@ location, head to Settings &gt; Entourage &gt; Allow Location</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your age will be public." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JOV-2b-IF8">
-                                <rect key="frame" x="134" y="250" width="146" height="19.5"/>
+                                <rect key="frame" x="128" y="330" width="146" height="19.666666666666686"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                 <color key="textColor" red="0.75686274509999996" green="0.75294117650000003" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You must be 18+ to Continue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTv-g8-hJr" userLabel="ageRestrictedLabel">
-                                <rect key="frame" x="82" y="336.5" width="250" height="25"/>
+                                <rect key="frame" x="76" y="416.66666666666669" width="250" height="25"/>
                                 <fontDescription key="fontDescription" name="Avenir-BlackOblique" family="Avenir" pointSize="18"/>
                                 <color key="textColor" red="0.94117647058823528" green="0.14117647058823529" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7vZ-QU-o0b">
-                                <rect key="frame" x="110" y="405.5" width="194" height="50"/>
+                                <rect key="frame" x="110" y="485.66666666666669" width="182" height="50.000000000000057"/>
                                 <color key="backgroundColor" red="0.82352941180000006" green="0.82352941180000006" blue="0.82352941180000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="SLX-20-ibb"/>
@@ -1684,7 +1681,7 @@ location, head to Settings &gt; Entourage &gt; Allow Location</string>
         </scene>
     </scenes>
     <resources>
-        <image name="Phone" width="20" height="22"/>
+        <image name="Phone" width="19.666666030883789" height="22"/>
         <image name="bandCrossIcon" width="205" height="123"/>
         <image name="bttn_uploadPhoto" width="110" height="180"/>
         <image name="chevronDown1" width="34" height="34"/>

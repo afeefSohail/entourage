@@ -1,4 +1,3 @@
-
 //
 //  HelpingMethods.swift
 //  Hello.
@@ -47,7 +46,7 @@ func getMsgCellView(view:UIView)->UIImage{
 func setupThumnail(url:URL,IV:UIImageView){
     KingfisherManager.shared.retrieveImage(with: url, completionHandler: { (result) in
         if let image = try? result.get().image {
-            IV.image = image.af_imageAspectScaled(toFill: IV.frame.size)
+            IV.image = image.af.imageAspectScaled(toFill: IV.frame.size)
         }
     })
 
@@ -56,7 +55,7 @@ func setupThumnail(url:URL,IV:UIImageView){
 func setupAspectScaleThumnail(url:URL,IV:UIImageView){
     KingfisherManager.shared.retrieveImage(with: url, completionHandler: { (result) in
         if let image = try? result.get().image {
-            IV.image = image.af_imageAspectScaled(toFit: IV.frame.size)
+            IV.image = image.af.imageAspectScaled(toFit: IV.frame.size)
         }
     })
 

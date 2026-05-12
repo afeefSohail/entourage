@@ -8,7 +8,6 @@
 
 import Foundation
 import Firebase
-import CodableFirebase
 
 
 class ActiveMemberFireBaseService<ActiveMember:Codable>{

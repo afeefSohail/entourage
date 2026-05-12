@@ -32,7 +32,7 @@ class User : Codable {
     var photos : [Photo] = []
     var fcm_tokens : [String]? = []
     var pendingGroupInvitation : [Group]?  = []
-    public var isMember = false
+    var isMember = false
     var instantMatchAllow : Int? = 0
     var spotLightAllow : Int? = 0
     var isBlocked : Bool? = false

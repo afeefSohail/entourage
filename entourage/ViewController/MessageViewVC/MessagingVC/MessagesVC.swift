@@ -331,8 +331,6 @@ class MessagesVC: BaseVC{
         
         if photo.count > 0{
             if let url = URL(string: photo[0].medium ?? ""){
-//                imageView.kf.indicatorType = .activity
-//                imageView.kf.setImage(with: url)
                 setupThumnail(url: url, IV: imageView)
             }
             
@@ -381,21 +379,17 @@ extension MessagesVC{
             }
         })
         
-        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(self.view.frame.height * 0.7 ),.fullScreen])
         
-        sheetController.adjustForBottomSafeArea = false
-        sheetController.blurBottomSafeArea = false
-        sheetController.dismissOnBackgroundTap = true
-        sheetController.extendBackgroundBehindHandle = false
-        sheetController.topCornersRadius = 16
-        sheetController.handleView.isHidden = true
-        sheetController.handleTopEdgeInset = 0
-        sheetController.handleBottomEdgeInset = 0
-        sheetController.handleSize = CGSize.zero
+        var options = SheetOptions()
+        options.pullBarHeight = 0
+        options.shouldExtendBackground = false
+        options.useFullScreenMode = false
+        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(self.view.frame.height * 0.7 ),.fullscreen], options: options)
+        
+        sheetController.cornerRadius = 16
+        sheetController.dismissOnOverlayTap = true
+        sheetController.contentViewController.pullBarView.isHidden = true
                 
-        sheetController.willDismiss = { _ in
-            print("Will dismiss ")
-        }
         sheetController.didDismiss = { _ in
             print("Will dismiss ")
         }
@@ -442,22 +436,17 @@ extension MessagesVC{
             
         }
         
-        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(self.view.frame.height * 0.7 ),.fullScreen])
         
-        sheetController.adjustForBottomSafeArea = false
-        sheetController.blurBottomSafeArea = false
-        sheetController.dismissOnBackgroundTap = true
-        sheetController.extendBackgroundBehindHandle = false
-        sheetController.topCornersRadius = 16
-        sheetController.handleTopEdgeInset = 0
-        sheetController.handleBottomEdgeInset = 0
-        sheetController.handleSize = CGSize.zero
-
-        sheetController.handleView.isHidden = true
+        var options = SheetOptions()
+        options.pullBarHeight = 0
+        options.shouldExtendBackground = false
+        options.useFullScreenMode = false
+        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(self.view.frame.height * 0.7 ),.fullscreen], options: options)
+        
+        sheetController.cornerRadius = 16
+        sheetController.dismissOnOverlayTap = true
+        sheetController.contentViewController.pullBarView.isHidden = true
                 
-        sheetController.willDismiss = { _ in
-            print("Will dismiss ")
-        }
         sheetController.didDismiss = { _ in
             print("Will dismiss ")
         }
@@ -479,27 +468,31 @@ extension MessagesVC{
             }
         })
         
-        let sheetController = SheetViewController(controller: vc, sizes: [.fullScreen])
         
-        sheetController.adjustForBottomSafeArea = false
-        sheetController.blurBottomSafeArea = false
-        sheetController.dismissOnBackgroundTap = true
-        sheetController.extendBackgroundBehindHandle = false
-        sheetController.topCornersRadius = 16
-        sheetController.handleView.isHidden = true
-        sheetController.handleTopEdgeInset = 0
-        sheetController.handleBottomEdgeInset = 0
-        sheetController.handleSize = CGSize.zero
+        var options = SheetOptions()
+        options.pullBarHeight = 0
+        options.shouldExtendBackground = false
+        options.useFullScreenMode = false
+        let sheetController = SheetViewController(controller: vc, sizes: [.fullscreen], options: options)
         
-        sheetController.willDismiss = { _ in
-            print("Will dismiss ")
-        }
+        sheetController.cornerRadius = 16
+        sheetController.dismissOnOverlayTap = true
+        sheetController.contentViewController.pullBarView.isHidden = true
+                
         sheetController.didDismiss = { _ in
             print("Will dismiss ")
         }
+//        sheetController.adjustForBottomSafeArea = false
+//        sheetController.blurBottomSafeArea = false
+//        sheetController.dismissOnBackgroundTap = true
+//        sheetController.extendBackgroundBehindHandle = false
+//        sheetController.topCornersRadius = 16
+//        sheetController.handleView.isHidden = true
+//        sheetController.handleTopEdgeInset = 0
+//        sheetController.handleBottomEdgeInset = 0
+//        sheetController.handleSize = CGSize.zero
         
         self.present(sheetController, animated: false, completion: nil)
-
     }
     
     fileprivate func updateGroup(){

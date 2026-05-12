@@ -8,7 +8,6 @@
 
 import Foundation
 import Firebase
-import CodableFirebase
 
 /// This will talk to firebase and send and recieve model classes from firebase
 class unReadMessageFirebaseService<LastMessage:Codable>{

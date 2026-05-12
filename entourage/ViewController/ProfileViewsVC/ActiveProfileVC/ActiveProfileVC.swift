@@ -150,7 +150,7 @@ class ActiveProfileVC: BaseVC {
                 return
             }
             
-            let resource = ImageResource(downloadURL: url)
+            let resource = KF.ImageResource(downloadURL: url)
             KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
                 switch result {
                 case .success(let value):
@@ -336,21 +336,19 @@ class ActiveProfileVC: BaseVC {
             }
             
         }
-
-        let sheetController = SheetViewController(controller: vc2, sizes: [.fixed(self.view.frame.height * 0.7 ),.fullScreen])
-        sheetController.adjustForBottomSafeArea = false
-        sheetController.blurBottomSafeArea = false
-        sheetController.dismissOnBackgroundTap = true
-        sheetController.extendBackgroundBehindHandle = false
-        sheetController.topCornersRadius = 16
-        sheetController.handleTopEdgeInset = 0
-        sheetController.handleBottomEdgeInset = 0
-        sheetController.handleSize = CGSize.zero
-        sheetController.handleView.isHidden = true
         
-        sheetController.willDismiss = { _ in
-            print("Will dismiss ")
-        }
+        
+        var options = SheetOptions()
+        options.pullBarHeight = 0
+        options.shouldExtendBackground = false
+        options.useFullScreenMode = false
+
+        let sheetController = SheetViewController(controller: vc2, sizes: [.fixed(self.view.frame.height * 0.7 ),.fullscreen], options: options)
+        
+        sheetController.cornerRadius = 16
+        sheetController.dismissOnOverlayTap = true
+        sheetController.contentViewController.pullBarView.isHidden = true
+        
         sheetController.didDismiss = { _ in
             print("Will dismiss ")
         }
@@ -377,20 +375,17 @@ class ActiveProfileVC: BaseVC {
             
         }
         
-        let sheetController = SheetViewController(controller: vc2, sizes: [.fixed(self.view.frame.height * 0.7 ),.fullScreen])
-        sheetController.adjustForBottomSafeArea = false
-        sheetController.blurBottomSafeArea = false
-        sheetController.dismissOnBackgroundTap = true
-        sheetController.extendBackgroundBehindHandle = false
-        sheetController.topCornersRadius = 16
-        sheetController.handleView.isHidden = true
-        sheetController.handleTopEdgeInset = 0
-        sheetController.handleBottomEdgeInset = 0
-        sheetController.handleSize = CGSize.zero
+        var options = SheetOptions()
+        options.pullBarHeight = 0
+        options.shouldExtendBackground = false
+        options.useFullScreenMode = false
 
-        sheetController.willDismiss = { _ in
-            print("Will dismiss ")
-        }
+        let sheetController = SheetViewController(controller: vc2, sizes: [.fixed(self.view.frame.height * 0.7 ),.fullscreen], options: options)
+        
+        sheetController.cornerRadius = 16
+        sheetController.dismissOnOverlayTap = true
+        sheetController.contentViewController.pullBarView.isHidden = true
+
         sheetController.didDismiss = { _ in
             print("Will dismiss ")
         }
@@ -412,21 +407,18 @@ class ActiveProfileVC: BaseVC {
             }
         })
         
-        let sheetController = SheetViewController(controller: vc, sizes: [.fullScreen])
         
-        sheetController.adjustForBottomSafeArea = false
-        sheetController.blurBottomSafeArea = false
-        sheetController.dismissOnBackgroundTap = true
-        sheetController.extendBackgroundBehindHandle = false
-        sheetController.topCornersRadius = 16
-        sheetController.handleView.isHidden = true
-        sheetController.handleTopEdgeInset = 0
-        sheetController.handleBottomEdgeInset = 0
-        sheetController.handleSize = CGSize.zero
+        var options = SheetOptions()
+        options.pullBarHeight = 0
+        options.shouldExtendBackground = false
+        options.useFullScreenMode = false
         
-        sheetController.willDismiss = { _ in
-            print("Will dismiss ")
-        }
+        let sheetController = SheetViewController(controller: vc, sizes: [.fullscreen], options: options)
+        
+        sheetController.cornerRadius = 16
+        sheetController.dismissOnOverlayTap = true
+        sheetController.contentViewController.pullBarView.isHidden = true
+        
         sheetController.didDismiss = { _ in
             print("Will dismiss ")
         }
@@ -768,24 +760,17 @@ extension ActiveProfileVC{
             
         })
         
-        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(self.view.frame.height * 0.7 ),.fullScreen])
+        var options = SheetOptions()
+        options.pullBarHeight = 0
+        options.shouldExtendBackground = false
+        options.useFullScreenMode = false
         
-        sheetController.adjustForBottomSafeArea = false
-        sheetController.blurBottomSafeArea = false
-        sheetController.dismissOnBackgroundTap = true
-        sheetController.extendBackgroundBehindHandle = false
-        sheetController.topCornersRadius = 16
-        sheetController.handleView.isHidden = true
-        sheetController.handleTopEdgeInset = 0
-        sheetController.handleBottomEdgeInset = 0
-        sheetController.handleSize = CGSize.zero
-
-        //sheetController.dismissOnPan = false
-
-                
-        sheetController.willDismiss = { _ in
-            print("Will dismiss ")
-        }
+        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(self.view.frame.height * 0.7 ),.fullscreen], options: options)
+        
+        sheetController.cornerRadius = 16
+        sheetController.dismissOnOverlayTap = true
+        sheetController.contentViewController.pullBarView.isHidden = true
+        
         sheetController.didDismiss = { _ in
             print("Will dismiss ")
         }

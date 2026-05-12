@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreLocation
-import SwiftLocation
 
 
 class LocationPermissionVC: BaseVC {
@@ -74,23 +73,50 @@ class LocationPermissionVC: BaseVC {
         }
     }
     
+//    fileprivate func getCurrentLocation() {
+//        
+//        LocationManager.shared.locateFromIP(service: .ipApiCo) { result in
+//            switch result {
+//            case .failure(let error):
+//                debugPrint("An error has occurred while getting info about location: \(error)")
+//                
+//                self.showAlert(title: "Error", message: "An error has occurred while getting info about location: \(error)" )
+//            case .success(let place):
+//                
+//                EntourageManager.shared.user.latitude = String( place.coordinates!.latitude )
+//                EntourageManager.shared.user.longitude = String( place.coordinates!.longitude )
+//                
+//                self.updateUserLocation()
+//            }
+//        }
+//   }
+    
+    
     fileprivate func getCurrentLocation() {
-        
-        LocationManager.shared.locateFromIP(service: .ipApiCo) { result in
-            switch result {
-            case .failure(let error):
-                debugPrint("An error has occurred while getting info about location: \(error)")
-                
-                self.showAlert(title: "Error", message: "An error has occurred while getting info about location: \(error)" )
-            case .success(let place):
-                
-                EntourageManager.shared.user.latitude = String( place.coordinates!.latitude )
-                EntourageManager.shared.user.longitude = String( place.coordinates!.longitude )
-                
+        guard let url = URL(string: "https://ipapi.co/json/") else { return }
+
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Error", message: "An error has occurred: \(error)")
+                }
+                return
+            }
+
+            guard let data = data,
+                  let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let lat = json["latitude"] as? Double,
+                  let lon = json["longitude"] as? Double
+            else { return }
+
+            DispatchQueue.main.async {
+                EntourageManager.shared.user.latitude  = String(lat)
+                EntourageManager.shared.user.longitude = String(lon)
                 self.updateUserLocation()
             }
-        }
+        }.resume()
     }
+    
     
     fileprivate  func checkLocationServices() {
         if CLLocationManager.locationServicesEnabled() {

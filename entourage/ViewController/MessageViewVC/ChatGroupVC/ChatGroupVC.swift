@@ -14,6 +14,10 @@ import FirebaseFirestore
 import AVFoundation
 import NotificationCenter
 
+struct Sender: SenderType {
+    var senderId: String
+    var displayName: String
+}
 
 class ChatGroupVC: MessagesViewController {
     
@@ -188,8 +192,8 @@ class ChatGroupVC: MessagesViewController {
         
         self.checkNotification()
         
-        scrollsToBottomOnKeyboardBeginsEditing = true
-        maintainPositionOnKeyboardFrameChanged = false
+        //scrollsToBottomOnKeyboardBeginsEditing = true
+        maintainPositionOnInputBarHeightChanged = false
         
         
         messageInputBar.inputTextView.isScrollEnabled = false
@@ -620,14 +624,15 @@ extension ChatGroupVC{
 
 
 // MARK: - MessagesDataSource
-extension ChatGroupVC : MessagesDataSource{
+extension ChatGroupVC : MessagesDataSource {
     
-    func currentSender() -> SenderType {
-        return Sender(id: currUser.id  , displayName: currUser.displayName )
+    var currentSender: any MessageKit.SenderType {
+        return Sender(senderId: currUser.id, displayName: currUser.displayName)
     }
     
+        
     func isFromMe(message: MessageType)->Bool{
-        return message.sender.senderId == currentSender().senderId
+        return message.sender.senderId == currentSender.senderId
     }
     
     func isFromCurrentSender(message: MessageType) -> Bool {
@@ -850,7 +855,7 @@ extension ChatGroupVC : MessagesDataSource{
         if personalChat == true{//My Group Chat
             
             //If last message from my side
-            if message.sender.senderId == currentSender().senderId {
+            if message.sender.senderId == currentSender.senderId {
                 if statusLabel?.string ?? "" == "" {
                     
                     let time = NSMutableAttributedString(attributedString:timeLabel)
@@ -877,7 +882,7 @@ extension ChatGroupVC : MessagesDataSource{
                 bottomLabel?.append(time)
             }else{ // if message from MyGroup
                 
-                if message.sender.senderId == currentSender().senderId {
+                if message.sender.senderId == currentSender.senderId {
                     if statusLabel?.string ?? "" == "" {
                         
                         let time = NSMutableAttributedString(attributedString:timeLabel)
@@ -909,7 +914,7 @@ extension ChatGroupVC : MessagesDataSource{
     func messageStatusAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         
         //only check for my own messages
-        guard message.sender.senderId == currentSender().senderId else{
+        guard message.sender.senderId == currentSender.senderId else{
             return NSMutableAttributedString(string: "",attributes: [:])
         }
         
@@ -1204,10 +1209,12 @@ extension ChatGroupVC : InputBarAccessoryViewDelegate{
     }
     
     fileprivate func reloadAndScrollToBottom() {
-        
         self.messagesCollectionView.reloadData()
-        self.messagesCollectionView.scrollToBottom(animated: false)
-        
+        let section = self.messages.count - 1
+        if section >= 0 {
+            let indexPath = IndexPath(item: 0, section: section)
+            self.messagesCollectionView.scrollToItem(at: indexPath, at: .bottom, animated: false)
+        }
     }
     
     private func saveDataLocaly(senderId:String, chat_id:Int, message:String){

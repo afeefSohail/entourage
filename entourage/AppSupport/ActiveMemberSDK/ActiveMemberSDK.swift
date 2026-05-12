@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import CodableFirebase
 import Firebase
+import FirebaseDatabase
 
 class ActiveMemberSDK{
     
@@ -21,8 +21,8 @@ class ActiveMemberSDK{
         let elements = documentChanges.compactMap({ (diff) -> ActiveMember? in
             do {
                 
-                let data = diff.document.data()
-                let element = try FirestoreDecoder().decode(ActiveMember.self, from: data)
+                let element = try diff.document.data(as: ActiveMember.self)
+                //let element = try FirestoreDecoder().decode(ActiveMember.self, from: data)
                 return element
                 
             }catch (let error){
@@ -41,7 +41,10 @@ class ActiveMemberSDK{
     static func decodeElement<ActiveMember:Codable>(from data:[String:Any]) -> ActiveMember?{
         
         do {
-            let message = try FirestoreDecoder().decode(ActiveMember.self, from: data)
+            //let message = try FirestoreDecoder().decode(ActiveMember.self, from: data)
+            let jsonData = try JSONSerialization.data(withJSONObject: data)
+            let message  = try JSONDecoder().decode(ActiveMember.self, from: jsonData)
+            
             return message
         }catch (let error){
             print(error.localizedDescription)
@@ -55,8 +58,14 @@ class ActiveMemberSDK{
     /// - Returns: data
     static func encodeElement<ActiveMember:Codable>(from element:ActiveMember) -> [String:Any]{
         
-        let docData = try! FirestoreEncoder().encode(element)
-        return docData
+        do {
+            return try Firestore.Encoder().encode(element)
+        } catch {
+            print("Error encoding element: \(error)")
+            return [:]
+        }
+//        let docData = try! FirestoreEncoder().encode(element)
+//        return docData
     }
 
 }

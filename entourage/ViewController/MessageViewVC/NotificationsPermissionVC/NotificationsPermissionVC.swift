@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import FirebaseInstanceID
 import UserNotificationsUI
 import NotificationCenter
 
