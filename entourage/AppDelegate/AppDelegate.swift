@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 import UserNotifications
 import Firebase
 import FirebaseAuth
@@ -113,10 +114,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func HomeScreen(){
-        let storyboard = UIStoryboard(name: "SwipeViews", bundle: nil)
-        let swipeFriendsVC = storyboard.instantiateViewController(withIdentifier: "SwipeFriendsVC") as! SwipeFriendsVC
-        
-        UIApplication.shared.keyWindow?.rootViewController = MyTransition(rootViewController:swipeFriendsVC )
+        let hostingVC = UIHostingController(rootView: AppRootView())
+        hostingVC.view.backgroundColor = .systemBackground
+        UIApplication.shared.keyWindow?.rootViewController = hostingVC
         UIApplication.shared.keyWindow?.makeKeyAndVisible()
     }
     
