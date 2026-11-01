@@ -92,12 +92,8 @@ class GroupMatchedVC: BaseVC {
         
         matchGroup?.users.forEach({otherGroupImages.append($0.getPrimaryImageOriginal())})
                 
-        if let url = URL(string:matchGroup?.groupStatus.icon ?? ""){
-            groupStatusImageName.kf.indicatorType = .activity
-            groupStatusImageName.kf.setImage(with: url)
-        }
-        
-        groupStatusName.text = matchGroup?.groupStatus.name ?? ""
+        groupStatusImageName.isHidden = true
+        groupStatusName.text = ""
         groupMemberName.text = matchGroup?.matchGroupName()
         
         if (matchGroup.users.count == 2){

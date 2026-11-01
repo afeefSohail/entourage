@@ -421,78 +421,17 @@ extension MessagesVC{
     }
 
     
-    fileprivate func loadGroupActivityVC(friendsIds:[Int],listType: String){
-        
-        let vc = SelectGroupActivityVC.loadSelectGroupActivityVC(firendIds: friendsIds, update: false, listType: listType) { (groupStatus) in
-            
-            if groupStatus == true{
+    fileprivate func loadGroupActivityVC(friendsIds:[Int], listType: String){
+        self.startAnimation()
+        WebServicesManager.shared.createGroup(groupStatusId: 0, friendsIds: friendsIds.map{"\($0)"}.joined(separator: ",")) { (_, error) in
+            self.stopAnimation()
+            if error == nil {
                 self.updateView()
                 self.updateGroup()
-                                
-            }else{
-                //self.addGroupMember()
-                self.loadCustomeStatusVC(friendIds: friendsIds)
+            } else {
+                self.showAlert(title: "Error", message: error!)
             }
-            
         }
-        
-        
-        var options = SheetOptions()
-        options.pullBarHeight = 0
-        options.shouldExtendBackground = false
-        options.useFullScreenMode = false
-        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(self.view.frame.height * 0.7 ),.fullscreen], options: options)
-        
-        sheetController.cornerRadius = 16
-        sheetController.dismissOnOverlayTap = true
-        sheetController.contentViewController.pullBarView.isHidden = true
-                
-        sheetController.didDismiss = { _ in
-            print("Will dismiss ")
-        }
-        
-        self.present(sheetController, animated: false, completion: nil)
-
-    }
-    
-    fileprivate func loadCustomeStatusVC(friendIds:[Int]){
-        
-        let vc = CustomStatusVC.loadCustomStatusVC(friendsIds: friendIds, callback: { (createCustomeStatus,listType)  in
-            if createCustomeStatus == true{
-                
-                self.updateView()
-                self.updateGroup()
-
-            }else{
-                self.loadGroupActivityVC(friendsIds: friendIds, listType: listType)
-            }
-        })
-        
-        
-        var options = SheetOptions()
-        options.pullBarHeight = 0
-        options.shouldExtendBackground = false
-        options.useFullScreenMode = false
-        let sheetController = SheetViewController(controller: vc, sizes: [.fullscreen], options: options)
-        
-        sheetController.cornerRadius = 16
-        sheetController.dismissOnOverlayTap = true
-        sheetController.contentViewController.pullBarView.isHidden = true
-                
-        sheetController.didDismiss = { _ in
-            print("Will dismiss ")
-        }
-//        sheetController.adjustForBottomSafeArea = false
-//        sheetController.blurBottomSafeArea = false
-//        sheetController.dismissOnBackgroundTap = true
-//        sheetController.extendBackgroundBehindHandle = false
-//        sheetController.topCornersRadius = 16
-//        sheetController.handleView.isHidden = true
-//        sheetController.handleTopEdgeInset = 0
-//        sheetController.handleBottomEdgeInset = 0
-//        sheetController.handleSize = CGSize.zero
-        
-        self.present(sheetController, animated: false, completion: nil)
     }
     
     fileprivate func updateGroup(){

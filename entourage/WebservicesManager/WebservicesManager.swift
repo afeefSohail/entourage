@@ -911,46 +911,6 @@ extension WebServicesManager{
         
     }
 
-    func updateGroupStatus(groupId:Int,groupStatusId:Int, callback :@escaping  WebServicesManagerCallback){
-        
-        let params = [
-            "auth_token": User.getToken(),
-            "group_id":groupId,
-            "group_status_id" : groupStatusId
-            ] as [String:Any]
-        
-        
-        let parsingHandler:AlamofireCallback = { (response ) in
-            
-            if let responseData = response.data{
-                
-                
-                do{
-                    
-                    let groupBase = try JSONDecoder().decode(MyGroup.self , from: responseData)
-                    
-                    EntourageManager.shared.myGroup = groupBase.group
-                    
-                    callback(groupBase.group,nil)
-                    
-                }catch let Err{
-                    print("Error serializing json = >\n",Err)
-                }
-            }
-            
-        }
-        
-        //completion handlder for the alamofire
-        let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
-        
-        //send to server
-        AF.request(url(relative: "/api/v1/groups/update_group_status"),
-                          method: .put,
-                          parameters: params).validate().responseJSON(completionHandler: completionHandler)
-
-    }
-    
-    
     func leaveGroup(callback:@escaping WebServicesManagerCallback){
         
         
@@ -976,40 +936,6 @@ extension WebServicesManager{
                           method: .delete,
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
     }
-    
-    func deleteInivitation(groupId:Int, friendId: Int, callback:@escaping WebServicesManagerCallback){
-        
-        let params = [
-            "auth_token" : User.getToken(),
-            "group_id" : groupId,
-            "friend_id"  : friendId
-            
-        ] as [String:Any]
-        
-        let parsingHandler:AlamofireCallback = { (response ) in
-            
-            if let _ = response.data{
-                
-                if let index = EntourageManager.shared.myGroup?.invitedUsers?.firstIndex(where: {$0.id == friendId}){
-                    EntourageManager.shared.myGroup?.invitedUsers?.remove(at: index)
-                }
-                
-                
-                callback(nil,nil)
-            }
-            
-        }
-        
-        //completion handlder for the alamofire
-        let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
-        
-        //send to server
-        AF.request(url(relative: "/api/v1/groups/delete_invitation"),
-                          method: .delete,
-                          parameters: params).validate().responseJSON(completionHandler: completionHandler)
-
-    }
-    
     
     func acceptGroupInvite(groupId:Int,callback:@escaping WebServicesManagerCallback){
         
@@ -1125,34 +1051,6 @@ extension WebServicesManager{
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
 
     }
-
-    func spotlight(callback:@escaping WebServicesManagerCallback){
-        
-        let params = [
-            "auth_token": User.getToken()
-        ] as [String:String]
-        
-        
-        let parsingHandler:AlamofireCallback = { (response ) in
-            
-            if let _ = response.data{
-
-                EntourageManager.shared.user.spotLightAllow! = 0
-                
-                callback(nil,nil)
-            }
-        }
-    
-        //completion handlder for the alamofire
-        let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
-        
-        //send to server
-        AF.request(url(relative: "/api/v1/groups/enable_spot_light"),
-                          method: .post,
-                          parameters: params).validate().responseJSON(completionHandler: completionHandler)
-
-    }
-        
 
 }
 
@@ -1336,72 +1234,6 @@ extension WebServicesManager{
                           parameters: params).validate().responseJSON(completionHandler: completionHandler)
     }
 
-    func instantMatch(groupId:String , callback:@escaping WebServicesManagerCallback){
-        
-        let params = [
-            "auth_token": User.getToken(),
-            "group_id" :groupId
-            ] as [String:Any]
-        
-        
-        let parsingHandler:AlamofireCallback = { (response ) in
-            if let responseData = response.data{
-                
-                do{
-                    
-                    let likeGroup = try JSONDecoder().decode(MyMatche.self , from: responseData)
-                    
-                    
-                    
-                    callback(likeGroup.match,nil)
-                    
-                }catch let Err{
-                    print("Error serializing json = >\n",Err)
-                }
-                
-            }
-
-        }
-        
-        //completion handlder for the alamofire
-        let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
-        
-        //send to server
-        AF.request(url(relative: "/api/v1/matches/instant_match"),
-                          method: .post,
-                          parameters: params).validate().responseJSON(completionHandler: completionHandler)
-    }
-
-    func resetOtherGroupStatus(groupId:String , callback:@escaping WebServicesManagerCallback){
-        
-        let params = [
-            "auth_token": User.getToken(),
-            "group_id" :groupId
-            ] as [String:Any]
-        
-        
-        let parsingHandler:AlamofireCallback = { (response ) in
-            if let _ = response.data{
-                
-                callback(nil, nil)
-            }
-
-        }
-        
-        //completion handlder for the alamofire
-        let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
-        
-        //send to server
-        AF.request(url(relative: "/api/v1/matches/revert"),
-                          method: .post,
-                          parameters: params).validate().responseJSON(completionHandler: completionHandler)
-    }
-
-    
-    
-    
-    
-    
 }
 
 
@@ -1897,114 +1729,6 @@ extension WebServicesManager{
     
 }
 
-//MARK: - GroupStatus
-extension WebServicesManager{
-    
-    func getGroupStatus(lisType:String,callback:@escaping WebServicesManagerCallback){
-        
-        let params = [
-            "auth_token": User.getToken(),
-            "status_type" : lisType
-            ] as [String : Any]
-        
-        let parsingHandler:AlamofireCallback = { (response ) in
-            
-            if let responseData = response.data{
-                
-                do{
-                    
-                    let groupStatusBase = try JSONDecoder().decode(GroupStatusBase.self , from: responseData)
-                    
-                    EntourageManager.shared.groupStatuses = groupStatusBase.group_statuses
-                    
-                    callback(groupStatusBase.group_statuses,nil)
-                    
-                }catch let Err{
-                    print("Error serializing json = >\n",Err)
-                }
-            }
-        }
-        
-        //completion handlder for the alamofire
-        let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
-        
-        //send to server
-        AF.request(url(relative: "/api/v1/group_statuses/all"),
-                          method: .get,
-                          parameters: params).validate().responseJSON(completionHandler: completionHandler)
-    }
-
-    func getRecentCoustomeGroupStatus(callback:@escaping WebServicesManagerCallback){
-        
-        let params = [
-            "auth_token": User.getToken(),
-            ] as [String : Any]
-        
-        let parsingHandler:AlamofireCallback = { (response ) in
-            
-            if let responseData = response.data{
-                
-                do{
-                    
-                    let groupStatusBase = try JSONDecoder().decode(GroupStatusBase.self , from: responseData)
-                    
-                    
-                    callback(groupStatusBase.group_statuses,nil)
-                    
-                }catch let Err{
-                    print("Error serializing json = >\n",Err)
-                }
-            }
-        }
-        
-        //completion handlder for the alamofire
-        let completionHandler = self.completionHandler(parsingHandler: parsingHandler, callback: callback)
-        
-        //send to server
-        AF.request(url(relative: "/api/v1/group_statuses/recent"),
-                          method: .get,
-                          parameters: params).validate().responseJSON(completionHandler: completionHandler)
-    }
-
-    func createCustomStatus(statusName:String ,image:Data,callback:@escaping WebServicesManagerCallback){
-        
-        let params = [
-            "auth_token": User.getToken(),
-            "name" : statusName
-        ] as [String:Any]
-        
-        
-
-        AF.upload(multipartFormData: { multipartFormData in
-            multipartFormData.append(image, withName: "icon", fileName: "Emojy\(statusName).png", mimeType: "image/png")
-            
-            for (key, value) in params {
-                if value is String {
-                    multipartFormData.append((value as! String).data(using: String.Encoding.utf8)!, withName: key)
-                }
-            }
-        
-    }, to: url(relative: "/api/v1/group_statuses/create"), method: .post)
-        .responseJSON { response in
-            switch response.result {
-            case .success(let value):
-                if let responseData = response.data{
-                    do{
-                        let currGroupStatus = try JSONDecoder().decode(GroupStatus.self , from: responseData)
-
-                        callback(currGroupStatus.group_status!, nil)
-                    }catch let Err{
-                        print("Error serializing json = >\n",Err)
-                    }
-                }
-            case .failure(let error):
-                callback(nil, error.localizedDescription)
-            }
-        }
-
-        
-    }
-}
 
 // MARK: - Device
 extension WebServicesManager{

@@ -7,20 +7,6 @@
 //
 
 import UIKit
-import SwipeCellKit
 
-class PremiumVCCell: SwipeTableViewCell {
-
-    @IBOutlet weak var featuredImageView: UIImageView!
-    
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var leadingConstant: NSLayoutConstraint!
-    
-    @IBOutlet weak var descLabel: UILabel!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-
+class PremiumVCCell: UITableViewCell {
 }

@@ -43,17 +43,8 @@ class CancelInviteVC: BaseVC {
 extension CancelInviteVC{
     
     @IBAction func confirmBtn(_ sender:UIButton){
-        
-        self.startAnimation()
-        WebServicesManager.shared.deleteInivitation(groupId: group?.id ?? 0, friendId: friendId) { (_, error) in
-            self.stopAnimation()
-            if error == nil{
-                self.callback()
-                self.dismiss(animated: true, completion: nil)
-            }else{
-                self.showAlert(title: "Error", message: error!)
-            }
-        }
+        self.callback()
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func cancelBtn(_ sender:UIButton){

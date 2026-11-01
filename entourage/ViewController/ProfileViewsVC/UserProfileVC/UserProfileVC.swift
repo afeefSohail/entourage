@@ -118,11 +118,7 @@ class UserProfileVC: BaseVC {
             addUserBtn.isUserInteractionEnabled = false
         }
         
-        if EntourageManager.shared.user.instantMatchAllow ?? 0 > 0 , EntourageManager.shared.myGroup?.instantMatchAllow ?? 0 > 0{
-            iMatch.isHidden = false
-        }else{
-            iMatch.isHidden = true
-        }
+        iMatch.isHidden = true
 
         containerView.layoutIfNeeded()
     }
@@ -171,13 +167,7 @@ class UserProfileVC: BaseVC {
             subTitleTop.constant = 0
 
             groupMemberNumView.isHidden = false
-            groupStatusAndDistanceView.isHidden = false
-
-            if let url = URL(string:group?.groupStatus.icon ?? ""){
-                groupStatusImage.kf.indicatorType = .activity
-                groupStatusImage.kf.setImage(with: url)
-            }
-            groupStatus.text = group?.groupStatus.name ?? ""
+            groupStatusAndDistanceView.isHidden = true
             groupMemberNumLbl.text = "\(group?.users.count ?? 0) people"
             groupDistanceLbl.text = "\(group?.distance ?? "0 Miles")"
             groupMemberNumImage.image = UIImage(named: "memberNum\(group!.users.count)")

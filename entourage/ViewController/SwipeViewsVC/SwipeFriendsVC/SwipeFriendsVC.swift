@@ -37,32 +37,24 @@ class SwipeFriendsVC: BaseVC {
     @IBOutlet weak var friendListView : UIView!
     @IBOutlet weak var msgsBtn : UIButton!
     @IBOutlet weak var newMsgIcon : UIView!
-    @IBOutlet weak var qucikMatch : UIButton!
     @IBOutlet weak var undoBtn : UIButton!
-    @IBOutlet weak var spotLight : UIButton!
-    
+
     @IBOutlet weak var serachFilterBtn : UIButton!
     @IBOutlet weak var emptyOtherGroupMsg : UILabel!
-    
+
     @IBOutlet weak var myMember3Width : NSLayoutConstraint!
     @IBOutlet weak var myMember4Width : NSLayoutConstraint!
-    @IBOutlet weak var spotLightTimerView : CircularProgressView!
-    @IBOutlet weak var spotLightTimerLbl : UILabel!
-    
+
     //MARK:- Class Properties
     var player: AVAudioPlayer?
-    
+
     var cardView : [UIView] = []
     var friends : [Friend] = []
     var otherGroups : [Group] = []
     var currCardGroup : Group?
-    var instantMatch : Bool = false
     let user = EntourageManager.shared.user
     var delegate : messageingViewUpdation?
-    
-    private var timer = Timer()
-    private var timeRemaining = 0
-    private var totalTime = 0
+
     private var cardsPagination = Pagination()
     var pageIndex = 1
     
@@ -99,18 +91,14 @@ class SwipeFriendsVC: BaseVC {
         }
         
         self.btnView.isHidden = true
-        self.spotLightTimerView.isHidden = true
-        
+
         self.kolodaView.isHidden = true
         self.friendListView.isHidden = true
-        
+
         self.kolodaView.backgroundCardsTopMargin = 0
         self.kolodaView.countOfVisibleCards = 0
-        
-        self.undoBtn.isHidden = false
-        if currCardGroup == nil{
-            self.undoBtn.isHidden = true
-        }
+
+        self.undoBtn.isHidden = true
         
         
         self.view.setGradientBackground(colorOne: UIColor.white, colorTwo: UIColor("#f6f7fb"))
@@ -353,10 +341,8 @@ class SwipeFriendsVC: BaseVC {
         addFriendCardView.isHidden = true
         kolodaView.isHidden = true
         btnView.isHidden = true
-        spotLightTimerView.isHidden = true
-        spotLightTimerLbl.text = ""
     }
-    
+
     func setUpAddFriendView(){
         addFriendCardView.isHidden = false
         addFriendCardView.addFriendsBtn.addTarget(self, action: #selector(pressAddFriendsBtn), for: .touchUpInside)
@@ -367,54 +353,32 @@ class SwipeFriendsVC: BaseVC {
         importFriendCardView.isHidden = true
         kolodaView.isHidden = true
         btnView.isHidden = true
-        spotLightTimerView.isHidden = true
-        spotLightTimerLbl.text = ""
-        
-    }
-    
-    private func loadInstantMatchPreviewView(){
-        
-        UserDefaults.standard.set(true, forKey: iMatchUserDefaultKey)
 
-        let vc = PreviewVC.loadPreviewVC(previewType: "iMatch") {
-            
-            if EntourageManager.shared.user.instantMatchAllow ?? 0 > 0 , EntourageManager.shared.myGroup?.instantMatchAllow ?? 0 > 0 {
-                self.instantMatch = true
-                self.kolodaView?.swipe(.right)
-            }
-        }
-        
-        present(vc, animated: true, completion: nil)
-    }
-    
-    private func loadSpotLitePreviewView(){
-        
-        UserDefaults.standard.set(true, forKey: spotLiteUserDefaultKey)
-        
-        let vc = PreviewVC.loadPreviewVC(previewType: "spotLight") {
-            if EntourageManager.shared.user.spotLightAllow ?? 0 > 0 , EntourageManager.shared.myGroup?.spotLightAllow ?? 0 > 0{
-                self.notificationFeedBackBtn(.success)
-                self.spotLiteApiCall()
-            }
-        }
-        
-        present(vc, animated: true, completion: nil)
     }
     
     fileprivate func addGroupMember(){
-        
+
         let vc = AddGroupMemberVC.loadAddGroupMemberVC(callback: { (friendIds) in
-            
+
             if friendIds.isEmpty == true{
                 self.updateView()
             }else if friendIds[0] == -1{
                 self.pressImportFriends()
-            }else if friendIds[0] == -2{//Invite Cancel Opertation Occuers on AddGroupMember Screen
+            }else if friendIds[0] == -2{
                 self.updateView()
             }else{
-                self.loadGroupActivityVC(friendsIds: friendIds, listType: "Other")
+                self.startAnimation()
+                WebServicesManager.shared.createGroup(groupStatusId: 0, friendsIds: friendIds.map{"\($0)"}.joined(separator: ",")) { (_, error) in
+                    self.stopAnimation()
+                    if error == nil {
+                        self.setTopView()
+                        self.updateView()
+                    } else {
+                        self.showAlert(title: "Error", message: error!)
+                    }
+                }
             }
-            
+
         })
         
         var options = SheetOptions()
@@ -437,100 +401,11 @@ class SwipeFriendsVC: BaseVC {
         
     }
     
-    private func resetSetTheCard(groupId:String){
-        self.startAnimation()
-        WebServicesManager.shared.resetOtherGroupStatus(groupId:groupId) { (message, error) in
-            self.stopAnimation()
-            if error == nil{
-                self.currCardGroup = nil
-                self.undoBtn.isHidden = true
-                
-                // self.getOtherGroups()
-            }else{
-                self.showAlert(title: "Error", message: error!)
-            }
-        }
-    }
-    
     private func cardSwipeAction(type:String){
-        
-        if type == "undo"{
-            
-            let previousOtherGroupId = currCardGroup?.id ?? 0
-            
-            //if Like group is Already in my matched Group then its no reverted back
-            if EntourageManager.shared.myMatchs.contains(where: {$0.matcher?.id ?? -1 == previousOtherGroupId}) == false{
-                self.resetSetTheCard(groupId: "\(previousOtherGroupId)")
-                kolodaView.revertAction()
-            }
-            
-        }else if type == "unLike"{
-            
+        if type == "unLike"{
             kolodaView?.swipe(.left)
-            
-        }else if type == "spotLight"{
-
-            if UserDefaults.standard.bool(forKey: spotLiteUserDefaultKey){ // if its preView is already showed
-
-                if EntourageManager.shared.user.spotLightAllow ?? 0 > 0 , EntourageManager.shared.myGroup?.spotLightAllow ?? 0 > 0{
-                    notificationFeedBackBtn(.success)
-                    self.spotLiteApiCall()
-                }
-
-            }else{ self.loadSpotLitePreviewView() }
-            
         }else if type == "Like"{
-            
-            instantMatch = false
             kolodaView?.swipe(.right)
-            
-        }else if type == "iMatch"{
-            
-            if UserDefaults.standard.bool(forKey: iMatchUserDefaultKey){ // if its preView is already showed
-
-                if EntourageManager.shared.user.instantMatchAllow ?? 0 > 0 , EntourageManager.shared.myGroup?.instantMatchAllow ?? 0 > 0 {
-                    self.instantMatch = true
-                    self.kolodaView?.swipe(.right)
-                }
-
-            }else{
-
-                self.loadInstantMatchPreviewView()
-            }
-            
-        }
-        
-    }
-    
-    private func instantMatch(groupId:String){
-        WebServicesManager.shared.instantMatch(groupId: groupId) { (match, error) in
-            
-            if error == nil{
-                
-                guard let match = match as? Match else{
-                    return
-                }
-                
-                
-                if match.status == "match"{
-                    self.undoBtn.isHidden = true
-                    //self.playSound(name: "newmatch")
-                    self.notificationFeedBackBtn(.success)
-                    EntourageManager.shared.myMatchs.append(match)
-                    
-                    self.loadGroupMatchedVC(group: match.matcher!, matchType: "instant") {
-                        self.openChatVC(chatId: match.chat_id , group: match.matcher!) {
-                            
-                        }
-                        
-                    }
-                    
-                }
-                
-            }else{
-                self.showAlert(title: "Error", message: error!)
-            }
-            
         }
     }
     
@@ -784,109 +659,6 @@ extension SwipeFriendsVC{
     }
     
     
-    func loadGroupActivityVC(friendsIds:[Int],listType:String){
-        
-        let vc2 = SelectGroupActivityVC.loadSelectGroupActivityVC(firendIds: friendsIds, update: false, listType: listType) { (groupStatus) in
-            
-            if groupStatus == true,EntourageManager.shared.myGroup?.status ?? "" == "active"{
-                self.setTopView()
-                self.updateView()
-            }else{
-                //self.addGroupMember()
-                self.loadCustomeStatusVC(friendIds: friendsIds)
-            }
-            
-        }
-        
-        var options = SheetOptions()
-        options.pullBarHeight = 0
-        options.shouldExtendBackground = false
-        options.useFullScreenMode = false
-        
-        let sheetController = SheetViewController(controller: vc2, sizes: [.fixed(self.view.frame.height * 0.7 ),.fullscreen], options: options)
-        
-        sheetController.cornerRadius = 16
-        sheetController.dismissOnOverlayTap = true
-        sheetController.contentViewController.pullBarView.isHidden = true
-        
-        sheetController.didDismiss = { _ in
-            print("Will dismiss ")
-        }
-        
-        self.present(sheetController, animated: false, completion: nil)
-        
-        
-    }
-    
-    fileprivate func loadCustomeStatusVC(friendIds:[Int]){
-        
-        let vc = CustomStatusVC.loadCustomStatusVC(friendsIds: friendIds, callback: { (createCustomeStatus,listType)  in
-            
-            if createCustomeStatus == true{
-                
-                self.setTopView()
-                self.updateView()
-                
-            }else{
-                self.loadGroupActivityVC(friendsIds: friendIds, listType: listType)
-            }
-        })
-        
-        var options = SheetOptions()
-        options.pullBarHeight = 0
-        options.shouldExtendBackground = false
-        options.useFullScreenMode = false
-        let sheetController = SheetViewController(controller: vc, sizes: [.fullscreen], options: options)
-        
-        sheetController.cornerRadius = 16
-        sheetController.dismissOnOverlayTap = true
-        sheetController.contentViewController.pullBarView.isHidden = true
-        
-        sheetController.didDismiss = { _ in
-            print("Will dismiss ")
-        }
-        
-        self.present(sheetController, animated: false, completion: nil)
-        
-    }
-    
-    private func cardsBtnEnablesCheck(group:Group){
-        
-        if group.status == "active"{
-            
-            if EntourageManager.shared.user.instantMatchAllow ?? 0 > 0 , EntourageManager.shared.myGroup?.instantMatchAllow ?? 0 > 0{
-                self.qucikMatch.isHidden = false
-            }
-            
-            if EntourageManager.shared.user.spotLightAllow ?? 0 > 0 , EntourageManager.shared.myGroup?.spotLightAllow ?? 0 > 0 {
-                self.spotLight.isHidden = false
-            }else {
-                
-                if EntourageManager.shared.myGroup?.spotLightEnabled ?? false == false ,
-                   EntourageManager.shared.user.spotLightAllow ?? 0 == 0{
-                    
-                    self.spotLight.isHidden = true
-                    self.spotLightTimerLbl.text = ""
-                    self.spotLightTimerView.isHidden = true
-                    self.stopTimer()
-                    
-                }else  if EntourageManager.shared.myGroup?.spotLightEnabled ?? false == true{
-                    self.timeRemaining = abs(group.spotLightRemainingTime ?? 1800)
-                    self.totalTime = 1800//24 * 3600
-                    self.spotLightTimerView.isHidden = false
-                    self.startTimer()
-                }
-                
-            }
-            
-        }else{
-            self.qucikMatch.isHidden = true
-            self.spotLight.isHidden = true
-            self.spotLightTimerView.isHidden = true
-            self.spotLightTimerLbl.text = ""
-        }
-        
-    }
     
 }
 
@@ -904,26 +676,18 @@ extension SwipeFriendsVC{
                     return
                 }
                 
-                self.qucikMatch.isHidden = true
-                self.spotLight.isHidden = true
-                self.spotLightTimerView.isHidden = true
-                
                 self.upadteMessageIcon()
                 self.setTopView()
                 
                 if group.status == "active"{
-                    
-                    self.cardsBtnEnablesCheck(group: group)
-                    
                     if RecentUsers.getSavedRecentUsers()?.count ?? 0 == 0{
                         RecentUsers.saveRecentUsers(Users: group.users)
                     }
-                    
+
                     self.getOtherGroups(pageIndex: self.pageIndex)
                     self.observLastMessage()
-                    
+
                 }else{
-                    self.cardsBtnEnablesCheck(group: group)
                     self.getFriends()
                 }
                 
@@ -1024,8 +788,7 @@ extension SwipeFriendsVC {
                     self.friendListView.isHidden = false
                     
                     self.btnView.isHidden = self.otherGroups.count > 0 ? false : true
-                    self.spotLightTimerView.isHidden = self.otherGroups.count > 0 ? self.spotLightTimerView.isHidden : true
-                    
+
                     self.cardView.removeAll()
                     self.kolodaView.countOfVisibleCards = self.otherGroups.count > 1 ? 2 : 1
                     self.radarView.isHidden = self.otherGroups.count > 0 ? true : false
@@ -1097,20 +860,6 @@ extension SwipeFriendsVC {
     
 }
 
-//MARK:- SpotLite Api Hook
-extension SwipeFriendsVC{
-    
-    private func spotLiteApiCall(){
-        WebServicesManager.shared.spotlight { (response, error) in
-            if error == nil{
-                self.myGroup {}
-            }else{
-                self.showAlert(title: "Error", message: error!)
-            }
-        }
-    }
-    
-}
 
 // MARK: - Add Chat Observer
 extension SwipeFriendsVC{
@@ -1166,11 +915,6 @@ extension SwipeFriendsVC: KolodaViewDataSource {
 // MARK: - KolodaViewDelegate
 extension SwipeFriendsVC: KolodaViewDelegate {
     
-    @IBAction func pressUndoBtn(_ sender: UIButton) {
-        sender.pulsateBtn()
-        cardSwipeAction(type: "undo")
-    }
-    
     @IBAction func pressNoBtn(_ sender: UIButton) {
         sender.pulsateBtn()
         if UserDefaults.standard.bool(forKey: firstUnLikeSwipe) == false{
@@ -1179,11 +923,6 @@ extension SwipeFriendsVC: KolodaViewDelegate {
         }else{
             cardSwipeAction(type: "unLike")
         }
-    }
-    
-    @IBAction func pressDiamondBtn(_ sender: UIButton) {
-        sender.pulsateBtn()
-        cardSwipeAction(type: "spotLight")
     }
     
     @IBAction func pressMatchBtn(_ sender: UIButton) {
@@ -1196,11 +935,6 @@ extension SwipeFriendsVC: KolodaViewDelegate {
             cardSwipeAction(type: "Like")
         }
         
-    }
-    
-    @IBAction func pressFireBtn(_ sender: UIButton) {
-        sender.pulsateBtn()
-        cardSwipeAction(type: "iMatch")
     }
     
     @IBAction func pressInviteNewMemberBtn(_ sender:UIButton){
@@ -1270,19 +1004,7 @@ extension SwipeFriendsVC: KolodaViewDelegate {
             (direction.rawValue == "topRight") || (direction.rawValue == "bottomRight"){
             
             currCardGroup = self.otherGroups[index]
-            
-            if instantMatch == true{
-                
-                instantMatch = false
-                EntourageManager.shared.user.instantMatchAllow! -= 1
-                EntourageManager.shared.myGroup?.instantMatchAllow! -= 1
-                self.qucikMatch.isHidden = (EntourageManager.shared.user.instantMatchAllow ?? 0 == 0 && EntourageManager.shared.myGroup?.instantMatchAllow ?? 0 == 0) ? true : false
-                
-                self.instantMatch(groupId:"\(currCardGroup?.id ?? 0)" )
-                
-            }else{
-                self.matchTheGroup()
-            }
+            self.matchTheGroup()
             
             
         }else{
@@ -1294,9 +1016,7 @@ extension SwipeFriendsVC: KolodaViewDelegate {
         radarView.isHidden = index == self.otherGroups.count - 1 ? false : true
         kolodaView.isHidden = !self.radarView.isHidden
         btnView.isHidden = !self.radarView.isHidden
-        spotLightTimerView.isHidden = index == self.otherGroups.count - 1 ? true : spotLightTimerView.isHidden
-        spotLightTimerLbl.text = spotLightTimerView.isHidden == true ? "" : spotLightTimerLbl.text
-        
+
     }
     
     private func kolodaSwipeThresholdRatioMargin(_ koloda: KolodaView) -> CGFloat {
@@ -1328,68 +1048,6 @@ extension SwipeFriendsVC{
     
 }
 
-//MARK: - SpotLight ReNew Time Again
-extension SwipeFriendsVC{
-    
-    private func startTimer(){
-        
-        if timer.isValid{
-            timer.invalidate()
-        }
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerRunning), userInfo: nil, repeats: true)
-        
-    }
-    
-    private func stopTimer(){
-        if timer.isValid{
-            timer.invalidate()
-        }
-    }
-    
-    @objc func timerRunning() {
-        
-        var extraMinutes = "0"
-        var extraSeconds = "0"
-        //var extraHours = "0"
-
-        timeRemaining -= 1
-        
-        let completionPercentage = abs( ( (Float(totalTime) - Float(timeRemaining))/Float(totalTime)) * 100 )
-        spotLightTimerView.trackClr = UIColor.white
-        spotLightTimerView.progressClr = UIColor("#6c62ff")
-        spotLightTimerView.setProgressWithAnimation(duration: 0, value: completionPercentage / 100)
-        //print("\(completionPercentage / 100)% done")
-        
-        let secondsLeft = Int(timeRemaining) % 60
-        let minutesLeft = Int(timeRemaining) / 60 % 60
-        //let hoursLeft = Int(timeRemaining / 3600)
-        
-        if secondsLeft > 9 {
-            extraSeconds = ""
-        }
-        
-        if minutesLeft > 9 {
-            extraMinutes = ""
-        }
-
-//        if hoursLeft > 9 {
-//            extraHours = ""
-//        }
-
-        
-//        spotLightTimerLbl.text = "\(extraHours)\(hoursLeft):\(extraMinutes)\(minutesLeft):\(extraSeconds)\(secondsLeft)"
-        spotLightTimerLbl.text = "\(extraMinutes)\(minutesLeft):\(extraSeconds)\(secondsLeft)"
-
-        if timeRemaining == 0{
-            self.spotLightTimerLbl.text = ""
-            self.spotLight.isHidden = true
-            self.spotLightTimerView.isHidden = true
-            self.stopTimer()
-            myGroup {}
-        }
-    }
-    
-}
 
 //MARK: - Testing Things
 extension SwipeFriendsVC{

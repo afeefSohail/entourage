@@ -9,7 +9,4 @@
 import UIKit
 
 class ActiveProfileVCPremiumCell: UICollectionViewCell {
-    
-    @IBOutlet weak var titleImage: UIImageView!
-    @IBOutlet weak var cellText: UILabel!
 }

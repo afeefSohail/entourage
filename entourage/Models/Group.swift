@@ -22,35 +22,23 @@ class Group : Codable {
     
     var id : Int = 0
     var status : String = ""
-    var groupStatus = GroupStatuses()
     var users : [User] = []
     var invitedUsers : [User]? = []
     var name : String?
     var city : String?
     var state : String?
     var distance : String? = ""
-    var instantMatchAllow : Int? = 0
-    var spotLightAllow : Int? = 0
-    var spotLightEnabled : Bool? = false
-    var spotLightRemainingTime : Int? = 0
     var isReported : Bool = false
 
     enum CodingKeys: String, CodingKey {
-        
         case id = "id"
         case status
-        case groupStatus = "group_status"
         case users = "users"
         case distance = "distance"
         case name = "name"
         case city = "city"
         case state = "state"
         case invitedUsers = "pending_approval"
-        case instantMatchAllow = "instant_match_allow"
-        case spotLightAllow = "spot_light_allow"
-        case spotLightEnabled = "spot_light_enabled"
-        case spotLightRemainingTime = "spot_light_time"
-
     }
     
     func matcherGroupName()->String{

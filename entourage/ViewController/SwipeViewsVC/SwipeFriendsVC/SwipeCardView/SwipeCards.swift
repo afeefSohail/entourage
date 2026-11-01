@@ -67,14 +67,9 @@ class SwipeCards : UIView {
     }
     
     fileprivate func setUpCardView(group:Group){
-        
-        guard let url = URL(string: group.groupStatus.icon ?? "") else{
-            return
-        }
-        
-        groupStatusImage.kf.setImage(with: url)
-        activeStatus.text = (group.groupStatus.name ?? "")
-        activeStatus.textColor = group.groupStatus.statusType == "place" ? UIColor("#6c62ff") : UIColor.black
+
+        groupStatusImage.isHidden = true
+        activeStatus.text = ""
         AddressLabel.text = "\(group.distance ?? "")".capitalized
         groupNameLbl.text = group.cardsGroupName()
         

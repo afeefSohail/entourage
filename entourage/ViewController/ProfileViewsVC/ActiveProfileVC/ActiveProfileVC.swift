@@ -146,25 +146,9 @@ class ActiveProfileVC: BaseVC {
             groupEventView.isHidden = false
             whiteMaskHeight.constant = self.friends.count > 0 ? 495 : 430
             
-            guard let url = URL(string: myGroup?.groupStatus.icon ?? "") else{
-                return
-            }
-            
-            let resource = KF.ImageResource(downloadURL: url)
-            KingfisherManager.shared.retrieveImage(with: resource, options: nil, progressBlock: nil) { result in
-                switch result {
-                case .success(let value):
-                    
-                    self.groupStatusImage.image = value.image
-                    self.groupActivityNameLabel.text = self.myGroup?.groupStatus.name ?? ""
-                    self.groupActivityNameLabel.font = UIFont(name: "Avenir-Medium" , size: 16.0)!
-                    self.groupActivityNameLabel.textColor = self.myGroup?.groupStatus.statusType == "place" ? UIColor("#6c62ff") : UIColor.black
-                    
-                case .failure(let error):
-                    print("Error: \(error)")
-                }
-            }
-            
+            groupStatusImage.isHidden = true
+            groupActivityNameLabel.text = ""
+
             shareUserView.isHidden = self.friends.count > 0 ? false : true
             whiteMaskHeight.constant = self.friends.count > 0 ? 495 : 430
 
@@ -323,108 +307,21 @@ class ActiveProfileVC: BaseVC {
         
     }
     
-    fileprivate func loadGroupActivityVC(friendsIds:[Int],listType:String){
-        
-        let vc2 = SelectGroupActivityVC.loadSelectGroupActivityVC(firendIds: friendsIds, update: false, listType: listType) { (groupStatus) in
-            
-            if groupStatus == true{
+    fileprivate func loadGroupActivityVC(friendsIds:[Int], listType:String){
+        self.startAnimation()
+        WebServicesManager.shared.createGroup(groupStatusId: 0, friendsIds: friendsIds.map{"\($0)"}.joined(separator: ",")) { (_, error) in
+            self.stopAnimation()
+            if error == nil {
                 self.myGroup = EntourageManager.shared.myGroup
                 self.updateView()
-            }else{
-                //self.addGroupMember()
-                self.loadCustomeStatusVC(friendIds: friendsIds)
+            } else {
+                self.showAlert(title: "Error", message: error!)
             }
-            
         }
-        
-        
-        var options = SheetOptions()
-        options.pullBarHeight = 0
-        options.shouldExtendBackground = false
-        options.useFullScreenMode = false
-
-        let sheetController = SheetViewController(controller: vc2, sizes: [.fixed(self.view.frame.height * 0.7 ),.fullscreen], options: options)
-        
-        sheetController.cornerRadius = 16
-        sheetController.dismissOnOverlayTap = true
-        sheetController.contentViewController.pullBarView.isHidden = true
-        
-        sheetController.didDismiss = { _ in
-            print("Will dismiss ")
-        }
-        
-        self.present(sheetController, animated: false, completion: nil)
-
-        
-        
     }
-    
-    
-    fileprivate func changeGroupActivity(friendsIds:[Int],listType:String){
-        
-        let vc2 = SelectGroupActivityVC.loadSelectGroupActivityVC(firendIds: friendsIds, update: true,listType:listType) { (groupStatus) in
-            
-            if groupStatus == true{//group status Update or Group Create First Time
-                
-                self.myGroup = EntourageManager.shared.myGroup
-                self.updateView()
-            
-            }else{// but if user click customStatus Tab
-                self.loadCustomeStatusVC(friendIds: friendsIds)
-            }
-            
-        }
-        
-        var options = SheetOptions()
-        options.pullBarHeight = 0
-        options.shouldExtendBackground = false
-        options.useFullScreenMode = false
 
-        let sheetController = SheetViewController(controller: vc2, sizes: [.fixed(self.view.frame.height * 0.7 ),.fullscreen], options: options)
-        
-        sheetController.cornerRadius = 16
-        sheetController.dismissOnOverlayTap = true
-        sheetController.contentViewController.pullBarView.isHidden = true
-
-        sheetController.didDismiss = { _ in
-            print("Will dismiss ")
-        }
-        
-        self.present(sheetController, animated: false, completion: nil)
-        
-    }
-    
-    fileprivate func loadCustomeStatusVC(friendIds:[Int]){
-        
-        let vc = CustomStatusVC.loadCustomStatusVC(friendsIds: friendIds, callback: { (createCustomeStatus,listType)  in
-            if createCustomeStatus == true{
-                
-                self.myGroup = EntourageManager.shared.myGroup
-                self.updateView()
-
-            }else{
-                self.changeGroupActivity(friendsIds: friendIds, listType: listType)
-            }
-        })
-        
-        
-        var options = SheetOptions()
-        options.pullBarHeight = 0
-        options.shouldExtendBackground = false
-        options.useFullScreenMode = false
-        
-        let sheetController = SheetViewController(controller: vc, sizes: [.fullscreen], options: options)
-        
-        sheetController.cornerRadius = 16
-        sheetController.dismissOnOverlayTap = true
-        sheetController.contentViewController.pullBarView.isHidden = true
-        
-        sheetController.didDismiss = { _ in
-            print("Will dismiss ")
-        }
-        
-        self.present(sheetController, animated: false, completion: nil)
-
+    fileprivate func changeGroupActivity(friendsIds:[Int], listType:String){
+        loadGroupActivityVC(friendsIds: friendsIds, listType: listType)
     }
     
     fileprivate func switchToUnActiveProfile(){
