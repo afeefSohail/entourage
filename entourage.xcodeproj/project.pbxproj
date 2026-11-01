@@ -191,6 +191,14 @@
 		E9A890C1229711A700CAECF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9A890C0229711A700CAECF6 /* Assets.xcassets */; };
 		E9A890C4229711A700CAECF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9A890C2229711A700CAECF6 /* LaunchScreen.storyboard */; };
 		E9B0BC5E233FB73000CC6C3C /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B0BC5D233FB73000CC6C3C /* PushNotificationManager.swift */; };
+		A26DA831D57A4C368F50A510 /* NetworkCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F229D6F99C49D28FC799B5 /* NetworkCore.swift */; };
+		C500E7F8802A47649F8400DB /* GroupRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6277ADD6CA2543F89E2257BA /* GroupRepository.swift */; };
+		C64A4186A6DF4621AF5C7E4F /* MatchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B8D792614340D89BBF04D9 /* MatchRepository.swift */; };
+		5C5BCB174C5D4DB08594E96A /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACF54A9C78B437FB042E6FE /* UserRepository.swift */; };
+		7A331517ED43429B90A69CBB /* ChatRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C2B375C0454C998B7CE3BD /* ChatRepository.swift */; };
+		1AAE6EB725414E0B99991BDD /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8237BB63EAC54DA1B4038647 /* UserViewModel.swift */; };
+		DED511F298A240B68E39858B /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCE270C2634412AB4B83B9A /* GroupViewModel.swift */; };
+		7B47C038F0F94B7A83E9479B /* MatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358B913C975D43FB931E8F75 /* MatchViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -351,6 +359,14 @@
 		E9A890C5229711A700CAECF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9B0BC5C233FAC2A00CC6C3C /* entourage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = entourage.entitlements; sourceTree = "<group>"; };
 		E9B0BC5D233FB73000CC6C3C /* PushNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
+		37F229D6F99C49D28FC799B5 /* NetworkCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkCore.swift; sourceTree = "<group>"; };
+		6277ADD6CA2543F89E2257BA /* GroupRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupRepository.swift; sourceTree = "<group>"; };
+		28B8D792614340D89BBF04D9 /* MatchRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchRepository.swift; sourceTree = "<group>"; };
+		CACF54A9C78B437FB042E6FE /* UserRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		C6C2B375C0454C998B7CE3BD /* ChatRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRepository.swift; sourceTree = "<group>"; };
+		8237BB63EAC54DA1B4038647 /* UserViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		1FCE270C2634412AB4B83B9A /* GroupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
+		358B913C975D43FB931E8F75 /* MatchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1375,6 +1391,8 @@
 		E9A890B8229711A600CAECF6 /* entourage */ = {
 			isa = PBXGroup;
 			children = (
+				6FDFDECA942248378FA5F1FF /* Core */,
+				6606F056DED04489BC0182E9 /* Features */,
 				E9B0BC5C233FAC2A00CC6C3C /* entourage.entitlements */,
 				E96249FA22C7EDED0054B80E /* Theme */,
 				504C450C229837D000B17623 /* AppDelegate */,
@@ -1390,6 +1408,156 @@
 				502457D723300EA900919C6F /* GoogleService-Info.plist */,
 			);
 			path = entourage;
+			sourceTree = "<group>";
+		};
+		E314F6CFAAD344E39B05DBD6 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				37F229D6F99C49D28FC799B5 /* NetworkCore.swift */,
+				6277ADD6CA2543F89E2257BA /* GroupRepository.swift */,
+				28B8D792614340D89BBF04D9 /* MatchRepository.swift */,
+				CACF54A9C78B437FB042E6FE /* UserRepository.swift */,
+				C6C2B375C0454C998B7CE3BD /* ChatRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		F2F2185672464304B373FBE9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		26AEB22C75BD4B5E9AE9916F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A3B31720A8F348F0BF9F03D7 /* ModelViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				8237BB63EAC54DA1B4038647 /* UserViewModel.swift */,
+				1FCE270C2634412AB4B83B9A /* GroupViewModel.swift */,
+				358B913C975D43FB931E8F75 /* MatchViewModel.swift */,
+			);
+			path = ModelViewModels;
+			sourceTree = "<group>";
+		};
+		28240E8843FC4F2C8A15492C /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		89C88AEF54224219A3C93E3F /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E314F6CFAAD344E39B05DBD6 /* Repositories */,
+				F2F2185672464304B373FBE9 /* Services */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		CA6CCF0C000D4A4C98A69173 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				26AEB22C75BD4B5E9AE9916F /* Models */,
+				A3B31720A8F348F0BF9F03D7 /* ModelViewModels */,
+				28240E8843FC4F2C8A15492C /* UseCases */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		6FDFDECA942248378FA5F1FF /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				89C88AEF54224219A3C93E3F /* Data */,
+				CA6CCF0C000D4A4C98A69173 /* Domain */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		6606F056DED04489BC0182E9 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				F75D6E61AD6849C8BC07D80E /* Swipe */,
+				242EEB5B2CD44CF6AA7ACDCC /* Chat */,
+				EC9B91EAF4464D12A83E98B0 /* Match */,
+				92931C426C334DE5818495DB /* Profile */,
+				A229C2031FFF4637A1A0CB63 /* Group */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		F75D6E61AD6849C8BC07D80E /* Swipe */ = {
+			isa = PBXGroup;
+			children = (
+				77ECE95E830E452E84185ECA /* Views */,
+				3B75977ECC2F4186BC2E96BB /* ViewModels */,
+			);
+			path = Swipe;
+			sourceTree = "<group>";
+		};
+		242EEB5B2CD44CF6AA7ACDCC /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				13734384A5C14FAAA604C5D8 /* Views */,
+				451E07E7BBBD45DA901B5B84 /* ViewModels */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		EC9B91EAF4464D12A83E98B0 /* Match */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Match;
+			sourceTree = "<group>";
+		};
+		92931C426C334DE5818495DB /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		A229C2031FFF4637A1A0CB63 /* Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Group;
+			sourceTree = "<group>";
+		};
+		77ECE95E830E452E84185ECA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3B75977ECC2F4186BC2E96BB /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		13734384A5C14FAAA604C5D8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		451E07E7BBBD45DA901B5B84 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1553,6 +1721,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A26DA831D57A4C368F50A510 /* NetworkCore.swift in Sources */,
+				C500E7F8802A47649F8400DB /* GroupRepository.swift in Sources */,
+				C64A4186A6DF4621AF5C7E4F /* MatchRepository.swift in Sources */,
+				5C5BCB174C5D4DB08594E96A /* UserRepository.swift in Sources */,
+				7A331517ED43429B90A69CBB /* ChatRepository.swift in Sources */,
+				1AAE6EB725414E0B99991BDD /* UserViewModel.swift in Sources */,
+				DED511F298A240B68E39858B /* GroupViewModel.swift in Sources */,
+				7B47C038F0F94B7A83E9479B /* MatchViewModel.swift in Sources */,
 				50F8E51C22A1AFE100A2986A /* UserProfileVCCell.swift in Sources */,
 				504C45242299A44A00B17623 /* Ext+LoadVC.swift in Sources */,
 				503F9384229AECBD00D04436 /* SMSDialogueVC.swift in Sources */,
