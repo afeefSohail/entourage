@@ -94,6 +94,9 @@
 		1AAE6EB725414E0B99991BDD /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8237BB63EAC54DA1B4038647 /* UserViewModel.swift */; };
 		DED511F298A240B68E39858B /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCE270C2634412AB4B83B9A /* GroupViewModel.swift */; };
 		7B47C038F0F94B7A83E9479B /* MatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358B913C975D43FB931E8F75 /* MatchViewModel.swift */; };
+		72FFA8A5D4BE4F08A4A79B32 /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E2DCD701E540D0BBBCF001 /* FriendViewModel.swift */; };
+		FF9F4E902636417CA3339259 /* PhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B90EE623FA348CAB820C190 /* PhotoViewModel.swift */; };
+		E4F56FF1389547D4B047CD85 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23FC85981DE42B6A1141A65 /* NetworkService.swift */; };
 		8D4A07D578D34476A5314E76 /* RepositoryAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F31FD4B728D409CA3ABB411 /* RepositoryAsync.swift */; };
 		C1022F90D7FC475EB385BB70 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE92F47AA1564F4AB2D75F4D /* AppCoordinator.swift */; };
 		7074F21D58D2438FA646A962 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C412BD6E5F9A418D929A2F26 /* SettingsViewModel.swift */; };
@@ -196,6 +199,9 @@
 		8237BB63EAC54DA1B4038647 /* UserViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		1FCE270C2634412AB4B83B9A /* GroupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
 		358B913C975D43FB931E8F75 /* MatchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchViewModel.swift; sourceTree = "<group>"; };
+		79E2DCD701E540D0BBBCF001 /* FriendViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
+		6B90EE623FA348CAB820C190 /* PhotoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewModel.swift; sourceTree = "<group>"; };
+		A23FC85981DE42B6A1141A65 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		0F31FD4B728D409CA3ABB411 /* RepositoryAsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryAsync.swift; sourceTree = "<group>"; };
 		AE92F47AA1564F4AB2D75F4D /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		C412BD6E5F9A418D929A2F26 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -756,6 +762,7 @@
 			children = (
 				0F31FD4B728D409CA3ABB411 /* RepositoryAsync.swift */,
 				37F229D6F99C49D28FC799B5 /* NetworkCore.swift */,
+				A23FC85981DE42B6A1141A65 /* NetworkService.swift */,
 				6277ADD6CA2543F89E2257BA /* GroupRepository.swift */,
 				28B8D792614340D89BBF04D9 /* MatchRepository.swift */,
 				CACF54A9C78B437FB042E6FE /* UserRepository.swift */,
@@ -784,6 +791,8 @@
 				8237BB63EAC54DA1B4038647 /* UserViewModel.swift */,
 				1FCE270C2634412AB4B83B9A /* GroupViewModel.swift */,
 				358B913C975D43FB931E8F75 /* MatchViewModel.swift */,
+				79E2DCD701E540D0BBBCF001 /* FriendViewModel.swift */,
+				6B90EE623FA348CAB820C190 /* PhotoViewModel.swift */,
 			);
 			path = ModelViewModels;
 			sourceTree = "<group>";
@@ -1103,6 +1112,9 @@
 				1AAE6EB725414E0B99991BDD /* UserViewModel.swift in Sources */,
 				DED511F298A240B68E39858B /* GroupViewModel.swift in Sources */,
 				7B47C038F0F94B7A83E9479B /* MatchViewModel.swift in Sources */,
+				72FFA8A5D4BE4F08A4A79B32 /* FriendViewModel.swift in Sources */,
+				FF9F4E902636417CA3339259 /* PhotoViewModel.swift in Sources */,
+				E4F56FF1389547D4B047CD85 /* NetworkService.swift in Sources */,
 				504C45242299A44A00B17623 /* Ext+LoadVC.swift in Sources */,
 				504829B7234859DA000C0916 /* ActiveMemberFireBaseService.swift in Sources */,
 				50149A3522FF3B6D00A1FBBF /* Match.swift in Sources */,
