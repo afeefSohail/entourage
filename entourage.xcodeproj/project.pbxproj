@@ -72,10 +72,8 @@
 		501E47883098A8A70054597F /* OnboardingAddFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E476D3098A8A70054597F /* OnboardingAddFriendsView.swift */; };
 		5023AB5024F127AA002971BA /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5023AB4F24F127AA002971BA /* APIResponse.swift */; };
 		502457D823300EA900919C6F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 502457D723300EA900919C6F /* GoogleService-Info.plist */; };
-		503157C325160EBF0072D474 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503157C225160EBF0072D474 /* CircularProgressView.swift */; };
 		5033A374233C1E2300701B11 /* message.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5033A372233C1E2300701B11 /* message.wav */; };
 		5033A375233C1E2300701B11 /* newmatch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5033A373233C1E2300701B11 /* newmatch.wav */; };
-		5035944E24FEEFEC00E6320D /* DashedBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5035944D24FEEFEC00E6320D /* DashedBorderView.swift */; };
 		50394EF322EC33220059ED7E /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50394EF122EC33220059ED7E /* Setting.swift */; };
 		50394EF422EC33220059ED7E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50394EF222EC33220059ED7E /* User.swift */; };
 		50394EF622EC361F0059ED7E /* EntourageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50394EF522EC361F0059ED7E /* EntourageManager.swift */; };
@@ -182,10 +180,8 @@
 		501E47783098A8A70054597F /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		5023AB4F24F127AA002971BA /* APIResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
 		502457D723300EA900919C6F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		503157C225160EBF0072D474 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		5033A372233C1E2300701B11 /* message.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = message.wav; sourceTree = "<group>"; };
 		5033A373233C1E2300701B11 /* newmatch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = newmatch.wav; sourceTree = "<group>"; };
-		5035944D24FEEFEC00E6320D /* DashedBorderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashedBorderView.swift; sourceTree = "<group>"; };
 		50394EF122EC33220059ED7E /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		50394EF222EC33220059ED7E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		50394EF522EC361F0059ED7E /* EntourageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntourageManager.swift; sourceTree = "<group>"; };
@@ -362,8 +358,6 @@
 		50105D65229D73A700CC901E /* AppSupport */ = {
 			isa = PBXGroup;
 			children = (
-				503157C425160EDF0072D474 /* DashedBorderView */,
-				503157C125160EAE0072D474 /* CircularProgressView */,
 				50408FCE24410D5300994E00 /* FireBaseAuth */,
 				50408FCA24410D0700994E00 /* EntourageManager */,
 				50408FC824410CE600994E00 /* PushNotificationManager */,
@@ -426,22 +420,6 @@
 				501E47783098A8A70054597F /* OnboardingView.swift */,
 			);
 			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		503157C125160EAE0072D474 /* CircularProgressView */ = {
-			isa = PBXGroup;
-			children = (
-				503157C225160EBF0072D474 /* CircularProgressView.swift */,
-			);
-			path = CircularProgressView;
-			sourceTree = "<group>";
-		};
-		503157C425160EDF0072D474 /* DashedBorderView */ = {
-			isa = PBXGroup;
-			children = (
-				5035944D24FEEFEC00E6320D /* DashedBorderView.swift */,
-			);
-			path = DashedBorderView;
 			sourceTree = "<group>";
 		};
 		5033A371233C1DFF00701B11 /* Tune */ = {
@@ -1032,10 +1010,8 @@
 				504C45262299A44A00B17623 /* Extensions.swift in Sources */,
 				503F9386229B49CF00D04436 /* Utils.swift in Sources */,
 				50394EF622EC361F0059ED7E /* EntourageManager.swift in Sources */,
-				503157C325160EBF0072D474 /* CircularProgressView.swift in Sources */,
 				504829B3234857B7000C0916 /* LastMessage.swift in Sources */,
 				501B1E2822F600F2007C896D /* Group.swift in Sources */,
-				5035944E24FEEFEC00E6320D /* DashedBorderView.swift in Sources */,
 				5064287623340E01001F3DE7 /* MessageFirebaseService.swift in Sources */,
 				5016230922EDDA1D00BF8123 /* Photo.swift in Sources */,
 				50105D67229D73BF00CC901E /* PhoneContacts.swift in Sources */,
