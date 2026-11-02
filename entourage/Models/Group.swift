@@ -13,6 +13,13 @@ class MyGroup : Codable {
     var group : Group?
 }
 
+struct Pagination: Codable {
+    var current_page: Int = 0
+    var total_pages: Int = 0
+    var per_page: Int = 0
+    var total_count: Int = 0
+}
+
 class OtherGroups : Codable {
     var groups : [Group] = []
     var pagination : Pagination = Pagination()

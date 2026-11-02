@@ -27,7 +27,6 @@ final class GroupRepository: RepositoryBase, GroupRepositoryProtocol {
             do {
                 let base = try JSONDecoder().decode(MyGroup.self, from: data)
                 EntourageManager.shared.myGroup = base.group
-                RecentUsers.saveRecentUsers(Users: base.group?.users ?? [])
                 callback(base.group, nil)
             } catch { print(error) }
         }
@@ -46,7 +45,6 @@ final class GroupRepository: RepositoryBase, GroupRepositoryProtocol {
             do {
                 let base = try JSONDecoder().decode(MyGroup.self, from: data)
                 EntourageManager.shared.myGroup = base.group
-                RecentUsers.saveRecentUsers(Users: base.group?.users ?? [])
                 callback(base.group, nil)
             } catch { print(error) }
         }
