@@ -97,6 +97,9 @@
 		72FFA8A5D4BE4F08A4A79B32 /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E2DCD701E540D0BBBCF001 /* FriendViewModel.swift */; };
 		FF9F4E902636417CA3339259 /* PhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B90EE623FA348CAB820C190 /* PhotoViewModel.swift */; };
 		E4F56FF1389547D4B047CD85 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23FC85981DE42B6A1141A65 /* NetworkService.swift */; };
+		CAB7FC66813B45CE8B033D44 /* ChatMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88C6E158E5946639C5B714B /* ChatMessageViewModel.swift */; };
+		8431218886B6488DA3248D0F /* LastMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3855BDB3154E39ACB8E9AE /* LastMessageViewModel.swift */; };
+		CD3B93DD370C4FC98250C958 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917A7C75F1EF47F089B2DA62 /* SettingViewModel.swift */; };
 		8D4A07D578D34476A5314E76 /* RepositoryAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F31FD4B728D409CA3ABB411 /* RepositoryAsync.swift */; };
 		C1022F90D7FC475EB385BB70 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE92F47AA1564F4AB2D75F4D /* AppCoordinator.swift */; };
 		7074F21D58D2438FA646A962 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C412BD6E5F9A418D929A2F26 /* SettingsViewModel.swift */; };
@@ -202,6 +205,9 @@
 		79E2DCD701E540D0BBBCF001 /* FriendViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
 		6B90EE623FA348CAB820C190 /* PhotoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewModel.swift; sourceTree = "<group>"; };
 		A23FC85981DE42B6A1141A65 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		F88C6E158E5946639C5B714B /* ChatMessageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageViewModel.swift; sourceTree = "<group>"; };
+		2E3855BDB3154E39ACB8E9AE /* LastMessageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastMessageViewModel.swift; sourceTree = "<group>"; };
+		917A7C75F1EF47F089B2DA62 /* SettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		0F31FD4B728D409CA3ABB411 /* RepositoryAsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryAsync.swift; sourceTree = "<group>"; };
 		AE92F47AA1564F4AB2D75F4D /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		C412BD6E5F9A418D929A2F26 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -793,6 +799,9 @@
 				358B913C975D43FB931E8F75 /* MatchViewModel.swift */,
 				79E2DCD701E540D0BBBCF001 /* FriendViewModel.swift */,
 				6B90EE623FA348CAB820C190 /* PhotoViewModel.swift */,
+				F88C6E158E5946639C5B714B /* ChatMessageViewModel.swift */,
+				2E3855BDB3154E39ACB8E9AE /* LastMessageViewModel.swift */,
+				917A7C75F1EF47F089B2DA62 /* SettingViewModel.swift */,
 			);
 			path = ModelViewModels;
 			sourceTree = "<group>";
@@ -1115,6 +1124,9 @@
 				72FFA8A5D4BE4F08A4A79B32 /* FriendViewModel.swift in Sources */,
 				FF9F4E902636417CA3339259 /* PhotoViewModel.swift in Sources */,
 				E4F56FF1389547D4B047CD85 /* NetworkService.swift in Sources */,
+				CAB7FC66813B45CE8B033D44 /* ChatMessageViewModel.swift in Sources */,
+				8431218886B6488DA3248D0F /* LastMessageViewModel.swift in Sources */,
+				CD3B93DD370C4FC98250C958 /* SettingViewModel.swift in Sources */,
 				504C45242299A44A00B17623 /* Ext+LoadVC.swift in Sources */,
 				504829B7234859DA000C0916 /* ActiveMemberFireBaseService.swift in Sources */,
 				50149A3522FF3B6D00A1FBBF /* Match.swift in Sources */,
