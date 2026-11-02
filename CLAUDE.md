@@ -3,6 +3,9 @@
 Three phases, in order. Do not start a later phase until the previous one is complete.
 Never reference timelines or week numbers when implementing.
 
+**Rules:**
+- Always changes should be commit and push In AI-Dev Branch.
+- Never push claude signature with commit.
 ---
 
 ## Phase 1 — Feature Removal (UIKit, no architecture changes)
