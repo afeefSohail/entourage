@@ -19,7 +19,7 @@ class Utils{
     static var transtion = false
     static var notification = false
     static var updateMyGroup = false
-    static var appStatus : Bool = false
+    // appStatus removed — phase is now managed by AppState
     static var otherGroupsUpdate : Bool = false
     static var test = ""
     static var appOpenForNotification = false
@@ -28,26 +28,9 @@ class Utils{
         transtion = false
         notification = false
         updateMyGroup = false
-        appStatus = false
         otherGroupsUpdate = false
     }
     
-    //MARK: - Main
-    static func switchToMain() {
-        let hostingVC = UIHostingController(rootView: AppRootView())
-        hostingVC.view.backgroundColor = .systemBackground
-        UIApplication.shared.connectedScenes
-            .compactMap { $0 as? UIWindowScene }
-            .first?.windows.first?.rootViewController = hostingVC
-    }
-
-    static func switchToOnBoarding() {
-        if let rootViewController = UIStoryboard(name: "onBoarding", bundle: nil).instantiateInitialViewController() {
-            UIApplication.shared.connectedScenes
-                .compactMap { $0 as? UIWindowScene }
-                .first?.windows.first?.rootViewController = rootViewController
-        }
-    }
 
     public static func initials(fromName name: String?) -> String {
         

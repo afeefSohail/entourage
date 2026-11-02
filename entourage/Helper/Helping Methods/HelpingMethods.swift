@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import Contacts
-import Kingfisher
 import AlamofireImage
 
 //MARK:- CallBacks
@@ -43,22 +42,18 @@ func getMsgCellView(view:UIView)->UIImage{
 }
 
 //MARK: - ImageCrop Method
-func setupThumnail(url:URL,IV:UIImageView){
-    KingfisherManager.shared.retrieveImage(with: url, completionHandler: { (result) in
-        if let image = try? result.get().image {
-            IV.image = image.af.imageAspectScaled(toFill: IV.frame.size)
-        }
-    })
-
+func setupThumnail(url: URL, IV: UIImageView) {
+    URLSession.shared.dataTask(with: url) { data, _, _ in
+        guard let data, let image = UIImage(data: data) else { return }
+        DispatchQueue.main.async { IV.image = image.af.imageAspectScaled(toFill: IV.frame.size) }
+    }.resume()
 }
 
-func setupAspectScaleThumnail(url:URL,IV:UIImageView){
-    KingfisherManager.shared.retrieveImage(with: url, completionHandler: { (result) in
-        if let image = try? result.get().image {
-            IV.image = image.af.imageAspectScaled(toFit: IV.frame.size)
-        }
-    })
-
+func setupAspectScaleThumnail(url: URL, IV: UIImageView) {
+    URLSession.shared.dataTask(with: url) { data, _, _ in
+        guard let data, let image = UIImage(data: data) else { return }
+        DispatchQueue.main.async { IV.image = image.af.imageAspectScaled(toFit: IV.frame.size) }
+    }.resume()
 }
 
 enum dateForamte : String{

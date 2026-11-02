@@ -748,8 +748,12 @@ extension Date {
         return localDate
     }
     
-    func getSecondsToday()->Int{
-        return ( (self.hour * 3600) + (self.minute * 60) + self.second)
+    func getSecondsToday() -> Int {
+        let cal = Calendar.current
+        let h = cal.component(.hour, from: self)
+        let m = cal.component(.minute, from: self)
+        let s = cal.component(.second, from: self)
+        return (h * 3600) + (m * 60) + s
     }
 
     func isInSameDayOf(date: Date) -> Bool {

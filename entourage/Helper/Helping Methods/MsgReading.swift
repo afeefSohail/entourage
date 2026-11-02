@@ -16,7 +16,8 @@ func getLastMsgTime(id:String)->Date{
     if let date = UserDefaults.standard.object(forKey: "CreateAt\(id)") as? Date {
         return date
     }
-    return Date("2015-04-01T00:00:00")!
+    let fmt = DateFormatter(); fmt.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    return fmt.date(from: "2015-04-01T00:00:00") ?? Date(timeIntervalSince1970: 0)
 }
 
 func removeLastMsgTime(id:String){
