@@ -6,7 +6,6 @@ target 'entourage' do
   use_frameworks!
 
   # Pods for entourage
-  #pod 'KAPinField'
   pod 'FlagPhoneNumber'
 
   post_install do |installer|
