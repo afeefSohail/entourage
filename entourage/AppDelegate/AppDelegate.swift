@@ -85,7 +85,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
-        Utils.test = "Bhagarat"
         
         if UIApplication.shared.applicationState == .active { // In iOS 10 if app is in foreground do nothing.
             completionHandler([])
@@ -108,7 +107,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
         let type =  notificationData["notifiable_type"] as! String
         let id = Int(notificationData["notifiable_id"]  as! String) ?? 0
         let Notification_type = notificationData["notification_type"]  as? String ?? ""
-        Utils.test = "Kamina"
         
         
         if type == "Message" {
@@ -129,7 +127,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
-        Utils.test = "Chawal"
     
         
         guard let notificationData = userInfo as? [String : Any] else{
