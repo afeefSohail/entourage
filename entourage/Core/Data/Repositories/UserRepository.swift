@@ -203,7 +203,7 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
             "reason": reason
         ]
         AF.upload(multipartFormData: { form in
-            if let data = image.imageData {
+            if let data = image.pngData() {
                 form.append(data, withName: "image", fileName: "Report_\(user.name()).png", mimeType: "image/png")
             }
             for (key, value) in params {
@@ -495,7 +495,7 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         var params: [String: Any] = ["auth_token": User.getToken(), "friend_id": friendId]
         if reason != nil { params["reason"] = "Abusive content." }
         AF.upload(multipartFormData: { form in
-            if let data = abusiveMsg?.imageData {
+            if let data = abusiveMsg?.pngData() {
                 form.append(data, withName: "image", fileName: "Block_\(friendId)).png", mimeType: "image/png")
             }
             for (key, value) in params {

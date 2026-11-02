@@ -236,7 +236,7 @@ extension VerifyPinVC{
             if error == nil{
                 
                 Utils.appStatus = true
-                self.loadSwipeFriendsVC()
+                Utils.switchToMain()
 
             }else{
                 self.stopAnimation()

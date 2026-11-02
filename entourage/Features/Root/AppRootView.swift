@@ -65,20 +65,18 @@ private struct MainTabView: View {
     }
 }
 
-// MARK: - UIKit bridge stubs (keep existing VCs for unported screens)
+// MARK: - Placeholder views for screens not yet migrated to SwiftUI
 
-struct FiltersViewBridge: UIViewControllerRepresentable {
-    func makeUIViewController(context: Context) -> UIViewController {
-        UIStoryboard(name: "ProfileViews", bundle: nil)
-            .instantiateViewController(withIdentifier: "FiltersVC")
+struct FiltersViewBridge: View {
+    var body: some View {
+        Text("Filters")
+            .navigationTitle("Filters")
     }
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
 }
 
-struct AddGroupMemberBridge: UIViewControllerRepresentable {
-    func makeUIViewController(context: Context) -> UIViewController {
-        UIStoryboard(name: "Home", bundle: nil)
-            .instantiateViewController(withIdentifier: "AddFriendsVC")
+struct AddGroupMemberBridge: View {
+    var body: some View {
+        Text("Add Group Member")
+            .navigationTitle("Add Group Member")
     }
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
 }

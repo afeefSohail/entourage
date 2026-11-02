@@ -1,66 +1,18 @@
 PODS:
-  - AwesomeEnum (2.2.1)
-  - FAPaginationLayout (2.0.1)
   - FlagPhoneNumber (0.8.0):
     - FlagPhoneNumber/libPhoneNumberiOS (= 0.8.0)
   - FlagPhoneNumber/libPhoneNumberiOS (0.8.0)
-  - HGRippleRadarView (0.1.2)
-  - Koloda (5.0):
-    - pop (~> 1.0)
-  - LZViewPager (1.1.0):
-    - SnapKit (~> 4.2.0)
-  - pop (1.0.12)
-  - RSSelectionMenu (7.1.2)
-  - SnapKit (4.2.0)
-  - SwiftValidator (4.0.0)
-  - TPKeyboardAvoiding (1.3.5)
 
 DEPENDENCIES:
-  - AwesomeEnum
-  - FAPaginationLayout
   - FlagPhoneNumber
-  - HGRippleRadarView
-  - Koloda
-  - LZViewPager
-  - RSSelectionMenu
-  - SwiftValidator (from `https://github.com/ijameelkhan/SwiftValidator.git`)
-  - TPKeyboardAvoiding
 
 SPEC REPOS:
   trunk:
-    - AwesomeEnum
-    - FAPaginationLayout
     - FlagPhoneNumber
-    - HGRippleRadarView
-    - Koloda
-    - LZViewPager
-    - pop
-    - RSSelectionMenu
-    - SnapKit
-    - TPKeyboardAvoiding
-
-EXTERNAL SOURCES:
-  SwiftValidator:
-    :git: https://github.com/ijameelkhan/SwiftValidator.git
-
-CHECKOUT OPTIONS:
-  SwiftValidator:
-    :commit: 2ed85f8d57d7719dbbdcbad1786625b67c9b6a45
-    :git: https://github.com/ijameelkhan/SwiftValidator.git
 
 SPEC CHECKSUMS:
-  AwesomeEnum: 9283d55c3d43eeb694168665609613df108662f8
-  FAPaginationLayout: 5f9d95fbd94dff12f863c196640bd797abe68907
   FlagPhoneNumber: 3712455b95f66cb0f2016fef7d9e34cddf8c7f9a
-  HGRippleRadarView: 5379e27634c09222ebc836671c7425ad7b257cc4
-  Koloda: 75302d21882cc3e274c1561b1155805ea5919dab
-  LZViewPager: 7f02c7f135004aaf8aca51637719fec744b5f6cc
-  pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
-  RSSelectionMenu: f803d0936e074b2fdac2c41bf1d0a5b0c7fdc3e1
-  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
-  SwiftValidator: 25ded5ca1f10c05adf57f6ac82a72d28ac8d91af
-  TPKeyboardAvoiding: d55b3ea7b362540af8fcf36aa3ed2e87bf210cc6
 
-PODFILE CHECKSUM: 37648c244eb6e904c2971da49a01173ac690b8ba
+PODFILE CHECKSUM: 5b7bd70fb6c4a1bca919b27bb64fd3464250a309
 
 COCOAPODS: 1.16.2

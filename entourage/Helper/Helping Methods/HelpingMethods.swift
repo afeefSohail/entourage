@@ -288,62 +288,6 @@ func reOrderTheMatch(Matches:[Match]){
     
 }
 
-//MARK: - Message Active Notification Methdo
-func MessageNotification(Id:Int){
-    
-    if Utils.chatRoom == true {
-        
-        if Utils.chatVC?.personalChat == true{
-            
-            if Utils.chatVC?.group.id != Id {
-                
-                Utils.transtion = true
-                Utils.chatVC?.dismissNotificationChatRoom(dismissStatus: false, completeion: {
-                    if let match = EntourageManager.shared.myMatchs.last(where: {$0.chat_id == Id}){
-                        
-                        Utils.currVC?.openChatVC(chatId: Id , group: match.matcher!, completeion: {
-                            
-                        })
-                    }
-                    
-                })
-            }
-        
-    }else if Utils.chatVC?.matchId != Id{
-        
-        Utils.chatVC?.dismissNotificationChatRoom(dismissStatus: false, completeion: {
-            
-            if let match = EntourageManager.shared.myMatchs.last(where: {$0.chat_id == Id}){
-                Utils.currVC?.openChatVC(chatId: Id , group: match.matcher!, completeion: {
-                    
-                })
-            }else if EntourageManager.shared.myGroup?.id ?? 0 == Id{
-                Utils.currVC?.openChatVC(chatId: 0 , group: EntourageManager.shared.myGroup!, completeion: {
-                    
-                })
-            }
-            
-        })//dismissChatRoom(dismissStatus: false)
-        
-        
-    }
-    
-}else{
-    
-    if let match = EntourageManager.shared.myMatchs.last(where: {$0.chat_id == Id}){
-        Utils.currVC?.openChatVC(chatId: Id , group: match.matcher!, completeion: {
-            
-        })
-    }else if EntourageManager.shared.myGroup?.id ?? 0 == Id{
-        
-        Utils.currVC?.openChatVC(chatId: 0 , group: EntourageManager.shared.myGroup!, completeion: {
-            
-        })
-    }
-    
-}
-}
-
 //MARK:- Delete The Group Document
 import FirebaseAuth
 import FirebaseFirestore

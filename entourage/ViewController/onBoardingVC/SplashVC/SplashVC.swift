@@ -120,7 +120,7 @@ extension SplashVC{
                 
                 if Utils.appStatus == false{
                     Utils.appStatus = true
-                    self.loadSwipeFriendsVC()
+                    Utils.switchToMain()
                     //self.getSettings()
                 }
                 
@@ -137,7 +137,7 @@ extension SplashVC{
                 
                 if Utils.appStatus == false{
                     Utils.appStatus = true
-                    self.loadSwipeFriendsVC()
+                    Utils.switchToMain()
                 }
                 
             }else{

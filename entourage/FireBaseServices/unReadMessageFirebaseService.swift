@@ -288,15 +288,10 @@ extension unReadMessageFirebaseService{
                 let allUnreadCounter = chatTotalCounter - myChatCounter
                 
                 incrementAllUnRead(value:allUnreadCounter)
-                
-                Utils.mainVC?.upadteMessageIcon()
-                
                 reOrderTheMatch(Matches: Matches)
                 completion()
                 
             }else{
-                
-                Utils.mainVC?.upadteMessageIcon()
                 completion()
             }
 

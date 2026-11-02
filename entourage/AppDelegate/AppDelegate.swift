@@ -31,43 +31,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-        
-        if Utils.chatRoom == true{
-            Utils.chatVC?.changeUserChatStatus(status: false) {}
-        }
-        
-    }
+    func applicationWillResignActive(_ application: UIApplication) {}
     
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        
-        if Utils.chatRoom == true{
-            Utils.chatVC?.changeUserChatStatus(status: false) {}
-        }
-        
-    }
+    func applicationDidEnterBackground(_ application: UIApplication) {}
     
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-        
-        if Utils.chatRoom == true{
-            Utils.chatVC?.changeUserChatStatus(status: true) {}
-        }
-        
-    }
+    func applicationWillEnterForeground(_ application: UIApplication) {}
     
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        
-        if Utils.chatRoom == true{
-            Utils.chatVC?.changeUserChatStatus(status: true) {}
-        }
-        
-    }
+    func applicationDidBecomeActive(_ application: UIApplication) {}
     
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
@@ -106,12 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    private func HomeScreen(){
-        let hostingVC = UIHostingController(rootView: AppRootView())
-        hostingVC.view.backgroundColor = .systemBackground
-        UIApplication.shared.keyWindow?.rootViewController = hostingVC
-        UIApplication.shared.keyWindow?.makeKeyAndVisible()
-    }
+
     
 }
 
@@ -146,49 +111,18 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
         Utils.test = "Kamina"
         
         
-        if type == "Message"{
-            
-            let groupId = Int(notificationData["group_id"]  as! String ) ?? 0
-            
-            if (User.needsLogin() == false),Utils.appStatus == true{                
-                self.activeAppNotifications(id: id, type: type, didTap: true, notificationType: Notification_type)
-            }else{
-                
-                UserDefaults.standard.set(id, forKey: "chat_id")
-                UserDefaults.standard.set(groupId, forKey: "group_id")
-                UserDefaults.standard.set(type, forKey: "notifiable_type")
-                completionHandler()
-            }
-        }else if type == "MatchCreated"{
-            
-            if (User.needsLogin() == false),Utils.appStatus == true{
-                self.activeAppNotifications(id: id, type: type, didTap: true, notificationType: Notification_type)
-            }else{
-                UserDefaults.standard.set(id, forKey: "match_id")
-                UserDefaults.standard.set(type, forKey: "notifiable_type")
-            }
-            
-            completionHandler()
-            
-        }else if type == "FriendshipRequest"{
-            
-            if (User.needsLogin() == false),Utils.appStatus == true{
-                self.activeAppNotifications(id: id, type: type, didTap: true, notificationType: Notification_type)
-            }else{
-                UserDefaults.standard.set(type, forKey: "notifiable_type")
-            }
-
-            completionHandler()
-        }else if type == "FriendshipAccepted"{
-            
-            if (User.needsLogin() == false),Utils.appStatus == true{
-                self.activeAppNotifications(id: id, type: type, didTap: true, notificationType: Notification_type)
-            }else{
-                UserDefaults.standard.set(type, forKey: "notifiable_type")
-            }
-            
-            completionHandler()
+        if type == "Message" {
+            let groupId = Int(notificationData["group_id"] as! String) ?? 0
+            UserDefaults.standard.set(id, forKey: "chat_id")
+            UserDefaults.standard.set(groupId, forKey: "group_id")
+            UserDefaults.standard.set(type, forKey: "notifiable_type")
+        } else if type == "MatchCreated" {
+            UserDefaults.standard.set(id, forKey: "match_id")
+            UserDefaults.standard.set(type, forKey: "notifiable_type")
+        } else if type == "FriendshipRequest" || type == "FriendshipAccepted" {
+            UserDefaults.standard.set(type, forKey: "notifiable_type")
         }
+        completionHandler()
         
         
     }
@@ -206,43 +140,16 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
         let id = Int(notificationData["notifiable_id"]  as? String ?? "") ?? 0
         let Notification_type = notificationData["notification_type"]  as? String ?? ""
 
-        if (User.needsLogin() == false),Utils.appStatus == true{
-            
-            //Push Notifications
-            if type == "Message" || type == "MatchCreated" {
-                self.activeAppNotifications(id: id, type: type,didTap: false, notificationType: Notification_type)
-            }else if type == "FriendshipRequest" || type == "FriendshipAccepted"{
-                
-                if Notification_type == "silent"{
-                    self.activeAppNotifications(id: id, type: type,didTap: true, notificationType: Notification_type)
-                }else{
-                    self.activeAppNotifications(id: id, type: type,didTap: false, notificationType: Notification_type)
-                }
-
-            }else{//Silent Notifications
-                self.activeAppNotifications(id: id, type: type,didTap: true, notificationType: Notification_type)
-            }
-            
-        }else{//When App is Open By Push Notiofication Press Action
-            
-            if type == "Message"{
-                
-                let groupId = Int(notificationData["group_id"]  as! String ) ?? 0
-                UserDefaults.standard.set(id, forKey: "chat_id")
-                UserDefaults.standard.set(groupId, forKey: "group_id")
-                UserDefaults.standard.set(type, forKey: "notifiable_type")
-                
-            }else if type == "MatchCreated"{
-                
-                UserDefaults.standard.set(id, forKey: "match_id")
-                UserDefaults.standard.set(type, forKey: "notifiable_type")
-                
-            }else if type == "FriendshipRequest"{
-                    UserDefaults.standard.set(type, forKey: "notifiable_type")
-            }else if type == "FriendshipAccepted"{
-                    UserDefaults.standard.set(type, forKey: "notifiable_type")
-            }
-       
+        if type == "Message" {
+            let groupId = Int(notificationData["group_id"] as? String ?? "") ?? 0
+            UserDefaults.standard.set(id, forKey: "chat_id")
+            UserDefaults.standard.set(groupId, forKey: "group_id")
+            UserDefaults.standard.set(type, forKey: "notifiable_type")
+        } else if type == "MatchCreated" {
+            UserDefaults.standard.set(id, forKey: "match_id")
+            UserDefaults.standard.set(type, forKey: "notifiable_type")
+        } else if type == "FriendshipRequest" || type == "FriendshipAccepted" {
+            UserDefaults.standard.set(type, forKey: "notifiable_type")
         }
         
         completionHandler(UIBackgroundFetchResult.newData)
@@ -251,93 +158,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
         
     }
     
-    private func activeAppNotifications(id:Int, type:String, didTap:Bool,notificationType:String){
-        
-        switch type {
-        case "GroupInvite":
-            print("-> \n",type)
-            Utils.updateMyGroup = true
-            if (User.needsLogin() == false),Utils.appStatus == true,notificationType == "silent"{
-                Utils.currVC?.ShowGroupInvite(groupId: id)
-            }
-        case "GroupInviteNew" :
-            if (User.needsLogin() == false),Utils.appStatus == true,notificationType == "silent"{
-                Utils.currVC?.updateGroupStatus()
-            }
-        case "GroupInviteDeleted" :
-            if (User.needsLogin() == false),Utils.appStatus == true,notificationType == "silent"{
-                Utils.currVC?.updateGroupStatus()
-            }
-        case "GroupLeft":
-            print("-> \n",type)
-            Utils.updateMyGroup = true
-            if (User.needsLogin() == false),Utils.appStatus == true,notificationType == "silent"{
-                Utils.currVC?.updateGroupObject(type: "GroupLeft" )
-            }
-        case "GroupAdd":
-            print("-> \n",type)
-            Utils.updateMyGroup = true
-            if (User.needsLogin() == false),Utils.appStatus == true,notificationType == "silent"{
-                Utils.currVC?.updateGroupObject(type: "" )
-            }
-        case "GroupAddNew":
-            print("-> \n",type)
-            Utils.updateMyGroup = true
-            if (User.needsLogin() == false),Utils.appStatus == true,notificationType == "silent"{
-                Utils.currVC?.updateGroupObject(type: "" )
-            }
-        case "GroupInviteAccepted":
-            print("-> \n",type)
-            Utils.updateMyGroup = true
-            if (User.needsLogin() == false),Utils.appStatus == true,notificationType == "silent"{
-                Utils.currVC?.updateGroupObject(type: "" )
-            }
-        case "GroupInviteDeclined":
-            print("-> \n",type)
-            Utils.updateMyGroup = true
-            if (User.needsLogin() == false),Utils.appStatus == true,notificationType == "silent"{
-                Utils.currVC?.updateGroupObject(type: "" )
-            }
-        case "GroupStatusChanged":
-            if (User.needsLogin() == false),Utils.appStatus == true, notificationType == "silent"{
-                Utils.currVC?.updateGroupStatus()
-            }
-        case "MatchCreated":
-            print("-> \n",type)
-            if (User.needsLogin() == false),Utils.appStatus == true, didTap == true{
-                Utils.currVC?.matchInvite(matchId: id, completeion: {
-                    
-                })
-            }
-        case "UnMatch":
-            print("-> \n",type)
-            if (User.needsLogin() == false),Utils.appStatus == true,notificationType == "silent"{
-                Utils.currVC?.upadteMatchGroup(match_Id: id)
-            }
-        case "ProfilePicUpdated":
-            
-            print("-> \n",type)
-            if (User.needsLogin() == false),Utils.appStatus == true,notificationType == "silent"{
-                Utils.currVC?.updationOfProfilePic()
-            }
-        case "FriendshipRequest":
-            if (User.needsLogin() == false),Utils.appStatus == true,didTap == true{
-                Utils.currVC?.FriendShipNotification()
-            }
-        case "FriendshipAccepted":
-            if (User.needsLogin() == false),Utils.appStatus == true,didTap == true{
-                Utils.currVC?.FriendShipNotification()
-            }
-        case "Message":
-            print("-> \n",type)
-            if (User.needsLogin() == false),Utils.appStatus == true, didTap == true{
-                MessageNotification(Id: id)
-            }
-            
-        default:
-            print("-> \n",type)
-        }
-    }
+
     
 }
 

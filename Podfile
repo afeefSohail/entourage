@@ -11,7 +11,6 @@ target 'entourage' do
   
   #pod 'Alamofire'
   #pod 'AlamofireImage'
-  pod 'SwiftValidator', :git => 'https://github.com/ijameelkhan/SwiftValidator.git'
   #pod 'NVActivityIndicatorView' #, :git => 'https://github.com/ijameelkhan/NVActivityIndicatorView.git'
   #pod 'SwiftLocation'
 
@@ -27,19 +26,12 @@ target 'entourage' do
   #pod 'Fabric'
   #pod 'Crashlytics'
 
-  pod 'Koloda'
-  pod 'LZViewPager'
-  pod 'HGRippleRadarView'
-  pod 'FAPaginationLayout'
   #pod 'SwipeCellKit'
-  pod 'AwesomeEnum'
   #pod 'Agrume'
-  pod 'TPKeyboardAvoiding'
   #pod 'MultiSlider'
   #pod 'SwiftDate'
   #pod 'Kingfisher'
   #pod 'FittedSheets'
-  pod 'RSSelectionMenu'
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|

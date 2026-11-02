@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import MessageKit
 
 protocol Identifiable:  Codable {
     var id:String {get set}
@@ -205,116 +204,5 @@ extension ChatUser:Codable{
     }
 }
 
-
-
-/// Message representation in MessageKit
-/// We cant subclass PCMessage so we are using containment pattern
-/// sender property is confflicting so another reason for containement pattern
-class MKMessage {
-    
-    //innier message
-    public var innerMessage:ChatMessage
-        
-    //default init
-    init(message:ChatMessage) {
-        self.innerMessage = message
-    }
-}
-
-/// MessageKit Protcol
-extension MKMessage : MessageType{
-    
-    var sender: SenderType {
-        let tempName = self.innerMessage.sender.displayName
-        let id = self.innerMessage.sender.id
-        return Sender(senderId: id, displayName: tempName)
-    }
-    
-    var isAnonymous: Bool {
-        return self.innerMessage.sender.isAnonymous
-    }
-    
-    var senderAvatarURL: String {
-        return self.innerMessage.sender.photoUrl
-    }
-    
-    var messageId: String {
-        return self.innerMessage.id
-    }
-    
-    var sentDate: Date {
-        return Date(timeIntervalSince1970: self.innerMessage.createdAt)
-    }
-    
-//    var deleted: Bool{
-//        return self.innerMessage.isDeleted!
-//    }
-    
-    var isEmoticonMessage: Bool{
-        return (self.innerMessage.messageData.text.count == 0) && (self.innerMessage.emoticon.image != nil)
-    }
-    
-    var isFromCurrentUser: Bool{
-        return self.sender.senderId == "\(EntourageManager.shared.user.id)"
-    }
-    
-    var kind: MessageKind {
-        
-        if self.innerMessage.messageData.type == .Photo {
-            if let thumbnail = self.innerMessage.messageData.mediaThumbnail{
-                return .photo(MKMediaMessage(image: thumbnail))
-            }
-            return .photo(MKMediaMessage.init(url: innerMessage.messageData.mediaUrl))
-        }
-        
-        if self.innerMessage.messageData.type == .Video {
-            return .photo(MKMediaMessage.init(url: innerMessage.messageData.mediaUrl))
-        }
-        
-        //text message but no lenght so we display the mode
-        if isEmoticonMessage {
-            return .photo(MKMediaMessage.init(image: self.innerMessage.emoticon.image!))
-        }
-        
-        //else its text messages
-        return .text(self.innerMessage.messageData.text)
-    }
-}
-
-// MARK: - MKMessage Equality
-extension MKMessage: Equatable , Comparable {
-    
-    /// Two Message are considered equal if they have the same id.
-    public static func == (left: MKMessage, right: MKMessage) -> Bool {
-        return left.messageId == right.messageId
-    }
-    
-    //sorted
-    static func < (lhs: MKMessage, rhs: MKMessage) -> Bool {
-        return lhs.sentDate < rhs.sentDate
-    }
-}
-
-/// MessageKit Protcol
-struct MKMediaMessage : MediaItem{
-    
-    var url: URL?
-    var image: UIImage?
-    var placeholderImage: UIImage
-    var size: CGSize
-    
-    init(image: UIImage) {
-        self.image = image
-        self.size = CGSize(width: 240, height: 240)
-        self.placeholderImage = UIImage()
-    }
-    
-    init(url: String){
-        self.url = URL(string: url)
-        self.image = UIImage()
-        self.size = CGSize(width: 240, height: 240)
-        self.placeholderImage = UIImage()
-    }
-}
 
 

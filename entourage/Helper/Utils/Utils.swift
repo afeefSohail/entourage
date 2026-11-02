@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 import UserNotifications
 
 class Utils{
@@ -17,44 +18,27 @@ class Utils{
     static var unReadMsgCount = 0
     static var transtion = false
     static var notification = false
-    static var mainVC : SwipeFriendsVC?
-    static var currVC : BaseVC?
-    
-    static var updateMyGroup = false {
-        didSet{
-            if updateMyGroup == true{
-                Utils.mainVC?.pageIndex = 1
-            }
-        }
-    }
-    
+    static var updateMyGroup = false
     static var appStatus : Bool = false
-    static var chatRoom : Bool = false
-    static var chatVC : ChatGroupVC?
     static var otherGroupsUpdate : Bool = false
     static var test = ""
     static var appOpenForNotification = false
 
     static func resetVariables(){
-    
-    transtion = false
-    notification = false
-    mainVC = nil
-    currVC = nil
-    updateMyGroup = false
-    appStatus = false
-    chatRoom = false
-    chatVC = nil
-    otherGroupsUpdate = false
+        transtion = false
+        notification = false
+        updateMyGroup = false
+        appStatus = false
+        otherGroupsUpdate = false
     }
     
     //MARK: - Main
     static func switchToMain() {
-        if let rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() {
-            UIApplication.shared.connectedScenes
-                .compactMap { $0 as? UIWindowScene }
-                .first?.windows.first?.rootViewController = rootViewController
-        }
+        let hostingVC = UIHostingController(rootView: AppRootView())
+        hostingVC.view.backgroundColor = .systemBackground
+        UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first?.windows.first?.rootViewController = hostingVC
     }
 
     static func switchToOnBoarding() {

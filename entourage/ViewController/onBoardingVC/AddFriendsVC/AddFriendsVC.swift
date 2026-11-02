@@ -181,7 +181,7 @@ extension AddFriendsVC {
         if Utils.appStatus == false{
             Utils.appStatus = true
         }
-        self.loadSwipeFriendsVC()
+        Utils.switchToMain()
     }
    
     @IBAction func pressSkipBtn(_ sender: Any) {
@@ -189,7 +189,7 @@ extension AddFriendsVC {
         if Utils.appStatus == false{
             Utils.appStatus = true
         }
-        self.loadSwipeFriendsVC()
+        Utils.switchToMain()
     }
     
     @objc func pressAddBtn(_ sender: UIButton) {
