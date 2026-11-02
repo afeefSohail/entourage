@@ -8,30 +8,6 @@ target 'entourage' do
   # Pods for entourage
   #pod 'KAPinField'
   pod 'FlagPhoneNumber'
-  
-  #pod 'Alamofire'
-  #pod 'AlamofireImage'
-  #pod 'NVActivityIndicatorView' #, :git => 'https://github.com/ijameelkhan/NVActivityIndicatorView.git'
-  #pod 'SwiftLocation'
-
-  #pod 'Firebase/Core'
-  #pod 'Firebase/Messaging'
-  #pod 'Firebase/Auth'
-  #pod 'Firebase/Storage'
-  #pod 'Firebase/Firestore'
-  #pod 'Firebase/Functions'
-  #pod 'CodableFirebase'
-
-  #pod 'MessageKit'
-  #pod 'Fabric'
-  #pod 'Crashlytics'
-
-  #pod 'SwipeCellKit'
-  #pod 'Agrume'
-  #pod 'MultiSlider'
-  #pod 'SwiftDate'
-  #pod 'Kingfisher'
-  #pod 'FittedSheets'
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|

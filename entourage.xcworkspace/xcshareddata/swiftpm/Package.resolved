@@ -1,5 +1,5 @@
 {
-  "originHash" : "20d032550a05320229637d51f0d27fc4ecf4b711cca2075bbf76ff10848ca136",
+  "originHash" : "b4fdb29ab1e3270d371c4bfaa84914d57e3f72ee1f5069718b1dade2a0f5d7d9",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -53,15 +53,6 @@
       "state" : {
         "revision" : "d10045cace0b4c335c4efa8f7df7e9a9fc5a7c60",
         "version" : "12.13.0"
-      }
-    },
-    {
-      "identity" : "fittedsheets",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/gordontucker/FittedSheets",
-      "state" : {
-        "revision" : "ba34781367fb7c947e2a19334318cf440c92968c",
-        "version" : "2.7.1"
       }
     },
     {
@@ -137,24 +128,6 @@
       }
     },
     {
-      "identity" : "kapinfield",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/kirualex/KAPinField",
-      "state" : {
-        "revision" : "16ee8b12acb947b383eb5cff9d40c1e03f11b412",
-        "version" : "5.0.3"
-      }
-    },
-    {
-      "identity" : "kingfisher",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/onevcat/Kingfisher",
-      "state" : {
-        "revision" : "cf8be20d07654570554c8a8a4952bc8a5766a8b0",
-        "version" : "8.9.0"
-      }
-    },
-    {
       "identity" : "leveldb",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/leveldb.git",
@@ -215,15 +188,6 @@
       "state" : {
         "revision" : "c9e34c454ba4d5b7b6a81c766bb3337fb6e21dfc",
         "version" : "1.2.6"
-      }
-    },
-    {
-      "identity" : "swiftdate",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/malcommac/SwiftDate",
-      "state" : {
-        "revision" : "5d943224c3bb173e6ecf27295611615eba90c80e",
-        "version" : "7.0.0"
       }
     },
     {
