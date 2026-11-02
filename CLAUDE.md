@@ -137,3 +137,62 @@ Migrate screen by screen, lowest-risk first:
 `MessageFirebaseService<ChatMessage>` stays as-is; wrap it behind `ChatRepository`.
 Path: `Message/{id}/ChatMessages`, ordered by `createdAt` ascending.
 `ChatGroupVC` supports personal group chat and match cross-group chat via `personalChat: Bool` — preserve this distinction in SwiftUI.
+
+---
+
+## Phase 4 — Onboarding SwiftUI Migration ✓ Complete
+
+### What was done
+
+Replaced all 11 UIKit onboarding ViewControllers and `onBoarding.storyboard` with SwiftUI views. `SceneDelegate` now sets `UIHostingController(rootView: RootRouter())` as the window root.
+
+### New files
+
+```
+entourage/Features/Root/
+  RootRouter.swift               ← switches between splash / onboarding / main
+
+entourage/Features/Onboarding/
+  AppState.swift                 ← @Observable, Phase enum (splash/onboarding/main)
+  OnboardingCoordinator.swift    ← @Observable, NavigationStack + NavigationPath
+  OnboardingView.swift           ← NavigationStack root, handles all destinations
+  Views/
+    SplashView.swift
+    TutorialView.swift
+    PhoneInputView.swift         ← wraps FPNTextField (FlagPhoneNumber CocoaPod)
+    OTPView.swift                ← Firebase phone auth, 6-box custom UI
+    GenderView.swift
+    NameView.swift               ← reused for first name and last name (isLastName flag)
+    BirthdayView.swift
+    PhotosView.swift             ← PhotosPicker, LazyVGrid, uploadPhoto API
+    UsernameView.swift           ← debounced availability check
+    ContactsPermissionView.swift
+    OnboardingAddFriendsView.swift
+    UserBannedView.swift
+```
+
+### Deleted
+
+- `entourage/Storyboards/Base.lproj/onBoarding.storyboard`
+- All 17 files under `entourage/ViewController/onBoardingVC/`
+- All onboarding `load*VC` methods from `Ext+LoadVC.swift`
+- `switchToMain()` and `switchToOnBoarding()` from `Utils.swift` (replaced by `appState.phase`)
+
+### SPM packages removed
+
+| Package | Reason |
+|---------|--------|
+| KAPinField | Replaced by custom SwiftUI OTP boxes |
+| FittedSheets | No longer needed |
+| SwiftDate | Replaced by `Calendar.current.component` and `DateFormatter` |
+| Kingfisher | Replaced by `URLSession.shared.dataTask` and SwiftUI `AsyncImage` |
+
+### CocoaPods still required
+
+`FlagPhoneNumber` — used in `PhoneInputView.swift` for the country-code picker.
+
+### Key patterns used
+
+- `@Observable` for `AppState` and `OnboardingCoordinator` (iOS 17+)
+- `withCheckedThrowingContinuation` to bridge callback-based `WebServicesManager` calls into `async/await`; always annotate the continuation type explicitly: `(cont: CheckedContinuation<Void, Error>)`
+- `SwiftUI.Group` (fully qualified) to avoid conflict with the app's own `class Group: Codable`
