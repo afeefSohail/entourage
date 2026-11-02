@@ -12,7 +12,7 @@ struct UserProfileView: View {
     @State private var isSendingRequest = false
     @State private var currentPhotoIndex = 0
 
-    private var vm: UserViewModel { UserViewModel(user: user) }
+    private var vm: UserViewModel { UserViewModel(user) }
 
     var body: some View {
         ScrollView {

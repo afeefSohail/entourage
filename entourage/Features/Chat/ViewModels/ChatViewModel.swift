@@ -19,9 +19,9 @@ final class ChatViewModel {
 
     // MARK: - Private
     private var service: MessageFirebaseService<ChatMessage>?
-    private lazy var currentUser: ChatUser = {
-        EntourageManager.shared.user.getChatUser(sideId: EntourageManager.shared.myGroup?.id ?? 0)
-    }()
+    private var currentUser: ChatUser
+
+
 
     var chatRoomId: String {
         personalChat ? "\(group.id)" : "Match_\(matchId)"
@@ -33,6 +33,7 @@ final class ChatViewModel {
         self.group = group
         self.personalChat = personalChat
         self.matchId = matchId
+        self.currentUser = EntourageManager.shared.user.getChatUser(sideId: EntourageManager.shared.myGroup?.id ?? 0)
     }
 
     // MARK: - Lifecycle

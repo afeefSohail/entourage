@@ -8,14 +8,14 @@ struct MatchDetailView: View {
     @State private var showUnmatch = false
     @State private var currentPhotoIdx = 0
 
-    private var mvm: MatchViewModel { MatchViewModel(match: match) }
+    private var mvm: MatchViewModel { MatchViewModel(match) }
     private var group: Group? { match.matcher }
 
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
                 // Member photo carousel
-                if let members = group?.members, !members.isEmpty {
+                if let members = group?.users, !members.isEmpty {
                     TabView(selection: $currentPhotoIdx) {
                         ForEach(members.indices, id: \.self) { idx in
                             let member = members[idx]
@@ -44,7 +44,7 @@ struct MatchDetailView: View {
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(mvm.otherGroupName).font(.title2.bold())
-                            if let gvm = group.map({ GroupViewModel(group: $0) }) {
+                            if let gvm = group.map({ GroupViewModel($0) }) {
                                 Text(gvm.memberCountText).font(.subheadline).foregroundStyle(.secondary)
                             }
                         }
@@ -61,7 +61,7 @@ struct MatchDetailView: View {
                     }
 
                     // Members row
-                    if let members = group?.members, !members.isEmpty {
+                    if let members = group?.users, !members.isEmpty {
                         Divider()
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 12) {

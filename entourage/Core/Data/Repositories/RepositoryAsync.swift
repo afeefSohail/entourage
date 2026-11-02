@@ -32,10 +32,10 @@ extension GroupRepository {
     }
 
     func leaveGroup() async throws {
-        try await withCheckedThrowingContinuation { cont in
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
             leaveGroup { _, error in
                 if let error { cont.resume(throwing: RepositoryError(message: error)); return }
-                cont.resume(returning: ())
+                cont.resume()
             }
         }
     }
@@ -50,10 +50,10 @@ extension GroupRepository {
     }
 
     func rejectGroupInvite(groupId: Int) async throws {
-        try await withCheckedThrowingContinuation { cont in
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
             rejectGroupInvite(groupId: groupId) { _, error in
                 if let error { cont.resume(throwing: RepositoryError(message: error)); return }
-                cont.resume(returning: ())
+                cont.resume()
             }
         }
     }
@@ -109,10 +109,10 @@ extension MatchRepository {
     }
 
     func unMatchTheGroup(groupId: String) async throws {
-        try await withCheckedThrowingContinuation { cont in
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
             unMatchTheGroup(groupId: groupId) { _, error in
                 if let error { cont.resume(throwing: RepositoryError(message: error)); return }
-                cont.resume(returning: ())
+                cont.resume()
             }
         }
     }
@@ -168,19 +168,19 @@ extension UserRepository {
     }
 
     func deletePhoto(photoId: Int) async throws {
-        try await withCheckedThrowingContinuation { cont in
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
             deletePhoto(photoId: photoId) { _, error in
                 if let error { cont.resume(throwing: RepositoryError(message: error)); return }
-                cont.resume(returning: ())
+                cont.resume()
             }
         }
     }
 
     func setOrderPhoto(photoId: Int, order: Int, isPrimary: Bool) async throws {
-        try await withCheckedThrowingContinuation { cont in
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
             setOrderPhoto(photoId: photoId, order: order, isPrimary: isPrimary) { _, error in
                 if let error { cont.resume(throwing: RepositoryError(message: error)); return }
-                cont.resume(returning: ())
+                cont.resume()
             }
         }
     }
@@ -195,19 +195,19 @@ extension UserRepository {
     }
 
     func blockFriend(friendId: Int) async throws {
-        try await withCheckedThrowingContinuation { cont in
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
             blockFriend(friendId: friendId, reason: nil, abusiveMsg: nil) { _, error in
                 if let error { cont.resume(throwing: RepositoryError(message: error)); return }
-                cont.resume(returning: ())
+                cont.resume()
             }
         }
     }
 
     func unblockedUsers(blockUserIds: String) async throws {
-        try await withCheckedThrowingContinuation { cont in
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
             unblockedUsers(blockUserIds: blockUserIds) { _, error in
                 if let error { cont.resume(throwing: RepositoryError(message: error)); return }
-                cont.resume(returning: ())
+                cont.resume()
             }
         }
     }
@@ -231,10 +231,10 @@ extension UserRepository {
     }
 
     func sendRequest(friendId: Int) async throws {
-        try await withCheckedThrowingContinuation { cont in
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
             sendRequest(friendId: friendId) { _, error in
                 if let error { cont.resume(throwing: RepositoryError(message: error)); return }
-                cont.resume(returning: ())
+                cont.resume()
             }
         }
     }

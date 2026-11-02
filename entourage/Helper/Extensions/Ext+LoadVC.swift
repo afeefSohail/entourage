@@ -171,10 +171,12 @@ extension UIViewController {
 
     //MARK: - Main
   static func switchToMain() {
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() {
-                appDelegate.window?.rootViewController = rootViewController
-            }
+        if let rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() {
+            UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .first?.windows.first?.rootViewController = rootViewController
         }
+    }
     
 
     //MARK: - SwipeViews

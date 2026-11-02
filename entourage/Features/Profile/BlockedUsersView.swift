@@ -6,7 +6,7 @@ struct BlockedUsersView: View {
     @State private var vm = BlockedUsersViewModel()
 
     var body: some View {
-        Group {
+        SwiftUI.Group {
             if vm.isLoading && vm.blockedUsers.isEmpty {
                 ProgressView()
             } else if vm.blockedUsers.isEmpty {

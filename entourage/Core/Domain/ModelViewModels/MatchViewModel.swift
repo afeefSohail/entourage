@@ -13,9 +13,9 @@ struct MatchViewModel {
 
     var chatId: String { "Match_\(match.id)" }
 
-    var otherGroup: Group? { match.group }
+    var otherGroup: Group? { match.matcher }
 
-    var otherGroupName: String { match.group?.myGroupName() ?? "" }
+    var otherGroupName: String { match.matcher?.myGroupName() ?? "" }
 
     var isUnread: Bool { getUnReadMsg(id: "\(match.id)") > 0 }
 

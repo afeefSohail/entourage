@@ -15,17 +15,10 @@ import FirebaseAuth
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    var window: UIWindow?
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        
-        window?.tintColor = UIColor(named: "themeColor")
         
         //Badge Number
         UIApplication.shared.applicationIconBadgeNumber = 0
-        
-        self.window?.backgroundColor = UIColor.white
         
                 //GMT 0
         //       TimeZone.ReferenceType.default = TimeZone(abbreviation: "UTC")!

@@ -19,10 +19,10 @@ final class ChatRepository: ChatRepositoryProtocol {
     }
 
     func deleteMessages(groupId: String, completion: @escaping () -> Void) {
-        deleteTheChatMessage(groupId: groupId, completion: completion)
+        deleteTheChatMessage(groupId: groupId, completetion: completion)
     }
 
     func deleteMembers(groupId: String, completion: @escaping () -> Void) {
-        deleteTheChatMember(groupId: groupId, completion: completion)
+        deleteTheChatMember(groupId: groupId, completetion: completion)
     }
 }

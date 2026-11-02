@@ -72,7 +72,7 @@ struct SwipeView: View {
                         else { await vm.pass() }
                     }
                 } onTap: {
-                    coordinator.push(.userProfile(group.members?.first ?? User(), group))
+                    coordinator.push(.userProfile(group.users.first ?? User(), group))
                 }
             }
         }
@@ -142,7 +142,7 @@ struct GroupCard: View {
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             // Primary photo
-            if let member = group.members?.first,
+            if let member = group.users.first,
                let photo = member.photos.first(where: { $0.is_primary == true }) ?? member.photos.first,
                let urlStr = photo.original, let url = URL(string: urlStr) {
                 AsyncImage(url: url) { phase in
@@ -168,7 +168,7 @@ struct GroupCard: View {
                 Text(group.name ?? "Group")
                     .font(.title2.bold())
                     .foregroundStyle(.white)
-                let gvm = GroupViewModel(group: group)
+                let gvm = GroupViewModel(group)
                 Text(gvm.memberCountText)
                     .font(.subheadline)
                     .foregroundStyle(.white.opacity(0.9))
@@ -233,7 +233,7 @@ struct DraggableGroupCard: View {
             RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .stroke(dragOffset.width > 0 ? Color.green : Color.red, lineWidth: 4)
                 .overlay(
-                    Group {
+                    SwiftUI.Group {
                         if dragOffset.width > 30 {
                             Text("LIKE").font(.title.bold()).foregroundStyle(.green).padding(20)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

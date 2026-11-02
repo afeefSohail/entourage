@@ -30,7 +30,7 @@ struct ProfileView: View {
                 VStack(alignment: .leading, spacing: 16) {
                     // Name + age
                     HStack {
-                        Text(UserViewModel(user: vm.user).nameWithAge)
+                        Text(UserViewModel(vm.user).nameWithAge)
                             .font(.title2.bold())
                         Spacer()
                         Button {
@@ -95,7 +95,7 @@ struct GroupInfoRow: View {
     var body: some View {
         Button(action: action) {
             HStack(spacing: 12) {
-                if let url = URL(string: GroupViewModel(group: group).primaryMembers.first?.primaryPhotoURL ?? "") {
+                if let url = GroupViewModel(group).primaryMembers.first.flatMap({ UserViewModel($0).primaryPhotoURL }) {
                     AsyncImage(url: url) { phase in
                         if case .success(let img) = phase { img.resizable().scaledToFill() }
                         else { Color(.tertiarySystemBackground) }
@@ -105,7 +105,7 @@ struct GroupInfoRow: View {
                 }
                 VStack(alignment: .leading, spacing: 2) {
                     Text(group.name ?? "My Group").font(.headline)
-                    Text(GroupViewModel(group: group).memberCountText).font(.subheadline).foregroundStyle(.secondary)
+                    Text(GroupViewModel(group).memberCountText).font(.subheadline).foregroundStyle(.secondary)
                 }
                 Spacer()
                 Image(systemName: "chevron.right").foregroundStyle(.tertiary)

@@ -51,7 +51,7 @@ struct ChatView: View {
                 } label: {
                     Image(systemName: "arrow.up.circle.fill")
                         .font(.title2)
-                        .foregroundStyle(vm.inputText.trimmingCharacters(in: .whitespaces).isEmpty ? .secondary : .blue)
+                        .foregroundColor(vm.inputText.trimmingCharacters(in: .whitespaces).isEmpty ? .secondary : .blue)
                 }
                 .disabled(vm.inputText.trimmingCharacters(in: .whitespaces).isEmpty)
             }

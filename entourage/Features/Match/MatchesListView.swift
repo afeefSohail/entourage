@@ -9,7 +9,7 @@ struct MatchesListView: View {
     @State private var showUnmatchAlert = false
 
     var body: some View {
-        Group {
+        SwiftUI.Group {
             if vm.isLoading && vm.matches.isEmpty {
                 ProgressView()
             } else if vm.matches.isEmpty {
@@ -58,7 +58,7 @@ private struct MatchRow: View {
     let match: Match
     let onTap: () -> Void
 
-    private var mvm: MatchViewModel { MatchViewModel(match: match) }
+    private var mvm: MatchViewModel { MatchViewModel(match) }
 
     var body: some View {
         Button(action: onTap) {
@@ -90,7 +90,7 @@ private struct MatchRow: View {
 
     @ViewBuilder
     private var groupAvatarStack: some View {
-        let members = mvm.otherGroup?.members ?? []
+        let members = mvm.otherGroup?.users ?? []
         ZStack {
             ForEach(members.prefix(3).indices, id: \.self) { idx in
                 if let photo = members[idx].photos.first(where: { $0.is_primary == true }) ?? members[idx].photos.first,

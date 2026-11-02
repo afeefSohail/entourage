@@ -5,7 +5,7 @@ import Alamofire
 
 typealias RepoCallback = (_ result: Any?, _ error: String?) -> Void
 
-fileprivate typealias AlamofireCallback = (DataResponse<Any, AFError>) -> Void
+typealias AlamofireCallback = (DataResponse<Any, AFError>) -> Void
 
 class RepositoryBase {
 
