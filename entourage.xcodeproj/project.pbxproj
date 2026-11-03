@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1B2C3D4E5F60001A1B2C3D4 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60002A1B2C3D4 /* APIResponse.swift */; };
 		C0D36A4819754681AAA4D975 /* Group+DisplayName.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E1D4DE243545A1A93466BB /* Group+DisplayName.swift */; };
 		8F31E75C1A4F4B908B51BE39 /* PhotoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559AC7F365AB4A01A256C1EE /* PhotoProvider.swift */; };
 		AF6AD721D788401AAC5BC4E6 /* GroupMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9338BBB098F4441E8DA6226D /* GroupMember.swift */; };
@@ -145,6 +146,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A1B2C3D4E5F60002A1B2C3D4 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
 		B0E1D4DE243545A1A93466BB /* Group+DisplayName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+DisplayName.swift"; sourceTree = "<group>"; };
 		559AC7F365AB4A01A256C1EE /* PhotoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoProvider.swift; sourceTree = "<group>"; };
 		9338BBB098F4441E8DA6226D /* GroupMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMember.swift; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 				50105D63229D72AF00CC901E /* Contacts.swift */,
 				50B11B1622BFAA8600D13BF5 /* ChatMessage.swift */,
 				5016230822EDDA1D00BF8123 /* Photo.swift */,
+				A1B2C3D4E5F60002A1B2C3D4 /* APIResponse.swift */,
 				B0E1D4DE243545A1A93466BB /* Group+DisplayName.swift */,
 				559AC7F365AB4A01A256C1EE /* PhotoProvider.swift */,
 				9338BBB098F4441E8DA6226D /* GroupMember.swift */,
@@ -946,6 +949,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1B2C3D4E5F60001A1B2C3D4 /* APIResponse.swift in Sources */,
 				C0D36A4819754681AAA4D975 /* Group+DisplayName.swift in Sources */,
 				8F31E75C1A4F4B908B51BE39 /* PhotoProvider.swift in Sources */,
 				AF6AD721D788401AAC5BC4E6 /* GroupMember.swift in Sources */,

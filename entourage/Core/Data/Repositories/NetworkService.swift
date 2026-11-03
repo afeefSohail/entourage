@@ -59,7 +59,15 @@ final class NetworkService: NetworkServiceProtocol {
                     case .success(let data):
                         do {
                             let decoded = try JSONDecoder().decode(APIResponse<T>.self, from: data)
-                            cont.resume(returning: decoded.data)
+                            guard decoded.meta.code == 200 else {
+                                cont.resume(throwing: NetworkError.serverError(decoded.meta.message))
+                                return
+                            }
+                            guard let value = decoded.data else {
+                                cont.resume(throwing: NetworkError.serverError("No data in response"))
+                                return
+                            }
+                            cont.resume(returning: value)
                         } catch {
                             cont.resume(throwing: NetworkError.decodingError(error))
                         }

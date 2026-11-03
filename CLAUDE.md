@@ -247,3 +247,36 @@ Saves ~500–800 lines of code that would otherwise need to be migrated to Swift
 - Backend is not built yet — frontend defines the contract; backend will be built to match
 - `add_member` should put users directly into `group.users` with no pending state (backend must implement this)
 - After removal, verify group creation and swipe flow still work end-to-end
+
+---
+
+## API Response Contract (backend not built yet — frontend defines this)
+
+Every endpoint must wrap its response in this envelope:
+
+```json
+{ "meta": { "code": 200, "message": "Success" }, "data": { ... } }
+{ "meta": { "code": 200, "message": "Success" }, "data": [ ... ] }
+{ "meta": { "code": 422, "message": "Validation failed" }, "data": null }
+```
+
+### Swift types (already in `entourage/Models/APIResponse.swift`)
+
+```swift
+struct APIResponse<T: Decodable>: Decodable {
+    var meta: Meta
+    var data: T?
+}
+
+struct Meta: Decodable {
+    var code: Int
+    var message: String
+}
+```
+
+### Rules
+
+- `meta.code` is the canonical success/error signal — `200` is success, anything else is an error
+- `data` is `null` (omitted) for endpoints that return nothing (delete, leave, logout)
+- Pagination fields go inside `meta`: `current_page`, `total_pages`, `per_page`, `total_count`
+- Once the backend adopts this contract, delete all envelope wrapper classes: `BaseUser`, `Settings`, `UpdatePhoto`, `MyGroup`, `OtherGroups`, `MyMatches`, `MyMatche`, `BaseFriendShip`, `FriendsWithInvitedUser`, `RequestFriends`, `FriendShip`
