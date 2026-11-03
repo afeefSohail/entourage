@@ -4,7 +4,7 @@ import Contacts
 struct OnboardingAddFriendsView: View {
     @Environment(AppState.self) private var appState
 
-    @State private var friends: [Friend] = []
+    @State private var friends: [User] = []
     @State private var addedIds: Set<Int> = []
     @State private var searchText = ""
     @State private var isLoading = true
@@ -12,7 +12,7 @@ struct OnboardingAddFriendsView: View {
 
     private let requiredCount = 3
 
-    private var filtered: [Friend] {
+    private var filtered: [User] {
         guard !searchText.isEmpty else { return friends }
         return friends.filter {
             ($0.first_name?.localizedCaseInsensitiveContains(searchText) == true) ||
@@ -99,7 +99,7 @@ struct OnboardingAddFriendsView: View {
         .padding(.vertical, 16)
     }
 
-    private func toggleFriend(_ friend: Friend) {
+    private func toggleFriend(_ friend: User) {
         let id = friend.id
         guard let phone = friend.phone_number else { return }
         if addedIds.contains(id) {
@@ -121,7 +121,7 @@ struct OnboardingAddFriendsView: View {
         await withCheckedContinuation { cont in
             WebServicesManager.shared.getFriendsListBy(contacts: numbers, directFriendship: false) { list, _ in
                 Task { @MainActor in
-                    friends = (list as? [Friend]) ?? []
+                    friends = (list as? [User]) ?? []
                     isLoading = false
                     cont.resume()
                 }
@@ -138,7 +138,7 @@ struct OnboardingAddFriendsView: View {
 // MARK: - FriendRow
 
 private struct FriendRow: View {
-    let friend: Friend
+    let friend: User
     let isAdded: Bool
     let onToggle: () -> Void
 

@@ -167,11 +167,11 @@ extension UserRepository {
         }
     }
 
-    func getFriendsList() async throws -> [Friend] {
+    func getFriendsList() async throws -> [User] {
         try await withCheckedThrowingContinuation { cont in
             getFriendsList { result, error in
                 if let error { cont.resume(throwing: RepositoryError(message: error)); return }
-                cont.resume(returning: (result as? [Friend]) ?? [])
+                cont.resume(returning: (result as? [User]) ?? [])
             }
         }
     }
@@ -194,11 +194,11 @@ extension UserRepository {
         }
     }
 
-    func getBlockedFriends() async throws -> [Friend] {
+    func getBlockedFriends() async throws -> [User] {
         try await withCheckedThrowingContinuation { cont in
             getBlockedFriends { result, error in
                 if let error { cont.resume(throwing: RepositoryError(message: error)); return }
-                cont.resume(returning: (result as? [Friend]) ?? [])
+                cont.resume(returning: (result as? [User]) ?? [])
             }
         }
     }

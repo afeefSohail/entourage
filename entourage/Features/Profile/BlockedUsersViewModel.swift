@@ -6,7 +6,7 @@ import Observation
 @MainActor
 final class BlockedUsersViewModel {
 
-    var blockedUsers: [Friend] = []
+    var blockedUsers: [User] = []
     var selectedIds: Set<Int> = []
     var isLoading = false
     var isUnblocking = false
@@ -36,7 +36,7 @@ final class BlockedUsersViewModel {
         defer { isUnblocking = false }
         do {
             try await repo.unblockedUsers(blockUserIds: ids)
-            blockedUsers.removeAll { selectedIds.contains($0.id ?? 0) }
+            blockedUsers.removeAll { selectedIds.contains($0.id) }
             selectedIds.removeAll()
             EntourageManager.shared.setting?.block_member_count = blockedUsers.count
         } catch {

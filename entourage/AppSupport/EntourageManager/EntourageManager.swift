@@ -20,7 +20,7 @@ class EntourageManager {
     var photos : [Photo] = []
     
     //MyFriends
-    var FriendShips : [Friend] = []
+    var FriendShips : [User] = []
     
     //group
     var myGroup : Group?
@@ -47,7 +47,7 @@ class EntourageManager {
             if groupIds.contains(where: {$0 == friend.id}){
                 print("Nothing to do")
             }else{
-                onlyFriends.append(User.userFriend(user: friend))
+                onlyFriends.append(friend)
             }
         }
         

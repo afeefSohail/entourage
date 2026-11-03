@@ -32,4 +32,3 @@ extension PhotoProvider {
 }
 
 extension User: PhotoProvider {}
-extension Friend: PhotoProvider {}

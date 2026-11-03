@@ -101,7 +101,6 @@
 		509341B522EA57B600F254AD /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509341B422EA57B600F254AD /* Constant.swift */; };
 		50B11B1722BFAA8600D13BF5 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B11B1622BFAA8600D13BF5 /* ChatMessage.swift */; };
 		50C7CC2922F58E3100EAF3C6 /* Friendships.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C7CC2722F58E3100EAF3C6 /* Friendships.swift */; };
-		50C7CC2A22F58E3100EAF3C6 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C7CC2822F58E3100EAF3C6 /* Friend.swift */; };
 		50ED40D722AA707E008EADB9 /* Kaufmann-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50ED40D622AA707E008EADB9 /* Kaufmann-Bold.otf */; };
 		5C5BCB174C5D4DB08594E96A /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACF54A9C78B437FB042E6FE /* UserRepository.swift */; };
 		5E0A6D59AAD1454AA64B6DF4 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30116EA7BB0945788612462A /* ChatViewModel.swift */; };
@@ -213,7 +212,6 @@
 		509341B422EA57B600F254AD /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		50B11B1622BFAA8600D13BF5 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		50C7CC2722F58E3100EAF3C6 /* Friendships.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friendships.swift; sourceTree = "<group>"; };
-		50C7CC2822F58E3100EAF3C6 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		50ED40D622AA707E008EADB9 /* Kaufmann-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kaufmann-Bold.otf"; sourceTree = "<group>"; };
 		578B5735F2604CC69CF373D3 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		5993D41D70004A73AA47144B /* entourage/Features/Onboarding/Views/OTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Onboarding/Views/OTPView.swift; sourceTree = SOURCE_ROOT; };
@@ -347,7 +345,6 @@
 			isa = PBXGroup;
 			children = (
 				5023AB4F24F127AA002971BA /* APIResponse.swift */,
-				50C7CC2822F58E3100EAF3C6 /* Friend.swift */,
 				50C7CC2722F58E3100EAF3C6 /* Friendships.swift */,
 				50394EF122EC33220059ED7E /* Setting.swift */,
 				50394EF222EC33220059ED7E /* User.swift */,
@@ -991,7 +988,6 @@
 				50149A3522FF3B6D00A1FBBF /* Match.swift in Sources */,
 				504C45252299A44A00B17623 /* UIColor+Ext.swift in Sources */,
 				504829BD23486451000C0916 /* ActiveMemberSDK.swift in Sources */,
-				50C7CC2A22F58E3100EAF3C6 /* Friend.swift in Sources */,
 				509341B322EA576E00F254AD /* WebservicesManager.swift in Sources */,
 				E9B0BC5E233FB73000CC6C3C /* PushNotificationManager.swift in Sources */,
 				50394EF422EC33220059ED7E /* User.swift in Sources */,

@@ -7,13 +7,13 @@ import Foundation
 
 
 struct BaseFriendShip : Codable {
-    var friendships : [Friend] = []
+    var friendships : [User] = []
     var users : [User]? = []
 }
 
 struct FriendsWithInvitedUser : Codable {
     
-    var friendships : [Friend] = []
+    var friendships : [User] = []
     var nonExisting : [String] = []
     
     enum CodingKeys: String, CodingKey {
@@ -25,7 +25,7 @@ struct FriendsWithInvitedUser : Codable {
 
 struct RequestFriends : Codable {
     
-    var friendships : [Friend] = []
+    var friendships : [User] = []
     
     enum CodingKeys: String, CodingKey {
 
@@ -35,7 +35,7 @@ struct RequestFriends : Codable {
 }
 
 struct FriendShip : Codable {
-    var friendship_user = Friend()
+    var friendship_user = User()
 }
 
 

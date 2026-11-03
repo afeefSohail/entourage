@@ -183,7 +183,8 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
                 var base = try JSONDecoder().decode(BaseFriendShip.self, from: data)
                 if let users = base.users, !users.isEmpty {
                     for user in users {
-                        base.friendships.append(Friend.friendUser(user: user, status: "no_relation"))
+                        user.friendStatus = "no_relation"
+                        base.friendships.append(user)
                     }
                 }
                 base.friendships.removeAll { $0.phone_number == EntourageManager.shared.user.phone_number }
@@ -412,7 +413,8 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
                 var base = try JSONDecoder().decode(BaseFriendShip.self, from: data)
                 if let users = base.users, !users.isEmpty {
                     for user in users {
-                        base.friendships.append(Friend.friendUser(user: user, status: "Request"))
+                        user.friendStatus = "Request"
+                        base.friendships.append(user)
                     }
                 }
                 callback(base.friendships, nil)

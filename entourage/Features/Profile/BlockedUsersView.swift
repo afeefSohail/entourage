@@ -19,9 +19,9 @@ struct BlockedUsersView: View {
                 List(vm.blockedUsers, id: \.id) { friend in
                     BlockedUserRow(
                         friend: friend,
-                        isSelected: vm.selectedIds.contains(friend.id ?? 0)
+                        isSelected: vm.selectedIds.contains(friend.id)
                     ) {
-                        vm.toggleSelection(friend.id ?? 0)
+                        vm.toggleSelection(friend.id)
                     }
                 }
             }
@@ -50,7 +50,7 @@ struct BlockedUsersView: View {
 }
 
 private struct BlockedUserRow: View {
-    let friend: Friend
+    let friend: User
     let isSelected: Bool
     let onTap: () -> Void
 

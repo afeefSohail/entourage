@@ -30,6 +30,7 @@ class User : Codable {
     var isMember             = false
     var isBlocked            : Bool?   = false
     var authentication_token : String? = ""
+    var friendStatus         : String? = nil
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -49,6 +50,7 @@ class User : Codable {
         case age
         case fcm_tokens
         case isBlocked            = "is_blocked"
+        case friendStatus         = "status"
     }
 
     func saveToken() {
@@ -79,21 +81,4 @@ class User : Codable {
         return UserDefaults.standard.object(forKey: "token") == nil
     }
 
-    static func userFriend(user: Friend) -> User {
-        let newUser = User()
-        newUser.id                   = user.id
-        newUser.phone_number         = user.phone_number ?? ""
-        newUser.authentication_token = user.authentication_token ?? ""
-        newUser.user_name            = user.user_name ?? ""
-        newUser.bio                  = user.bio ?? ""
-        newUser.first_name           = user.first_name ?? ""
-        newUser.last_name            = user.last_name ?? ""
-        newUser.latitude             = user.latitude ?? ""
-        newUser.longitude            = user.longitude ?? ""
-        newUser.photos               = user.photos
-        newUser.fcm_tokens           = user.fcm_tokens
-        newUser.isMember             = user.isMember
-        newUser.isBlocked            = user.isBlocked ?? false
-        return newUser
-    }
 }
