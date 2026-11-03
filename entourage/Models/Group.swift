@@ -9,6 +9,11 @@
 
 import Foundation
 
+enum GroupStatus: String {
+    case active = "active"
+    case inactive = "in_active"
+}
+
 class MyGroup : Codable {
     var group : Group?
 }
@@ -28,7 +33,7 @@ class OtherGroups : Codable {
 class Group : Codable {
     
     var id : Int = 0
-    var status : String = ""
+    var status : String = GroupStatus.inactive.rawValue
     var users : [User] = []
     var invitedUsers : [User]? = []
     var name : String?
@@ -46,6 +51,10 @@ class Group : Codable {
         case city = "city"
         case state = "state"
         case invitedUsers = "pending_approval"
+    }
+    
+    var groupStatus: GroupStatus {
+        return  GroupStatus(rawValue: status) ?? .inactive
     }
     
     func matcherGroupName()->String{

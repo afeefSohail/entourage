@@ -14,7 +14,7 @@ protocol UserRepositoryProtocol {
     func deleteUserAccount(reason: String, callback: @escaping RepoCallback)
     func updateLocation(callback: @escaping RepoCallback)
     func searchBy(userName: String, callback: @escaping RepoCallback)
-    func reportUser(user: User, reason: String, image: UIImage, callback: @escaping RepoCallback)
+    func reportUser(userVM: UserViewModel, reason: String, image: UIImage, callback: @escaping RepoCallback)
     func sendInviteMessage(phoneNumber: String, callback: @escaping RepoCallback)
     // Photos
     func uploadPhoto(image: Data, isPrimary: Bool, order: Int, callback: @escaping RepoCallback)
@@ -196,15 +196,15 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
             .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))
     }
 
-    func reportUser(user: User, reason: String, image: UIImage, callback: @escaping RepoCallback) {
+    func reportUser(userVM: UserViewModel, reason: String, image: UIImage, callback: @escaping RepoCallback) {
         let params: [String: Any] = [
             "auth_token": User.getToken(),
-            "user_id": user.id,
+            "user_id": userVM.user.id,
             "reason": reason
         ]
         AF.upload(multipartFormData: { form in
             if let data = image.pngData() {
-                form.append(data, withName: "image", fileName: "Report_\(user.name()).png", mimeType: "image/png")
+                form.append(data, withName: "image", fileName: "Report_\(userVM.displayName).png", mimeType: "image/png")
             }
             for (key, value) in params {
                 if let s = value as? String { form.append(s.data(using: .utf8)!, withName: key) }

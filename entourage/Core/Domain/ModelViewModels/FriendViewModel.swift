@@ -17,7 +17,10 @@ struct FriendViewModel {
         let last  = friend.last_name  ?? ""
         return last.isEmpty ? first : "\(first) \(last)"
     }
-    var initials: String { friend.nameInitials() }
+    var initials: String {
+        return "\(friend.first_name?.prefix(1) ?? "")\(friend.last_name?.prefix(1) ?? "")"
+    }
+    
     var username: String { "@\(friend.user_name ?? "")" }
 
     // MARK: - Age / Bio
@@ -35,11 +38,19 @@ struct FriendViewModel {
     }
 
     var primaryPhotoThumbURL: URL? {
-        let urlStr = friend.getPrimaryImageThumb()
+        var urlStr = ""
+        
+        if friend.photos.count > 0{
+            let primaryImage = friend.photos.filter({$0.is_primary == true})
+            if primaryImage.count > 0{
+                urlStr = primaryImage[0].thumb ?? ""
+            }
+        }
+                
         return urlStr.isEmpty ? nil : URL(string: urlStr)
     }
 
-    var hasPhoto: Bool { primaryPhotoURL != nil }
+    var hasPhoto: Bool { friend.photos.count > 0 }
 
     // MARK: - Location
 

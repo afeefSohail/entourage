@@ -21,7 +21,7 @@ final class MatchRepository: RepositoryBase, MatchRepositoryProtocol {
             do {
                 let otherGroups = try JSONDecoder().decode(OtherGroups.self, from: data)
                 otherGroups.groups.forEach { group in
-                    if group.users.isEmpty || group.status != "active" {
+                    if group.users.isEmpty || group.groupStatus == .inactive {
                         if let idx = otherGroups.groups.lastIndex(where: { $0.id == group.id }) {
                             otherGroups.groups.remove(at: idx)
                         }

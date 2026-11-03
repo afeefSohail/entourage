@@ -18,7 +18,7 @@ struct GroupViewModel {
 
     var distanceText: String { group.distance ?? "0 Miles" }
 
-    var isActive: Bool { group.status == "active" }
+    var isActive: Bool { group.groupStatus == GroupStatus.inactive }
 
     var memberCountImageName: String { "memberNum\(memberCount)" }
 

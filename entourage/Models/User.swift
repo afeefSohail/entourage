@@ -17,7 +17,6 @@ class User : Codable {
     
     var id : Int = 0
     var phone_number : String? = ""
-    var authentication_token : String? = ""
     var user_name : String? = ""
     var bio : String? = ""
     var first_name : String? = ""
@@ -34,7 +33,8 @@ class User : Codable {
     var pendingGroupInvitation : [Group]?  = []
     var isMember = false
     var isBlocked : Bool? = false
-    
+    var authentication_token : String? = ""
+
     enum CodingKeys: String, CodingKey{
         
         case id = "id"
@@ -67,11 +67,7 @@ class User : Codable {
         }
         return ""
     }
-    
-    func surname()->String{
-        return "\(first_name ?? "") \(last_name ?? "")"
-    }
-    
+        
     func name()->String{
         return "\(String(first_name ?? ""))"
     }

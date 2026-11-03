@@ -57,17 +57,6 @@ struct Friend : Codable {
         return "\(self.first_name?.prefix(1) ?? "")\(self.last_name?.prefix(1) ?? "")"
     }
     
-    func getPrimaryImageThumb()->String{
-        
-        if self.photos.count > 0{
-            let primaryImage = self.photos.filter({$0.is_primary == true})
-            if primaryImage.count > 0{
-                   return primaryImage[0].thumb ?? ""
-            }
-        }
-        
-        return ""
-    }
 
     func getPrimaryImageMedium()->String{
         
