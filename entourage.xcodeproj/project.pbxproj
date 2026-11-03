@@ -145,8 +145,8 @@
 		FBFC96F475F140CFB1815085 /* entourage/Features/Onboarding/Views/SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD0434EA0834444AEFDFF4B /* entourage/Features/Onboarding/Views/SplashView.swift */; };
 		FF9F4E902636417CA3339259 /* PhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B90EE623FA348CAB820C190 /* PhotoViewModel.swift */; };
 		FFFEAFAB9BC74EE48062FA2E /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEFA7B5D2224443A40B8824 /* EditProfileView.swift */; };
-		A1B2C3D4E5F60003A1B2C3D4 /* entourage/Features/Friends/FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60001A1B2C3D4 /* entourage/Features/Friends/FriendsViewModel.swift */; };
-		A1B2C3D4E5F60004A1B2C3D4 /* entourage/Features/Friends/FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60002A1B2C3D4 /* entourage/Features/Friends/FriendsView.swift */; };
+		167C29FCBF4C475DBB08E5DE /* entourage/Features/Friends/FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E634BE8037C4CB18F789B9B /* entourage/Features/Friends/FriendsViewModel.swift */; };
+		5CBE7206CE4548CA8FBEB4E1 /* entourage/Features/Friends/FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B74DA3F1CF48FFB6CEBA25 /* entourage/Features/Friends/FriendsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -267,8 +267,8 @@
 		EC7CCB61CE314435998B6640 /* entourage/Features/Onboarding/Views/UsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Onboarding/Views/UsernameView.swift; sourceTree = SOURCE_ROOT; };
 		F88C6E158E5946639C5B714B /* ChatMessageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageViewModel.swift; sourceTree = "<group>"; };
 		FBEFA7B5D2224443A40B8824 /* EditProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
-		A1B2C3D4E5F60001A1B2C3D4 /* entourage/Features/Friends/FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Friends/FriendsViewModel.swift; sourceTree = SOURCE_ROOT; };
-		A1B2C3D4E5F60002A1B2C3D4 /* entourage/Features/Friends/FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Friends/FriendsView.swift; sourceTree = SOURCE_ROOT; };
+		4E634BE8037C4CB18F789B9B /* entourage/Features/Friends/FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Friends/FriendsViewModel.swift; sourceTree = SOURCE_ROOT; };
+		E3B74DA3F1CF48FFB6CEBA25 /* entourage/Features/Friends/FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Friends/FriendsView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -406,8 +406,8 @@
 				EC7CCB61CE314435998B6640 /* entourage/Features/Onboarding/Views/UsernameView.swift */,
 				0B4F467A227E4E17828E2F00 /* entourage/Features/Onboarding/Views/ContactsPermissionView.swift */,
 				62C5A5FAB89545038C5B7313 /* entourage/Features/Onboarding/Views/OnboardingAddFriendsView.swift */,
-				A1B2C3D4E5F60001A1B2C3D4 /* entourage/Features/Friends/FriendsViewModel.swift */,
-				A1B2C3D4E5F60002A1B2C3D4 /* entourage/Features/Friends/FriendsView.swift */,
+				4E634BE8037C4CB18F789B9B /* entourage/Features/Friends/FriendsViewModel.swift */,
+				E3B74DA3F1CF48FFB6CEBA25 /* entourage/Features/Friends/FriendsView.swift */,
 				904333AE7B5740F2A19DA163 /* entourage/Features/Onboarding/Views/UserBannedView.swift */,
 			);
 			name = "Recovered References";
@@ -1063,8 +1063,8 @@
 				148914CD39BA4630BB6CE637 /* entourage/Features/Onboarding/Views/UsernameView.swift in Sources */,
 				6C30D216F1034DD2A4CB41B4 /* entourage/Features/Onboarding/Views/ContactsPermissionView.swift in Sources */,
 				97305367DDA54202BA646A0E /* entourage/Features/Onboarding/Views/OnboardingAddFriendsView.swift in Sources */,
-				A1B2C3D4E5F60003A1B2C3D4 /* entourage/Features/Friends/FriendsViewModel.swift in Sources */,
-				A1B2C3D4E5F60004A1B2C3D4 /* entourage/Features/Friends/FriendsView.swift in Sources */,
+				167C29FCBF4C475DBB08E5DE /* entourage/Features/Friends/FriendsViewModel.swift in Sources */,
+				5CBE7206CE4548CA8FBEB4E1 /* entourage/Features/Friends/FriendsView.swift in Sources */,
 				6CFD550371414F68AA02789A /* entourage/Features/Onboarding/Views/UserBannedView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
