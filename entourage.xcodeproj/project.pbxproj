@@ -97,7 +97,6 @@
 		50B11B1722BFAA8600D13BF5 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B11B1622BFAA8600D13BF5 /* ChatMessage.swift */; };
 		50C7CC2922F58E3100EAF3C6 /* Friendships.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C7CC2722F58E3100EAF3C6 /* Friendships.swift */; };
 		50C7CC2A22F58E3100EAF3C6 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C7CC2822F58E3100EAF3C6 /* Friend.swift */; };
-		50C7CC2C22F5C09A00EAF3C6 /* GroupStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C7CC2B22F5C09A00EAF3C6 /* GroupStatus.swift */; };
 		50ED40D722AA707E008EADB9 /* Kaufmann-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50ED40D622AA707E008EADB9 /* Kaufmann-Bold.otf */; };
 		5C5BCB174C5D4DB08594E96A /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACF54A9C78B437FB042E6FE /* UserRepository.swift */; };
 		5E0A6D59AAD1454AA64B6DF4 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30116EA7BB0945788612462A /* ChatViewModel.swift */; };
@@ -205,7 +204,6 @@
 		50B11B1622BFAA8600D13BF5 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		50C7CC2722F58E3100EAF3C6 /* Friendships.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friendships.swift; sourceTree = "<group>"; };
 		50C7CC2822F58E3100EAF3C6 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
-		50C7CC2B22F5C09A00EAF3C6 /* GroupStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupStatus.swift; sourceTree = "<group>"; };
 		50ED40D622AA707E008EADB9 /* Kaufmann-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kaufmann-Bold.otf"; sourceTree = "<group>"; };
 		578B5735F2604CC69CF373D3 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		5993D41D70004A73AA47144B /* entourage/Features/Onboarding/Views/OTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Onboarding/Views/OTPView.swift; sourceTree = SOURCE_ROOT; };
@@ -346,7 +344,6 @@
 				50105D63229D72AF00CC901E /* Contacts.swift */,
 				50B11B1622BFAA8600D13BF5 /* ChatMessage.swift */,
 				5016230822EDDA1D00BF8123 /* Photo.swift */,
-				50C7CC2B22F5C09A00EAF3C6 /* GroupStatus.swift */,
 				501B1E2722F600F1007C896D /* Group.swift */,
 				50149A3422FF3B6D00A1FBBF /* Match.swift */,
 				504829B2234857B7000C0916 /* LastMessage.swift */,
@@ -980,7 +977,6 @@
 				50394EF422EC33220059ED7E /* User.swift in Sources */,
 				50408FD024410D8300994E00 /* FireBaseAuth.swift in Sources */,
 				509341B522EA57B600F254AD /* Constant.swift in Sources */,
-				50C7CC2C22F5C09A00EAF3C6 /* GroupStatus.swift in Sources */,
 				504829B123485719000C0916 /* MsgReading.swift in Sources */,
 				504829B923485AC0000C0916 /* ActiveMember.swift in Sources */,
 				5023AB5024F127AA002971BA /* APIResponse.swift in Sources */,

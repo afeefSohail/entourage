@@ -3,7 +3,7 @@ import Foundation
 import Alamofire
 
 protocol GroupRepositoryProtocol {
-    func createGroup(groupStatusId: Int, friendsIds: String, callback: @escaping RepoCallback)
+    func createGroup(friendsIds: String, callback: @escaping RepoCallback)
     func addMember(groupId: Int, friendsId: Int, callback: @escaping RepoCallback)
     func myGroup(callback: @escaping RepoCallback)
     func leaveGroup(callback: @escaping RepoCallback)
@@ -16,11 +16,10 @@ final class GroupRepository: RepositoryBase, GroupRepositoryProtocol {
 
     static let shared = GroupRepository()
 
-    func createGroup(groupStatusId: Int, friendsIds: String, callback: @escaping RepoCallback) {
+    func createGroup(friendsIds: String, callback: @escaping RepoCallback) {
         let params: [String: Any] = [
             "auth_token": User.getToken(),
-            "friend_ids": friendsIds,
-            "group_status_id": groupStatusId
+            "friend_ids": friendsIds
         ]
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }

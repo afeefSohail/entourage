@@ -7,8 +7,8 @@
 import Foundation
 struct Friend : Codable {
     
-    var contactType : String? = ""
     var id : Int = 0
+    var contactType : String? = ""
     var phone_number : String? = ""
     var authentication_token : String? = ""
     var user_name : String? = ""
@@ -27,8 +27,6 @@ struct Friend : Codable {
     var fcm_tokens : [String]? = []
     var pendingGroupInvitation : [Group]?  = []
     var isMember = false
-    var instantMatchAllow : Int? = 0
-    var spotLightAllow : Int? = 0
     var isBlocked : Bool? = false
     
     enum CodingKeys: String, CodingKey{
@@ -50,8 +48,6 @@ struct Friend : Codable {
         case age
         case fcm_tokens
         case pendingGroupInvitation = "pending_group_invitation"
-        case instantMatchAllow = "instant_match_allow"
-        case spotLightAllow = "spot_light_allow"
         case isBlocked = "is_blocked"
         case status = "status"
 
@@ -97,11 +93,30 @@ struct Friend : Codable {
         return ""
     }
 
-    static func friendUser(user:User,status:String)->Friend{
-     
-        let object = Friend(contactType: "", id: user.id, phone_number: user.phone_number ?? "", authentication_token: user.authentication_token ?? "", user_name: user.user_name ?? "", bio: user.bio ?? "", status: status, first_name: user.first_name ?? "", last_name: user.last_name ?? "", latitude: user.latitude ?? "", longitude: user.longitude ?? "", dob: user.dob ?? 0, age: user.age ?? 0, gender: user.gender ?? "male", city: user.city ?? "", state: user.state ?? "", photos: user.photos, fcm_tokens: user.fcm_tokens ?? [], pendingGroupInvitation: user.pendingGroupInvitation ?? [], isMember: user.isMember, instantMatchAllow: user.instantMatchAllow ?? 0, spotLightAllow: user.spotLightAllow ?? 0, isBlocked: user.isBlocked ?? false)
-
-        return object
+    static func friendUser(user: User, status: String) -> Friend {
+        var f = Friend()
+        f.contactType = ""
+        f.id = user.id
+        f.phone_number = user.phone_number ?? ""
+        f.authentication_token = user.authentication_token ?? ""
+        f.user_name = user.user_name ?? ""
+        f.bio = user.bio ?? ""
+        f.status = status
+        f.first_name = user.first_name ?? ""
+        f.last_name = user.last_name ?? ""
+        f.latitude = user.latitude ?? ""
+        f.longitude = user.longitude ?? ""
+        f.dob = user.dob ?? 0
+        f.age = user.age ?? 0
+        f.gender = user.gender ?? "male"
+        f.city = user.city ?? ""
+        f.state = user.state ?? ""
+        f.photos = user.photos
+        f.fcm_tokens = user.fcm_tokens ?? []
+        f.pendingGroupInvitation = user.pendingGroupInvitation ?? []
+        f.isMember = user.isMember
+        f.isBlocked = user.isBlocked ?? false
+        return f
     }
     
         

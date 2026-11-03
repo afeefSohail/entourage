@@ -26,8 +26,6 @@ let statusBar = UIApplication.shared.windows.first?.windowScene?.statusBarManage
 let screenSize = UIScreen.main.bounds.height + (statusBar ?? 0.0)
 
 //User Defautl Keys
-let spotLiteUserDefaultKey = "isSpotLightPopUpShow"
-let iMatchUserDefaultKey = "isinstantMatchPopUpShow"
 let firstUnLikeSwipe = "FirstUnLikeSwipe"
 let firstLikeSwipe = "FirstLikeSwipe"
 

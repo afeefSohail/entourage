@@ -25,9 +25,6 @@ class EntourageManager {
     //group
     var myGroup : Group?
     
-    //Group Status list
-    var groupStatuses : [GroupStatuses] = []
-    
     //All OtherGroups
     var otherGroups : [Group] = []
     
@@ -62,15 +59,11 @@ class EntourageManager {
     func reSetAppData(){
         let likeSwipeActionDemo  = UserDefaults.standard.bool(forKey: firstLikeSwipe)
         let unLikeSwipeActionDemo  = UserDefaults.standard.bool(forKey: firstUnLikeSwipe)
-        let spotLightUse = UserDefaults.standard.bool(forKey: spotLiteUserDefaultKey)
-        let iMatchUse  = UserDefaults.standard.bool(forKey: iMatchUserDefaultKey)
 
         UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         UserDefaults.standard.synchronize()
 
         UserDefaults.standard.set(unLikeSwipeActionDemo, forKey: firstUnLikeSwipe)
         UserDefaults.standard.set(likeSwipeActionDemo, forKey: firstLikeSwipe)
-        UserDefaults.standard.set(spotLightUse, forKey: spotLiteUserDefaultKey)
-        UserDefaults.standard.set(iMatchUse, forKey: iMatchUserDefaultKey)
     }
 }

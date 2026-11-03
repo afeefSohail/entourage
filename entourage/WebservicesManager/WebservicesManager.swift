@@ -41,7 +41,7 @@ class WebServicesManager: NSObject {
     func sendNotification(message: String, callback: @escaping WebServicesManagerCallback) { users.sendNotification(message: message, callback: callback) }
 
     // MARK: - Groups
-    func createGroup(groupStatusId: Int, friendsIds: String, callback: @escaping WebServicesManagerCallback) { groups.createGroup(groupStatusId: groupStatusId, friendsIds: friendsIds, callback: callback) }
+    func createGroup(friendsIds: String, callback: @escaping WebServicesManagerCallback) { groups.createGroup(friendsIds: friendsIds, callback: callback) }
     func addMember(groupId: Int, friendsId: Int, callback: @escaping WebServicesManagerCallback) { groups.addMember(groupId: groupId, friendsId: friendsId, callback: callback) }
     func myGroup(callback: @escaping WebServicesManagerCallback) { groups.myGroup(callback: callback) }
     func leaveGroup(callback: @escaping WebServicesManagerCallback) { groups.leaveGroup(callback: callback) }

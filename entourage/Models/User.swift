@@ -33,8 +33,6 @@ class User : Codable {
     var fcm_tokens : [String]? = []
     var pendingGroupInvitation : [Group]?  = []
     var isMember = false
-    var instantMatchAllow : Int? = 0
-    var spotLightAllow : Int? = 0
     var isBlocked : Bool? = false
     
     enum CodingKeys: String, CodingKey{
@@ -56,8 +54,6 @@ class User : Codable {
         case age
         case fcm_tokens
         case pendingGroupInvitation = "pending_group_invitation"
-        case instantMatchAllow = "instant_match_allow"
-        case spotLightAllow = "spot_light_allow"
         case isBlocked = "is_blocked"
     }
     
@@ -165,8 +161,6 @@ class User : Codable {
         newUser.fcm_tokens = user.fcm_tokens
         newUser.pendingGroupInvitation = user.pendingGroupInvitation
         newUser.isMember = user.isMember
-        newUser.instantMatchAllow = user.instantMatchAllow ?? 0
-        newUser.spotLightAllow = user.spotLightAllow ?? 0
         newUser.isBlocked = user.isBlocked ?? false
 
         return newUser

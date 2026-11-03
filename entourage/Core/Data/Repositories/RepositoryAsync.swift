@@ -13,9 +13,9 @@ struct RepositoryError: LocalizedError {
 
 extension GroupRepository {
 
-    func createGroup(groupStatusId: Int, friendsIds: String) async throws -> Group? {
+    func createGroup(friendsIds: String) async throws -> Group? {
         try await withCheckedThrowingContinuation { cont in
-            createGroup(groupStatusId: groupStatusId, friendsIds: friendsIds) { result, error in
+            createGroup(friendsIds: friendsIds) { result, error in
                 if let error { cont.resume(throwing: RepositoryError(message: error)); return }
                 cont.resume(returning: result as? Group)
             }
