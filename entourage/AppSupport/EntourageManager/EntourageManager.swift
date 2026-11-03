@@ -31,8 +31,6 @@ class EntourageManager {
     //MyMatches
     var myMatchs : [Match] = []
     
-    var groupInviteRequestes : [Group] = []
-    
     /// shared instance
     fileprivate static let _sharedManager = EntourageManager()
     

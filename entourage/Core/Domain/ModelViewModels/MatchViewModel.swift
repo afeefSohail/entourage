@@ -15,7 +15,7 @@ struct MatchViewModel {
 
     var otherGroup: Group? { match.matcher }
 
-    var otherGroupName: String { match.matcher?.myGroupName() ?? "" }
+    var otherGroupName: String { match.matcher?.displayName(style: .detailed) ?? "" }
 
     var isUnread: Bool { getUnReadMsg(id: "\(match.id)") > 0 }
 

@@ -25,7 +25,7 @@ class WebServicesManager: NSObject {
     func deleteUserAccount(reason: String, callback: @escaping WebServicesManagerCallback) { users.deleteUserAccount(reason: reason, callback: callback) }
     func updateLocationBy(callback: @escaping WebServicesManagerCallback) { users.updateLocation(callback: callback) }
     func searchBy(userName: String, callback: @escaping WebServicesManagerCallback) { users.searchBy(userName: userName, callback: callback) }
-    func reportUser(user: User, reason: String, image: UIImage, callback: @escaping WebServicesManagerCallback) { users.reportUser(user: user, reason: reason, image: image, callback: callback) }
+    func reportUser(user: User, reason: String, image: UIImage, callback: @escaping WebServicesManagerCallback) { users.reportUser(userVM: UserViewModel(user), reason: reason, image: image, callback: callback) }
     func sendInviteMessage(phoneNumber: String, callback: @escaping WebServicesManagerCallback) { users.sendInviteMessage(phoneNumber: phoneNumber, callback: callback) }
 
     // MARK: - Photos
@@ -45,8 +45,6 @@ class WebServicesManager: NSObject {
     func addMember(groupId: Int, friendsId: Int, callback: @escaping WebServicesManagerCallback) { groups.addMember(groupId: groupId, friendsId: friendsId, callback: callback) }
     func myGroup(callback: @escaping WebServicesManagerCallback) { groups.myGroup(callback: callback) }
     func leaveGroup(callback: @escaping WebServicesManagerCallback) { groups.leaveGroup(callback: callback) }
-    func acceptGroupInvite(groupId: Int, callback: @escaping WebServicesManagerCallback) { groups.acceptGroupInvite(groupId: groupId, callback: callback) }
-    func rejectGroupInvite(groupId: Int, callback: @escaping WebServicesManagerCallback) { groups.rejectGroupInvite(groupId: groupId, callback: callback) }
     func getGroupBy(groupId: Int, callback: @escaping WebServicesManagerCallback) { groups.getGroupBy(groupId: groupId, callback: callback) }
 
     // MARK: - Matches

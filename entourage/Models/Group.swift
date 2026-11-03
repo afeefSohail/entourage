@@ -10,7 +10,7 @@
 import Foundation
 
 enum GroupStatus: String {
-    case active = "active"
+    case active   = "active"
     case inactive = "in_active"
 }
 
@@ -20,136 +20,48 @@ class MyGroup : Codable {
 
 struct Pagination: Codable {
     var current_page: Int = 0
-    var total_pages: Int = 0
-    var per_page: Int = 0
-    var total_count: Int = 0
+    var total_pages:  Int = 0
+    var per_page:     Int = 0
+    var total_count:  Int = 0
 }
 
 class OtherGroups : Codable {
-    var groups : [Group] = []
+    var groups     : [Group]    = []
     var pagination : Pagination = Pagination()
 }
 
 class Group : Codable {
-    
-    var id : Int = 0
-    var status : String = GroupStatus.inactive.rawValue
-    var users : [User] = []
-    var invitedUsers : [User]? = []
-    var name : String?
-    var city : String?
-    var state : String?
+
+    var id       : Int    = 0
+    var status   : String = GroupStatus.inactive.rawValue
+    var users    : [User] = []
+    var name     : String?
+    var city     : String?
+    var state    : String?
     var distance : String? = ""
-    var isReported : Bool = false
+    var isReported : Bool  = false
 
     enum CodingKeys: String, CodingKey {
-        case id = "id"
+        case id
         case status
-        case users = "users"
-        case distance = "distance"
-        case name = "name"
-        case city = "city"
-        case state = "state"
-        case invitedUsers = "pending_approval"
+        case users
+        case distance
+        case name
+        case city
+        case state
     }
-    
+
     var groupStatus: GroupStatus {
-        return  GroupStatus(rawValue: status) ?? .inactive
-    }
-    
-    func matcherGroupName()->String{
-        
-        if users.count > 2{
-            return "\(users.last?.first_name ?? "") and \(users.count-1) others"
-        }else {
-            
-            return "\(users.first?.first_name ?? "") and \(users.last?.first_name ?? "")"
-        }
+        GroupStatus(rawValue: status) ?? .inactive
     }
 
-    func otherGroupName()->String{
-        
-        if users.count > 2{
-            return "\(users.last?.first_name ?? "") & \(users.count-1) others"
-        }else {
-            
-            return "\(users.first?.first_name ?? "") & \(users.last?.first_name ?? "")"
-        }
-    }
-
-    func cardsGroupName()->String{
-        
-        if users.count > 2{
-            return "\(users.last?.first_name ?? "") & \(users.count-1) Friends"
-        }else {
-            
-            return "\(users.first?.first_name ?? "") & \(users.last?.first_name ?? "")"
-        }
-    }
-
-    func myGroupName()->String{
-        let filterUser = users.filter({EntourageManager.shared.user.id != $0.id})
-        if users.count == 2{
-            return filterUser[0].name()
-        }else if users.count == 3{
-            return "\(filterUser[0].name()) and \(filterUser[1].name())"
-        }else if users.count == 4{
-            return "\(filterUser[0].name()), \(filterUser[1].name()) and \(filterUser[2].name())"
-        }
-        return ""
-    }
-    
-    func matchGroupName()->String{
-        let filterUser = users.filter({EntourageManager.shared.user.id != $0.id})
-        if users.count == 2{
-            return "\(filterUser[0].name()) & \(filterUser[1].name())"
-        }else if users.count == 3{
-            return "\(filterUser[0].name()), \(filterUser[1].name()) & \(filterUser[2].name())"
-        }else if users.count == 4{
-            return "\(filterUser[0].name()), \(filterUser[1].name()), \(filterUser[2].name()) & \(filterUser[3].name())"
-        }
-        return ""
-    }
-
-    func lastMessageObject(message:String,senderId: Int,readCounter:Int)->LastMessage{
-        
-        var groupIds : [Int] = []
+    func lastMessageObject(message: String, senderId: Int, readCounter: Int) -> LastMessage {
+        var groupIds: [Int] = []
         let mygroup = EntourageManager.shared.myGroup!
-        
-        if self.id != mygroup.id{
+        if self.id != mygroup.id {
             groupIds.append(self.id)
         }
-        
         groupIds.append(mygroup.id)
-        
-        return LastMessage(lastMessage: message , groupIds: groupIds, senderId: senderId, counter: readCounter )
-        
+        return LastMessage(lastMessage: message, groupIds: groupIds, senderId: senderId, counter: readCounter)
     }
-    
-    func allGroupMember()->[User]{
-        
-        var allMember : [User] = []
-        self.users.forEach({$0.isMember = true})
-        self.invitedUsers?.forEach({$0.isMember = false})
-        
-        allMember.append(contentsOf: self.users)
-        allMember.append(contentsOf: invitedUsers ?? [])
-        
-        return allMember
-    }
-    
-    func getGroupIconName()->String{
-        let genderList = self.users.compactMap({$0.gender})
-        let femaleCount = genderList.filter({$0 == "female"}).count
-        let mailCount = genderList.filter({$0 == "male"}).count
-        if femaleCount == genderList.count || femaleCount > (genderList.count / 2){
-            return "\(genderList.count)F"
-        }else if mailCount == genderList.count || mailCount > (genderList.count / 2){
-            return "\(genderList.count)M"
-        }else {
-            return "\(genderList.count)O"
-        }
-        
-    }
-    
 }

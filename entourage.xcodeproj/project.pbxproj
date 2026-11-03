@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C0D36A4819754681AAA4D975 /* Group+DisplayName.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E1D4DE243545A1A93466BB /* Group+DisplayName.swift */; };
+		8F31E75C1A4F4B908B51BE39 /* PhotoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559AC7F365AB4A01A256C1EE /* PhotoProvider.swift */; };
+		AF6AD721D788401AAC5BC4E6 /* GroupMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9338BBB098F4441E8DA6226D /* GroupMember.swift */; };
+		3F337003D86A45A485F611A0 /* Group+Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3648200A1404E84C7ACCE /* Group+Icon.swift */; };
+		0A945E29D1A445C3950CFA5D /* User+ProfileCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918F8D02D90F48E08E58CCF6 /* User+ProfileCompletion.swift */; };
 		00A9C23EAF114FE1B39723A3 /* entourage/Features/Onboarding/Views/TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0B5DEEB8604081B84232BE /* entourage/Features/Onboarding/Views/TutorialView.swift */; };
 		025EE97F41014D87908BAA13 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485CC0EC41614361A9859BCC /* ProfileView.swift */; };
 		0650BDA42EE04B719BD034E1 /* BlockedUsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4224EE9F17D04D9C8F2B0103 /* BlockedUsersView.swift */; };
@@ -141,6 +146,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B0E1D4DE243545A1A93466BB /* Group+DisplayName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+DisplayName.swift"; sourceTree = "<group>"; };
+		559AC7F365AB4A01A256C1EE /* PhotoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoProvider.swift; sourceTree = "<group>"; };
+		9338BBB098F4441E8DA6226D /* GroupMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMember.swift; sourceTree = "<group>"; };
+		9CF3648200A1404E84C7ACCE /* Group+Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+Icon.swift"; sourceTree = "<group>"; };
+		918F8D02D90F48E08E58CCF6 /* User+ProfileCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+ProfileCompletion.swift"; sourceTree = "<group>"; };
 		080335780BF14222A512F7F6 /* MatchesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchesListView.swift; sourceTree = "<group>"; };
 		086B1E1498404456863FEF89 /* entourage/Features/Root/RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Root/RootRouter.swift; sourceTree = SOURCE_ROOT; };
 		095DD50EE13649ABA3AF02B2 /* entourage/Features/Onboarding/Views/GenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Onboarding/Views/GenderView.swift; sourceTree = SOURCE_ROOT; };
@@ -344,6 +354,11 @@
 				50105D63229D72AF00CC901E /* Contacts.swift */,
 				50B11B1622BFAA8600D13BF5 /* ChatMessage.swift */,
 				5016230822EDDA1D00BF8123 /* Photo.swift */,
+				B0E1D4DE243545A1A93466BB /* Group+DisplayName.swift */,
+				559AC7F365AB4A01A256C1EE /* PhotoProvider.swift */,
+				9338BBB098F4441E8DA6226D /* GroupMember.swift */,
+				9CF3648200A1404E84C7ACCE /* Group+Icon.swift */,
+				918F8D02D90F48E08E58CCF6 /* User+ProfileCompletion.swift */,
 				501B1E2722F600F1007C896D /* Group.swift */,
 				50149A3422FF3B6D00A1FBBF /* Match.swift */,
 				504829B2234857B7000C0916 /* LastMessage.swift */,
@@ -934,6 +949,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0D36A4819754681AAA4D975 /* Group+DisplayName.swift in Sources */,
+				8F31E75C1A4F4B908B51BE39 /* PhotoProvider.swift in Sources */,
+				AF6AD721D788401AAC5BC4E6 /* GroupMember.swift in Sources */,
+				3F337003D86A45A485F611A0 /* Group+Icon.swift in Sources */,
+				0A945E29D1A445C3950CFA5D /* User+ProfileCompletion.swift in Sources */,
 				8D4A07D578D34476A5314E76 /* RepositoryAsync.swift in Sources */,
 				C1022F90D7FC475EB385BB70 /* AppCoordinator.swift in Sources */,
 				7074F21D58D2438FA646A962 /* SettingsViewModel.swift in Sources */,

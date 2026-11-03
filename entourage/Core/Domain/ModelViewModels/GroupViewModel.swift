@@ -10,7 +10,7 @@ struct GroupViewModel {
         self.group = group
     }
 
-    var displayName: String { group.myGroupName() }
+    var displayName: String { group.displayName(style: .detailed) }
 
     var memberCount: Int { group.users.count }
 
@@ -18,7 +18,7 @@ struct GroupViewModel {
 
     var distanceText: String { group.distance ?? "0 Miles" }
 
-    var isActive: Bool { group.groupStatus == GroupStatus.inactive }
+    var isActive: Bool { group.groupStatus == .active }
 
     var memberCountImageName: String { "memberNum\(memberCount)" }
 

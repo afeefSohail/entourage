@@ -33,20 +33,12 @@ struct FriendViewModel {
     // MARK: - Photo
 
     var primaryPhotoURL: URL? {
-        let urlStr = friend.getPrimaryImageMedium()
+        let urlStr = friend.mediumPhotoURL
         return urlStr.isEmpty ? nil : URL(string: urlStr)
     }
 
     var primaryPhotoThumbURL: URL? {
-        var urlStr = ""
-        
-        if friend.photos.count > 0{
-            let primaryImage = friend.photos.filter({$0.is_primary == true})
-            if primaryImage.count > 0{
-                urlStr = primaryImage[0].thumb ?? ""
-            }
-        }
-                
+        let urlStr = friend.thumbnailURL
         return urlStr.isEmpty ? nil : URL(string: urlStr)
     }
 

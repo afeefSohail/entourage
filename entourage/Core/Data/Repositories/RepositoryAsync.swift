@@ -40,24 +40,6 @@ extension GroupRepository {
         }
     }
 
-    func acceptGroupInvite(groupId: Int) async throws -> Group? {
-        try await withCheckedThrowingContinuation { cont in
-            acceptGroupInvite(groupId: groupId) { result, error in
-                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
-                cont.resume(returning: result as? Group)
-            }
-        }
-    }
-
-    func rejectGroupInvite(groupId: Int) async throws {
-        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
-            rejectGroupInvite(groupId: groupId) { _, error in
-                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
-                cont.resume()
-            }
-        }
-    }
-
     func getGroupBy(groupId: Int) async throws -> Group? {
         try await withCheckedThrowingContinuation { cont in
             getGroupBy(groupId: groupId) { result, error in

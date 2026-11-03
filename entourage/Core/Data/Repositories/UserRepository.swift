@@ -89,7 +89,6 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
                 let base = try JSONDecoder().decode(BaseUser.self, from: data)
                 EntourageManager.shared.user = base.user
                 EntourageManager.shared.photos = base.user.photos
-                EntourageManager.shared.groupInviteRequestes = base.user.pendingGroupInvitation ?? []
                 EntourageManager.shared.user.saveToken()
                 callback(base.user, nil)
             } catch { print(error) }
@@ -106,7 +105,6 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
                 let base = try JSONDecoder().decode(BaseUser.self, from: data)
                 EntourageManager.shared.user = base.user
                 EntourageManager.shared.photos = base.user.photos
-                EntourageManager.shared.groupInviteRequestes = base.user.pendingGroupInvitation ?? []
                 EntourageManager.shared.user.saveToken()
                 callback(base.user, nil)
             } catch { print(error) }
