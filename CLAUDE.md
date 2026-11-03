@@ -199,3 +199,50 @@ entourage/Features/Onboarding/
 - `@Observable` for `AppState` and `OnboardingCoordinator` (iOS 17+)
 - `withCheckedThrowingContinuation` to bridge callback-based `WebServicesManager` calls into `async/await`; always annotate the continuation type explicitly: `(cont: CheckedContinuation<Void, Error>)`
 - `SwiftUI.Group` (fully qualified) to avoid conflict with the app's own `class Group: Codable`
+
+---
+
+## Phase 5 — Group Invitation Simplification
+
+Only start after Phase 3 is merged.
+
+### Goal
+
+Replace the accept/reject invitation model with a direct add + opt-out model.
+Saves ~500–800 lines of code that would otherwise need to be migrated to SwiftUI.
+
+### What to delete
+
+| Code | Location |
+|------|----------|
+| `acceptGroupInvite()` | `GroupRepository`, `RepositoryAsync`, `WebservicesManager` |
+| `rejectGroupInvite()` | `GroupRepository`, `RepositoryAsync`, `WebservicesManager` |
+| `groupInviteRequestes` array | `EntourageManager` |
+| `pendingGroupInvitation` field | `User`, `Friend` models |
+| `invitedUsers` / `pending_approval` field | `Group` model |
+| `group.allGroupMember()` pending logic | `Group` model |
+| All invite-pending UI screens | `Features/Group/` |
+
+### What to keep
+
+- `addMember(groupId:friendsId:)` — group creator adds friends directly, no approval step
+- `leaveGroup()` — the opt-out; any member can leave at any time
+
+### New model
+
+| Old | New |
+|-----|-----|
+| Creator invites → friend accepts/rejects | Creator adds → friend is immediately in the group |
+| `group.invitedUsers` (pending) | Removed — `group.users` is the only member list |
+| `groupInviteRequestes` notification | Removed — no pending state to notify about |
+| Opt-in (accept required) | Opt-out (`leaveGroup` to exit) |
+
+### API endpoints to drop
+
+- `POST /api/v1/groups/accept_group_invitation`
+- `DELETE /api/v1/groups/reject_group_invitation`
+
+### Rules during Phase 5
+
+- Coordinate with backend to confirm `add_member` directly adds to `group.users` (no pending state)
+- After removal, verify group creation and swipe flow still work end-to-end
