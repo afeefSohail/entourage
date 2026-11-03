@@ -38,6 +38,8 @@ struct AppRootView: View {
             AddGroupMemberBridge()
         case .userProfile(let user, let group):
             UserProfileView(user: user, group: group)
+        case .deleteAccount:
+            DeleteAccountView()
         }
     }
 }

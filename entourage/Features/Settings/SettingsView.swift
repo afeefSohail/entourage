@@ -9,7 +9,6 @@ struct SettingsView: View {
     @State private var vm = SettingsViewModel()
     @State private var showLogoutAlert  = false
     @State private var showGenderAlert  = false
-    @State private var showDeleteAlert  = false
 
     var body: some View {
         List {
@@ -60,7 +59,7 @@ struct SettingsView: View {
                     showLogoutAlert = true
                 }
                 SettingsRow(title: "Delete Account", icon: "trash.fill", role: .destructive) {
-                    showDeleteAlert = true
+                    coordinator.push(.deleteAccount)
                 }
             }
 
@@ -93,14 +92,7 @@ struct SettingsView: View {
             }
             Button("Cancel", role: .cancel) {}
         }
-        .alert("Delete Account", isPresented: $showDeleteAlert) {
-            Button("Delete", role: .destructive) {
-                coordinator.push(.profile) // placeholder — keep existing DeleteAccountVC
-            }
-            Button("Cancel", role: .cancel) {}
-        } message: {
-            Text("This action cannot be undone.")
-        }
+
         .alert("Change Gender", isPresented: $showGenderAlert) {
             Button("Contact Support") {
                 openBrowserWith(url: "https://www.entourage-app.com/support.html")

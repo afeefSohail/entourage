@@ -1,5 +1,6 @@
 import SwiftUI
 import Contacts
+import CoreLocation
 
 struct SplashView: View {
     @Environment(AppState.self) private var appState
@@ -34,6 +35,9 @@ struct SplashView: View {
             let appDelegate = await UIApplication.shared.delegate as? AppDelegate
             await appDelegate?.setUpFireBaseConfig()
 
+            // Load settings in background — populates EntourageManager.shared.setting
+            Task { _ = try? await UserRepository.shared.getUserSettings() }
+
             switch user.checkUserInfo() {
             case "Gender":
                 appState.initialOnboardingStep = .gender
@@ -50,7 +54,19 @@ struct SplashView: View {
                     appState.initialOnboardingStep = .contactsPermission
                     appState.phase = .onboarding
                 } else {
-                    appState.phase = .main
+                    let locationStatus = CLLocationManager.authorizationStatus()
+                    if locationStatus == .notDetermined {
+                        appState.initialOnboardingStep = .locationPermission
+                        appState.phase = .onboarding
+                    } else {
+                        // Update coordinates in background on every launch
+                        Task {
+                            await withCheckedContinuation { (cont: CheckedContinuation<Void, Never>) in
+                                UserRepository.shared.updateLocation { _, _ in cont.resume() }
+                            }
+                        }
+                        appState.phase = .main
+                    }
                 }
             }
         } catch {

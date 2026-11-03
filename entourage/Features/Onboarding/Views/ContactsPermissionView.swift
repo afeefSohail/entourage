@@ -49,7 +49,7 @@ struct ContactsPermissionView: View {
             .padding(.bottom, 12)
 
             Button("Maybe later") {
-                coordinator.push(.addFriends)
+                coordinator.push(.locationPermission)
             }
             .font(.system(size: 14))
             .foregroundStyle(.secondary)
@@ -64,6 +64,6 @@ struct ContactsPermissionView: View {
 
         let store = CNContactStore()
         _ = (try? await store.requestAccess(for: .contacts)) ?? false
-        coordinator.push(.addFriends)
+        coordinator.push(.locationPermission)
     }
 }

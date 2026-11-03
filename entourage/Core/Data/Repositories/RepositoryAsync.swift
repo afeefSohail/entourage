@@ -220,4 +220,22 @@ extension UserRepository {
             }
         }
     }
+    func unFriend(friendId: Int) async throws {
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
+            unFriend(friendId: friendId) { _, error in
+                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
+                cont.resume()
+            }
+        }
+    }
+
+    func reportUser(userId: Int, reason: String) async throws {
+        let u = User(); u.id = userId
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
+            reportUser(userVM: UserViewModel(u), reason: reason, image: UIImage()) { _, error in
+                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
+                cont.resume()
+            }
+        }
+    }
 }

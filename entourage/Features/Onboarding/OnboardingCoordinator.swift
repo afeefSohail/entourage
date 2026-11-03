@@ -11,6 +11,7 @@ enum OnboardingStep: Hashable {
     case photos
     case username
     case contactsPermission
+    case locationPermission
     case addFriends
     case banned(username: String)
 }
