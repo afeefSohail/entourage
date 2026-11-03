@@ -40,6 +40,8 @@ struct AppRootView: View {
             UserProfileView(user: user, group: group)
         case .deleteAccount:
             DeleteAccountView()
+        case .friends:
+            FriendsView()
         }
     }
 }
@@ -57,6 +59,9 @@ private struct MainTabView: View {
 
             MatchesListView()
                 .tabItem { Label("Matches", systemImage: "bubble.left.and.bubble.right.fill") }
+
+            FriendsView()
+                .tabItem { Label("Friends", systemImage: "person.2.fill") }
 
             ProfileView()
                 .tabItem { Label("Profile", systemImage: "person.fill") }

@@ -13,6 +13,7 @@ enum Route: Hashable {
     case addGroupMember
     case userProfile(User, Group?)
     case deleteAccount
+    case friends
 
     // Hashable conformance for associated-value cases
     func hash(into hasher: inout Hasher) {
@@ -28,6 +29,7 @@ enum Route: Hashable {
         case .addGroupMember:        hasher.combine(8)
         case .userProfile(let u, _): hasher.combine(9); hasher.combine(u.id)
         case .deleteAccount:          hasher.combine(10)
+        case .friends:               hasher.combine(11)
         }
     }
 
@@ -45,6 +47,7 @@ enum Route: Hashable {
             return g1.id == g2.id && p1 == p2 && m1 == m2
         case (.userProfile(let u1, _), .userProfile(let u2, _)): return u1.id == u2.id
         case (.deleteAccount, .deleteAccount):   return true
+        case (.friends, .friends):           return true
         default: return false
         }
     }

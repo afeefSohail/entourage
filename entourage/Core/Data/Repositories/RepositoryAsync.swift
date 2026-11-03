@@ -238,4 +238,58 @@ extension UserRepository {
             }
         }
     }
+
+    func getReceivedRequests() async throws -> [User] {
+        try await withCheckedThrowingContinuation { cont in
+            getReceivedRequests { result, error in
+                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
+                cont.resume(returning: (result as? [User]) ?? [])
+            }
+        }
+    }
+
+    func acceptRequest(friendId: Int) async throws {
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
+            acceptRequest(friendId: friendId) { _, error in
+                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
+                cont.resume()
+            }
+        }
+    }
+
+    func searchBy(userName: String) async throws -> [User] {
+        try await withCheckedThrowingContinuation { cont in
+            searchBy(userName: userName) { result, error in
+                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
+                cont.resume(returning: (result as? [User]) ?? [])
+            }
+        }
+    }
+
+    func getAppContacts() async throws -> [User] {
+        try await withCheckedThrowingContinuation { cont in
+            getAppContacts { result, error in
+                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
+                cont.resume(returning: (result as? [User]) ?? [])
+            }
+        }
+    }
+
+    func getFriendsAndInvited(contacts: String) async throws -> FriendsWithInvitedUser {
+        try await withCheckedThrowingContinuation { cont in
+            getFriendsAndInvited(contacts: contacts) { result, error in
+                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
+                cont.resume(returning: (result as? FriendsWithInvitedUser) ?? FriendsWithInvitedUser())
+            }
+        }
+    }
+
+    func sendInviteMessage(phoneNumber: String) async throws {
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
+            sendInviteMessage(phoneNumber: phoneNumber) { _, error in
+                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
+                cont.resume()
+            }
+        }
+    }
 }
