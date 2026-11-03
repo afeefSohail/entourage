@@ -244,5 +244,6 @@ Saves ~500–800 lines of code that would otherwise need to be migrated to Swift
 
 ### Rules during Phase 5
 
-- Coordinate with backend to confirm `add_member` directly adds to `group.users` (no pending state)
+- Backend is not built yet — frontend defines the contract; backend will be built to match
+- `add_member` should put users directly into `group.users` with no pending state (backend must implement this)
 - After removal, verify group creation and swipe flow still work end-to-end
