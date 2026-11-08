@@ -209,11 +209,11 @@ struct OTPView: View {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         appDelegate?.setUpFireBaseConfig()
 
-        switch user.checkUserInfo() {
-        case "Gender": coordinator.push(.gender)
-        case "Photos":  coordinator.push(.photos)
-        case "userName": coordinator.push(.username)
-        default:
+        switch user.nextProfileStep {
+        case .age:      coordinator.push(.gender)
+        case .photos:   coordinator.push(.photos)
+        case .username: coordinator.push(.username)
+        case .complete:
             let status = CNContactStore.authorizationStatus(for: .contacts)
             if status == .authorized {
                 appState.phase = .main

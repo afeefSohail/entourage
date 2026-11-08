@@ -38,17 +38,17 @@ struct SplashView: View {
             // Load settings in background — populates EntourageManager.shared.setting
             Task { _ = try? await UserRepository.shared.getUserSettings() }
 
-            switch user.checkUserInfo() {
-            case "Gender":
+            switch user.nextProfileStep {
+            case .age:
                 appState.initialOnboardingStep = .gender
                 appState.phase = .onboarding
-            case "Photos":
+            case .photos:
                 appState.initialOnboardingStep = .photos
                 appState.phase = .onboarding
-            case "userName":
+            case .username:
                 appState.initialOnboardingStep = .username
                 appState.phase = .onboarding
-            default:
+            case .complete:
                 let contactStatus = CNContactStore.authorizationStatus(for: .contacts)
                 if contactStatus != .authorized {
                     appState.initialOnboardingStep = .contactsPermission
