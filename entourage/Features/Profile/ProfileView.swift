@@ -49,8 +49,7 @@ struct ProfileView: View {
                     if let group = vm.group {
                         Divider()
                         GroupInfoRow(group: group) {
-                            // tapping group opens swipe
-                            coordinator.push(.swipeGroups)
+                            coordinator.push(.groupManagement)
                         }
                     }
 

@@ -59,6 +59,8 @@ struct AppRootView: View {
             FiltersViewBridge()
         case .addGroupMember:
             AddGroupMemberBridge()
+        case .groupManagement:
+            GroupManagementView()
         case .userProfile(let user, let group):
             UserProfileView(user: user, group: group)
         case .deleteAccount:
