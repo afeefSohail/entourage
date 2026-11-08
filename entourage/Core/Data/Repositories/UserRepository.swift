@@ -36,6 +36,7 @@ protocol UserRepositoryProtocol {
     func getFriendsAndInvited(contacts: String, callback: @escaping RepoCallback)
     func sendRequest(friendId: Int, callback: @escaping RepoCallback)
     func acceptRequest(friendId: Int, callback: @escaping RepoCallback)
+    func rejectRequest(friendId: Int, callback: @escaping RepoCallback)
     func blockFriend(friendId: Int, reason: String?, abusiveMsg: UIImage?, callback: @escaping RepoCallback)
     func unFriend(friendId: Int, callback: @escaping RepoCallback)
     func getBlockedFriends(callback: @escaping RepoCallback)
@@ -488,6 +489,13 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
             } catch { print(error) }
         }
         session.request(url("/api/v1/friendships/accept"), method: .post, parameters: params)
+            .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))
+    }
+
+    func rejectRequest(friendId: Int, callback: @escaping RepoCallback) {
+        let params: [String: Any] = ["auth_token": User.getToken(), "friend_id": friendId]
+        let parsing: (DataResponse<Any, AFError>) -> Void = { _ in callback(nil, nil) }
+        session.request(url("/api/v1/friendships/reject"), method: .post, parameters: params)
             .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))
     }
 

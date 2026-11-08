@@ -30,8 +30,18 @@ final class MatchesViewModel {
             try await repo.unMatchTheGroup(groupId: groupId)
             matches.removeAll { $0.id == match.id }
             EntourageManager.shared.myMatchs = matches
+            restartMatchListener()
         } catch {
             errorMessage = error.localizedDescription
         }
+    }
+
+    private func restartMatchListener() {
+        lastMessageListner?.unsubscribe()
+        lastMessageListner = nil
+        guard !EntourageManager.shared.myMatchs.isEmpty else { return }
+        let listener = unReadMessageFirebaseService<LastMessage>.matchListener()
+        lastMessageListner = listener
+        listener?.lastMesssageUpdates { _, _ in }
     }
 }

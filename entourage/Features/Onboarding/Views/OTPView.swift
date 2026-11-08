@@ -149,12 +149,6 @@ struct OTPView: View {
     }
 
     private func verifyCode(_ entered: String) async {
-        // Dev bypass
-        if entered == "555555" && phone == "+923034014009" {
-            isVerified = true
-            return
-        }
-
         let credential = FireBaseAuth.getCredentialWith(
             verificationID: FireBaseAuth.verificationId,
             verificationCode: entered

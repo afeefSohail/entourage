@@ -257,6 +257,15 @@ extension UserRepository {
         }
     }
 
+    func rejectRequest(friendId: Int) async throws {
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
+            rejectRequest(friendId: friendId) { _, error in
+                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
+                cont.resume()
+            }
+        }
+    }
+
     func searchBy(userName: String) async throws -> [User] {
         try await withCheckedThrowingContinuation { cont in
             searchBy(userName: userName) { result, error in

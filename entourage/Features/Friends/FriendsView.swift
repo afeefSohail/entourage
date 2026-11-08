@@ -4,6 +4,7 @@ import Contacts
 
 struct FriendsView: View {
 
+    @Environment(AppCoordinator.self) private var coordinator
     @State private var vm = FriendsViewModel()
 
     var body: some View {
@@ -121,7 +122,8 @@ struct FriendsView: View {
                     FriendRow(
                         user: user,
                         badge: nil,
-                        action: actionForAllTab(user: user)
+                        action: actionForAllTab(user: user),
+                        onTap: { coordinator.push(.userProfile(user, nil)) }
                     )
                     .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
                     .listRowSeparator(.hidden)
@@ -152,12 +154,14 @@ struct FriendsView: View {
                 emptyState(text: "No pending friend requests.")
             } else {
                 List(vm.requests, id: \.id) { user in
+                    let accepted = vm.acceptedRequestIds.contains(user.id)
+                    let rejected = vm.rejectedRequestIds.contains(user.id)
                     FriendRow(
                         user: user,
                         badge: nil,
-                        action: vm.acceptedRequestIds.contains(user.id)
-                            ? .friends
-                            : .accept { Task { await vm.acceptRequest(from: user) } }
+                        action: accepted ? .friends : .accept { Task { await vm.acceptRequest(from: user) } },
+                        rejectAction: (accepted || rejected) ? nil : { Task { await vm.rejectRequest(from: user) } },
+                        onTap: { coordinator.push(.userProfile(user, nil)) }
                     )
                     .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
                     .listRowSeparator(.hidden)
@@ -183,7 +187,8 @@ struct FriendsView: View {
                             FriendRow(
                                 user: user,
                                 badge: "IN YOUR CONTACTS",
-                                action: actionForAllTab(user: user)
+                                action: actionForAllTab(user: user),
+                                onTap: { coordinator.push(.userProfile(user, nil)) }
                             )
                             .listRowInsets(EdgeInsets(top: 4, leading: 16, bottom: 4, trailing: 16))
                             .listRowSeparator(.hidden)
@@ -254,6 +259,7 @@ enum FriendRowAction {
     case add(action: () -> Void)
     case invite(action: () -> Void)
     case accept(action: () -> Void)
+    case reject(action: () -> Void)
     case pending(String)
     case friends
 }
@@ -265,6 +271,8 @@ struct FriendRow: View {
     let user: User
     let badge: String?
     let action: FriendRowAction
+    var rejectAction: (() -> Void)? = nil
+    var onTap: (() -> Void)? = nil
 
     var body: some View {
         HStack(spacing: 12) {
@@ -311,6 +319,8 @@ struct FriendRow: View {
             actionButton
         }
         .padding(.vertical, 4)
+        .contentShape(Rectangle())
+        .onTapGesture { onTap?() }
     }
 
     private var initials: String {
@@ -347,13 +357,51 @@ struct FriendRow: View {
             .buttonStyle(.plain)
 
         case .accept(let handler):
+            if let reject = rejectAction {
+                HStack(spacing: 6) {
+                    Button(action: reject) {
+                        Text("Decline")
+                            .font(.custom("Avenir-Medium", size: 13))
+                            .foregroundStyle(.red)
+                            .frame(width: 60, height: 26)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(Color.red, lineWidth: 1)
+                            }
+                    }
+                    .buttonStyle(.plain)
+                    Button(action: handler) {
+                        Text("Accept")
+                            .font(.custom("Avenir-Medium", size: 13))
+                            .foregroundStyle(.white)
+                            .frame(width: 60, height: 26)
+                            .background(Color.themeColor)
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                    }
+                    .buttonStyle(.plain)
+                }
+            } else {
+                Button(action: handler) {
+                    Text("Accept")
+                        .font(.custom("Avenir-Medium", size: 13))
+                        .foregroundStyle(.white)
+                        .frame(width: 60, height: 26)
+                        .background(Color.themeColor)
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                }
+                .buttonStyle(.plain)
+            }
+
+        case .reject(let handler):
             Button(action: handler) {
-                Text("Accept")
+                Text("Decline")
                     .font(.custom("Avenir-Medium", size: 13))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.red)
                     .frame(width: 60, height: 26)
-                    .background(Color.themeColor)
-                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(Color.red, lineWidth: 1)
+                    }
             }
             .buttonStyle(.plain)
 
