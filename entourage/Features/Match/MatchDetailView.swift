@@ -82,7 +82,7 @@ struct MatchDetailView: View {
                     HStack(spacing: 12) {
                         Button {
                             if let g = group {
-                                coordinator.push(.chat(g, personalChat: false, matchId: match.id))
+                                coordinator.push(.chat(g, personalChat: false, matchId: match.chat_id))
                             }
                         } label: {
                             Label("Message", systemImage: "message.fill")

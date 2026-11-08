@@ -13,6 +13,29 @@ struct AppRootView: View {
                 }
         }
         .environment(coordinator)
+        .task { await loadStartupData() }
+    }
+
+    @MainActor
+    private func loadStartupData() async {
+        await withTaskGroup(of: Void.self) { group in
+            group.addTask {
+                if let g = try? await GroupRepository.shared.myGroup() {
+                    await MainActor.run { EntourageManager.shared.myGroup = g }
+                }
+            }
+            group.addTask {
+                if let list = try? await MatchRepository.shared.matchList() {
+                    await MainActor.run { EntourageManager.shared.myMatchs = list }
+                }
+            }
+        }
+
+        guard lastMessageListner == nil,
+              EntourageManager.shared.myGroup != nil else { return }
+        let listener = unReadMessageFirebaseService<LastMessage>.matchListener()
+        lastMessageListner = listener
+        listener?.lastMesssageUpdates { _, _ in }
     }
 
     @ViewBuilder
