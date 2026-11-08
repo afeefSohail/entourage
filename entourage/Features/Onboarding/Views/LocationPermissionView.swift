@@ -81,7 +81,7 @@ struct LocationPermissionView: View {
                 .padding(.horizontal, 24)
 
                 Button("Maybe later") {
-                    coordinator.push(.addFriends)
+                    coordinator.push(.notificationPermission)
                 }
                 .font(.system(size: 14))
                 .foregroundStyle(.secondary)
@@ -127,6 +127,6 @@ struct LocationPermissionView: View {
         await withCheckedContinuation { (cont: CheckedContinuation<Void, Never>) in
             UserRepository.shared.updateLocation { _, _ in cont.resume() }
         }
-        coordinator.push(.addFriends)
+        coordinator.push(.notificationPermission)
     }
 }

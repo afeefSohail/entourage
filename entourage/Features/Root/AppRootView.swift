@@ -1,5 +1,6 @@
 // AppRootView.swift — SwiftUI root: tabs + NavigationStack coordinator
 import SwiftUI
+import UIKit
 
 struct AppRootView: View {
 
@@ -14,6 +15,9 @@ struct AppRootView: View {
         }
         .environment(coordinator)
         .task { await loadStartupData() }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+            handlePendingDeepLink()
+        }
     }
 
     @MainActor
@@ -36,6 +40,41 @@ struct AppRootView: View {
         let listener = unReadMessageFirebaseService<LastMessage>.matchListener()
         lastMessageListner = listener
         listener?.lastMesssageUpdates { _, _ in }
+    }
+
+    @MainActor
+    private func handlePendingDeepLink() {
+        let defaults = UserDefaults.standard
+        guard let type = defaults.string(forKey: "notifiable_type"), !type.isEmpty else { return }
+        defaults.removeObject(forKey: "notifiable_type")
+
+        switch type {
+        case "Message":
+            let chatId = defaults.integer(forKey: "chat_id")
+            let groupId = defaults.integer(forKey: "group_id")
+            defaults.removeObject(forKey: "chat_id")
+            defaults.removeObject(forKey: "group_id")
+
+            if let myGroup = EntourageManager.shared.myGroup, myGroup.id == groupId {
+                coordinator.push(.chat(myGroup, personalChat: true, matchId: 0))
+            } else if let match = EntourageManager.shared.myMatchs.first(where: { $0.chat_id == chatId }),
+                      let matchedGroup = match.matcher {
+                coordinator.push(.chat(matchedGroup, personalChat: false, matchId: match.chat_id))
+            }
+
+        case "MatchCreated":
+            let matchId = defaults.integer(forKey: "match_id")
+            defaults.removeObject(forKey: "match_id")
+            if let match = EntourageManager.shared.myMatchs.first(where: { $0.id == matchId }) {
+                coordinator.push(.matchDetail(match))
+            }
+
+        case "FriendshipRequest", "FriendshipAccepted":
+            coordinator.push(.friends)
+
+        default:
+            break
+        }
     }
 
     @ViewBuilder

@@ -1,5 +1,6 @@
 // SettingsView.swift — SwiftUI settings screen
 import SwiftUI
+import UIKit
 import FirebaseAuth
 
 struct SettingsView: View {
@@ -29,8 +30,9 @@ struct SettingsView: View {
             // Notifications & privacy
             Section("Privacy") {
                 SettingsRow(title: "Manage Notifications", icon: "bell.fill") {
-                    // keep UIKit ManageNotificationVC bridged
-                    NotificationCenter.default.post(name: .openManageNotifications, object: nil)
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
+                    }
                 }
                 SettingsRow(title: "Blocked Users (\(vm.blockedCount))", icon: "hand.raised.fill") {
                     coordinator.push(.blockedUsers)
@@ -177,6 +179,3 @@ struct SettingsRow: View {
     }
 }
 
-extension Notification.Name {
-    static let openManageNotifications = Notification.Name("openManageNotifications")
-}

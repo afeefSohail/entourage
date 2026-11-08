@@ -26,9 +26,10 @@ struct OnboardingView: View {
         case .birthday:             BirthdayView()
         case .photos:               PhotosView()
         case .username:             UsernameView()
-        case .contactsPermission:   ContactsPermissionView()
-        case .locationPermission:   LocationPermissionView()
-        case .addFriends:           OnboardingAddFriendsView()
+        case .contactsPermission:        ContactsPermissionView()
+        case .locationPermission:        LocationPermissionView()
+        case .notificationPermission:    NotificationPermissionView()
+        case .addFriends:                OnboardingAddFriendsView()
         case .banned(let name):     UserBannedView(username: name)
         }
     }
