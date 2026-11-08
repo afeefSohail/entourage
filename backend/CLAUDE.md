@@ -397,25 +397,25 @@ No auth required.
 No auth required.
 - Body: `{ phone_number: string }` (E.164 format, e.g. `+14155551234`)
 - Logic: upsert User by `phone_number`. On create, also create a default `Setting` row. Generate a fresh `authentication_token`. **Never store a password** — Firebase phone auth owns OTP verification; this endpoint only provisions the backend account.
-- Response: `data: { user: User }` — full user object including `authentication_token` and `photos: []`
+- Response: `data: User` — full user object including `authentication_token` and `photos: []`
 
 #### `GET /api/v1/users/user_by_auth_token`
 Protected.
 - Logic: return the authenticated user (from middleware)
-- Response: `data: { user: User }` with photos included
+- Response: `data: User` with photos included
 
 #### `GET /api/v1/users/user_by_phone_number`
 No auth required.
 - Query: `phone_number: string`
 - Logic: find user by phone, return with photos
-- Response: `data: { user: User }`
+- Response: `data: User`
 
 #### `POST /api/v1/users/edit_profile`
 Protected.
 - Body: `{ gender?, first_name?, last_name?, user_name?, bio?, dob? }` — all optional, patch semantics
 - Validation: if `dob` present → derive `age` from it; must be ≥ 18 (`422` if under age)
 - Logic: update user fields. Set group status to `active` once profile is complete (has gender + photos + username).
-- Response: `data: { user: User }`
+- Response: `data: User`
 
 #### `GET /api/v1/users/user_name_available`
 No auth required.
@@ -434,13 +434,13 @@ Protected.
 Protected.
 - Body: `{ latitude: string, longitude: string }`
 - Logic: update user lat/lng; also re-evaluate Group `status` to `active` if the group has ≥ 2 members and user has photos
-- Response: `data: { user: User }`
+- Response: `data: User`
 
 #### `GET /api/v1/users/search_by_user_name`
 Protected.
 - Query: `user_name: string`
 - Logic: `WHERE user_name ILIKE %query%`. Exclude the requesting user. For each result, inject `status` field from Friendship table (see Friendship Status enum below).
-- Response: `data: { friendships: User[], users: User[] }` — `friendships` = already friends, `users` = others
+- Response: `data: { friendships: [User], users: [User] }` — `friendships` = already friends, `users` = others (backend returns a container object with these two keys)
 
 #### `POST /api/v1/users/report`
 Protected. Multipart form data.
@@ -457,13 +457,13 @@ Protected.
 #### `GET /api/v1/users/my_setting`
 Protected.
 - Logic: return the user's Setting row (auto-create with defaults if missing)
-- Response: `data: { setting: Setting }`
+- Response: `data: Setting`
 
 #### `POST /api/v1/users/edit_setting`
 Protected.
 - Body: `{ everyone?, male_only?, female_only?, min_age?, max_age?, max_distace?, general?, friendship?, match?, group?, chat? }`
 - Validation: `min_age` < `max_age`. Exactly one of `everyone | male_only | female_only` must be true.
-- Response: `data: { setting: Setting }`
+- Response: `data: Setting`
 
 ---
 
@@ -478,19 +478,19 @@ Protected. Multipart (`image: file`).
   3. Create Photo row
   4. If `is_primary: true`, unset all other `is_primary` for this user first
   5. After upload, re-evaluate group `status`
-- Response: `data: { user: User }` — full user with updated photos array
+- Response: `data: User` — full user with updated photos array
 
 #### `DELETE /api/v1/photos/delete_photo`
 Protected.
 - Body: `{ id: int }`
 - Logic: verify photo belongs to requesting user. Delete from S3 (all 3 sizes). Delete DB row. If deleted photo was primary, promote next photo by order.
-- Response: `data: { user: User }` — full user with updated photos
+- Response: `data: User` — full user with updated photos
 
 #### `POST /api/v1/photos/set_order`
 Protected.
 - Body: `{ id: int, order: int, is_primary?: bool }`
 - Logic: update Photo row. If `is_primary: true`, unset other primaries first.
-- Response: `data: { user: User }` — full user with updated photos
+- Response: `data: User` — full user with updated photos
 
 ---
 
@@ -505,7 +505,7 @@ Protected.
   3. Add requesting user as first GroupMember
   4. Parse `friend_ids`, verify each is a friend (accepted Friendship exists) → add each as GroupMember
   5. If group has ≥ 2 members AND creator has photos → set `status: "active"`
-- Response: `data: { group: Group }` — group with nested `users` array (full User objects)
+- Response: `data: Group` — group with nested `users` array (full User objects)
 
 #### `POST /api/v1/groups/add_member`
 Protected. Creator only.
@@ -516,12 +516,12 @@ Protected. Creator only.
   3. Verify friend is not already in the group
   4. Add GroupMember row — user is immediately in the group, no approval step (Phase 5 direct-add model)
   5. Re-evaluate group `status`
-- Response: `data: { group: Group }` — updated group with users
+- Response: `data: Group` — updated group with users
 
 #### `GET /api/v1/groups/my_group`
 Protected.
 - Logic: find the group where the requesting user is a GroupMember. Return `null` in `data` if none.
-- Response: `data: { group: Group | null }`
+- Response: `data: Group | null`
 
 #### `DELETE /api/v1/groups/leave_group`
 Protected.
@@ -534,7 +534,7 @@ Protected.
 #### `GET /api/v1/groups/group_by_id`
 Protected.
 - Query: `group_id: int`
-- Response: `data: { group: Group }` — group with nested users
+- Response: `data: Group` — group with nested users
 
 ---
 
@@ -596,7 +596,7 @@ Protected.
   9. Only return groups with `status: "active"` and at least 2 members
   10. Order by distance ascending (closest first)
   11. Paginate
-- Response: `data: { groups: Group[] }` with pagination in `meta`
+- Response: `data: [Group]` with pagination in `meta`
 
 ```sql
 -- Haversine raw query (wrap in Prisma.$queryRaw)
@@ -622,13 +622,13 @@ Protected.
   3. Check if target group has already liked my group → if yes, **create a Match**
   4. Match creation: insert Match row. The `id` of the Match IS the `chat_id` used by iOS to form the Firebase room key `"Match_\(matchId)"`
   5. If match created: return Match object; otherwise return `null`
-- Response: `data: { match: Match | null }` — Match includes `matcher` (the other group), `distance`, `chat_id`
+- Response: `data: Match | null` — the new Match when mutual like; `null` when no match yet. Match includes `matcher` (the other group), `distance`, `chat_id`
 
 #### `POST /api/v1/matches/unlike_group`
 Protected.
 - Body: `{ group_id: string }`
 - Logic: delete GroupLike row (my group → target group). If a Match exists, do NOT delete it here — unlike ≠ unmatch.
-- Response: `data: { match: null }`
+- Response: `data: null`
 
 #### `GET /api/v1/matches/my_matches`
 Protected.
@@ -637,7 +637,7 @@ Protected.
   2. Find all active Matches where my group is `group_a` or `group_b`
   3. For each match, resolve the **other** group and compute current distance
   4. Order by most recent match first
-- Response: `data: { matches: Match[] }`
+- Response: `data: [Match]`
 
 Match shape:
 ```json
@@ -673,35 +673,35 @@ Protected.
 Protected.
 - Body: `{ phone_number: string }`
 - Logic: find user by phone. If found and no existing friendship → create accepted Friendship directly (no pending step). Used during onboarding contact sync.
-- Response: `data: { friendship_user: User }` — the matched user
+- Response: `data: User` — the matched user
 
 #### `GET /api/v1/friendships/friendes`
 Protected.
 - Logic: return all users who have an accepted Friendship with me (either direction)
-- Response: `data: { friendships: User[] }` — each User has `status: "friends"`
+- Response: `data: [User]` — each User has `status: "friends"`
 
 #### `POST /api/v1/friendships/all_friends_and_requests`
 Protected.
 - Body: none (auth_token only)
 - Logic: return all accepted friends + all received pending requests in one call. Each user has `status` injected.
-- Response: `data: { friendships: User[] }` — mixed, differentiated by `status` field
+- Response: `data: [User]` — mixed, differentiated by `status` field
 
 #### `POST /api/v1/friendships/received_requests`
 Protected.
 - Logic: return users who sent me a pending request
-- Response: `data: { friendships: User[] }` — each with `status: "received"`
+- Response: `data: [User]` — each with `status: "received"`
 
 #### `POST /api/v1/friendships/no_relation`
 Protected.
 - Body: `{ contacts: string }` — comma-separated phone numbers
 - Logic: from the given phone numbers, find users with no existing friendship with me.
-- Response: `data: { friendships: User[] }` — each with `status: "no_relation"`
+- Response: `data: [User]` — each with `status: "no_relation"`
 
 #### `POST /api/v1/friendships/friends_and_no_relation`
 Protected.
 - Body: `{ contacts: string }` — comma-separated phone numbers
 - Logic: for each phone number in contacts, find the user (if exists in app) and classify as `friends` or `no_relation`. Used for contact list with add/added state.
-- Response: `data: { friendships: User[], non_existing: string[] }` — `non_existing` is numbers not in the app
+- Response: `data: { friendships: [User], non_existing: [String] }` — container object; `non_existing` is phone numbers not in the app
 
 #### `POST /api/v1/friendships/request`
 Protected.
@@ -739,7 +739,7 @@ Protected.
 #### `GET /api/v1/friendships/blocked`
 Protected.
 - Logic: return users I have blocked (`requester_id = me AND status = "blocked"`)
-- Response: `data: { friendships: User[] }`
+- Response: `data: [User]`
 
 #### `POST /api/v1/friendships/unblock`
 Protected.
