@@ -140,10 +140,8 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
 
     func checkUserNameAvailability(userName: String, callback: @escaping RepoCallback) {
         let params = ["user_name": userName.lowercased()]
-        let parsing: (DataResponse<Any, AFError>) -> Void = { response in
-            if let dict = response.value as? [String: Any], dict["message"] is String {
-                callback("Yes", nil)
-            }
+        let parsing: (DataResponse<Any, AFError>) -> Void = { _ in
+            callback("Yes", nil)
         }
         session.request(url("/api/v1/users/user_name_available"), method: .get, parameters: params)
             .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))

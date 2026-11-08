@@ -35,10 +35,15 @@ class RepositoryBase {
 
     private func errorString(from data: Data?) -> String {
         guard let data = data,
-              let json = try? JSONSerialization.jsonObject(with: data) as? [String: AnyObject],
-              let message = json["error"] as? String else {
+              let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
             return "Something went wrong"
         }
-        return message
+        // new envelope: { meta: { message: "..." }, data: null }
+        if let meta = json["meta"] as? [String: Any], let msg = meta["message"] as? String {
+            return msg
+        }
+        // legacy fallback
+        if let msg = json["error"] as? String { return msg }
+        return "Something went wrong"
     }
 }
