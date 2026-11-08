@@ -673,7 +673,8 @@ Protected.
 Protected.
 - Body: `{ phone_number: string }`
 - Logic: find user by phone. If found and no existing friendship → create accepted Friendship directly (no pending step). Used during onboarding contact sync.
-- Response: `data: User` — the matched user
+- **If no account exists for that phone number: return 200 with `data: null`. Fire-and-forget — do NOT create a pending record keyed by phone number, do NOT send an SMS invite, do NOT error.** The app silently ignores a null response.
+- Response: `data: User` — the matched user, or `data: null` if the phone number has no account
 
 #### `GET /api/v1/friendships/friendes`
 Protected.
