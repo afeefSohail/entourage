@@ -58,6 +58,10 @@ final class SwipeViewModel {
     // MARK: - Swipe actions
 
     func like() async {
+        guard EntourageManager.shared.myGroup != nil else {
+            errorMessage = "Create a group first to start swiping."
+            return
+        }
         guard let group = currentGroup else { return }
         advance()
         do {
@@ -73,6 +77,10 @@ final class SwipeViewModel {
     }
 
     func pass() async {
+        guard EntourageManager.shared.myGroup != nil else {
+            errorMessage = "Create a group first to start swiping."
+            return
+        }
         guard let group = currentGroup else { return }
         advance()
         // fire-and-forget unlike

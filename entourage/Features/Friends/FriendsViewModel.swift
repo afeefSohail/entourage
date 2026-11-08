@@ -34,9 +34,10 @@ final class FriendsViewModel {
     var errorMessage: String?
 
     // MARK: - Optimistic UI sets
-    var sentRequestIds:    Set<Int>    = []
-    var acceptedRequestIds: Set<Int>   = []
-    var invitedNumbers:    Set<String> = []
+    var sentRequestIds:     Set<Int>    = []
+    var acceptedRequestIds: Set<Int>    = []
+    var rejectedRequestIds: Set<Int>    = []
+    var invitedNumbers:     Set<String> = []
 
     private let repo = UserRepository.shared
 
@@ -81,6 +82,17 @@ final class FriendsViewModel {
             requests.removeAll { $0.id == user.id }
         } catch {
             acceptedRequestIds.remove(user.id)
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    func rejectRequest(from user: User) async {
+        rejectedRequestIds.insert(user.id)
+        do {
+            try await repo.rejectRequest(friendId: user.id)
+            requests.removeAll { $0.id == user.id }
+        } catch {
+            rejectedRequestIds.remove(user.id)
             errorMessage = error.localizedDescription
         }
     }

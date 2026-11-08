@@ -89,7 +89,10 @@ struct SettingsView: View {
         }
         .alert("Log Out?", isPresented: $showLogoutAlert) {
             Button("Log Out", role: .destructive) {
+                lastMessageListner?.unsubscribe()
+                lastMessageListner = nil
                 try? Auth.auth().signOut()
+                EntourageManager.shared.reSetAppData()
                 appState.phase = .onboarding
             }
             Button("Cancel", role: .cancel) {}
@@ -135,10 +138,23 @@ struct SettingsView: View {
                 Text("\(vm.setting.min_age ?? 18)–\(vm.setting.max_age ?? 42)")
                     .foregroundStyle(.secondary)
             }
+            Text("Min age: \(vm.setting.min_age ?? 18)")
+                .font(.caption)
+                .foregroundStyle(.secondary)
             Slider(
                 value: Binding<Double>(
                     get: { Double(vm.setting.min_age ?? 18) },
                     set: { vm.setting.min_age = Int($0) }
+                ),
+                in: 18...70, step: 1
+            ).tint(Color("themeColor"))
+            Text("Max age: \(vm.setting.max_age ?? 42)")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            Slider(
+                value: Binding<Double>(
+                    get: { Double(vm.setting.max_age ?? 42) },
+                    set: { vm.setting.max_age = Int($0) }
                 ),
                 in: 18...70, step: 1
             ).tint(Color("themeColor"))

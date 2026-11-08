@@ -18,6 +18,7 @@
 		25FA868BB89D484CBB815B2B /* entourage/Features/Onboarding/Views/BirthdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9843EBE13A324B6DABD7E048 /* entourage/Features/Onboarding/Views/BirthdayView.swift */; };
 		281A04B9AFE142AC8C6B553F /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9690421C2364BA0AB80A096 /* ChatView.swift */; };
 		2952126CC9CA427CA60F8AD9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1FE0B7138B414E8D5F2AF1 /* SettingsView.swift */; };
+		04A57C93ECE444B599FF800C /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB5B8DD6D7247C9B7130C8F /* FiltersView.swift */; };
 		2B46BC451B594BC29DEFAD66 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B5735F2604CC69CF373D3 /* EditProfileViewModel.swift */; };
 		2FFF10AAAD7D4015BE16E336 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70B540F8699446EBE2BD45B /* UserProfileView.swift */; };
 		315F64092E33474695B572ED /* entourage/Features/Root/RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086B1E1498404456863FEF89 /* entourage/Features/Root/RootRouter.swift */; };
@@ -166,6 +167,7 @@
 		358B913C975D43FB931E8F75 /* MatchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchViewModel.swift; sourceTree = "<group>"; };
 		37F229D6F99C49D28FC799B5 /* NetworkCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkCore.swift; sourceTree = "<group>"; };
 		3E1FE0B7138B414E8D5F2AF1 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		9EB5B8DD6D7247C9B7130C8F /* FiltersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
 		4224EE9F17D04D9C8F2B0103 /* BlockedUsersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedUsersView.swift; sourceTree = "<group>"; };
 		42C1229FACE4FD50156FA265 /* Pods-entourage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-entourage.release.xcconfig"; path = "Target Support Files/Pods-entourage/Pods-entourage.release.xcconfig"; sourceTree = "<group>"; };
 		485CC0EC41614361A9859BCC /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -668,6 +670,7 @@
 			children = (
 				C412BD6E5F9A418D929A2F26 /* SettingsViewModel.swift */,
 				3E1FE0B7138B414E8D5F2AF1 /* SettingsView.swift */,
+				9EB5B8DD6D7247C9B7130C8F /* FiltersView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -983,6 +986,7 @@
 				C1022F90D7FC475EB385BB70 /* AppCoordinator.swift in Sources */,
 				7074F21D58D2438FA646A962 /* SettingsViewModel.swift in Sources */,
 				2952126CC9CA427CA60F8AD9 /* SettingsView.swift in Sources */,
+				04A57C93ECE444B599FF800C /* FiltersView.swift in Sources */,
 				477A114AAF9349368BA1667A /* ProfileViewModel.swift in Sources */,
 				025EE97F41014D87908BAA13 /* ProfileView.swift in Sources */,
 				2B46BC451B594BC29DEFAD66 /* EditProfileViewModel.swift in Sources */,

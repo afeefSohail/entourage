@@ -110,6 +110,14 @@ struct MatchDetailView: View {
             Button("Unmatch", role: .destructive) {
                 Task {
                     try? await MatchRepository.shared.unMatchTheGroup(groupId: String(group?.id ?? 0))
+                    EntourageManager.shared.myMatchs.removeAll { $0.id == match.id }
+                    lastMessageListner?.unsubscribe()
+                    lastMessageListner = nil
+                    if !EntourageManager.shared.myMatchs.isEmpty {
+                        let listener = unReadMessageFirebaseService<LastMessage>.matchListener()
+                        lastMessageListner = listener
+                        listener?.lastMesssageUpdates { _, _ in }
+                    }
                     coordinator.pop()
                 }
             }
