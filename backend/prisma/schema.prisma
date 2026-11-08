@@ -1,0 +1,187 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   Int       @id @default(autoincrement())
+  phone_number         String    @unique
+  authentication_token String    @unique @default(cuid())
+  first_name           String?
+  last_name            String?
+  user_name            String?   @unique
+  bio                  String?
+  gender               String?   // "male" | "female"
+  dob                  Int?      // unix timestamp (seconds)
+  age                  Int?
+  latitude             String?
+  longitude            String?
+  city                 String?
+  state                String?
+  is_blocked           Boolean   @default(false)
+  is_banned            Boolean   @default(false)
+  created_at           DateTime  @default(now())
+  updated_at           DateTime  @updatedAt
+
+  photos               Photo[]
+  setting              Setting?
+  devices              Device[]
+  groupMemberships     GroupMember[]
+  createdGroups        Group[]       @relation("GroupCreator")
+  sentLikes            GroupLike[]   @relation("LikerUser")
+  sentFriendRequests   Friendship[]  @relation("FriendRequester")
+  receivedFriendRequests Friendship[] @relation("FriendAddressee")
+  reportsMade          Report[]      @relation("Reporter")
+  reportsReceived      Report[]      @relation("Reported")
+  deletionLog          DeletionLog?
+}
+
+model Photo {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  original   String
+  medium     String
+  thumb      String
+  is_primary Boolean  @default(false)
+  order      Int      @default(0)
+  created_at DateTime @default(now())
+
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model Setting {
+  id                 Int     @id @default(autoincrement())
+  user_id            Int     @unique
+  everyone           Boolean @default(true)
+  male_only          Boolean @default(false)
+  female_only        Boolean @default(false)
+  min_age            Int     @default(18)
+  max_age            Int     @default(42)
+  max_distace        Int     @default(50)
+  group_member_count Int     @default(3)
+  block_member_count Int     @default(0)
+  general            Boolean @default(true)
+  friendship         Boolean @default(true)
+  match              Boolean @default(true)
+  group              Boolean @default(true)
+  chat               Boolean @default(true)
+
+  user               User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model Group {
+  id         Int       @id @default(autoincrement())
+  name       String?
+  status     String    @default("in_active") // "active" | "in_active"
+  city       String?
+  state      String?
+  creator_id Int
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+
+  creator       User        @relation("GroupCreator", fields: [creator_id], references: [id])
+  members       GroupMember[]
+  likesGiven    GroupLike[] @relation("LikerGroup")
+  likesReceived GroupLike[] @relation("LikedGroup")
+  matchesAsA    Match[]     @relation("MatchGroupA")
+  matchesAsB    Match[]     @relation("MatchGroupB")
+}
+
+model GroupMember {
+  id        Int      @id @default(autoincrement())
+  group_id  Int
+  user_id   Int
+  joined_at DateTime @default(now())
+
+  group Group @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([group_id, user_id])
+}
+
+model GroupLike {
+  id             Int      @id @default(autoincrement())
+  liker_group_id Int
+  liked_group_id Int
+  liker_user_id  Int
+  created_at     DateTime @default(now())
+
+  likerGroup Group @relation("LikerGroup", fields: [liker_group_id], references: [id], onDelete: Cascade)
+  likedGroup Group @relation("LikedGroup", fields: [liked_group_id], references: [id], onDelete: Cascade)
+  likerUser  User  @relation("LikerUser", fields: [liker_user_id], references: [id])
+
+  @@unique([liker_group_id, liked_group_id])
+}
+
+model Match {
+  id         Int      @id @default(autoincrement())
+  group_a_id Int
+  group_b_id Int
+  status     String   @default("active") // "active" | "unmatched"
+  distance   Float?
+  created_at DateTime @default(now())
+
+  groupA Group @relation("MatchGroupA", fields: [group_a_id], references: [id])
+  groupB Group @relation("MatchGroupB", fields: [group_b_id], references: [id])
+
+  @@unique([group_a_id, group_b_id])
+}
+
+model Friendship {
+  id           Int      @id @default(autoincrement())
+  requester_id Int
+  addressee_id Int
+  status       String   @default("pending") // "pending" | "accepted" | "blocked"
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  requester User @relation("FriendRequester", fields: [requester_id], references: [id], onDelete: Cascade)
+  addressee User @relation("FriendAddressee", fields: [addressee_id], references: [id], onDelete: Cascade)
+
+  @@unique([requester_id, addressee_id])
+}
+
+model Device {
+  id               Int      @id @default(autoincrement())
+  user_id          Int
+  physical_address String
+  fcm_token        String
+  device_type      String   @default("iphone")
+  updated_at       DateTime @updatedAt
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, physical_address])
+}
+
+model Report {
+  id          Int      @id @default(autoincrement())
+  reporter_id Int
+  reported_id Int
+  reason      String
+  image_url   String?
+  created_at  DateTime @default(now())
+
+  reporter User @relation("Reporter", fields: [reporter_id], references: [id])
+  reported User @relation("Reported", fields: [reported_id], references: [id])
+}
+
+model DeletionLog {
+  id         Int      @id @default(autoincrement())
+  user_id    Int      @unique
+  reason     String?
+  deleted_at DateTime @default(now())
+
+  user User @relation(fields: [user_id], references: [id])
+}
+
+model AppVersion {
+  id              Int    @id @default(autoincrement())
+  platform        String @default("ios")
+  min_version     String
+  current_version String
+}
