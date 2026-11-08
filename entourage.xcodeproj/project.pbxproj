@@ -149,6 +149,7 @@
 		5CBE7206CE4548CA8FBEB4E1 /* entourage/Features/Friends/FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B74DA3F1CF48FFB6CEBA25 /* entourage/Features/Friends/FriendsView.swift */; };
 		2940F0971A0A434FA4DF96E3 /* entourage/Features/Group/GroupManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4424609CA144158F18C2A3 /* entourage/Features/Group/GroupManagementView.swift */; };
 		8445406B69AF42ADA39F9098 /* entourage/Features/Group/GroupManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26B72373C6748E48F1CB96F /* entourage/Features/Group/GroupManagementViewModel.swift */; };
+		4AEDD5C82CDE4C05B58F9317 /* entourage/Features/Onboarding/Views/NotificationPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7148A2568DFA45A7B3EB524B /* entourage/Features/Onboarding/Views/NotificationPermissionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -273,6 +274,7 @@
 		E3B74DA3F1CF48FFB6CEBA25 /* entourage/Features/Friends/FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Friends/FriendsView.swift; sourceTree = SOURCE_ROOT; };
 		DE4424609CA144158F18C2A3 /* entourage/Features/Group/GroupManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Group/GroupManagementView.swift; sourceTree = SOURCE_ROOT; };
 		F26B72373C6748E48F1CB96F /* entourage/Features/Group/GroupManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Group/GroupManagementViewModel.swift; sourceTree = SOURCE_ROOT; };
+		7148A2568DFA45A7B3EB524B /* entourage/Features/Onboarding/Views/NotificationPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Onboarding/Views/NotificationPermissionView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -414,6 +416,7 @@
 				E3B74DA3F1CF48FFB6CEBA25 /* entourage/Features/Friends/FriendsView.swift */,
 				DE4424609CA144158F18C2A3 /* entourage/Features/Group/GroupManagementView.swift */,
 				F26B72373C6748E48F1CB96F /* entourage/Features/Group/GroupManagementViewModel.swift */,
+				7148A2568DFA45A7B3EB524B /* entourage/Features/Onboarding/Views/NotificationPermissionView.swift */,
 				904333AE7B5740F2A19DA163 /* entourage/Features/Onboarding/Views/UserBannedView.swift */,
 			);
 			name = "Recovered References";
@@ -1073,6 +1076,7 @@
 				5CBE7206CE4548CA8FBEB4E1 /* entourage/Features/Friends/FriendsView.swift in Sources */,
 				2940F0971A0A434FA4DF96E3 /* entourage/Features/Group/GroupManagementView.swift in Sources */,
 				8445406B69AF42ADA39F9098 /* entourage/Features/Group/GroupManagementViewModel.swift in Sources */,
+				4AEDD5C82CDE4C05B58F9317 /* entourage/Features/Onboarding/Views/NotificationPermissionView.swift in Sources */,
 				6CFD550371414F68AA02789A /* entourage/Features/Onboarding/Views/UserBannedView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

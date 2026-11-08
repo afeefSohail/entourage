@@ -1,6 +1,7 @@
 // ChatViewModel.swift — screen VM for chat, preserving personalChat: Bool distinction
 import Foundation
 import Observation
+import FirebaseMessaging
 
 @Observable
 @MainActor
@@ -19,7 +20,9 @@ final class ChatViewModel {
 
     // MARK: - Private
     private var service: MessageFirebaseService<ChatMessage>?
+    private var activeMemberService: ActiveMemberFireBaseService<ActiveMember>?
     private var currentUser: ChatUser
+    private var myUserId: String { "\(EntourageManager.shared.user.id)" }
 
 
 
@@ -50,11 +53,26 @@ final class ChatViewModel {
                 self.subscribeForNew()
             }
         }, callCompletionIfEmptyResult: true)
+        writeActiveMember()
     }
 
     func stop() {
         service?.unsubscribe()
         service = nil
+        deleteActiveMember()
+    }
+
+    private func writeActiveMember() {
+        let svc = ActiveMemberFireBaseService<ActiveMember>.creatActiveListner(id: chatRoomId)
+        self.activeMemberService = svc
+        let fcmToken = Messaging.messaging().fcmToken
+        let member = ActiveMember(senderId: myUserId, status: true, fcmToken: fcmToken)
+        svc.addAcvtiveDoc(docId: myUserId, element: member) { _, _ in }
+    }
+
+    private func deleteActiveMember() {
+        activeMemberService?.delete(docId: myUserId) { _ in }
+        activeMemberService = nil
     }
 
     private func subscribeForNew() {
