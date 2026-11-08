@@ -2,8 +2,6 @@
 //  AppDelegate.swift
 //  entourage
 //
-//  Created by Furqan Ahmad on 23/05/2019.
-//  Copyright © 2019 West Bay Technologies. All rights reserved.
 //
 
 import UIKit
@@ -119,6 +117,10 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
             UserDefaults.standard.set(type, forKey: "notifiable_type")
         } else if type == "FriendshipRequest" || type == "FriendshipAccepted" {
             UserDefaults.standard.set(type, forKey: "notifiable_type")
+        } else if type == "GroupMemberAdded" {
+            let groupId = Int(notificationData["group_id"] as! String) ?? 0
+            UserDefaults.standard.set(groupId, forKey: "group_id")
+            UserDefaults.standard.set(type, forKey: "notifiable_type")
         }
         completionHandler()
         
@@ -146,6 +148,10 @@ extension AppDelegate : UNUserNotificationCenterDelegate{
             UserDefaults.standard.set(id, forKey: "match_id")
             UserDefaults.standard.set(type, forKey: "notifiable_type")
         } else if type == "FriendshipRequest" || type == "FriendshipAccepted" {
+            UserDefaults.standard.set(type, forKey: "notifiable_type")
+        } else if type == "GroupMemberAdded" {
+            let groupId = Int(notificationData["group_id"] as? String ?? "") ?? 0
+            UserDefaults.standard.set(groupId, forKey: "group_id")
             UserDefaults.standard.set(type, forKey: "notifiable_type")
         }
         

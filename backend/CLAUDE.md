@@ -803,6 +803,15 @@ All push via Firebase Admin SDK (`firebase-admin`). Collect FCM tokens from `Dev
 }
 ```
 
+### Added to group
+```json
+{
+  "notification": { "title": "Entourage", "body": "You were added to a group!" },
+  "data": { "notifiable_type": "GroupMemberAdded", "group_id": "<group_id>" }
+}
+```
+Send when `add_member` succeeds. Only send if the added user has `group` notifications enabled in their Setting. Do NOT send if the creator is adding themselves.
+
 ### New message (Firebase Cloud Function — NOT this backend)
 The iOS app calls the Firebase Cloud Function at `https://us-east1-<project>.cloudfunctions.net/sendNotificationToUsers` directly. The backend does NOT handle this. Never implement it server-side.
 

@@ -72,6 +72,15 @@ struct AppRootView: View {
         case "FriendshipRequest", "FriendshipAccepted":
             coordinator.push(.friends)
 
+        case "GroupMemberAdded":
+            defaults.removeObject(forKey: "group_id")
+            Task {
+                if let g = try? await GroupRepository.shared.myGroup() {
+                    EntourageManager.shared.myGroup = g
+                }
+                coordinator.push(.groupManagement)
+            }
+
         default:
             break
         }
