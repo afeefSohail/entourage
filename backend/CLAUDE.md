@@ -421,8 +421,8 @@ Protected.
 No auth required.
 - Query: `user_name: string`
 - Logic: lowercase the name, check uniqueness
-- Response on available: `data: { message: "Available" }` — `meta.code: 200`
-- Response on taken: `meta.code: 422, message: "Username taken"`
+- Response on available: `meta.code: 200, meta.message: "Available", data: null`
+- Response on taken: `meta.code: 422, meta.message: "Username taken", data: null`
 
 #### `DELETE /api/v1/users/delete_account`
 Protected.
