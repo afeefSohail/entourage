@@ -149,11 +149,7 @@ struct PhotosView: View {
 
     private func uploadPhoto(_ image: UIImage, at index: Int) async {
         guard let data = image.jpegData(compressionQuality: 0.8) else { return }
-        await withCheckedContinuation { cont in
-            WebServicesManager.shared.uploadPhoto(image: data, isPrimary: index == 0, order: index) { _, _ in
-                cont.resume()
-            }
-        }
+        _ = try? await UserRepository.shared.uploadPhoto(image: data, isPrimary: index == 0, order: index)
     }
 
     private func removePhoto(at index: Int) {

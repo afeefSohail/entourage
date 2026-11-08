@@ -97,7 +97,7 @@ struct AppRootView: View {
         case .filters:
             FiltersView()
         case .addGroupMember:
-            AddGroupMemberBridge()
+            AddGroupMemberView()
         case .groupManagement:
             GroupManagementView()
         case .userProfile(let user, let group):
@@ -136,11 +136,4 @@ private struct MainTabView: View {
     }
 }
 
-// MARK: - Placeholder views for screens not yet migrated to SwiftUI
 
-struct AddGroupMemberBridge: View {
-    var body: some View {
-        Text("Add Group Member")
-            .navigationTitle("Add Group Member")
-    }
-}

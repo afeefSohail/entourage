@@ -100,13 +100,7 @@ struct BirthdayView: View {
         isLoading = true
         defer { isLoading = false }
         do {
-            try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
-                WebServicesManager.shared.editUserProfile(checkAge: true) { _, error in
-                    if let error { cont.resume(throwing: NSError(domain: "", code: 0,
-                        userInfo: [NSLocalizedDescriptionKey: error])) }
-                    else { cont.resume(returning: ()) }
-                }
-            }
+            _ = try await UserRepository.shared.editUserProfile(checkAge: true)
             coordinator.push(.photos)
         } catch {
             errorMessage = error.localizedDescription

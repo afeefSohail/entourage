@@ -114,17 +114,11 @@ struct UsernameView: View {
             try? await Task.sleep(nanoseconds: 500_000_000)
             guard !Task.isCancelled else { return }
             await MainActor.run { status = .checking }
-            await withCheckedContinuation { cont in
-                WebServicesManager.shared.checkUserNameAvailablityBy(userName: name) { message, error in
-                    Task { @MainActor in
-                        if error != nil {
-                            status = .taken
-                        } else {
-                            status = .available
-                        }
-                        cont.resume()
-                    }
-                }
+            do {
+                try await UserRepository.shared.checkUserNameAvailability(userName: name)
+                await MainActor.run { status = .available }
+            } catch {
+                await MainActor.run { status = .taken }
             }
         }
         _ = task
@@ -134,13 +128,7 @@ struct UsernameView: View {
         isLoading = true
         defer { isLoading = false }
         do {
-            try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
-                WebServicesManager.shared.editUserProfile(checkAge: false) { _, error in
-                    if let error { cont.resume(throwing: NSError(domain: "", code: 0,
-                        userInfo: [NSLocalizedDescriptionKey: error])) }
-                    else { cont.resume(returning: ()) }
-                }
-            }
+            _ = try await UserRepository.shared.editUserProfile(checkAge: false)
             coordinator.push(.contactsPermission)
         } catch {
             status = .error(error.localizedDescription)

@@ -177,26 +177,16 @@ struct OTPView: View {
     }
 
     private func signUpOrGetUser() async throws -> User {
-        try await withCheckedThrowingContinuation { cont in
-            WebServicesManager.shared.UserSignUpBy(phoneNum: phone) { user, error in
-                if let error {
-                    if error == "phone number already exist." {
-                        WebServicesManager.shared.getUserBy(phoneNum: self.phone) { user, err in
-                            if let u = user as? User { cont.resume(returning: u) }
-                            else { cont.resume(throwing: NSError(domain: "", code: 0,
-                                userInfo: [NSLocalizedDescriptionKey: err ?? "Unknown"])) }
-                        }
-                    } else {
-                        cont.resume(throwing: NSError(domain: "", code: 0,
-                            userInfo: [NSLocalizedDescriptionKey: error]))
-                    }
-                } else if let u = user as? User {
-                    cont.resume(returning: u)
-                } else {
-                    cont.resume(throwing: NSError(domain: "", code: 0,
-                        userInfo: [NSLocalizedDescriptionKey: "Unknown"]))
-                }
+        do {
+            guard let u = try await UserRepository.shared.userSignUp(phoneNum: phone) else {
+                throw RepositoryError(message: "Unknown error")
             }
+            return u
+        } catch let err as RepositoryError where err.message == "phone number already exist." {
+            guard let u = try await UserRepository.shared.getUserBy(phoneNum: phone) else {
+                throw RepositoryError(message: "Unknown error")
+            }
+            return u
         }
     }
 

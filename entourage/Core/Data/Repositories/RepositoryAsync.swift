@@ -13,6 +13,15 @@ struct RepositoryError: LocalizedError {
 
 extension GroupRepository {
 
+    func addMember(groupId: Int, friendsId: Int) async throws -> Group? {
+        try await withCheckedThrowingContinuation { cont in
+            addMember(groupId: groupId, friendsId: friendsId) { result, error in
+                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
+                cont.resume(returning: result as? Group)
+            }
+        }
+    }
+
     func createGroup(friendsIds: String) async throws -> Group? {
         try await withCheckedThrowingContinuation { cont in
             createGroup(friendsIds: friendsIds) { result, error in
@@ -301,4 +310,49 @@ extension UserRepository {
             }
         }
     }
+    func userSignUp(phoneNum: String) async throws -> User? {
+        try await withCheckedThrowingContinuation { cont in
+            userSignUp(phoneNum: phoneNum) { result, error in
+                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
+                cont.resume(returning: result as? User)
+            }
+        }
+    }
+
+    func getUserBy(phoneNum: String) async throws -> User? {
+        try await withCheckedThrowingContinuation { cont in
+            getUserBy(phoneNum: phoneNum) { result, error in
+                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
+                cont.resume(returning: result as? User)
+            }
+        }
+    }
+
+    func checkUserNameAvailability(userName: String) async throws {
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
+            checkUserNameAvailability(userName: userName) { _, error in
+                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
+                cont.resume()
+            }
+        }
+    }
+
+    func directFriendShip(phoneNumber: String) async throws {
+        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
+            directFriendShip(phoneNumber: phoneNumber) { _, error in
+                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
+                cont.resume()
+            }
+        }
+    }
+
+    func getFriendsListBy(contacts: String, directFriendship: Bool) async throws -> [User] {
+        try await withCheckedThrowingContinuation { cont in
+            getFriendsListBy(contacts: contacts, directFriendship: directFriendship) { result, error in
+                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
+                cont.resume(returning: (result as? [User]) ?? [])
+            }
+        }
+    }
+
 }

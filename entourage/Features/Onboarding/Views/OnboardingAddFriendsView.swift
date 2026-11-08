@@ -106,11 +106,7 @@ struct OnboardingAddFriendsView: View {
             addedIds.remove(id)
         } else {
             addedIds.insert(id)
-            Task {
-                await withCheckedContinuation { cont in
-                    WebServicesManager.shared.directFriendShip(phoneNumber: phone) { _, _ in cont.resume() }
-                }
-            }
+            Task { try? await UserRepository.shared.directFriendShip(phoneNumber: phone) }
         }
     }
 
@@ -118,15 +114,8 @@ struct OnboardingAddFriendsView: View {
         let contacts = PhoneContacts.getAllContacts()
         let numbers = contacts.compactMap { $0.phoneNumber.isEmpty ? nil : $0.phoneNumber }.joined(separator: ",")
 
-        await withCheckedContinuation { cont in
-            WebServicesManager.shared.getFriendsListBy(contacts: numbers, directFriendship: false) { list, _ in
-                Task { @MainActor in
-                    friends = (list as? [User]) ?? []
-                    isLoading = false
-                    cont.resume()
-                }
-            }
-        }
+        friends = (try? await UserRepository.shared.getFriendsListBy(contacts: numbers, directFriendship: false)) ?? []
+        isLoading = false
     }
 
     private func finish() async {
