@@ -95,7 +95,7 @@ struct AppRootView: View {
         case .blockedUsers:
             BlockedUsersView()
         case .filters:
-            FiltersViewBridge()
+            FiltersView()
         case .addGroupMember:
             AddGroupMemberBridge()
         case .groupManagement:
@@ -137,13 +137,6 @@ private struct MainTabView: View {
 }
 
 // MARK: - Placeholder views for screens not yet migrated to SwiftUI
-
-struct FiltersViewBridge: View {
-    var body: some View {
-        Text("Filters")
-            .navigationTitle("Filters")
-    }
-}
 
 struct AddGroupMemberBridge: View {
     var body: some View {
