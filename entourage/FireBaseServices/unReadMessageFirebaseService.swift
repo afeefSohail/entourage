@@ -20,7 +20,7 @@ class unReadMessageFirebaseService<LastMessage:Codable>{
     private var lastVisiable:DocumentSnapshot?
     
     var Matches = EntourageManager.shared.myMatchs
-    var myGroup = EntourageManager.shared.myGroup!
+    var myGroup: Group? = EntourageManager.shared.myGroup
     
     //init
     init(collectionRef:CollectionReference, query:Query) {
@@ -28,13 +28,11 @@ class unReadMessageFirebaseService<LastMessage:Codable>{
         self.query = query
     }
     
-    static func matchListener() -> unReadMessageFirebaseService<LastMessage>{
+    static func matchListener() -> unReadMessageFirebaseService<LastMessage>? {
+        guard let myGroupId = EntourageManager.shared.myGroup?.id else { return nil }
         let path = "Message/"
         let collection = db.collection(path)
-        let myGroupId = EntourageManager.shared.myGroup!.id
-        
-        let query = collection.whereField("groupIds", arrayContains: myGroupId  )
-        
+        let query = collection.whereField("groupIds", arrayContains: myGroupId)
         return unReadMessageFirebaseService<LastMessage>(collectionRef: collection, query: query)
     }
     
@@ -253,7 +251,7 @@ extension unReadMessageFirebaseService{
     fileprivate func checkLastMessageReadStatus(doc: DocumentChange , completion:@escaping () -> Void){
         
         Matches = EntourageManager.shared.myMatchs
-        myGroup = EntourageManager.shared.myGroup!
+        myGroup = EntourageManager.shared.myGroup
         
         let documentID = doc.document.documentID
         let message = doc.document.get("lastMessage") as? String ?? ""
@@ -284,7 +282,7 @@ extension unReadMessageFirebaseService{
             //save totalChat Counter
             totalCounter(value: chatTotalCounter, id: documentID)
             
-            if documentID != "\(myGroup.id)" , Matches.contains(where:{ "Match_\($0.chat_id)" == documentID }){
+            if let gId = myGroup?.id, documentID != "\(gId)", Matches.contains(where: { "Match_\($0.chat_id)" == documentID }) {
                 let allUnreadCounter = chatTotalCounter - myChatCounter
                 
                 incrementAllUnRead(value:allUnreadCounter)

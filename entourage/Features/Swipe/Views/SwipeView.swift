@@ -25,7 +25,7 @@ struct SwipeView: View {
                 MatchBanner(match: match) {
                     vm.showMatchBanner = false
                     if let group = match.matcher {
-                        coordinator.push(.chat(group, personalChat: false, matchId: match.id))
+                        coordinator.push(.chat(group, personalChat: false, matchId: match.chat_id))
                     }
                 } onDismiss: {
                     vm.showMatchBanner = false

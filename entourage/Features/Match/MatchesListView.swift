@@ -23,7 +23,7 @@ struct MatchesListView: View {
                     ForEach(vm.matches, id: \.id) { match in
                         MatchRow(match: match) {
                             if let group = match.matcher {
-                                coordinator.push(.chat(group, personalChat: false, matchId: match.id))
+                                coordinator.push(.chat(group, personalChat: false, matchId: match.chat_id))
                             }
                         }
                         .swipeActions(edge: .trailing) {
