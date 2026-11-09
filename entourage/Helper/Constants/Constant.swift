@@ -2,9 +2,6 @@
 //  Constant.swift
 //  entourage
 //
-//  Created by afeef sohail on 7/26/19.
-//  Copyright © 2019 West Bay Technologies. All rights reserved.
-//
 
 import UIKit
 import FirebaseAuth
@@ -45,7 +42,7 @@ struct Constants {
         case .production:
             return "http://localhost:3000"
         case .development:
-            return "http://localhost:3000"//http://elk.entourage-175085.development.c66.me
+            return "http://localhost:3001"
         }
         
     }
