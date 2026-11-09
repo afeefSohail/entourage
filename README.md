@@ -45,7 +45,7 @@ Entourage is an iOS app that flips the solo-dating model on its head. You create
 | Phone picker | FlagPhoneNumber (CocoaPod) |
 | Min deployment | iOS 17 |
 
-### Backend (in development)
+### Backend
 | Layer | Technology |
 |---|---|
 | Language | TypeScript |
