@@ -1,267 +1,247 @@
-# entourage — Architecture & Refactor Guidelines
+# Entourage — Developer Guide
 
-Three phases, in order. Do not start a later phase until the previous one is complete.
-Never reference timelines or week numbers when implementing.
+## What is Entourage?
 
-**Rules:**
-- Always changes should be commit and push In AI-Dev Branch.
-- Never push claude signature with commit.
-- Always use same folder for build an app in drive data.
----
+Entourage is a **group-based social matching app**. Users form small groups, those groups swipe on other groups, and when two groups match they can chat. Think Tinder, but you bring your friends.
 
-## Phase 1 — Feature Removal (UIKit, no architecture changes)
-
-Remove these features entirely. Do not port them to the new stack.
-
-| Feature | Why |
-|---------|-----|
-| Group Status System | ~400 lines, confusing UX, rarely used |
-| Reset Other Group Status | Abuse vector, no clear benefit |
-| Spotlight | Complex boost logic, marginal engagement |
-| Instant Match | Bypasses the core swipe flow unnecessarily |
-| Elite / Premium UI gates | Premature monetisation complexity |
-
-Simplify these (keep the core, cut the sub-flows):
-
-| Feature | What to cut |
-|---------|-------------|
-| Group Invitation | Drop accept/reject/delete sub-flows; keep simple invite |
-| Report / Block | Drop image upload in the report flow |
-| Contact Sync | Drop the 3-friend limit enforcement |
-
-**Rules during Phase 1:**
-- Do not change any architecture
-- Do not introduce SwiftUI
-- After each removal, verify that matching and chat still work
-- Start with Spotlight — it is the easiest quick win
-
-**Expected result:** ~2,500–3,500 lines deleted, 8–12 API endpoints gone.
+Core loop:
+1. User creates or joins a group
+2. Group swipes left/right on other groups
+3. Mutual swipe → match
+4. Matched groups can chat
+5. Users can also add friends directly (contact sync)
 
 ---
 
-## Phase 2 — Architecture Reorganisation (still UIKit)
+## Rules
 
-Only start after Phase 1 is merged. No SwiftUI yet.
+- Always commit and push changes to the **AI-Dev** branch.
+- Never add a Claude signature (`Co-Authored-By`) to commits.
+- Always use the same DerivedData folder for builds.
 
-### Target folder structure
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| UI | SwiftUI, `@Observable` (iOS 17+) |
+| Navigation | `NavigationStack` + `NavigationPath` |
+| Networking | Alamofire |
+| Realtime / Auth | Firebase (Firestore + Phone Auth) |
+| Phone input | FlagPhoneNumber (CocoaPod) |
+| Local persistence | SwiftData |
+| Async | `async/await` everywhere — no callbacks in new code |
+
+**Minimum deployment: iOS 17**
+
+---
+
+## Architecture: MVVM-C + Clean Architecture
 
 ```
-Core/
-  Domain/
-    Models/           ← Codable structs only, zero UI logic
-    ModelViewModels/  ← presentation wrappers, one per model
-    UseCases/
-  Data/
-    Repositories/
-    Services/
-Features/
-  Swipe/
-    Views/
-    ViewModels/
-  Chat/
-    Views/
-    ViewModels/
-  Match/
-  Profile/
-  Group/
+Views  →  Screen ViewModels  →  Use Cases  →  Repositories  →  Services
 ```
 
-### Split WebServicesManager
+### Layer responsibilities
 
-`WebServicesManager` (~2,000+ lines monolith) splits into four repositories. Each takes its service dependency via initializer (testable via protocol).
-
-- `UserRepository` — auth, profile, user lookup
-- `GroupRepository` — group CRUD, member management
-- `MatchRepository` — swipe decisions, match retrieval
-- `ChatRepository` — wraps `MessageFirebaseService`, exposes async API
-
-### 3-Layer ViewModel pattern
-
-| Layer | Location | Responsibility |
-|-------|----------|---------------|
-| Domain Models | `Core/Domain/Models/` | Pure `Codable` structs, no UI |
-| Model ViewModels | `Core/Domain/ModelViewModels/` | Formatted strings, derived state, display colors for one model |
-| Screen ViewModels | `Features/<Name>/ViewModels/` | Orchestrates multiple Model VMs + user actions for one screen |
-
-Never collapse these into a single ViewModel type.
-
----
-
-## Phase 3 — SwiftUI Migration
-
-Only start after Phase 2 is merged.
-
-### Architecture: MVVM-C with Clean Architecture
-
-Never propose VIPER — too verbose for this team size.
-
-**Layer stack (Views → Services):**
-
-| # | Layer | Technology |
-|---|-------|-----------|
-| 1 | Views | SwiftUI, `@Observable` |
-| 2 | Screen ViewModels | `@MainActor`, `@Observable` |
-| 3 | Coordinators | `NavigationStack`, `NavigationPath` |
-| 4 | Use Cases / Interactors | `async/await` |
-| 5 | Repositories | `protocol`-based |
-| 6 | Services | Alamofire · Firestore · SwiftData |
+| Layer | Rule |
+|-------|------|
+| **Views** (SwiftUI) | Render state, forward actions. Zero business logic. |
+| **Screen ViewModels** (`@MainActor @Observable`) | Drive one screen. Calls use cases, holds UI state. |
+| **Repositories** (protocol-based) | Abstract data sources. One per domain area. |
+| **Services** | Alamofire, Firestore, Firebase Auth. No business logic. |
 
 ### Coordinator pattern
 
 ```swift
 enum Route: Hashable {
-    case swipeGroups, matchDetail(Match), chat(Group), profile
+    case swipeGroups
+    case matchDetail(Match)
+    case chat(Group)
+    case profile
 }
 
-@Observable class AppCoordinator {
+@Observable
+@MainActor
+class AppCoordinator {
     var path = NavigationPath()
     func push(_ route: Route) { path.append(route) }
     func pop() { path.removeLast() }
+    func popToRoot() { path.removeLast(path.count) }
 }
 ```
 
-### Migration order
-
-Migrate screen by screen, lowest-risk first:
-1. Settings, Profile
-2. Chat (`ChatGroupVC` → SwiftUI, keep personal/match dual-mode via `personalChat` flag)
-3. Match detail
-4. Swipe (highest risk — do last)
-
-### Swift conventions
-
-- `@Observable` (iOS 17+) over `ObservableObject` / `@Published`
-- `async/await` everywhere new code is written; replace all callbacks
-- `@MainActor` on Screen ViewModels
-- `NavigationPath` for coordinator stack
-- `SwiftData` for local persistence
-
-### Chat (Firebase)
-
-`MessageFirebaseService<ChatMessage>` stays as-is; wrap it behind `ChatRepository`.
-Path: `Message/{id}/ChatMessages`, ordered by `createdAt` ascending.
-`ChatGroupVC` supports personal group chat and match cross-group chat via `personalChat: Bool` — preserve this distinction in SwiftUI.
+`AppCoordinator` lives in `Core/Domain/AppCoordinator.swift`. Each feature area can have its own sub-coordinator for deep stacks (e.g. `OnboardingCoordinator`).
 
 ---
 
-## Phase 4 — Onboarding SwiftUI Migration ✓ Complete
-
-### What was done
-
-Replaced all 11 UIKit onboarding ViewControllers and `onBoarding.storyboard` with SwiftUI views. `SceneDelegate` now sets `UIHostingController(rootView: RootRouter())` as the window root.
-
-### New files
+## Folder Structure
 
 ```
-entourage/Features/Root/
-  RootRouter.swift               ← switches between splash / onboarding / main
+entourage/
+  AppDelegate/
+    AppDelegate.swift
+    SceneDelegate.swift          ← sets UIHostingController(rootView: RootRouter())
 
-entourage/Features/Onboarding/
-  AppState.swift                 ← @Observable, Phase enum (splash/onboarding/main)
-  OnboardingCoordinator.swift    ← @Observable, NavigationStack + NavigationPath
-  OnboardingView.swift           ← NavigationStack root, handles all destinations
-  Views/
-    SplashView.swift
-    TutorialView.swift
-    PhoneInputView.swift         ← wraps FPNTextField (FlagPhoneNumber CocoaPod)
-    OTPView.swift                ← Firebase phone auth, 6-box custom UI
-    GenderView.swift
-    NameView.swift               ← reused for first name and last name (isLastName flag)
-    BirthdayView.swift
-    PhotosView.swift             ← PhotosPicker, LazyVGrid, uploadPhoto API
-    UsernameView.swift           ← debounced availability check
-    ContactsPermissionView.swift
-    OnboardingAddFriendsView.swift
-    UserBannedView.swift
+  AppSupport/
+    ActiveMemberSDK/             ← tracks online presence via Firebase
+    ChatSDK/                     ← wraps MessageFirebaseService, exposes async API
+    EntourageManager/            ← singleton: current user, session state
+    FireBaseAuth/                ← phone OTP flow
+    LastMessageSDK/              ← last-message listeners per conversation
+    PhoneContacts/               ← CNContact access
+    PushNotificationManager/     ← APNs + FCM token registration
+
+  Core/
+    Domain/
+      AppCoordinator.swift       ← NavigationPath coordinator
+    Data/
+      Repositories/
+        UserRepository.swift     ← auth, profile, user lookup
+        GroupRepository.swift    ← group CRUD, member management
+        MatchRepository.swift    ← swipe decisions, match retrieval
+        ChatRepository.swift     ← wraps MessageFirebaseService
+      Services/
+        NetworkCore.swift        ← Alamofire session, base request
+
+  Features/
+    Root/
+      RootRouter.swift           ← switches splash / onboarding / main
+      AppRootView.swift          ← main tab bar after login
+
+    Onboarding/
+      AppState.swift             ← @Observable, Phase enum
+      OnboardingCoordinator.swift
+      OnboardingView.swift
+      Views/
+        SplashView.swift
+        TutorialView.swift
+        PhoneInputView.swift
+        OTPView.swift
+        GenderView.swift
+        NameView.swift
+        BirthdayView.swift
+        PhotosView.swift
+        UsernameView.swift
+        ContactsPermissionView.swift
+        OnboardingAddFriendsView.swift
+        UserBannedView.swift
+
+    Swipe/
+      Views/
+      ViewModels/
+
+    Chat/
+      Views/
+        ChatView.swift           ← supports personal chat + match cross-group chat
+      ViewModels/
+
+    Match/
+      MatchesListView.swift
+      MatchDetailView.swift
+      MatchesViewModel.swift
+
+    Group/
+      GroupManagementView.swift
+      GroupManagementViewModel.swift
+      AddGroupMemberView.swift
+
+    Friends/
+      FriendsView.swift
+      FriendsViewModel.swift
+
+    Profile/
+      ProfileView.swift
+      ProfileViewModel.swift
+      EditProfileView.swift
+      EditProfileViewModel.swift
+      UserProfileView.swift
+      BlockedUsersView.swift
+      BlockedUsersViewModel.swift
+      DeleteAccountView.swift
+      UserActionAlertView.swift
+
+    Settings/
+      SettingsView.swift
+      SettingsViewModel.swift
+      FiltersView.swift
+
+  FireBaseServices/
+    MessageFirebaseService.swift       ← generic Firestore listener, keep as-is
+    ActiveMemberFireBaseService.swift
+    unReadMessageFirebaseService.swift
+
+  Models/                              ← Codable structs only, zero UI logic
+    User.swift
+    Group.swift
+    Match.swift
+    ChatMessage.swift
+    Photo.swift
+    Friendships.swift
+    GroupMember.swift
+    LastMessage.swift
+    ActiveMember.swift
+    Setting.swift
+    Contacts.swift
+    APIResponse.swift
+    PhotoProvider.swift
+    Group+DisplayName.swift
+    Group+Icon.swift
+    User+ProfileCompletion.swift
+
+  Helper/
+    Constants/Constant.swift
+    Extensions/Extensions.swift
+    Extensions/UIColor+Ext.swift
+    Helping Methods/HelpingMethods.swift
+    Helping Methods/MsgReading.swift
+
+  Theme/
+    Color/ColorTheme.swift
+
+  WebservicesManager/
+    WebservicesManager.swift           ← legacy monolith; new code goes in Repositories
+
 ```
 
-### Deleted
+---
 
-- `entourage/Storyboards/Base.lproj/onBoarding.storyboard`
-- All 17 files under `entourage/ViewController/onBoardingVC/`
-- All onboarding `load*VC` methods from `Ext+LoadVC.swift`
-- `switchToMain()` and `switchToOnBoarding()` from `Utils.swift` (replaced by `appState.phase`)
+## Repositories
 
-### SPM packages removed
+New networking code goes in `Core/Data/Repositories/`, not `WebservicesManager`.
 
-| Package | Reason |
-|---------|--------|
-| KAPinField | Replaced by custom SwiftUI OTP boxes |
-| FittedSheets | No longer needed |
-| SwiftDate | Replaced by `Calendar.current.component` and `DateFormatter` |
-| Kingfisher | Replaced by `URLSession.shared.dataTask` and SwiftUI `AsyncImage` |
+```swift
+protocol UserRepositoryProtocol {
+    func currentUser() async throws -> User
+    func updateProfile(_ update: ProfileUpdate) async throws -> User
+}
 
-### CocoaPods still required
+final class UserRepository: UserRepositoryProtocol {
+    static let shared = UserRepository()
+    // Alamofire calls here
+}
+```
 
-`FlagPhoneNumber` — used in `PhoneInputView.swift` for the country-code picker.
+The four repositories:
 
-### Key patterns used
-
-- `@Observable` for `AppState` and `OnboardingCoordinator` (iOS 17+)
-- `withCheckedThrowingContinuation` to bridge callback-based `WebServicesManager` calls into `async/await`; always annotate the continuation type explicitly: `(cont: CheckedContinuation<Void, Error>)`
-- `SwiftUI.Group` (fully qualified) to avoid conflict with the app's own `class Group: Codable`
+| Repository | Owns |
+|-----------|------|
+| `UserRepository` | auth, profile, user lookup, friends |
+| `GroupRepository` | group CRUD, members, swipe decisions |
+| `MatchRepository` | match retrieval, match actions |
+| `ChatRepository` | wraps `MessageFirebaseService`, async chat API |
 
 ---
 
-## Phase 5 — Group Invitation Simplification
+## API Response Contract
 
-Only start after Phase 3 is merged.
-
-### Goal
-
-Replace the accept/reject invitation model with a direct add + opt-out model.
-Saves ~500–800 lines of code that would otherwise need to be migrated to SwiftUI.
-
-### What to delete
-
-| Code | Location |
-|------|----------|
-| `acceptGroupInvite()` | `GroupRepository`, `RepositoryAsync`, `WebservicesManager` |
-| `rejectGroupInvite()` | `GroupRepository`, `RepositoryAsync`, `WebservicesManager` |
-| `groupInviteRequestes` array | `EntourageManager` |
-| `pendingGroupInvitation` field | `User`, `Friend` models |
-| `invitedUsers` / `pending_approval` field | `Group` model |
-| `group.allGroupMember()` pending logic | `Group` model |
-| All invite-pending UI screens | `Features/Group/` |
-
-### What to keep
-
-- `addMember(groupId:friendsId:)` — group creator adds friends directly, no approval step
-- `leaveGroup()` — the opt-out; any member can leave at any time
-
-### New model
-
-| Old | New |
-|-----|-----|
-| Creator invites → friend accepts/rejects | Creator adds → friend is immediately in the group |
-| `group.invitedUsers` (pending) | Removed — `group.users` is the only member list |
-| `groupInviteRequestes` notification | Removed — no pending state to notify about |
-| Opt-in (accept required) | Opt-out (`leaveGroup` to exit) |
-
-### API endpoints to drop
-
-- `POST /api/v1/groups/accept_group_invitation`
-- `DELETE /api/v1/groups/reject_group_invitation`
-
-### Rules during Phase 5
-
-- Backend is not built yet — frontend defines the contract; backend will be built to match
-- `add_member` should put users directly into `group.users` with no pending state (backend must implement this)
-- After removal, verify group creation and swipe flow still work end-to-end
-
----
-
-## API Response Contract (backend not built yet — frontend defines this)
-
-Every endpoint must wrap its response in this envelope:
+Every endpoint returns this envelope:
 
 ```json
 { "meta": { "code": 200, "message": "Success" }, "data": { ... } }
-{ "meta": { "code": 200, "message": "Success" }, "data": [ ... ] }
 { "meta": { "code": 422, "message": "Validation failed" }, "data": null }
 ```
-
-### Swift types (already in `entourage/Models/APIResponse.swift`)
 
 ```swift
 struct APIResponse<T: Decodable>: Decodable {
@@ -275,9 +255,61 @@ struct Meta: Decodable {
 }
 ```
 
-### Rules
+- `meta.code == 200` is the only success signal — not the HTTP status.
+- `data` is omitted/null for endpoints that return nothing (delete, leave, logout).
+- Pagination goes inside `meta`: `current_page`, `total_pages`, `per_page`, `total_count`.
 
-- `meta.code` is the canonical success/error signal — `200` is success, anything else is an error
-- `data` is `null` (omitted) for endpoints that return nothing (delete, leave, logout)
-- Pagination fields go inside `meta`: `current_page`, `total_pages`, `per_page`, `total_count`
-- Once the backend adopts this contract, delete all envelope wrapper classes: `BaseUser`, `Settings`, `UpdatePhoto`, `MyGroup`, `OtherGroups`, `MyMatches`, `MyMatche`, `BaseFriendShip`, `FriendsWithInvitedUser`, `RequestFriends`, `FriendShip`
+---
+
+## Swift Conventions
+
+- `@Observable` over `ObservableObject` / `@Published`
+- `@MainActor` on every Screen ViewModel
+- `async/await` everywhere — `withCheckedThrowingContinuation` to bridge legacy callbacks
+  - Always type the continuation explicitly: `(cont: CheckedContinuation<Void, Error>)`
+- `SwiftUI.Group { }` — fully qualified to avoid collision with `class Group: Codable`
+- Colors: `Color("themeColor")` — asset catalog name, not a static extension
+- No comments unless the **why** is non-obvious
+
+---
+
+## Chat (Firebase)
+
+`MessageFirebaseService<ChatMessage>` is the realtime Firestore listener. Keep it as-is; wrap it behind `ChatRepository` for new code.
+
+- Firestore path: `Message/{conversationId}/ChatMessages`, ordered by `createdAt` ascending.
+- `ChatView` supports two modes via `personalChat: Bool`:
+  - `true` → personal group chat (members of the same group)
+  - `false` → match cross-group chat (two matched groups talking)
+
+---
+
+## Group Model: Direct Add (no pending invitations)
+
+The invite model is **direct add + opt-out**:
+
+- Group creator adds friends directly → they are immediately in `group.users`
+- Any member can call `leaveGroup()` to exit
+- There is no accept/reject/pending state
+- `group.users` is the only member list
+
+---
+
+## Onboarding
+
+Entry point: `SceneDelegate` sets `UIHostingController(rootView: RootRouter())`.
+
+`RootRouter` reads `AppState.phase` (`.splash` / `.onboarding` / `.main`) and switches the root view. `OnboardingCoordinator` drives the onboarding `NavigationStack`.
+
+Phone number input uses `FPNTextField` (FlagPhoneNumber CocoaPod) wrapped in `UIViewRepresentable`. Country picker is a pure SwiftUI sheet over `FPNCountryRepository.countries`.
+
+---
+
+## Naming
+
+| Thing | Convention |
+|-------|-----------|
+| Screen ViewModel | `<Feature>ViewModel` |
+| Repository | `<Domain>Repository` |
+| Route enum case | camelCase, e.g. `matchDetail(Match)` |
+| View files | `<Feature>View.swift` |
