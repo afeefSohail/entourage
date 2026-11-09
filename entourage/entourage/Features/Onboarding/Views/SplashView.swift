@@ -8,7 +8,7 @@ struct SplashView: View {
     var body: some View {
         ZStack {
             Color("themeColor").ignoresSafeArea()
-            Image("entourage_logo")
+            Image("splashIcon")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 160)

@@ -10,7 +10,7 @@ struct TutorialView: View {
             VStack(spacing: 0) {
                 Spacer()
 
-                Image("tutorial_logo")
+                Image("Phone")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 220)
