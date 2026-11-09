@@ -58,21 +58,6 @@
 		50149A3522FF3B6D00A1FBBF /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50149A3422FF3B6D00A1FBBF /* Match.swift */; };
 		5016230922EDDA1D00BF8123 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5016230822EDDA1D00BF8123 /* Photo.swift */; };
 		501B1E2822F600F2007C896D /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501B1E2722F600F1007C896D /* Group.swift */; };
-		501E477A3098A8A70054597F /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E47783098A8A70054597F /* OnboardingView.swift */; };
-		501E477B3098A8A70054597F /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E47763098A8A70054597F /* AppState.swift */; };
-		501E477C3098A8A70054597F /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E47773098A8A70054597F /* OnboardingCoordinator.swift */; };
-		501E477D3098A8A70054597F /* GenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E476B3098A8A70054597F /* GenderView.swift */; };
-		501E477E3098A8A70054597F /* PhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E47703098A8A70054597F /* PhotosView.swift */; };
-		501E477F3098A8A70054597F /* NameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E476C3098A8A70054597F /* NameView.swift */; };
-		501E47803098A8A70054597F /* PhoneInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E476F3098A8A70054597F /* PhoneInputView.swift */; };
-		501E47813098A8A70054597F /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E47713098A8A70054597F /* SplashView.swift */; };
-		501E47823098A8A70054597F /* ContactsPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E476A3098A8A70054597F /* ContactsPermissionView.swift */; };
-		501E47833098A8A70054597F /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E47723098A8A70054597F /* TutorialView.swift */; };
-		501E47843098A8A70054597F /* UserBannedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E47733098A8A70054597F /* UserBannedView.swift */; };
-		501E47853098A8A70054597F /* OTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E476E3098A8A70054597F /* OTPView.swift */; };
-		501E47863098A8A70054597F /* UsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E47743098A8A70054597F /* UsernameView.swift */; };
-		501E47873098A8A70054597F /* BirthdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E47693098A8A70054597F /* BirthdayView.swift */; };
-		501E47883098A8A70054597F /* OnboardingAddFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E476D3098A8A70054597F /* OnboardingAddFriendsView.swift */; };
 		502457D823300EA900919C6F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 502457D723300EA900919C6F /* GoogleService-Info.plist */; };
 		5033A374233C1E2300701B11 /* message.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5033A372233C1E2300701B11 /* message.wav */; };
 		5033A375233C1E2300701B11 /* newmatch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5033A373233C1E2300701B11 /* newmatch.wav */; };
@@ -80,7 +65,6 @@
 		50394EF422EC33220059ED7E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50394EF222EC33220059ED7E /* User.swift */; };
 		50394EF622EC361F0059ED7E /* EntourageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50394EF522EC361F0059ED7E /* EntourageManager.swift */; };
 		503F9378229AB07200D04436 /* HelpingMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503F9377229AB07200D04436 /* HelpingMethods.swift */; };
-		503F9386229B49CF00D04436 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503F9385229B49CF00D04436 /* Utils.swift */; };
 		50408FD024410D8300994E00 /* FireBaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50408FCF24410D8300994E00 /* FireBaseAuth.swift */; };
 		504829B123485719000C0916 /* MsgReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504829B023485719000C0916 /* MsgReading.swift */; };
 		504829B3234857B7000C0916 /* LastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504829B2234857B7000C0916 /* LastMessage.swift */; };
@@ -135,7 +119,6 @@
 		DA86AE7E11C844A1A48B5D28 /* MatchesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B22DDB9C94A75A38ECA47 /* MatchesViewModel.swift */; };
 		DED511F298A240B68E39858B /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCE270C2634412AB4B83B9A /* GroupViewModel.swift */; };
 		E48365DB1F234D408C752C97 /* entourage/Features/Onboarding/OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646F0D26CE97462E90BDEEF7 /* entourage/Features/Onboarding/OnboardingView.swift */; };
-		E4F56FF1389547D4B047CD85 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23FC85981DE42B6A1141A65 /* NetworkService.swift */; };
 		E86EE67876574FD59EFDDAF5 /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B359C2271384F03AA0CC192 /* SwipeView.swift */; };
 		E96249FE22C7EDFD0054B80E /* Theme.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E96249FC22C7EDFC0054B80E /* Theme.xcassets */; };
 		E96249FF22C7EDFD0054B80E /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96249FD22C7EDFC0054B80E /* ColorTheme.swift */; };
@@ -177,21 +160,6 @@
 		50149A3422FF3B6D00A1FBBF /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		5016230822EDDA1D00BF8123 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		501B1E2722F600F1007C896D /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
-		501E47693098A8A70054597F /* BirthdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayView.swift; sourceTree = "<group>"; };
-		501E476A3098A8A70054597F /* ContactsPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsPermissionView.swift; sourceTree = "<group>"; };
-		501E476B3098A8A70054597F /* GenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderView.swift; sourceTree = "<group>"; };
-		501E476C3098A8A70054597F /* NameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameView.swift; sourceTree = "<group>"; };
-		501E476D3098A8A70054597F /* OnboardingAddFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingAddFriendsView.swift; sourceTree = "<group>"; };
-		501E476E3098A8A70054597F /* OTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPView.swift; sourceTree = "<group>"; };
-		501E476F3098A8A70054597F /* PhoneInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneInputView.swift; sourceTree = "<group>"; };
-		501E47703098A8A70054597F /* PhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosView.swift; sourceTree = "<group>"; };
-		501E47713098A8A70054597F /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
-		501E47723098A8A70054597F /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
-		501E47733098A8A70054597F /* UserBannedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBannedView.swift; sourceTree = "<group>"; };
-		501E47743098A8A70054597F /* UsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameView.swift; sourceTree = "<group>"; };
-		501E47763098A8A70054597F /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		501E47773098A8A70054597F /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
-		501E47783098A8A70054597F /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		502457D723300EA900919C6F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5033A372233C1E2300701B11 /* message.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = message.wav; sourceTree = "<group>"; };
 		5033A373233C1E2300701B11 /* newmatch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = newmatch.wav; sourceTree = "<group>"; };
@@ -199,7 +167,6 @@
 		50394EF222EC33220059ED7E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		50394EF522EC361F0059ED7E /* EntourageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntourageManager.swift; sourceTree = "<group>"; };
 		503F9377229AB07200D04436 /* HelpingMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpingMethods.swift; sourceTree = "<group>"; };
-		503F9385229B49CF00D04436 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		50408FCF24410D8300994E00 /* FireBaseAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseAuth.swift; sourceTree = "<group>"; };
 		504829B023485719000C0916 /* MsgReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MsgReading.swift; sourceTree = "<group>"; };
 		504829B2234857B7000C0916 /* LastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastMessage.swift; sourceTree = "<group>"; };
@@ -245,7 +212,6 @@
 		B2C3D4E5F6070002B2C3D4E5 /* LocationPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermissionView.swift; sourceTree = "<group>"; };
 		C3D4E5F6070802C3D4E5F607 /* UserActionAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActionAlertView.swift; sourceTree = "<group>"; };
 		D4E5F6070902D4E5F6070901 /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
-		A23FC85981DE42B6A1141A65 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		A70B540F8699446EBE2BD45B /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		AA000001000000000000AA00 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		AE92F47AA1564F4AB2D75F4D /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -398,66 +364,6 @@
 			path = AppSupport;
 			sourceTree = "<group>";
 		};
-		501E47683098A8650054597F /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				CBAF8AEBE0CB462184DF3C71 /* entourage/Features/Onboarding/AppState.swift */,
-				753EE909FD88418A929A8F9C /* entourage/Features/Onboarding/OnboardingCoordinator.swift */,
-				646F0D26CE97462E90BDEEF7 /* entourage/Features/Onboarding/OnboardingView.swift */,
-				086B1E1498404456863FEF89 /* entourage/Features/Root/RootRouter.swift */,
-				5DD0434EA0834444AEFDFF4B /* entourage/Features/Onboarding/Views/SplashView.swift */,
-				DB0B5DEEB8604081B84232BE /* entourage/Features/Onboarding/Views/TutorialView.swift */,
-				C93E681BC90C4FEFA0BD0DBA /* entourage/Features/Onboarding/Views/PhoneInputView.swift */,
-				5993D41D70004A73AA47144B /* entourage/Features/Onboarding/Views/OTPView.swift */,
-				095DD50EE13649ABA3AF02B2 /* entourage/Features/Onboarding/Views/GenderView.swift */,
-				D3ECF3ED736C478FB240415F /* entourage/Features/Onboarding/Views/NameView.swift */,
-				9843EBE13A324B6DABD7E048 /* entourage/Features/Onboarding/Views/BirthdayView.swift */,
-				B0F095349A40477683C35266 /* entourage/Features/Onboarding/Views/PhotosView.swift */,
-				EC7CCB61CE314435998B6640 /* entourage/Features/Onboarding/Views/UsernameView.swift */,
-				0B4F467A227E4E17828E2F00 /* entourage/Features/Onboarding/Views/ContactsPermissionView.swift */,
-				62C5A5FAB89545038C5B7313 /* entourage/Features/Onboarding/Views/OnboardingAddFriendsView.swift */,
-				4E634BE8037C4CB18F789B9B /* entourage/Features/Friends/FriendsViewModel.swift */,
-				E3B74DA3F1CF48FFB6CEBA25 /* entourage/Features/Friends/FriendsView.swift */,
-				DE4424609CA144158F18C2A3 /* entourage/Features/Group/GroupManagementView.swift */,
-				5D010E4A03094C229D318930 /* entourage/Features/Group/AddGroupMemberView.swift */,
-				F26B72373C6748E48F1CB96F /* entourage/Features/Group/GroupManagementViewModel.swift */,
-				7148A2568DFA45A7B3EB524B /* entourage/Features/Onboarding/Views/NotificationPermissionView.swift */,
-				904333AE7B5740F2A19DA163 /* entourage/Features/Onboarding/Views/UserBannedView.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
-		501E47753098A8A70054597F /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				501E47693098A8A70054597F /* BirthdayView.swift */,
-				501E476A3098A8A70054597F /* ContactsPermissionView.swift */,
-				501E476B3098A8A70054597F /* GenderView.swift */,
-				501E476C3098A8A70054597F /* NameView.swift */,
-				B2C3D4E5F6070002B2C3D4E5 /* LocationPermissionView.swift */,
-				501E476D3098A8A70054597F /* OnboardingAddFriendsView.swift */,
-				501E476E3098A8A70054597F /* OTPView.swift */,
-				501E476F3098A8A70054597F /* PhoneInputView.swift */,
-				501E47703098A8A70054597F /* PhotosView.swift */,
-				501E47713098A8A70054597F /* SplashView.swift */,
-				501E47723098A8A70054597F /* TutorialView.swift */,
-				501E47733098A8A70054597F /* UserBannedView.swift */,
-				501E47743098A8A70054597F /* UsernameView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		501E47793098A8A70054597F /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				501E47753098A8A70054597F /* Views */,
-				501E47763098A8A70054597F /* AppState.swift */,
-				501E47773098A8A70054597F /* OnboardingCoordinator.swift */,
-				501E47783098A8A70054597F /* OnboardingView.swift */,
-			);
-			path = Onboarding;
-			sourceTree = "<group>";
-		};
 		5033A371233C1DFF00701B11 /* Tune */ = {
 			isa = PBXGroup;
 			children = (
@@ -596,7 +502,6 @@
 		504C4519229844EA00B17623 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				503F9385229B49CF00D04436 /* Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -747,7 +652,6 @@
 			children = (
 				0F31FD4B728D409CA3ABB411 /* RepositoryAsync.swift */,
 				37F229D6F99C49D28FC799B5 /* NetworkCore.swift */,
-				A23FC85981DE42B6A1141A65 /* NetworkService.swift */,
 				6277ADD6CA2543F89E2257BA /* GroupRepository.swift */,
 				28B8D792614340D89BBF04D9 /* MatchRepository.swift */,
 				CACF54A9C78B437FB042E6FE /* UserRepository.swift */,
@@ -1015,7 +919,6 @@
 				7B47C038F0F94B7A83E9479B /* MatchViewModel.swift in Sources */,
 				72FFA8A5D4BE4F08A4A79B32 /* FriendViewModel.swift in Sources */,
 				FF9F4E902636417CA3339259 /* PhotoViewModel.swift in Sources */,
-				E4F56FF1389547D4B047CD85 /* NetworkService.swift in Sources */,
 				CAB7FC66813B45CE8B033D44 /* ChatMessageViewModel.swift in Sources */,
 				8431218886B6488DA3248D0F /* LastMessageViewModel.swift in Sources */,
 				CD3B93DD370C4FC98250C958 /* SettingViewModel.swift in Sources */,
@@ -1031,21 +934,6 @@
 				504829B123485719000C0916 /* MsgReading.swift in Sources */,
 				504829B923485AC0000C0916 /* ActiveMember.swift in Sources */,
 				E9A890BA229711A600CAECF6 /* AppDelegate.swift in Sources */,
-				501E477A3098A8A70054597F /* OnboardingView.swift in Sources */,
-				501E477B3098A8A70054597F /* AppState.swift in Sources */,
-				501E477C3098A8A70054597F /* OnboardingCoordinator.swift in Sources */,
-				501E477D3098A8A70054597F /* GenderView.swift in Sources */,
-				501E477E3098A8A70054597F /* PhotosView.swift in Sources */,
-				501E477F3098A8A70054597F /* NameView.swift in Sources */,
-				501E47803098A8A70054597F /* PhoneInputView.swift in Sources */,
-				501E47813098A8A70054597F /* SplashView.swift in Sources */,
-				501E47823098A8A70054597F /* ContactsPermissionView.swift in Sources */,
-				501E47833098A8A70054597F /* TutorialView.swift in Sources */,
-				501E47843098A8A70054597F /* UserBannedView.swift in Sources */,
-				501E47853098A8A70054597F /* OTPView.swift in Sources */,
-				501E47863098A8A70054597F /* UsernameView.swift in Sources */,
-				501E47873098A8A70054597F /* BirthdayView.swift in Sources */,
-				501E47883098A8A70054597F /* OnboardingAddFriendsView.swift in Sources */,
 				AA000001000000000000AA01 /* SceneDelegate.swift in Sources */,
 				50394EF322EC33220059ED7E /* Setting.swift in Sources */,
 				504829BB234863F8000C0916 /* LastMessageSDK.swift in Sources */,
@@ -1054,7 +942,6 @@
 				50B11B1722BFAA8600D13BF5 /* ChatMessage.swift in Sources */,
 				504829B523485957000C0916 /* unReadMessageFirebaseService.swift in Sources */,
 				504C45262299A44A00B17623 /* Extensions.swift in Sources */,
-				503F9386229B49CF00D04436 /* Utils.swift in Sources */,
 				50394EF622EC361F0059ED7E /* EntourageManager.swift in Sources */,
 				504829B3234857B7000C0916 /* LastMessage.swift in Sources */,
 				501B1E2822F600F2007C896D /* Group.swift in Sources */,
