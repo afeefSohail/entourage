@@ -60,6 +60,8 @@ struct CountryListSheet: UIViewControllerRepresentable {
 
     func makeUIViewController(context: Context) -> UINavigationController {
         let listVC = FPNCountryListViewController(style: .grouped)
+        listVC.loadViewIfNeeded()
+        listVC.setup(repository: repository)
         listVC.didSelect = { country in
             self.onSelect(country)
         }
@@ -67,10 +69,7 @@ struct CountryListSheet: UIViewControllerRepresentable {
         return UINavigationController(rootViewController: listVC)
     }
 
-    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
-        guard let listVC = uiViewController.viewControllers.first as? FPNCountryListViewController else { return }
-        listVC.setup(repository: repository)
-    }
+    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {}
 }
 
 // MARK: - PhoneInputView
