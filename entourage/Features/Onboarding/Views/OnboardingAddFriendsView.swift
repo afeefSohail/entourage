@@ -68,7 +68,7 @@ struct OnboardingAddFriendsView: View {
                     } else {
                         Section {
                             ForEach(filtered, id: \.id) { friend in
-                                FriendRow(
+                                OnboardingFriendRow(
                                     friend: friend,
                                     isAdded: addedIds.contains(friend.id)
                                 ) {
@@ -182,7 +182,7 @@ struct OnboardingAddFriendsView: View {
 
 // MARK: - FriendRow
 
-private struct FriendRow: View {
+private struct OnboardingFriendRow: View {
     let friend: User
     let isAdded: Bool
     let onToggle: () -> Void
