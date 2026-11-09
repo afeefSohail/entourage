@@ -24,7 +24,7 @@ struct FPNTextFieldRepresentable: UIViewRepresentable {
 
     func updateUIView(_ uiView: FPNTextField, context: Context) {
         guard let country = pendingCountry else { return }
-        uiView.set(country: country)
+        uiView.setFlag(countryCode: country.code)
         DispatchQueue.main.async { pendingCountry = nil }
     }
 
@@ -137,7 +137,8 @@ struct PhoneInputView: View {
             FPNTextFieldRepresentable(
                 phoneNumber: $phoneNumber,
                 isValid: $isValid,
-                countryCode: $countryCode
+                countryCode: $countryCode,
+                pendingCountry: $pendingCountry
             ) { repo in
                 countryRepository = repo
                 showCountryPicker = true

@@ -9,19 +9,16 @@
 /* Begin PBXBuildFile section */
 		00A9C23EAF114FE1B39723A3 /* entourage/Features/Onboarding/Views/TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0B5DEEB8604081B84232BE /* entourage/Features/Onboarding/Views/TutorialView.swift */; };
 		025EE97F41014D87908BAA13 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485CC0EC41614361A9859BCC /* ProfileView.swift */; };
-		04A57C93ECE444B599FF800C /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB5B8DD6D7247C9B7130C8F /* FiltersView.swift */; };
 		0650BDA42EE04B719BD034E1 /* BlockedUsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4224EE9F17D04D9C8F2B0103 /* BlockedUsersView.swift */; };
 		0A292C556C254867A6A91899 /* entourage/Features/Onboarding/Views/GenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095DD50EE13649ABA3AF02B2 /* entourage/Features/Onboarding/Views/GenderView.swift */; };
 		0A945E29D1A445C3950CFA5D /* User+ProfileCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918F8D02D90F48E08E58CCF6 /* User+ProfileCompletion.swift */; };
 		0F0882A493514553966686D5 /* entourage/Features/Onboarding/Views/NameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ECF3ED736C478FB240415F /* entourage/Features/Onboarding/Views/NameView.swift */; };
 		148914CD39BA4630BB6CE637 /* entourage/Features/Onboarding/Views/UsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7CCB61CE314435998B6640 /* entourage/Features/Onboarding/Views/UsernameView.swift */; };
-		167C29FCBF4C475DBB08E5DE /* entourage/Features/Friends/FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E634BE8037C4CB18F789B9B /* entourage/Features/Friends/FriendsViewModel.swift */; };
 		1AAE6EB725414E0B99991BDD /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8237BB63EAC54DA1B4038647 /* UserViewModel.swift */; };
 		25FA868BB89D484CBB815B2B /* entourage/Features/Onboarding/Views/BirthdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9843EBE13A324B6DABD7E048 /* entourage/Features/Onboarding/Views/BirthdayView.swift */; };
 		281A04B9AFE142AC8C6B553F /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9690421C2364BA0AB80A096 /* ChatView.swift */; };
-		9E0D87A0DA9F4D38A11B969D /* entourage/Features/Group/AddGroupMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D010E4A03094C229D318930 /* entourage/Features/Group/AddGroupMemberView.swift */; };
-		2940F0971A0A434FA4DF96E3 /* entourage/Features/Group/GroupManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4424609CA144158F18C2A3 /* entourage/Features/Group/GroupManagementView.swift */; };
 		2952126CC9CA427CA60F8AD9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1FE0B7138B414E8D5F2AF1 /* SettingsView.swift */; };
+		04A57C93ECE444B599FF800C /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB5B8DD6D7247C9B7130C8F /* FiltersView.swift */; };
 		2B46BC451B594BC29DEFAD66 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 578B5735F2604CC69CF373D3 /* EditProfileViewModel.swift */; };
 		2FFF10AAAD7D4015BE16E336 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70B540F8699446EBE2BD45B /* UserProfileView.swift */; };
 		315F64092E33474695B572ED /* entourage/Features/Root/RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086B1E1498404456863FEF89 /* entourage/Features/Root/RootRouter.swift */; };
@@ -30,7 +27,6 @@
 		3F337003D86A45A485F611A0 /* Group+Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF3648200A1404E84C7ACCE /* Group+Icon.swift */; };
 		46BD3696803E48C29084C3C9 /* entourage/Features/Onboarding/Views/OTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5993D41D70004A73AA47144B /* entourage/Features/Onboarding/Views/OTPView.swift */; };
 		477A114AAF9349368BA1667A /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F22118145A4CCAA2269CBE /* ProfileViewModel.swift */; };
-		4AEDD5C82CDE4C05B58F9317 /* entourage/Features/Onboarding/Views/NotificationPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7148A2568DFA45A7B3EB524B /* entourage/Features/Onboarding/Views/NotificationPermissionView.swift */; };
 		500084642FAB77DA001C14F2 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 500084632FAB77DA001C14F2 /* Alamofire */; };
 		500084692FAB782F001C14F2 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 500084682FAB782F001C14F2 /* AlamofireImage */; };
 		5000846C2FAB7894001C14F2 /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = 5000846B2FAB7894001C14F2 /* NVActivityIndicatorView */; };
@@ -104,7 +100,6 @@
 		50C7CC2922F58E3100EAF3C6 /* Friendships.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C7CC2722F58E3100EAF3C6 /* Friendships.swift */; };
 		50ED40D722AA707E008EADB9 /* Kaufmann-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 50ED40D622AA707E008EADB9 /* Kaufmann-Bold.otf */; };
 		5C5BCB174C5D4DB08594E96A /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACF54A9C78B437FB042E6FE /* UserRepository.swift */; };
-		5CBE7206CE4548CA8FBEB4E1 /* entourage/Features/Friends/FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B74DA3F1CF48FFB6CEBA25 /* entourage/Features/Friends/FriendsView.swift */; };
 		5E0A6D59AAD1454AA64B6DF4 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30116EA7BB0945788612462A /* ChatViewModel.swift */; };
 		606F7CFC3F40419482B61EDF /* MatchDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E8D7182B48491F9EDF0EEC /* MatchDetailView.swift */; };
 		6C30D216F1034DD2A4CB41B4 /* entourage/Features/Onboarding/Views/ContactsPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4F467A227E4E17828E2F00 /* entourage/Features/Onboarding/Views/ContactsPermissionView.swift */; };
@@ -116,31 +111,31 @@
 		7B47C038F0F94B7A83E9479B /* MatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358B913C975D43FB931E8F75 /* MatchViewModel.swift */; };
 		81BF5CBAABCA45ACBFB1351C /* SwipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85490C4280274073BABD326B /* SwipeViewModel.swift */; };
 		8431218886B6488DA3248D0F /* LastMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3855BDB3154E39ACB8E9AE /* LastMessageViewModel.swift */; };
-		8445406B69AF42ADA39F9098 /* entourage/Features/Group/GroupManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26B72373C6748E48F1CB96F /* entourage/Features/Group/GroupManagementViewModel.swift */; };
 		8D4A07D578D34476A5314E76 /* RepositoryAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F31FD4B728D409CA3ABB411 /* RepositoryAsync.swift */; };
 		8F31E75C1A4F4B908B51BE39 /* PhotoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559AC7F365AB4A01A256C1EE /* PhotoProvider.swift */; };
 		97305367DDA54202BA646A0E /* entourage/Features/Onboarding/Views/OnboardingAddFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C5A5FAB89545038C5B7313 /* entourage/Features/Onboarding/Views/OnboardingAddFriendsView.swift */; };
 		A032C2BE798D4EC2972CF81C /* MatchesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080335780BF14222A512F7F6 /* MatchesListView.swift */; };
 		A1B2C3D4E5F60001A1B2C3D4 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60002A1B2C3D4 /* APIResponse.swift */; };
+		B2C3D4E5F6070001B2C3D4E5 /* LocationPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F6070002B2C3D4E5 /* LocationPermissionView.swift */; };
+		C3D4E5F6070801C3D4E5F607 /* UserActionAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D4E5F6070802C3D4E5F607 /* UserActionAlertView.swift */; };
+		D4E5F6070901D4E5F6070901 /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E5F6070902D4E5F6070901 /* DeleteAccountView.swift */; };
 		A26DA831D57A4C368F50A510 /* NetworkCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F229D6F99C49D28FC799B5 /* NetworkCore.swift */; };
 		AA000001000000000000AA01 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000AA00 /* SceneDelegate.swift */; };
 		AF6AD721D788401AAC5BC4E6 /* GroupMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9338BBB098F4441E8DA6226D /* GroupMember.swift */; };
-		B2C3D4E5F6070001B2C3D4E5 /* LocationPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F6070002B2C3D4E5 /* LocationPermissionView.swift */; };
 		B49C453D71D240658FE6D540 /* entourage/Features/Onboarding/Views/PhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F095349A40477683C35266 /* entourage/Features/Onboarding/Views/PhotosView.swift */; };
 		BC95A7C52DA74607ACB5D3CA /* entourage/Features/Onboarding/AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAF8AEBE0CB462184DF3C71 /* entourage/Features/Onboarding/AppState.swift */; };
 		BCCFDA5E821345CEB05CCB70 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3443E9072E41739370635A /* AppRootView.swift */; };
 		C0D36A4819754681AAA4D975 /* Group+DisplayName.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E1D4DE243545A1A93466BB /* Group+DisplayName.swift */; };
 		C1022F90D7FC475EB385BB70 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE92F47AA1564F4AB2D75F4D /* AppCoordinator.swift */; };
-		C3D4E5F6070801C3D4E5F607 /* UserActionAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D4E5F6070802C3D4E5F607 /* UserActionAlertView.swift */; };
 		C500E7F8802A47649F8400DB /* GroupRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6277ADD6CA2543F89E2257BA /* GroupRepository.swift */; };
 		C64A4186A6DF4621AF5C7E4F /* MatchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B8D792614340D89BBF04D9 /* MatchRepository.swift */; };
 		CA65E72AD1A444BCB47A6492 /* BlockedUsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE18152780C421F9A585106 /* BlockedUsersViewModel.swift */; };
 		CAB7FC66813B45CE8B033D44 /* ChatMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88C6E158E5946639C5B714B /* ChatMessageViewModel.swift */; };
 		CD3B93DD370C4FC98250C958 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917A7C75F1EF47F089B2DA62 /* SettingViewModel.swift */; };
-		D4E5F6070901D4E5F6070901 /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E5F6070902D4E5F6070901 /* DeleteAccountView.swift */; };
 		DA86AE7E11C844A1A48B5D28 /* MatchesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B22DDB9C94A75A38ECA47 /* MatchesViewModel.swift */; };
 		DED511F298A240B68E39858B /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCE270C2634412AB4B83B9A /* GroupViewModel.swift */; };
 		E48365DB1F234D408C752C97 /* entourage/Features/Onboarding/OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646F0D26CE97462E90BDEEF7 /* entourage/Features/Onboarding/OnboardingView.swift */; };
+		E4F56FF1389547D4B047CD85 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23FC85981DE42B6A1141A65 /* NetworkService.swift */; };
 		E86EE67876574FD59EFDDAF5 /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B359C2271384F03AA0CC192 /* SwipeView.swift */; };
 		E96249FE22C7EDFD0054B80E /* Theme.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E96249FC22C7EDFC0054B80E /* Theme.xcassets */; };
 		E96249FF22C7EDFD0054B80E /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96249FD22C7EDFC0054B80E /* ColorTheme.swift */; };
@@ -151,6 +146,12 @@
 		FBFC96F475F140CFB1815085 /* entourage/Features/Onboarding/Views/SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD0434EA0834444AEFDFF4B /* entourage/Features/Onboarding/Views/SplashView.swift */; };
 		FF9F4E902636417CA3339259 /* PhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B90EE623FA348CAB820C190 /* PhotoViewModel.swift */; };
 		FFFEAFAB9BC74EE48062FA2E /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEFA7B5D2224443A40B8824 /* EditProfileView.swift */; };
+		167C29FCBF4C475DBB08E5DE /* entourage/Features/Friends/FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E634BE8037C4CB18F789B9B /* entourage/Features/Friends/FriendsViewModel.swift */; };
+		5CBE7206CE4548CA8FBEB4E1 /* entourage/Features/Friends/FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B74DA3F1CF48FFB6CEBA25 /* entourage/Features/Friends/FriendsView.swift */; };
+		2940F0971A0A434FA4DF96E3 /* entourage/Features/Group/GroupManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4424609CA144158F18C2A3 /* entourage/Features/Group/GroupManagementView.swift */; };
+		9E0D87A0DA9F4D38A11B969D /* entourage/Features/Group/AddGroupMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D010E4A03094C229D318930 /* entourage/Features/Group/AddGroupMemberView.swift */; };
+		8445406B69AF42ADA39F9098 /* entourage/Features/Group/GroupManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26B72373C6748E48F1CB96F /* entourage/Features/Group/GroupManagementViewModel.swift */; };
+		4AEDD5C82CDE4C05B58F9317 /* entourage/Features/Onboarding/Views/NotificationPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7148A2568DFA45A7B3EB524B /* entourage/Features/Onboarding/Views/NotificationPermissionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -167,10 +168,10 @@
 		358B913C975D43FB931E8F75 /* MatchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchViewModel.swift; sourceTree = "<group>"; };
 		37F229D6F99C49D28FC799B5 /* NetworkCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkCore.swift; sourceTree = "<group>"; };
 		3E1FE0B7138B414E8D5F2AF1 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		9EB5B8DD6D7247C9B7130C8F /* FiltersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
 		4224EE9F17D04D9C8F2B0103 /* BlockedUsersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedUsersView.swift; sourceTree = "<group>"; };
 		42C1229FACE4FD50156FA265 /* Pods-entourage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-entourage.release.xcconfig"; path = "Target Support Files/Pods-entourage/Pods-entourage.release.xcconfig"; sourceTree = "<group>"; };
 		485CC0EC41614361A9859BCC /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		4E634BE8037C4CB18F789B9B /* entourage/Features/Friends/FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Friends/FriendsViewModel.swift; sourceTree = SOURCE_ROOT; };
 		50105D63229D72AF00CC901E /* Contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contacts.swift; sourceTree = "<group>"; };
 		50105D66229D73BF00CC901E /* PhoneContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneContacts.swift; sourceTree = "<group>"; };
 		50149A3422FF3B6D00A1FBBF /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
@@ -226,7 +227,6 @@
 		646F0D26CE97462E90BDEEF7 /* entourage/Features/Onboarding/OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Onboarding/OnboardingView.swift; sourceTree = SOURCE_ROOT; };
 		6B90EE623FA348CAB820C190 /* PhotoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewModel.swift; sourceTree = "<group>"; };
 		6D1EFA985657881321B7E58C /* Pods_entourage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_entourage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7148A2568DFA45A7B3EB524B /* entourage/Features/Onboarding/Views/NotificationPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Onboarding/Views/NotificationPermissionView.swift; sourceTree = SOURCE_ROOT; };
 		753EE909FD88418A929A8F9C /* entourage/Features/Onboarding/OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Onboarding/OnboardingCoordinator.swift; sourceTree = SOURCE_ROOT; };
 		79E2DCD701E540D0BBBCF001 /* FriendViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
 		8237BB63EAC54DA1B4038647 /* UserViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
@@ -241,17 +241,18 @@
 		9843EBE13A324B6DABD7E048 /* entourage/Features/Onboarding/Views/BirthdayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Onboarding/Views/BirthdayView.swift; sourceTree = SOURCE_ROOT; };
 		9B359C2271384F03AA0CC192 /* SwipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
 		9CF3648200A1404E84C7ACCE /* Group+Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+Icon.swift"; sourceTree = "<group>"; };
-		9EB5B8DD6D7247C9B7130C8F /* FiltersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60002A1B2C3D4 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
+		B2C3D4E5F6070002B2C3D4E5 /* LocationPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermissionView.swift; sourceTree = "<group>"; };
+		C3D4E5F6070802C3D4E5F607 /* UserActionAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActionAlertView.swift; sourceTree = "<group>"; };
+		D4E5F6070902D4E5F6070901 /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
+		A23FC85981DE42B6A1141A65 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		A70B540F8699446EBE2BD45B /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		AA000001000000000000AA00 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		AE92F47AA1564F4AB2D75F4D /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		B0E1D4DE243545A1A93466BB /* Group+DisplayName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+DisplayName.swift"; sourceTree = "<group>"; };
 		B0F095349A40477683C35266 /* entourage/Features/Onboarding/Views/PhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Onboarding/Views/PhotosView.swift; sourceTree = SOURCE_ROOT; };
-		B2C3D4E5F6070002B2C3D4E5 /* LocationPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermissionView.swift; sourceTree = "<group>"; };
 		B9690421C2364BA0AB80A096 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		C1F22118145A4CCAA2269CBE /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
-		C3D4E5F6070802C3D4E5F607 /* UserActionAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActionAlertView.swift; sourceTree = "<group>"; };
 		C412BD6E5F9A418D929A2F26 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		C6C2B375C0454C998B7CE3BD /* ChatRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRepository.swift; sourceTree = "<group>"; };
 		C93E681BC90C4FEFA0BD0DBA /* entourage/Features/Onboarding/Views/PhoneInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Onboarding/Views/PhoneInputView.swift; sourceTree = SOURCE_ROOT; };
@@ -259,11 +260,7 @@
 		CBAF8AEBE0CB462184DF3C71 /* entourage/Features/Onboarding/AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Onboarding/AppState.swift; sourceTree = SOURCE_ROOT; };
 		CBE18152780C421F9A585106 /* BlockedUsersViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedUsersViewModel.swift; sourceTree = "<group>"; };
 		D3ECF3ED736C478FB240415F /* entourage/Features/Onboarding/Views/NameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Onboarding/Views/NameView.swift; sourceTree = SOURCE_ROOT; };
-		D4E5F6070902D4E5F6070901 /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
 		DB0B5DEEB8604081B84232BE /* entourage/Features/Onboarding/Views/TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Onboarding/Views/TutorialView.swift; sourceTree = SOURCE_ROOT; };
-		5D010E4A03094C229D318930 /* entourage/Features/Group/AddGroupMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Group/AddGroupMemberView.swift; sourceTree = SOURCE_ROOT; };
-		DE4424609CA144158F18C2A3 /* entourage/Features/Group/GroupManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Group/GroupManagementView.swift; sourceTree = SOURCE_ROOT; };
-		E3B74DA3F1CF48FFB6CEBA25 /* entourage/Features/Friends/FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Friends/FriendsView.swift; sourceTree = SOURCE_ROOT; };
 		E96249FC22C7EDFC0054B80E /* Theme.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Theme.xcassets; sourceTree = "<group>"; };
 		E96249FD22C7EDFC0054B80E /* ColorTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
 		E9A890B6229711A600CAECF6 /* entourage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = entourage.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,9 +271,14 @@
 		E9B0BC5C233FAC2A00CC6C3C /* entourage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = entourage.entitlements; sourceTree = "<group>"; };
 		E9B0BC5D233FB73000CC6C3C /* PushNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
 		EC7CCB61CE314435998B6640 /* entourage/Features/Onboarding/Views/UsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Onboarding/Views/UsernameView.swift; sourceTree = SOURCE_ROOT; };
-		F26B72373C6748E48F1CB96F /* entourage/Features/Group/GroupManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Group/GroupManagementViewModel.swift; sourceTree = SOURCE_ROOT; };
 		F88C6E158E5946639C5B714B /* ChatMessageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessageViewModel.swift; sourceTree = "<group>"; };
 		FBEFA7B5D2224443A40B8824 /* EditProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		4E634BE8037C4CB18F789B9B /* entourage/Features/Friends/FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Friends/FriendsViewModel.swift; sourceTree = SOURCE_ROOT; };
+		E3B74DA3F1CF48FFB6CEBA25 /* entourage/Features/Friends/FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Friends/FriendsView.swift; sourceTree = SOURCE_ROOT; };
+		DE4424609CA144158F18C2A3 /* entourage/Features/Group/GroupManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Group/GroupManagementView.swift; sourceTree = SOURCE_ROOT; };
+		5D010E4A03094C229D318930 /* entourage/Features/Group/AddGroupMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Group/AddGroupMemberView.swift; sourceTree = SOURCE_ROOT; };
+		F26B72373C6748E48F1CB96F /* entourage/Features/Group/GroupManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Group/GroupManagementViewModel.swift; sourceTree = SOURCE_ROOT; };
+		7148A2568DFA45A7B3EB524B /* entourage/Features/Onboarding/Views/NotificationPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Onboarding/Views/NotificationPermissionView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -416,8 +418,8 @@
 				62C5A5FAB89545038C5B7313 /* entourage/Features/Onboarding/Views/OnboardingAddFriendsView.swift */,
 				4E634BE8037C4CB18F789B9B /* entourage/Features/Friends/FriendsViewModel.swift */,
 				E3B74DA3F1CF48FFB6CEBA25 /* entourage/Features/Friends/FriendsView.swift */,
-				5D010E4A03094C229D318930 /* entourage/Features/Group/AddGroupMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Group/AddGroupMemberView.swift; sourceTree = SOURCE_ROOT; };
-		DE4424609CA144158F18C2A3 /* entourage/Features/Group/GroupManagementView.swift */,
+				DE4424609CA144158F18C2A3 /* entourage/Features/Group/GroupManagementView.swift */,
+				5D010E4A03094C229D318930 /* entourage/Features/Group/AddGroupMemberView.swift */,
 				F26B72373C6748E48F1CB96F /* entourage/Features/Group/GroupManagementViewModel.swift */,
 				7148A2568DFA45A7B3EB524B /* entourage/Features/Onboarding/Views/NotificationPermissionView.swift */,
 				904333AE7B5740F2A19DA163 /* entourage/Features/Onboarding/Views/UserBannedView.swift */,
@@ -700,7 +702,7 @@
 				578B5735F2604CC69CF373D3 /* EditProfileViewModel.swift */,
 				FBEFA7B5D2224443A40B8824 /* EditProfileView.swift */,
 				CBE18152780C421F9A585106 /* BlockedUsersViewModel.swift */,
-				4224EE9F17D04D9C8F2B0103 /* BlockedUsersView.swift */,
+								4224EE9F17D04D9C8F2B0103 /* BlockedUsersView.swift */,
 				C3D4E5F6070802C3D4E5F607 /* UserActionAlertView.swift */,
 				D4E5F6070902D4E5F6070901 /* DeleteAccountView.swift */,
 				A70B540F8699446EBE2BD45B /* UserProfileView.swift */,
@@ -745,6 +747,7 @@
 			children = (
 				0F31FD4B728D409CA3ABB411 /* RepositoryAsync.swift */,
 				37F229D6F99C49D28FC799B5 /* NetworkCore.swift */,
+				A23FC85981DE42B6A1141A65 /* NetworkService.swift */,
 				6277ADD6CA2543F89E2257BA /* GroupRepository.swift */,
 				28B8D792614340D89BBF04D9 /* MatchRepository.swift */,
 				CACF54A9C78B437FB042E6FE /* UserRepository.swift */,
@@ -1012,6 +1015,7 @@
 				7B47C038F0F94B7A83E9479B /* MatchViewModel.swift in Sources */,
 				72FFA8A5D4BE4F08A4A79B32 /* FriendViewModel.swift in Sources */,
 				FF9F4E902636417CA3339259 /* PhotoViewModel.swift in Sources */,
+				E4F56FF1389547D4B047CD85 /* NetworkService.swift in Sources */,
 				CAB7FC66813B45CE8B033D44 /* ChatMessageViewModel.swift in Sources */,
 				8431218886B6488DA3248D0F /* LastMessageViewModel.swift in Sources */,
 				CD3B93DD370C4FC98250C958 /* SettingViewModel.swift in Sources */,
@@ -1077,8 +1081,8 @@
 				97305367DDA54202BA646A0E /* entourage/Features/Onboarding/Views/OnboardingAddFriendsView.swift in Sources */,
 				167C29FCBF4C475DBB08E5DE /* entourage/Features/Friends/FriendsViewModel.swift in Sources */,
 				5CBE7206CE4548CA8FBEB4E1 /* entourage/Features/Friends/FriendsView.swift in Sources */,
-				9E0D87A0DA9F4D38A11B969D /* entourage/Features/Group/AddGroupMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D010E4A03094C229D318930 /* entourage/Features/Group/AddGroupMemberView.swift */; };
-		2940F0971A0A434FA4DF96E3 /* entourage/Features/Group/GroupManagementView.swift in Sources */,
+				2940F0971A0A434FA4DF96E3 /* entourage/Features/Group/GroupManagementView.swift in Sources */,
+				9E0D87A0DA9F4D38A11B969D /* entourage/Features/Group/AddGroupMemberView.swift in Sources */,
 				8445406B69AF42ADA39F9098 /* entourage/Features/Group/GroupManagementViewModel.swift in Sources */,
 				4AEDD5C82CDE4C05B58F9317 /* entourage/Features/Onboarding/Views/NotificationPermissionView.swift in Sources */,
 				6CFD550371414F68AA02789A /* entourage/Features/Onboarding/Views/UserBannedView.swift in Sources */,
