@@ -1,7 +1,7 @@
 # Entourage Backend — Architecture & Implementation Guide
 
 ## Stack
-TypeScript · Express · Zod · bcrypt · Redis · Docker · PostgreSQL · Prisma ORM 7
+TypeScript · Express · Zod · bcrypt · dotenv · Redis · Docker · PostgreSQL · Prisma ORM 5
 
 ## Rules (always in effect)
 - Never commit secrets. All env vars through `.env` only.
@@ -328,7 +328,6 @@ Validate all of these at startup with Zod in `src/config/env.ts`. If any require
 
 ```yaml
 # docker-compose.yml
-version: "3.9"
 services:
   api:
     build: .
@@ -455,11 +454,11 @@ Protected. Multipart form data.
 - Logic: create Report row. Upload image to S3 if present. If this user has 3+ reports from different reporters → auto-set `is_banned: true`.
 - Response: `data: null`
 
-#### ~~`POST /api/v1/users/send_message_invite`~~ (removed — replaced by `invite_url` in `direct_friendship`)
+#### `POST /api/v1/users/send_message_invite`
 Protected.
 - Body: `{ phone_number: string }`
-- Logic: send an SMS invite via Twilio (or similar) to the given number
-- Response: `data: null`
+- Logic: returns a deep link the iOS app shares natively via `UIActivityViewController`. No SMS/Twilio.
+- Response: `data: { invite_url: "https://entourage.app/invite?ref=<user_id>" }`
 
 #### `GET /api/v1/users/my_setting`
 Protected.
@@ -862,7 +861,7 @@ Invalidate `user:token:<auth_token>` on any profile update or logout.
 
 Build in this order. Each step is independently testable.
 
-1. **Scaffolding** — project setup, Docker Compose up, Prisma migrate, env validation, `respond.ts` helpers
+1. **Scaffolding** — project setup, Docker Compose up, Prisma migrate, env validation (`dotenv/config` must be imported first in `env.ts`), `respond.ts` helpers. Seed one `AppVersion` row: `INSERT INTO "AppVersion" (platform, min_version) VALUES ('ios', '2.0.0');`
 2. **Auth layer** — `user_signup`, `user_by_auth_token`, `update_device_token`, auth middleware
 3. **Profile** — `edit_profile`, `my_setting`, `edit_setting`, `update_coordinates`, `user_name_available`
 4. **Photos** — `upload_photo`, `delete_photo`, `set_order` (sharp + S3)
