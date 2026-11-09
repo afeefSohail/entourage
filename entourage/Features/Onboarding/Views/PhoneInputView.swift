@@ -53,24 +53,54 @@ struct FPNTextFieldRepresentable: UIViewRepresentable {
 
 // MARK: - Country picker sheet
 
-struct CountryListSheet: UIViewControllerRepresentable {
+struct CountryListSheet: View {
     let repository: FPNCountryRepository
     var onSelect: (FPNCountry) -> Void
     @Environment(\.dismiss) private var dismiss
+    @State private var searchText = ""
 
-    func makeUIViewController(context: Context) -> UINavigationController {
-        let listVC = FPNCountryListViewController(style: .grouped)
-        listVC.loadViewIfNeeded()
-        listVC.didSelect = { country in
-            self.onSelect(country)
+    private var filteredCountries: [FPNCountry] {
+        guard !searchText.isEmpty else { return repository.countries }
+        return repository.countries.filter {
+            $0.name.localizedCaseInsensitiveContains(searchText) ||
+            $0.phoneCode.contains(searchText)
         }
-        listVC.title = "Countries"
-        return UINavigationController(rootViewController: listVC)
     }
 
-    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
-        guard let listVC = uiViewController.viewControllers.first as? FPNCountryListViewController else { return }
-        listVC.setup(repository: repository)
+    var body: some View {
+        NavigationView {
+            List(filteredCountries, id: \.code.rawValue) { country in
+                Button {
+                    onSelect(country)
+                    dismiss()
+                } label: {
+                    HStack(spacing: 12) {
+                        Text(flagEmoji(for: country.code.rawValue))
+                            .font(.system(size: 24))
+                        Text(country.name)
+                            .foregroundStyle(.primary)
+                        Spacer()
+                        Text(country.phoneCode)
+                            .foregroundStyle(.secondary)
+                            .font(.system(size: 14))
+                    }
+                }
+            }
+            .searchable(text: $searchText, prompt: "Search country")
+            .navigationTitle("Countries")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                }
+            }
+        }
+    }
+
+    private func flagEmoji(for code: String) -> String {
+        code.uppercased().unicodeScalars.compactMap {
+            Unicode.Scalar(127397 + $0.value)
+        }.map(String.init).joined()
     }
 }
 
