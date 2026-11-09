@@ -209,7 +209,7 @@
 		9B359C2271384F03AA0CC192 /* SwipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
 		9CF3648200A1404E84C7ACCE /* Group+Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Group+Icon.swift"; sourceTree = "<group>"; };
 		A1B2C3D4E5F60002A1B2C3D4 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
-		B2C3D4E5F6070002B2C3D4E5 /* LocationPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermissionView.swift; sourceTree = "<group>"; };
+		B2C3D4E5F6070002B2C3D4E5 /* LocationPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entourage/Features/Onboarding/Views/LocationPermissionView.swift; sourceTree = SOURCE_ROOT; };
 		C3D4E5F6070802C3D4E5F607 /* UserActionAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActionAlertView.swift; sourceTree = "<group>"; };
 		D4E5F6070902D4E5F6070901 /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
 		A70B540F8699446EBE2BD45B /* UserProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
