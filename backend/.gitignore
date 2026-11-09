@@ -5,3 +5,7 @@ dist/
 uploads/
 prisma/migrations/
 .DS_Store
+/entourage-3b915-firebase-adminsdk-fbsvc-588dbcff76*.json
+!package.json
+!package-lock.json
+!tsconfig.json

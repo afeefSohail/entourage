@@ -6,6 +6,7 @@ Never reference timelines or week numbers when implementing.
 **Rules:**
 - Always changes should be commit and push In AI-Dev Branch.
 - Never push claude signature with commit.
+- Always use same folder for build an app in drive data.
 ---
 
 ## Phase 1 — Feature Removal (UIKit, no architecture changes)
