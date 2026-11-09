@@ -68,7 +68,39 @@ struct CountryListSheet: View {
     }
 
     var body: some View {
-        NavigationView {
+        VStack(spacing: 0) {
+            HStack {
+                Text("Countries")
+                    .font(.system(size: 17, weight: .semibold))
+                Spacer()
+                Button("Done") { dismiss() }
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundStyle(Color("themeColor"))
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 16)
+            .padding(.bottom, 12)
+
+            HStack {
+                Image(systemName: "magnifyingglass").foregroundStyle(.secondary)
+                TextField("Search country", text: $searchText)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
+                if !searchText.isEmpty {
+                    Button { searchText = "" } label: {
+                        Image(systemName: "xmark.circle.fill").foregroundStyle(.secondary)
+                    }
+                }
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(Color(.systemGray6))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .padding(.horizontal, 16)
+            .padding(.bottom, 8)
+
+            Divider()
+
             List(filteredCountries, id: \.code.rawValue) { country in
                 Button {
                     onSelect(country)
@@ -76,7 +108,7 @@ struct CountryListSheet: View {
                 } label: {
                     HStack(spacing: 12) {
                         Text(flagEmoji(for: country.code.rawValue))
-                            .font(.system(size: 24))
+                            .font(.system(size: 22))
                         Text(country.name)
                             .foregroundStyle(.primary)
                         Spacer()
@@ -86,14 +118,7 @@ struct CountryListSheet: View {
                     }
                 }
             }
-            .searchable(text: $searchText, prompt: "Search country")
-            .navigationTitle("Countries")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
-                }
-            }
+            .listStyle(.plain)
         }
     }
 
