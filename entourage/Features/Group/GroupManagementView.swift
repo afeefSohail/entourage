@@ -61,8 +61,8 @@ struct GroupManagementView: View {
             }
 
             // Members
-            Section("Members (\(group.users?.count ?? 0))") {
-                ForEach(group.users ?? [], id: \.id) { member in
+            Section("Members (\(group.users.count))") {
+                ForEach(group.users, id: \.id) { member in
                     MemberRow(member: member) {
                         coordinator.push(.userProfile(member, group))
                     }

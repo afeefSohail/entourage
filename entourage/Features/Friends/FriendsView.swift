@@ -50,13 +50,13 @@ struct FriendsView: View {
                 } label: {
                     Text(tab.rawValue)
                         .font(.custom("Avenir-Medium", size: 15))
-                        .foregroundStyle(vm.selectedTab == tab ? Color.themeColor : .secondary)
+                        .foregroundStyle(vm.selectedTab == tab ? Color("themeColor") : .secondary)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)
                         .overlay(alignment: .bottom) {
                             if vm.selectedTab == tab {
                                 Rectangle()
-                                    .fill(Color.themeColor)
+                                    .fill(Color("themeColor"))
                                     .frame(height: 2)
                             }
                         }
@@ -119,7 +119,7 @@ struct FriendsView: View {
 
     private var allTab: some View {
         let items = vm.searchText.isEmpty ? vm.friends : vm.searchResults
-        return Group {
+        return SwiftUI.Group {
             if items.isEmpty {
                 emptyState(
                     text: vm.searchText.isEmpty
@@ -158,7 +158,7 @@ struct FriendsView: View {
     // MARK: - Requests tab
 
     private var requestsTab: some View {
-        Group {
+        SwiftUI.Group {
             if vm.requests.isEmpty {
                 emptyState(text: "No pending friend requests.")
             } else {
@@ -243,7 +243,7 @@ struct FriendsView: View {
                 }
             }
             .font(.custom("Avenir-Medium", size: 15))
-            .foregroundStyle(Color.themeColor)
+            .foregroundStyle(Color("themeColor"))
             Spacer()
         }
         .padding(.horizontal, 32)
@@ -347,7 +347,7 @@ struct FriendRow: View {
                     .font(.custom("Avenir-Medium", size: 13))
                     .foregroundStyle(.white)
                     .frame(width: 60, height: 26)
-                    .background(Color.themeColor)
+                    .background(Color("themeColor"))
                     .clipShape(RoundedRectangle(cornerRadius: 5))
             }
             .buttonStyle(.plain)
@@ -356,11 +356,11 @@ struct FriendRow: View {
             Button(action: handler) {
                 Text("Invite")
                     .font(.custom("Avenir-Medium", size: 13))
-                    .foregroundStyle(Color.themeColor)
+                    .foregroundStyle(Color("themeColor"))
                     .frame(width: 60, height: 26)
                     .overlay {
                         RoundedRectangle(cornerRadius: 5)
-                            .stroke(Color.themeColor, lineWidth: 1)
+                            .stroke(Color("themeColor"), lineWidth: 1)
                     }
             }
             .buttonStyle(.plain)
@@ -384,7 +384,7 @@ struct FriendRow: View {
                             .font(.custom("Avenir-Medium", size: 13))
                             .foregroundStyle(.white)
                             .frame(width: 60, height: 26)
-                            .background(Color.themeColor)
+                            .background(Color("themeColor"))
                             .clipShape(RoundedRectangle(cornerRadius: 5))
                     }
                     .buttonStyle(.plain)
@@ -395,7 +395,7 @@ struct FriendRow: View {
                         .font(.custom("Avenir-Medium", size: 13))
                         .foregroundStyle(.white)
                         .frame(width: 60, height: 26)
-                        .background(Color.themeColor)
+                        .background(Color("themeColor"))
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                 }
                 .buttonStyle(.plain)
@@ -474,11 +474,11 @@ struct NonAppContactRow: View {
                 Button(action: onInvite) {
                     Text("Invite")
                         .font(.custom("Avenir-Medium", size: 13))
-                        .foregroundStyle(Color.themeColor)
+                        .foregroundStyle(Color("themeColor"))
                         .frame(width: 60, height: 26)
                         .overlay {
                             RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color.themeColor, lineWidth: 1)
+                                .stroke(Color("themeColor"), lineWidth: 1)
                         }
                 }
                 .buttonStyle(.plain)
