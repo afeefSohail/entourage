@@ -19,15 +19,14 @@ final class MatchRepository: RepositoryBase, MatchRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let otherGroups = try JSONDecoder().decode(OtherGroups.self, from: data)
-                otherGroups.groups.forEach { group in
-                    if group.users.isEmpty || group.groupStatus == .inactive {
-                        if let idx = otherGroups.groups.lastIndex(where: { $0.id == group.id }) {
-                            otherGroups.groups.remove(at: idx)
-                        }
-                    }
-                }
-                callback(otherGroups, nil)
+                let res = try JSONDecoder().decode(APIResponse<[Group]>.self, from: data)
+                let result = OtherGroups()
+                result.groups = (res.data ?? []).filter { !$0.users.isEmpty && $0.groupStatus != .inactive }
+                result.pagination.current_page = res.meta.current_page
+                result.pagination.total_pages  = res.meta.total_pages
+                result.pagination.per_page     = res.meta.per_page
+                result.pagination.total_count  = res.meta.total_count
+                callback(result, nil)
             } catch { print(error) }
         }
         session.request(url("/api/v1/matches/find_groups"), method: .get, parameters: params)
@@ -39,8 +38,8 @@ final class MatchRepository: RepositoryBase, MatchRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let likeGroup = try JSONDecoder().decode(MyMatche.self, from: data)
-                callback(likeGroup.match, nil)
+                let res = try JSONDecoder().decode(APIResponse<Match>.self, from: data)
+                callback(res.data, nil)
             } catch { print(error) }
         }
         session.request(url("/api/v1/matches/like_group"), method: .post, parameters: params)
@@ -49,13 +48,7 @@ final class MatchRepository: RepositoryBase, MatchRepositoryProtocol {
 
     func unLikeTheGroup(groupId: String, callback: @escaping RepoCallback) {
         let params: [String: Any] = ["auth_token": User.getToken(), "group_id": groupId]
-        let parsing: (DataResponse<Any, AFError>) -> Void = { response in
-            guard let data = response.data else { return }
-            do {
-                let likeGroup = try JSONDecoder().decode(MyMatche.self, from: data)
-                callback(likeGroup.match, nil)
-            } catch { print(error) }
-        }
+        let parsing: (DataResponse<Any, AFError>) -> Void = { _ in callback(nil, nil) }
         session.request(url("/api/v1/matches/unlike_group"), method: .post, parameters: params)
             .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))
     }
@@ -65,11 +58,11 @@ final class MatchRepository: RepositoryBase, MatchRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let myMatches = try JSONDecoder().decode(MyMatches.self, from: data)
-                EntourageManager.shared.myMatchs.removeAll()
-                EntourageManager.shared.myMatchs = myMatches.matches
+                let res = try JSONDecoder().decode(APIResponse<[Match]>.self, from: data)
+                let list = res.data ?? []
+                EntourageManager.shared.myMatchs = list
                 reOrderTheMatch(Matches: EntourageManager.shared.myMatchs)
-                callback(EntourageManager.shared.myMatchs, nil)
+                callback(list, nil)
             } catch { print(error) }
         }
         session.request(url("/api/v1/matches/my_matches"), method: .get, parameters: params)

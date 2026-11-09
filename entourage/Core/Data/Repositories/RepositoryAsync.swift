@@ -347,4 +347,13 @@ extension UserRepository {
         }
     }
 
+    func sendInviteMessage(phoneNumber: String) async throws -> String? {
+        try await withCheckedThrowingContinuation { cont in
+            sendInviteMessage(phoneNumber: phoneNumber) { result, error in
+                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
+                cont.resume(returning: result as? String)
+            }
+        }
+    }
+
 }

@@ -2,19 +2,13 @@
 //  Match.swift
 //  entourage
 //
-//  Created by afeef sohail on 8/10/19.
+//  afeef sohail on 8/10/19.
 //  Copyright © 2019 West Bay Technologies. All rights reserved.
 //
 
 import Foundation
 
-class MyMatches : Codable {
-    var matches : [Match] = []
-}
 
-class MyMatche : Codable {
-    var match : Match?
-}
 
 
 class Match : Codable  , Equatable{

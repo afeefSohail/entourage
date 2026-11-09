@@ -22,9 +22,9 @@ final class GroupRepository: RepositoryBase, GroupRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let base = try JSONDecoder().decode(MyGroup.self, from: data)
-                EntourageManager.shared.myGroup = base.group
-                callback(base.group, nil)
+                let res = try JSONDecoder().decode(APIResponse<Group>.self, from: data)
+                if let g = res.data { EntourageManager.shared.myGroup = g }
+                callback(res.data, nil)
             } catch { print(error) }
         }
         session.request(url("/api/v1/groups/create"), method: .post, parameters: params)
@@ -40,9 +40,9 @@ final class GroupRepository: RepositoryBase, GroupRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let base = try JSONDecoder().decode(MyGroup.self, from: data)
-                EntourageManager.shared.myGroup = base.group
-                callback(base.group, nil)
+                let res = try JSONDecoder().decode(APIResponse<Group>.self, from: data)
+                if let g = res.data { EntourageManager.shared.myGroup = g }
+                callback(res.data, nil)
             } catch { print(error) }
         }
         session.request(url("/api/v1/groups/add_member"), method: .post, parameters: params)
@@ -54,13 +54,9 @@ final class GroupRepository: RepositoryBase, GroupRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let base = try JSONDecoder().decode(MyGroup.self, from: data)
-                if base.group != nil {
-                    EntourageManager.shared.myGroup = base.group
-                    callback(EntourageManager.shared.myGroup, nil)
-                } else {
-                    callback(nil, nil)
-                }
+                let res = try JSONDecoder().decode(APIResponse<Group>.self, from: data)
+                EntourageManager.shared.myGroup = res.data
+                callback(res.data, nil)
             } catch { print(error) }
         }
         session.request(url("/api/v1/groups/my_group"), method: .get, parameters: params)
@@ -79,8 +75,9 @@ final class GroupRepository: RepositoryBase, GroupRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let base = try JSONDecoder().decode(MyGroup.self, from: data)
-                callback(base.group, nil)
+                let res = try JSONDecoder().decode(APIResponse<Group>.self, from: data)
+                if let g = res.data { EntourageManager.shared.myGroup = g }
+                callback(res.data, nil)
             } catch { print(error) }
         }
         session.request(url("/api/v1/groups/group_by_id"), method: .get, parameters: params)

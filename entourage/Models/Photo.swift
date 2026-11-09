@@ -2,15 +2,12 @@
 //  Photos.swift
 //  entourage
 //
-//  Created by afeef sohail on 7/28/19.
+//  afeef sohail on 7/28/19.
 //  Copyright © 2019 West Bay Technologies. All rights reserved.
 //
 
 import UIKit
 
-class UpdatePhoto : Codable {
-    var photo = Photo()
-}
 
 class Photo : Codable {
     

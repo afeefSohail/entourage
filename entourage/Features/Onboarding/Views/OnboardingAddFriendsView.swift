@@ -160,8 +160,7 @@ struct OnboardingAddFriendsView: View {
     }
 
     private func invite(phoneNumber: String) async {
-        guard let result = try? await UserRepository.shared.directFriendShip(phoneNumber: phoneNumber),
-              let urlStr = result.invite_url,
+        guard let urlStr = try? await UserRepository.shared.sendInviteMessage(phoneNumber: phoneNumber),
               let url = URL(string: urlStr) else { return }
         inviteURL = url
         showShareSheet = true

@@ -26,6 +26,7 @@ protocol UserRepositoryProtocol {
     func sendNotification(message: String, callback: @escaping RepoCallback)
     func registerForNotifications(fcmToken: String, callback: @escaping RepoCallback)
     func sendLastMessageNotification(lastMsg: String, matchId: Int, fcmToken: [String], msgGroup: Int, callback: @escaping RepoCallback)
+    func sendInviteMessage(phoneNumber: String, callback: @escaping RepoCallback)
     // Friendships
     func directFriendShip(phoneNumber: String, callback: @escaping RepoCallback)
     func getFriendsList(callback: @escaping RepoCallback)
@@ -55,11 +56,11 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         }
         let params = ["ios_version": version]
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
-            if let dic = response.value as? [String: Any], let status = dic["is_valid"] as? Bool {
-                callback(status, nil)
-            } else {
-                callback(false, nil)
-            }
+            guard let data = response.data else { return }
+            do {
+                let res = try JSONDecoder().decode(APIResponse<AppVersionCheck>.self, from: data)
+                callback(res.data?.is_valid ?? false, nil)
+            } catch { print(error) }
         }
         session.request(url("/api/v1/users/check_ios_version"), method: .get, parameters: params)
             .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))
@@ -70,11 +71,13 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let base = try JSONDecoder().decode(BaseUser.self, from: data)
-                EntourageManager.shared.user = base.user
-                EntourageManager.shared.photos = base.user.photos
-                EntourageManager.shared.user.saveToken()
-                callback(base.user, nil)
+                let res = try JSONDecoder().decode(APIResponse<User>.self, from: data)
+                if let u = res.data {
+                    EntourageManager.shared.user = u
+                    EntourageManager.shared.photos = u.photos
+                    EntourageManager.shared.user.saveToken()
+                    callback(u, nil)
+                }
             } catch { print(error) }
         }
         session.request(url("/api/v1/users/user_signup"), method: .post, parameters: params)
@@ -86,11 +89,13 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let base = try JSONDecoder().decode(BaseUser.self, from: data)
-                EntourageManager.shared.user = base.user
-                EntourageManager.shared.photos = base.user.photos
-                EntourageManager.shared.user.saveToken()
-                callback(base.user, nil)
+                let res = try JSONDecoder().decode(APIResponse<User>.self, from: data)
+                if let u = res.data {
+                    EntourageManager.shared.user = u
+                    EntourageManager.shared.photos = u.photos
+                    EntourageManager.shared.user.saveToken()
+                    callback(u, nil)
+                }
             } catch { print(error) }
         }
         session.request(url("/api/v1/users/user_by_auth_token"), method: .get, parameters: params)
@@ -102,11 +107,13 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let base = try JSONDecoder().decode(BaseUser.self, from: data)
-                EntourageManager.shared.user = base.user
-                EntourageManager.shared.photos = base.user.photos
-                EntourageManager.shared.user.saveToken()
-                callback(base.user, nil)
+                let res = try JSONDecoder().decode(APIResponse<User>.self, from: data)
+                if let u = res.data {
+                    EntourageManager.shared.user = u
+                    EntourageManager.shared.photos = u.photos
+                    EntourageManager.shared.user.saveToken()
+                    callback(u, nil)
+                }
             } catch { print(error) }
         }
         session.request(url("/api/v1/users/user_by_phone_number"), method: .get, parameters: params)
@@ -127,10 +134,12 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let base = try JSONDecoder().decode(BaseUser.self, from: data)
-                EntourageManager.shared.user = base.user
-                EntourageManager.shared.photos = base.user.photos
-                callback(base.user, nil)
+                let res = try JSONDecoder().decode(APIResponse<User>.self, from: data)
+                if let u = res.data {
+                    EntourageManager.shared.user = u
+                    EntourageManager.shared.photos = u.photos
+                    callback(u, nil)
+                }
             } catch { print(error) }
         }
         session.request(url("/api/v1/users/edit_profile"), method: .post, parameters: params)
@@ -163,10 +172,12 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let base = try JSONDecoder().decode(BaseUser.self, from: data)
-                EntourageManager.shared.user = base.user
-                EntourageManager.shared.photos = base.user.photos
-                callback(base.user, nil)
+                let res = try JSONDecoder().decode(APIResponse<User>.self, from: data)
+                if let u = res.data {
+                    EntourageManager.shared.user = u
+                    EntourageManager.shared.photos = u.photos
+                    callback(u, nil)
+                }
             } catch { print(error) }
         }
         session.request(url("/api/v1/users/update_coordinates"), method: .post, parameters: params)
@@ -178,15 +189,14 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                var base = try JSONDecoder().decode(BaseFriendShip.self, from: data)
-                if let users = base.users, !users.isEmpty {
-                    for user in users {
-                        user.friendStatus = "no_relation"
-                        base.friendships.append(user)
-                    }
+                let res = try JSONDecoder().decode(APIResponse<SearchResult>.self, from: data)
+                var merged = res.data?.friendships ?? []
+                for user in res.data?.users ?? [] {
+                    user.friendStatus = "no_relation"
+                    merged.append(user)
                 }
-                base.friendships.removeAll { $0.phone_number == EntourageManager.shared.user.phone_number }
-                callback(base.friendships, nil)
+                merged.removeAll { $0.phone_number == EntourageManager.shared.user.phone_number }
+                callback(merged, nil)
             } catch { print(error) }
         }
         session.request(url("/api/v1/users/search_by_user_name"), method: .get, parameters: params)
@@ -215,6 +225,19 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         }
     }
 
+    func sendInviteMessage(phoneNumber: String, callback: @escaping RepoCallback) {
+        let params: [String: Any] = ["auth_token": User.getToken(), "phone_number": phoneNumber]
+        let parsing: (DataResponse<Any, AFError>) -> Void = { response in
+            guard let data = response.data else { return }
+            do {
+                let res = try JSONDecoder().decode(APIResponse<InviteResult>.self, from: data)
+                callback(res.data?.invite_url, nil)
+            } catch { print(error) }
+        }
+        session.request(url("/api/v1/users/send_message_invite"), method: .post, parameters: params)
+            .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))
+    }
+
     // MARK: - Photos
 
     func uploadPhoto(image: Data, isPrimary: Bool, order: Int, callback: @escaping RepoCallback) {
@@ -232,10 +255,12 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         .responseJSON { response in
             guard let data = response.data else { callback(nil, nil); return }
             do {
-                let base = try JSONDecoder().decode(BaseUser.self, from: data)
-                EntourageManager.shared.user.photos = base.user.photos
-                EntourageManager.shared.photos = base.user.photos
-                callback(base.user, nil)
+                let res = try JSONDecoder().decode(APIResponse<User>.self, from: data)
+                if let u = res.data {
+                    EntourageManager.shared.user.photos = u.photos
+                    EntourageManager.shared.photos = u.photos
+                    callback(u, nil)
+                } else { callback(nil, nil) }
             } catch { print(error); callback(nil, nil) }
         }
     }
@@ -245,9 +270,11 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let base = try JSONDecoder().decode(BaseUser.self, from: data)
-                EntourageManager.shared.user = base.user
-                EntourageManager.shared.photos = base.user.photos
+                let res = try JSONDecoder().decode(APIResponse<User>.self, from: data)
+                if let u = res.data {
+                    EntourageManager.shared.user = u
+                    EntourageManager.shared.photos = u.photos
+                }
                 callback(nil, nil)
             } catch { print(error) }
         }
@@ -261,9 +288,11 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let base = try JSONDecoder().decode(BaseUser.self, from: data)
-                EntourageManager.shared.user = base.user
-                EntourageManager.shared.photos = base.user.photos
+                let res = try JSONDecoder().decode(APIResponse<User>.self, from: data)
+                if let u = res.data {
+                    EntourageManager.shared.user = u
+                    EntourageManager.shared.photos = u.photos
+                }
                 callback(nil, nil)
             } catch { print(error) }
         }
@@ -278,9 +307,9 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let settings = try JSONDecoder().decode(Settings.self, from: data)
-                EntourageManager.shared.setting = settings.setting
-                callback(settings.setting, nil)
+                let res = try JSONDecoder().decode(APIResponse<Setting>.self, from: data)
+                EntourageManager.shared.setting = res.data
+                callback(res.data, nil)
             } catch { print(error) }
         }
         session.request(url("/api/v1/users/my_setting"), method: .get, parameters: params)
@@ -306,9 +335,9 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let settings = try JSONDecoder().decode(Settings.self, from: data)
-                EntourageManager.shared.setting = settings.setting
-                callback(EntourageManager.shared.setting, nil)
+                let res = try JSONDecoder().decode(APIResponse<Setting>.self, from: data)
+                EntourageManager.shared.setting = res.data
+                callback(res.data, nil)
             } catch { print(error) }
         }
         session.request(url("/api/v1/users/edit_setting"), method: .post, parameters: params)
@@ -383,9 +412,10 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let base = try JSONDecoder().decode(BaseFriendShip.self, from: data)
-                EntourageManager.shared.FriendShips = base.friendships
-                callback(base.friendships, nil)
+                let res = try JSONDecoder().decode(APIResponse<[User]>.self, from: data)
+                let list = res.data ?? []
+                EntourageManager.shared.FriendShips = list
+                callback(list, nil)
             } catch { print(error) }
         }
         session.request(url("/api/v1/friendships/friendes"), method: .get, parameters: params)
@@ -401,14 +431,8 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                var base = try JSONDecoder().decode(BaseFriendShip.self, from: data)
-                if let users = base.users, !users.isEmpty {
-                    for user in users {
-                        user.friendStatus = "Request"
-                        base.friendships.append(user)
-                    }
-                }
-                callback(base.friendships, nil)
+                let res = try JSONDecoder().decode(APIResponse<[User]>.self, from: data)
+                callback(res.data ?? [], nil)
             } catch { print(error) }
         }
         session.request(url("/api/v1/friendships/all_friends_and_requests"), method: .post, parameters: params)
@@ -420,8 +444,8 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let req = try JSONDecoder().decode(RequestFriends.self, from: data)
-                callback(req.friendships, nil)
+                let res = try JSONDecoder().decode(APIResponse<[User]>.self, from: data)
+                callback(res.data ?? [], nil)
             } catch { print(error) }
         }
         session.request(url("/api/v1/friendships/received_requests"), method: .post, parameters: params)
@@ -433,9 +457,10 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                var contacts = try JSONDecoder().decode(RequestFriends.self, from: data)
-                contacts.friendships.removeAll { $0.phone_number == EntourageManager.shared.user.phone_number }
-                callback(contacts.friendships, nil)
+                let res = try JSONDecoder().decode(APIResponse<[User]>.self, from: data)
+                var list = res.data ?? []
+                list.removeAll { $0.phone_number == EntourageManager.shared.user.phone_number }
+                callback(list, nil)
             } catch { print(error) }
         }
         session.request(url("/api/v1/friendships/no_relation"), method: .post, parameters: params)
@@ -447,7 +472,8 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                var result = try JSONDecoder().decode(FriendsWithInvitedUser.self, from: data)
+                let res = try JSONDecoder().decode(APIResponse<FriendsWithInvitedUser>.self, from: data)
+                var result = res.data ?? FriendsWithInvitedUser()
                 result.friendships.removeAll { $0.phone_number == EntourageManager.shared.user.phone_number }
                 callback(result, nil)
             } catch { print(error) }
@@ -458,26 +484,14 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
 
     func sendRequest(friendId: Int, callback: @escaping RepoCallback) {
         let params: [String: Any] = ["auth_token": User.getToken(), "friend_id": friendId]
-        let parsing: (DataResponse<Any, AFError>) -> Void = { response in
-            guard let data = response.data else { return }
-            do {
-                let f = try JSONDecoder().decode(FriendShip.self, from: data)
-                callback(f.friendship_user, nil)
-            } catch { print(error) }
-        }
+        let parsing: (DataResponse<Any, AFError>) -> Void = { _ in callback(nil, nil) }
         session.request(url("/api/v1/friendships/request"), method: .post, parameters: params)
             .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))
     }
 
     func acceptRequest(friendId: Int, callback: @escaping RepoCallback) {
         let params: [String: Any] = ["auth_token": User.getToken(), "friend_id": friendId]
-        let parsing: (DataResponse<Any, AFError>) -> Void = { response in
-            guard let data = response.data else { return }
-            do {
-                let f = try JSONDecoder().decode(FriendShip.self, from: data)
-                callback(f.friendship_user, nil)
-            } catch { print(error) }
-        }
+        let parsing: (DataResponse<Any, AFError>) -> Void = { _ in callback(nil, nil) }
         session.request(url("/api/v1/friendships/accept"), method: .post, parameters: params)
             .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))
     }
@@ -503,13 +517,10 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
             }
         }, to: url("/api/v1/friendships/block"), method: .post)
         .responseJSON { response in
-            if let data = response.data {
-                do {
-                    let f = try JSONDecoder().decode(FriendShip.self, from: data)
-                    callback(f.friendship_user, nil)
-                } catch { print(error) }
-            } else if let error = response.error {
-                callback(nil, error.localizedDescription)
+            if response.error != nil {
+                callback(nil, response.error?.localizedDescription)
+            } else {
+                callback(nil, nil)
             }
         }
     }
@@ -526,8 +537,8 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let base = try JSONDecoder().decode(BaseFriendShip.self, from: data)
-                callback(base.friendships, nil)
+                let res = try JSONDecoder().decode(APIResponse<[User]>.self, from: data)
+                callback(res.data ?? [], nil)
             } catch { print(error) }
         }
         session.request(url("/api/v1/friendships/blocked"), method: .get, parameters: params)
@@ -544,8 +555,11 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
     func checkUserFriendStatus(friendId: Int, callback: @escaping RepoCallback) {
         let params: [String: Any] = ["auth_token": User.getToken(), "friend_id": friendId]
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
-            guard let dict = response.value as? [String: Any] else { callback(nil, nil); return }
-            callback(dict["status"] as? String, nil)
+            guard let data = response.data else { return }
+            do {
+                let res = try JSONDecoder().decode(APIResponse<FriendStatus>.self, from: data)
+                callback(res.data?.status, nil)
+            } catch { print(error) }
         }
         session.request(url("/api/v1/friendships/status"), method: .get, parameters: params)
             .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))

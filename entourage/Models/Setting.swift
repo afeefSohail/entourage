@@ -1,14 +1,8 @@
 //  entourage
 //
-//  Created by Furqan Ahmad on 5/25/19.
-//  Copyright © 2019 West Bay Technologies. All rights reserved.
 
 import UIKit
 
-class Settings : Codable {
-    
-    var setting = Setting()
-}
 
 class Setting : Codable {
     

@@ -3,7 +3,7 @@
 //  Group.swift
 //  entourage
 //
-//  Created by afeef sohail on 8/3/19.
+//  afeef sohail on 8/3/19.
 //  Copyright © 2019 West Bay Technologies. All rights reserved.
 //
 
@@ -14,9 +14,6 @@ enum GroupStatus: String {
     case inactive = "in_active"
 }
 
-class MyGroup : Codable {
-    var group : Group?
-}
 
 struct Pagination: Codable {
     var current_page: Int = 0

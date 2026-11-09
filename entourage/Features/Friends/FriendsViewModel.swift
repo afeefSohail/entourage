@@ -110,8 +110,8 @@ final class FriendsViewModel {
     func sendInvite(phone: String) async {
         invitedNumbers.insert(phone)
         do {
-            let result = try await repo.directFriendShip(phoneNumber: phone)
-            if let urlStr = result?.invite_url, let url = URL(string: urlStr) {
+            if let urlStr = try await repo.sendInviteMessage(phoneNumber: phone),
+               let url = URL(string: urlStr) {
                 pendingInviteURL = url
             }
         } catch {
