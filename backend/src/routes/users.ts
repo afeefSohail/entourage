@@ -399,9 +399,9 @@ usersRouter.post(
   "/send_message_invite",
   requireAuth,
   validateBody(z.object({ phone_number: z.string().min(1) })),
-  async (_req, res) => {
-    // Twilio integration placeholder — returns success without actual send in dev
-    ok(res, null);
+  (req, res) => {
+    // Returns a deep link the iOS app shares natively via UIActivityViewController
+    ok(res, { invite_url: `https://entourage.app/invite?ref=${req.user.id}` });
   }
 );
 
@@ -446,7 +446,7 @@ usersRouter.post(
         where: { user_id: req.user.id },
       });
 
-      const merged = { ...current, ...data };
+      const merged: Record<string, unknown> = { ...current, ...data };
 
       if (
         merged.min_age != null &&

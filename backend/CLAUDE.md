@@ -98,7 +98,8 @@ Pagination fields go inside `meta`:
 ```prisma
 // prisma/schema.prisma
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
@@ -282,7 +283,7 @@ model AppVersion {
   id              Int    @id @default(autoincrement())
   platform        String @default("ios")
   min_version     String
-  current_version String
+  current_version String?
 }
 ```
 
@@ -307,7 +308,8 @@ Token strategy: `cuid()` on signup, stored in `users.authentication_token`. Neve
 DATABASE_URL=postgresql://entourage:secret@localhost:5432/entourage
 REDIS_URL=redis://localhost:6379
 S3_BUCKET=entourage-photos
-S3_REGION=us-east-1
+S3_REGION=auto
+S3_ENDPOINT=https://<accountid>.r2.cloudflarestorage.com
 AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
 FIREBASE_PROJECT_ID=
@@ -330,9 +332,13 @@ version: "3.9"
 services:
   api:
     build: .
-    ports: ["3000:3000"]
+    ports: ["3001:3000"]
     env_file: .env
+    environment:
+      DATABASE_URL: postgresql://entourage:secret@postgres:5432/entourage
+      REDIS_URL: redis://redis:6379
     depends_on: [postgres, redis]
+    command: sh -c "npx prisma migrate deploy && node dist/index.js"
 
   postgres:
     image: postgres:16-alpine
@@ -354,6 +360,7 @@ volumes:
 ```dockerfile
 # Dockerfile
 FROM node:20-alpine
+RUN apk add --no-cache openssl
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
