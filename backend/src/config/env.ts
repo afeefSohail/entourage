@@ -7,6 +7,7 @@ const envSchema = z.object({
   S3_REGION: z.string().min(1),
   AWS_ACCESS_KEY_ID: z.string().min(1),
   AWS_SECRET_ACCESS_KEY: z.string().min(1),
+  S3_ENDPOINT: z.string().optional(), // required for Cloudflare R2; omit for AWS S3
   FIREBASE_PROJECT_ID: z.string().min(1),
   FIREBASE_CLIENT_EMAIL: z.string().email(),
   FIREBASE_PRIVATE_KEY: z.string().min(1),
