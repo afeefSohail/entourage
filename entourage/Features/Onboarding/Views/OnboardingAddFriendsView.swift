@@ -5,10 +5,13 @@ struct OnboardingAddFriendsView: View {
     @Environment(AppState.self) private var appState
 
     @State private var friends: [User] = []
+    @State private var contacts: [PhoneContact] = []
     @State private var addedIds: Set<Int> = []
     @State private var searchText = ""
     @State private var isLoading = true
     @State private var isFinishing = false
+    @State private var inviteURL: URL?
+    @State private var showShareSheet = false
 
     private let requiredCount = 3
 
@@ -17,6 +20,17 @@ struct OnboardingAddFriendsView: View {
         return friends.filter {
             ($0.first_name?.localizedCaseInsensitiveContains(searchText) == true) ||
             ($0.user_name?.localizedCaseInsensitiveContains(searchText) == true)
+        }
+    }
+
+    private var nonEntourageContacts: [PhoneContact] {
+        let entourageNumbers = Set(friends.compactMap { $0.phone_number })
+        var seen = Set<String>()
+        return contacts.filter { c in
+            guard !c.phoneNumber.isEmpty,
+                  !entourageNumbers.contains(c.phoneNumber),
+                  let name = c.name, !name.trimmingCharacters(in: .whitespaces).isEmpty else { return false }
+            return seen.insert(name).inserted
         }
     }
 
@@ -35,19 +49,48 @@ struct OnboardingAddFriendsView: View {
                 Spacer()
                 ProgressView()
                 Spacer()
-            } else if filtered.isEmpty {
-                Spacer()
-                Text(searchText.isEmpty ? "No contacts found on Entourage." : "No results for \"\(searchText)\"")
-                    .font(.system(size: 15))
-                    .foregroundStyle(.secondary)
-                Spacer()
             } else {
-                List(filtered, id: \.id) { friend in
-                    FriendRow(
-                        friend: friend,
-                        isAdded: addedIds.contains(friend.id)
-                    ) {
-                        toggleFriend(friend)
+                List {
+                    if filtered.isEmpty && searchText.isEmpty {
+                        Section {
+                            Text("No contacts found on Entourage.")
+                                .font(.system(size: 15))
+                                .foregroundStyle(.secondary)
+                                .listRowSeparator(.hidden)
+                        }
+                    } else if filtered.isEmpty {
+                        Section {
+                            Text("No results for \"\(searchText)\"")
+                                .font(.system(size: 15))
+                                .foregroundStyle(.secondary)
+                                .listRowSeparator(.hidden)
+                        }
+                    } else {
+                        Section {
+                            ForEach(filtered, id: \.id) { friend in
+                                FriendRow(
+                                    friend: friend,
+                                    isAdded: addedIds.contains(friend.id)
+                                ) {
+                                    toggleFriend(friend)
+                                }
+                                .listRowSeparator(.hidden)
+                            }
+                        }
+                    }
+
+                    if !nonEntourageContacts.isEmpty && searchText.isEmpty {
+                        Section(header: Text("Invite to Entourage")
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundStyle(.secondary)
+                            .textCase(nil)) {
+                            ForEach(nonEntourageContacts, id: \.phoneNumber) { contact in
+                                ContactInviteRow(name: contact.name ?? contact.phoneNumber) {
+                                    Task { await invite(phoneNumber: contact.phoneNumber) }
+                                }
+                                .listRowSeparator(.hidden)
+                            }
+                        }
                     }
                 }
                 .listStyle(.plain)
@@ -57,6 +100,12 @@ struct OnboardingAddFriendsView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .onAppear { Task { await loadFriends() } }
+        .sheet(isPresented: $showShareSheet) {
+            if let url = inviteURL {
+                ShareSheet(items: [url])
+                    .presentationDetents([.medium, .large])
+            }
+        }
     }
 
     private var headerView: some View {
@@ -110,8 +159,16 @@ struct OnboardingAddFriendsView: View {
         }
     }
 
+    private func invite(phoneNumber: String) async {
+        guard let result = try? await UserRepository.shared.directFriendShip(phoneNumber: phoneNumber),
+              let urlStr = result.invite_url,
+              let url = URL(string: urlStr) else { return }
+        inviteURL = url
+        showShareSheet = true
+    }
+
     private func loadFriends() async {
-        let contacts = PhoneContacts.getAllContacts()
+        contacts = PhoneContacts.getAllContacts()
         let numbers = contacts.compactMap { $0.phoneNumber.isEmpty ? nil : $0.phoneNumber }.joined(separator: ",")
 
         friends = (try? await UserRepository.shared.getFriendsListBy(contacts: numbers, directFriendship: false)) ?? []
@@ -167,6 +224,42 @@ private struct FriendRow: View {
     }
 }
 
+// MARK: - ContactInviteRow
+
+private struct ContactInviteRow: View {
+    let name: String
+    let onInvite: () -> Void
+
+    var body: some View {
+        HStack(spacing: 12) {
+            Circle()
+                .fill(Color(.systemGray5))
+                .frame(width: 46, height: 46)
+                .overlay(
+                    Text(String(name.prefix(1)).uppercased())
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(.secondary)
+                )
+
+            Text(name)
+                .font(.system(size: 15, weight: .medium))
+
+            Spacer()
+
+            Button(action: onInvite) {
+                Text("Invite")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(Color("themeColor"))
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(Color("themeColor").opacity(0.1))
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+            }
+        }
+        .padding(.vertical, 4)
+    }
+}
+
 // MARK: - SearchBar
 
 private struct SearchBar: View {
@@ -188,4 +281,14 @@ private struct SearchBar: View {
         .background(Color(.systemGray6))
         .clipShape(RoundedRectangle(cornerRadius: 10))
     }
+}
+
+// MARK: - Share sheet
+
+private struct ShareSheet: UIViewControllerRepresentable {
+    let items: [Any]
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: items, applicationActivities: nil)
+    }
+    func updateUIViewController(_ vc: UIActivityViewController, context: Context) {}
 }

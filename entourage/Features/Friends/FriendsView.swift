@@ -26,6 +26,15 @@ struct FriendsView: View {
         } message: {
             Text(vm.errorMessage ?? "")
         }
+        .sheet(isPresented: Binding(
+            get: { vm.pendingInviteURL != nil },
+            set: { if !$0 { vm.pendingInviteURL = nil } }
+        )) {
+            if let url = vm.pendingInviteURL {
+                ShareSheet(items: [url])
+                    .presentationDetents([.medium, .large])
+            }
+        }
     }
 
     // MARK: - Tab bar
@@ -485,4 +494,14 @@ struct NonAppContactRow: View {
             .joined()
             .uppercased()
     }
+}
+
+// MARK: - Share sheet
+
+private struct ShareSheet: UIViewControllerRepresentable {
+    let items: [Any]
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: items, applicationActivities: nil)
+    }
+    func updateUIViewController(_ vc: UIActivityViewController, context: Context) {}
 }

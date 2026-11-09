@@ -302,14 +302,6 @@ extension UserRepository {
         }
     }
 
-    func sendInviteMessage(phoneNumber: String) async throws {
-        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
-            sendInviteMessage(phoneNumber: phoneNumber) { _, error in
-                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
-                cont.resume()
-            }
-        }
-    }
     func userSignUp(phoneNum: String) async throws -> User? {
         try await withCheckedThrowingContinuation { cont in
             userSignUp(phoneNum: phoneNum) { result, error in
@@ -337,11 +329,11 @@ extension UserRepository {
         }
     }
 
-    func directFriendShip(phoneNumber: String) async throws {
-        try await withCheckedThrowingContinuation { (cont: CheckedContinuation<Void, Error>) in
-            directFriendShip(phoneNumber: phoneNumber) { _, error in
+    func directFriendShip(phoneNumber: String) async throws -> DirectFriendshipResult? {
+        try await withCheckedThrowingContinuation { cont in
+            directFriendShip(phoneNumber: phoneNumber) { result, error in
                 if let error { cont.resume(throwing: RepositoryError(message: error)); return }
-                cont.resume()
+                cont.resume(returning: result as? DirectFriendshipResult)
             }
         }
     }

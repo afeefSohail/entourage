@@ -15,7 +15,6 @@ protocol UserRepositoryProtocol {
     func updateLocation(callback: @escaping RepoCallback)
     func searchBy(userName: String, callback: @escaping RepoCallback)
     func reportUser(userVM: UserViewModel, reason: String, image: UIImage, callback: @escaping RepoCallback)
-    func sendInviteMessage(phoneNumber: String, callback: @escaping RepoCallback)
     // Photos
     func uploadPhoto(image: Data, isPrimary: Bool, order: Int, callback: @escaping RepoCallback)
     func deletePhoto(photoId: Int, callback: @escaping RepoCallback)
@@ -216,13 +215,6 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         }
     }
 
-    func sendInviteMessage(phoneNumber: String, callback: @escaping RepoCallback) {
-        let params: [String: Any] = ["auth_token": User.getToken(), "phone_number": phoneNumber]
-        let parsing: (DataResponse<Any, AFError>) -> Void = { _ in callback("MessageSend", nil) }
-        session.request(url("/api/v1/users/send_message_invite"), method: .post, parameters: params)
-            .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))
-    }
-
     // MARK: - Photos
 
     func uploadPhoto(image: Data, isPrimary: Bool, order: Int, callback: @escaping RepoCallback) {
@@ -378,8 +370,8 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
-                let f = try JSONDecoder().decode(FriendShip.self, from: data)
-                callback(f.friendship_user, nil)
+                let res = try JSONDecoder().decode(APIResponse<DirectFriendshipResult>.self, from: data)
+                callback(res.data, nil)
             } catch { print(error) }
         }
         session.request(url("/api/v1/friendships/direct_friendship"), method: .post, parameters: params)

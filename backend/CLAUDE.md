@@ -448,7 +448,7 @@ Protected. Multipart form data.
 - Logic: create Report row. Upload image to S3 if present. If this user has 3+ reports from different reporters → auto-set `is_banned: true`.
 - Response: `data: null`
 
-#### `POST /api/v1/users/send_message_invite`
+#### ~~`POST /api/v1/users/send_message_invite`~~ (removed — replaced by `invite_url` in `direct_friendship`)
 Protected.
 - Body: `{ phone_number: string }`
 - Logic: send an SMS invite via Twilio (or similar) to the given number
@@ -672,9 +672,14 @@ Protected.
 #### `POST /api/v1/friendships/direct_friendship`
 Protected.
 - Body: `{ phone_number: string }`
-- Logic: find user by phone. If found and no existing friendship → create accepted Friendship directly (no pending step). Used during onboarding contact sync.
-- **If no account exists for that phone number: return 200 with `data: null`. Fire-and-forget — do NOT create a pending record keyed by phone number, do NOT send an SMS invite, do NOT error.** The app silently ignores a null response.
-- Response: `data: User` — the matched user, or `data: null` if the phone number has no account
+- Logic: find user by phone.
+  - If found and no existing friendship → create accepted Friendship. Return `{ user: User, invite_url: null }`.
+  - If no account exists for that phone number → return `{ user: null, invite_url: "https://entourage.app/invite?ref=<current_user_id>" }`. **Fire-and-forget — do NOT create a pending record, do NOT send an SMS.**
+- Response: `data: DirectFriendshipResult`
+  ```json
+  { "user": User | null, "invite_url": "https://..." | null }
+  ```
+- The iOS app shows a native share sheet (`UIActivityViewController`) with `invite_url` when it is non-null. No Twilio, no cost.
 
 #### `GET /api/v1/friendships/friendes`
 Protected.

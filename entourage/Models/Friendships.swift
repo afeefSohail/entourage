@@ -1,7 +1,5 @@
 //  entourage
 //
-//  Created by Furqan Ahmad on 5/25/19.
-//  Copyright © 2019 West Bay Technologies. All rights reserved.
 
 import Foundation
 
@@ -36,6 +34,11 @@ struct RequestFriends : Codable {
 
 struct FriendShip : Codable {
     var friendship_user = User()
+}
+
+struct DirectFriendshipResult: Codable {
+    var user: User?
+    var invite_url: String?
 }
 
 

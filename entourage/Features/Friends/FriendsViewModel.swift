@@ -38,6 +38,7 @@ final class FriendsViewModel {
     var acceptedRequestIds: Set<Int>    = []
     var rejectedRequestIds: Set<Int>    = []
     var invitedNumbers:     Set<String> = []
+    var pendingInviteURL:   URL?
 
     private let repo = UserRepository.shared
 
@@ -109,7 +110,10 @@ final class FriendsViewModel {
     func sendInvite(phone: String) async {
         invitedNumbers.insert(phone)
         do {
-            try await repo.sendInviteMessage(phoneNumber: phone)
+            let result = try await repo.directFriendShip(phoneNumber: phone)
+            if let urlStr = result?.invite_url, let url = URL(string: urlStr) {
+                pendingInviteURL = url
+            }
         } catch {
             invitedNumbers.remove(phone)
             errorMessage = error.localizedDescription
