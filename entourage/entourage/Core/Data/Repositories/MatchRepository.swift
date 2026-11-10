@@ -22,10 +22,10 @@ final class MatchRepository: RepositoryBase, MatchRepositoryProtocol {
                 let res = try JSONDecoder().decode(APIResponse<[Group]>.self, from: data)
                 let result = OtherGroups()
                 result.groups = (res.data ?? []).filter { !$0.users.isEmpty && $0.groupStatus != .inactive }
-                result.pagination.current_page = res.meta.current_page
-                result.pagination.total_pages  = res.meta.total_pages
-                result.pagination.per_page     = res.meta.per_page
-                result.pagination.total_count  = res.meta.total_count
+                result.pagination.currentPage = res.meta.currentPage
+                result.pagination.totalPages  = res.meta.totalPages
+                result.pagination.perPage     = res.meta.perPage
+                result.pagination.totalCount  = res.meta.totalCount
                 callback(result, nil)
             } catch { print(error) }
         }

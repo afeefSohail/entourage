@@ -73,6 +73,7 @@ struct SettingsView: View {
                 }
             }
         }
+        .task { await vm.loadIfNeeded() }
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

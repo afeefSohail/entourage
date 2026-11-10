@@ -9,11 +9,11 @@ struct PhotosView: View {
     @State private var pickerItem: PhotosPickerItem?
     @State private var showPicker = false
     @State private var isLoading = false
-    @State private var isUploading = false
+    @State private var uploadingCount = 0
     @State private var errorMessage: String?
 
     private var uploadedCount: Int { photos.filter { $0 != nil }.count }
-    private var canContinue: Bool { uploadedCount > 0 }
+    private var canContinue: Bool { uploadedCount > 0 && uploadingCount == 0 }
 
     private let columns = [
         GridItem(.flexible(), spacing: 8),
@@ -42,7 +42,16 @@ struct PhotosView: View {
             }
             .padding(.horizontal, 24)
 
-            if let error = errorMessage {
+            if uploadingCount > 0 {
+                HStack(spacing: 8) {
+                    ProgressView().scaleEffect(0.8)
+                    Text("Uploading…")
+                        .font(.system(size: 13))
+                        .foregroundStyle(.secondary)
+                }
+                .padding(.horizontal, 24)
+                .padding(.top, 12)
+            } else if let error = errorMessage {
                 Text(error)
                     .font(.system(size: 13))
                     .foregroundStyle(.red)
@@ -67,7 +76,7 @@ struct PhotosView: View {
                 .background(canContinue ? Color("themeColor") : Color(.systemGray4))
                 .clipShape(RoundedRectangle(cornerRadius: 12))
             }
-            .disabled(!canContinue || isLoading)
+            .disabled(!canContinue || isLoading || uploadingCount > 0)
             .padding(.horizontal, 24)
             .padding(.bottom, 32)
         }
@@ -149,7 +158,14 @@ struct PhotosView: View {
 
     private func uploadPhoto(_ image: UIImage, at index: Int) async {
         guard let data = image.jpegData(compressionQuality: 0.8) else { return }
-        _ = try? await UserRepository.shared.uploadPhoto(image: data, isPrimary: index == 0, order: index)
+        uploadingCount += 1
+        defer { uploadingCount -= 1 }
+        do {
+            _ = try await UserRepository.shared.uploadPhoto(image: data, isPrimary: index == 0, order: index)
+        } catch {
+            errorMessage = "Upload failed. Please try again."
+            photos[index] = nil
+        }
     }
 
     private func removePhoto(at index: Int) {

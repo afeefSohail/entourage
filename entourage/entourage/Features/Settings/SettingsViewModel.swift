@@ -40,6 +40,13 @@ final class SettingsViewModel {
 
     var blockedCount: Int { setting.block_member_count ?? 0 }
 
+    func loadIfNeeded() async {
+        guard EntourageManager.shared.setting == nil else { return }
+        if let s = try? await repo.getUserSettings() {
+            setting = s
+        }
+    }
+
     func save() async {
         let changed = Setting.checkSettingUpdateion(
             previousGender: preGender,

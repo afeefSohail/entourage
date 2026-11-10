@@ -139,7 +139,7 @@ private struct MainTabView: View {
             ProfileView()
                 .tabItem { Label("Profile", systemImage: "person.fill") }
 
-            NavigationLink(value: Route.settings) { EmptyView() }
+            SettingsView()
                 .tabItem { Label("Settings", systemImage: "gearshape.fill") }
         }
     }

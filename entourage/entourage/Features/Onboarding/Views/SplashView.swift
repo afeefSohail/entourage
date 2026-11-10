@@ -42,6 +42,9 @@ struct SplashView: View {
             case .age:
                 appState.initialOnboardingStep = .gender
                 appState.phase = .onboarding
+            case .birthday:
+                appState.initialOnboardingStep = .birthday
+                appState.phase = .onboarding
             case .photos:
                 appState.initialOnboardingStep = .photos
                 appState.phase = .onboarding
