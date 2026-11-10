@@ -42,12 +42,17 @@ struct FPNTextFieldRepresentable: UIViewRepresentable {
         }
 
         func fpnDidSelectCountry(name: String, dialCode: String, code: String) {
-            parent.countryCode = dialCode
+            let dialCode = dialCode
+            DispatchQueue.main.async { self.parent.countryCode = dialCode }
         }
 
         func fpnDidValidatePhoneNumber(textField: FPNTextField, isValid: Bool) {
-            parent.isValid = isValid
-            parent.phoneNumber = textField.text ?? ""
+            let valid = isValid
+            let text = textField.text ?? ""
+            DispatchQueue.main.async {
+                self.parent.isValid = valid
+                self.parent.phoneNumber = text
+            }
         }
     }
 }
