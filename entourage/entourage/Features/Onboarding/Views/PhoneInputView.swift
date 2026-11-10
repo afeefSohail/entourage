@@ -23,6 +23,7 @@ struct FPNTextFieldRepresentable: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: FPNTextField, context: Context) {
+        context.coordinator.parent = self
         guard let country = pendingCountry else { return }
         uiView.setFlag(countryCode: country.code)
         DispatchQueue.main.async { pendingCountry = nil }
@@ -49,6 +50,13 @@ struct FPNTextFieldRepresentable: UIViewRepresentable {
             parent.phoneNumber = textField.text ?? ""
         }
     }
+}
+
+// MARK: - Country picker item
+
+private struct CountryPickerItem: Identifiable {
+    let id = UUID()
+    let repository: FPNCountryRepository
 }
 
 // MARK: - Country picker sheet
@@ -138,8 +146,7 @@ struct PhoneInputView: View {
     @State private var countryCode = "+92"
     @State private var pendingCountry: FPNCountry?
     @State private var isValid = false
-    @State private var countryRepository: FPNCountryRepository?
-    @State private var showCountryPicker = false
+    @State private var countryPickerItem: CountryPickerItem?
     @State private var shakePhone = false
 
     var body: some View {
@@ -178,14 +185,12 @@ struct PhoneInputView: View {
             .padding(.bottom, 32)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $showCountryPicker) {
-            if let repo = countryRepository {
-                CountryListSheet(repository: repo) { country in
-                    pendingCountry = country
-                    showCountryPicker = false
-                }
-                .presentationDetents([.medium, .large])
+        .sheet(item: $countryPickerItem) { item in
+            CountryListSheet(repository: item.repository) { country in
+                pendingCountry = country
+                countryPickerItem = nil
             }
+            .presentationDetents([.medium, .large])
         }
     }
 
@@ -197,10 +202,10 @@ struct PhoneInputView: View {
                 countryCode: $countryCode,
                 pendingCountry: $pendingCountry
             ) { repo in
-                countryRepository = repo
-                showCountryPicker = true
+                countryPickerItem = CountryPickerItem(repository: repo)
             }
             .frame(height: 52)
+            .frame(maxWidth: .infinity)
 
             if isValid {
                 Image(systemName: "checkmark.circle.fill")
@@ -218,18 +223,20 @@ struct PhoneInputView: View {
     }
 
     private var termsText: some View {
-        Text("By clicking Continue I hereby agree to the ")
-            .font(.system(size: 12))
-            .foregroundStyle(.secondary)
-        + Text("Terms & Conditions")
-            .font(.system(size: 12, weight: .semibold))
-            .foregroundStyle(.primary)
-        + Text(" & acknowledge that I have read the ")
-            .font(.system(size: 12))
-            .foregroundStyle(.secondary)
-        + Text("Privacy Policy.")
-            .font(.system(size: 12, weight: .semibold))
-            .foregroundStyle(.primary)
+        VStack(alignment: .leading, spacing: 4) {
+            Text("By clicking Continue I hereby agree to the ")
+                .font(.system(size: 12))
+                .foregroundStyle(.secondary)
+            + Text("Terms & Conditions")
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundStyle(.primary)
+            + Text(" & acknowledge that I have read the ")
+                .font(.system(size: 12))
+                .foregroundStyle(.secondary)
+            + Text("Privacy Policy.")
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundStyle(.primary)
+        }
     }
 }
 
