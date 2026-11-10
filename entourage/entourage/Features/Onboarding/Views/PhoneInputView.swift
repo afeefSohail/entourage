@@ -52,13 +52,6 @@ struct FPNTextFieldRepresentable: UIViewRepresentable {
     }
 }
 
-// MARK: - Country picker item
-
-private struct CountryPickerItem: Identifiable {
-    let id = UUID()
-    let repository: FPNCountryRepository
-}
-
 // MARK: - Country picker sheet
 
 struct CountryListSheet: View {
@@ -146,7 +139,8 @@ struct PhoneInputView: View {
     @State private var countryCode = "+92"
     @State private var pendingCountry: FPNCountry?
     @State private var isValid = false
-    @State private var countryPickerItem: CountryPickerItem?
+    @State private var countryPickerRepo = FPNCountryRepository()
+    @State private var showCountryPicker = false
     @State private var shakePhone = false
 
     var body: some View {
@@ -185,10 +179,10 @@ struct PhoneInputView: View {
             .padding(.bottom, 32)
         }
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(item: $countryPickerItem) { item in
-            CountryListSheet(repository: item.repository) { country in
+        .sheet(isPresented: $showCountryPicker) {
+            CountryListSheet(repository: countryPickerRepo) { country in
                 pendingCountry = country
-                countryPickerItem = nil
+                showCountryPicker = false
             }
             .presentationDetents([.medium, .large])
         }
@@ -202,7 +196,8 @@ struct PhoneInputView: View {
                 countryCode: $countryCode,
                 pendingCountry: $pendingCountry
             ) { repo in
-                countryPickerItem = CountryPickerItem(repository: repo)
+                countryPickerRepo = repo
+                DispatchQueue.main.async { showCountryPicker = true }
             }
             .frame(height: 52)
             .frame(maxWidth: .infinity)
