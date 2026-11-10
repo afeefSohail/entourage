@@ -130,7 +130,7 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
             "last_name": user.last_name ?? "",
             "bio": user.bio ?? ""
         ]
-        if checkAge { params["dob"] = user.dob ?? "" }
+        if checkAge { if let dob = user.dob { params["dob"] = dob } }
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data else { return }
             do {
@@ -142,7 +142,8 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
                 }
             } catch { print(error) }
         }
-        session.request(url("/api/v1/users/edit_profile"), method: .post, parameters: params)
+        session.request(url("/api/v1/users/edit_profile"), method: .post, parameters: params,
+                        encoding: JSONEncoding.default)
             .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))
     }
 
