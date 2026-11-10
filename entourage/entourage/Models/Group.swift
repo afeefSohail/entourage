@@ -16,10 +16,30 @@ enum GroupStatus: String {
 
 
 struct Pagination: Codable {
-    var current_page: Int = 0
-    var total_pages:  Int = 0
-    var per_page:     Int = 0
-    var total_count:  Int = 0
+    var currentPage: Int
+    var totalPages:  Int
+    var perPage:     Int
+    var totalCount:  Int
+
+    init() {
+        currentPage = 0; totalPages = 0; perPage = 0; totalCount = 0
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        currentPage = try container.decodeIfPresent(Int.self, forKey: .currentPage) ?? 0
+        totalPages  = try container.decodeIfPresent(Int.self, forKey: .totalPages)  ?? 0
+        perPage     = try container.decodeIfPresent(Int.self, forKey: .perPage)     ?? 0
+        totalCount  = try container.decodeIfPresent(Int.self, forKey: .totalCount)  ?? 0
+    }
+    
+    //codable stuff
+        private enum CodingKeys: String, CodingKey {
+            case currentPage = "current_page"
+            case perPage = "per_page"
+            case totalPages = "total_ pages"
+            case totalCount = "total_count"
+        }
 }
 
 class OtherGroups : Codable {

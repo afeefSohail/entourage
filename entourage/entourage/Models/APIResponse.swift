@@ -10,20 +10,30 @@ struct APIResponse<T: Decodable>: Decodable {
 struct Meta: Decodable {
     var code: Int
     var message: String
-    var current_page: Int
-    var total_pages:  Int
-    var per_page:     Int
-    var total_count:  Int
+    var currentPage: Int
+    var totalPages:  Int
+    var perPage:     Int
+    var totalCount:  Int
 
     init(from decoder: Decoder) throws {
-        let c = try decoder.container(keyedBy: CodingKeys.self)
-        code         = try c.decode(Int.self, forKey: .code)
-        message      = try c.decode(String.self, forKey: .message)
-        current_page = try c.decodeIfPresent(Int.self, forKey: .current_page) ?? 0
-        total_pages  = try c.decodeIfPresent(Int.self, forKey: .total_pages)  ?? 0
-        per_page     = try c.decodeIfPresent(Int.self, forKey: .per_page)     ?? 0
-        total_count  = try c.decodeIfPresent(Int.self, forKey: .total_count)  ?? 0
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        code         = try container.decode(Int.self, forKey: .code)
+        message      = try container.decode(String.self, forKey: .message)
+        currentPage = try container.decodeIfPresent(Int.self, forKey: .currentPage) ?? 0
+        totalPages  = try container.decodeIfPresent(Int.self, forKey: .totalPages)  ?? 0
+        perPage     = try container.decodeIfPresent(Int.self, forKey: .perPage)     ?? 0
+        totalCount  = try container.decodeIfPresent(Int.self, forKey: .totalCount)  ?? 0
     }
+    
+    //codable stuff
+        private enum CodingKeys: String, CodingKey {
+            case code
+            case message
+            case currentPage = "current_page"
+            case perPage = "per_page"
+            case totalPages = "total_ pages"
+            case totalCount = "total_count"
+        }
 }
 
 // MARK: - Response payload types
