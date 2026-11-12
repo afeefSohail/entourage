@@ -10,11 +10,11 @@ struct UserViewModel {
         self.user = user
     }
 
-    var displayName: String { user.first_name ?? "" }
+    var displayName: String { user.firstName ?? "" }
 
     var fullName: String {
-        let first = user.first_name ?? ""
-        let last  = user.last_name  ?? ""
+        let first = user.firstName ?? ""
+        let last  = user.lastName  ?? ""
         return last.isEmpty ? first : "\(first) \(last)"
     }
 
@@ -22,7 +22,7 @@ struct UserViewModel {
 
     var nameWithAge: String { "\(displayName), \(ageText)" }
 
-    var username: String { "@\(user.user_name ?? "")" }
+    var username: String { "@\(user.userName ?? "")" }
 
     var bioText: String { user.bio ?? "" }
     var hasBio: Bool { !bioText.isEmpty }

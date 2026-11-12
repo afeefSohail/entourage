@@ -11,17 +11,17 @@ struct FriendViewModel {
 
     // MARK: - Name
 
-    var displayName: String  { user.first_name ?? "" }
+    var displayName: String  { user.firstName ?? "" }
     var fullName: String {
-        let first = user.first_name ?? ""
-        let last  = user.last_name  ?? ""
+        let first = user.firstName ?? ""
+        let last  = user.lastName  ?? ""
         return last.isEmpty ? first : "\(first) \(last)"
     }
     var initials: String {
-        return "\(user.first_name?.prefix(1) ?? "")\(user.last_name?.prefix(1) ?? "")"
+        return "\(user.firstName?.prefix(1) ?? "")\(user.lastName?.prefix(1) ?? "")"
     }
     
-    var username: String { "@\(user.user_name ?? "")" }
+    var username: String { "@\(user.userName ?? "")" }
 
     // MARK: - Age / Bio
 

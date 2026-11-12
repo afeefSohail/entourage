@@ -7,11 +7,11 @@ import UIKit
 class User : Codable {
 
     var id                   : Int     = 0
-    var phone_number         : String? = ""
-    var user_name            : String? = ""
+    var phoneNumber         : String? = ""
+    var userName            : String? = ""
     var bio                  : String? = ""
-    var first_name           : String? = ""
-    var last_name            : String? = ""
+    var firstName           : String? = ""
+    var lastName            : String? = ""
     var latitude             : String? = ""
     var longitude            : String? = ""
     var dob                  : Int?    = 0
@@ -20,20 +20,20 @@ class User : Codable {
     var city                 : String? = ""
     var state                : String? = ""
     var photos               : [Photo] = []
-    var fcm_tokens           : [String]? = []
+    var fcmTokens           : [String]? = []
     var isMember             = false
     var isBlocked            : Bool?   = false
-    var authentication_token : String? = ""
+    var authenticationToken : String? = ""
     var friendStatus         : String? = nil
 
     enum CodingKeys: String, CodingKey {
         case id
-        case phone_number         = "phone_number"
-        case authentication_token = "authentication_token"
-        case user_name            = "user_name"
+        case phoneNumber         = "phone_number"
+        case authenticationToken = "authentication_token"
+        case userName            = "user_name"
         case bio
-        case first_name           = "first_name"
-        case last_name            = "last_name"
+        case firstName           = "first_name"
+        case lastName            = "last_name"
         case latitude
         case longitude
         case dob
@@ -42,13 +42,13 @@ class User : Codable {
         case state
         case photos
         case age
-        case fcm_tokens
+        case fcmTokens
         case isBlocked            = "is_blocked"
         case friendStatus         = "status"
     }
 
     func saveToken() {
-        UserDefaults.standard.set(authentication_token, forKey: "token")
+        UserDefaults.standard.set(authenticationToken, forKey: "token")
     }
 
     static func getToken() -> String {
@@ -59,11 +59,11 @@ class User : Codable {
     }
 
     func name() -> String {
-        return "\(String(first_name ?? ""))"
+        return "\(String(firstName ?? ""))"
     }
 
     func getChatUser(sideId: Int) -> ChatUser {
-        let charUser = ChatUser(id: "\(self.id)", displayName: self.first_name ?? "", photoUrl: self.mediumPhotoURL, isAnonymous: false, groupId: sideId)
+        let charUser = ChatUser(id: "\(self.id)", displayName: self.firstName ?? "", photoUrl: self.mediumPhotoURL, isAnonymous: false, groupId: sideId)
         return charUser
     }
 

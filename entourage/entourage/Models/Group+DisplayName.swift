@@ -23,7 +23,7 @@ extension Group {
     func displayName(style: GroupNameStyle = .default) -> String {
         let members = otherMembers
         guard !members.isEmpty else { return name ?? "Empty Group" }
-        let firstNames = members.compactMap { $0.first_name }.filter { !$0.isEmpty }
+        let firstNames = members.compactMap { $0.firstName }.filter { !$0.isEmpty }
         guard !firstNames.isEmpty else { return name ?? "Group" }
 
         switch (members.count, style) {

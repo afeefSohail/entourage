@@ -35,7 +35,7 @@ struct UsernameView: View {
                     .onChange(of: username) { _, new in
                         username = new.lowercased()
                             .replacingOccurrences(of: " ", with: "")
-                        EntourageManager.shared.user.user_name = username
+                        EntourageManager.shared.user.userName = username
                         if username.count >= 3 {
                             status = .checking
                             checkUsername(username)

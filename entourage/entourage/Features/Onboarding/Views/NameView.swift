@@ -33,9 +33,9 @@ struct NameView: View {
                 .padding(.bottom, 8)
                 .onChange(of: text) { _, new in
                     if isLastName {
-                        EntourageManager.shared.user.last_name = new
+                        EntourageManager.shared.user.lastName = new
                     } else {
-                        EntourageManager.shared.user.first_name = new
+                        EntourageManager.shared.user.firstName = new
                     }
                 }
 

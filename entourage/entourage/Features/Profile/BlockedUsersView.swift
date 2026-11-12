@@ -73,7 +73,7 @@ private struct BlockedUserRow: View {
             }
 
             VStack(alignment: .leading, spacing: 2) {
-                Text("\(friend.first_name ?? "") \(friend.last_name ?? "")".trimmingCharacters(in: .whitespaces))
+                Text("\(friend.firstName ?? "") \(friend.lastName ?? "")".trimmingCharacters(in: .whitespaces))
                     .font(.headline)
                 if let age = friend.age, age > 0 {
                     Text("Age \(age)").font(.subheadline).foregroundStyle(.secondary)

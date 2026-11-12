@@ -304,10 +304,10 @@ struct FriendRow: View {
 
             // Name + username
             VStack(alignment: .leading, spacing: 2) {
-                Text(user.first_name ?? "")
+                Text(user.firstName ?? "")
                     .font(.custom("Avenir-Medium", size: 17))
                     .foregroundStyle(.primary)
-                if let uname = user.user_name, !uname.isEmpty {
+                if let uname = user.userName, !uname.isEmpty {
                     Text("@\(uname)")
                         .font(.custom("Avenir-Medium", size: 12))
                         .foregroundStyle(.secondary)
@@ -333,8 +333,8 @@ struct FriendRow: View {
     }
 
     private var initials: String {
-        let first = user.first_name?.first.map(String.init) ?? ""
-        let last  = user.last_name?.first.map(String.init) ?? ""
+        let first = user.firstName?.first.map(String.init) ?? ""
+        let last  = user.lastName?.first.map(String.init) ?? ""
         return (first + last).uppercased()
     }
 

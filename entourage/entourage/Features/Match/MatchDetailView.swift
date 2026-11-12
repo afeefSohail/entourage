@@ -68,7 +68,7 @@ struct MatchDetailView: View {
                                 ForEach(members, id: \.id) { member in
                                     VStack(spacing: 4) {
                                         memberAvatar(member)
-                                        Text(member.first_name ?? "").font(.caption).lineLimit(1)
+                                        Text(member.firstName ?? "").font(.caption).lineLimit(1)
                                     }
                                     .frame(width: 60)
                                     .onTapGesture { coordinator.push(.userProfile(member, group)) }

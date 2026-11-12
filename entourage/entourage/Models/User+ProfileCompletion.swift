@@ -1,8 +1,9 @@
 import Foundation
 
 enum ProfileCompletionStep: Equatable {
-    case age       // gender or first_name missing → route to gender screen
-    case birthday  // gender/name done but no DOB → route to birthday screen
+    case gender       // gender missing → route to gender screen
+    case name       // first or last name missing → route to first name screen
+    case birthday  // name done but no DOB → route to birthday screen
     case photos
     case username
     case complete
@@ -11,13 +12,14 @@ enum ProfileCompletionStep: Equatable {
 extension User {
 
     var nextProfileStep: ProfileCompletionStep {
-        if gender == nil || gender?.isEmpty == true { return .age }
-        if first_name == nil || first_name?.isEmpty == true { return .age }
-        if self.age == nil || self.age == 0 { return .birthday }
+        if gender == nil || gender?.isEmpty == true { return .gender }
+        if firstName == nil || firstName?.isEmpty == true { return .name }
+        if lastName == nil || lastName?.isEmpty == true { return .name }
+        if age == nil || age == 0 { return .birthday }
         if photos.isEmpty { return .photos }
-        if let phone = phone_number, !phone.isEmpty {
+        if let phone = phoneNumber, !phone.isEmpty {
             let defaultUsername = String(phone.dropFirst())
-            if user_name == nil || user_name == defaultUsername || user_name?.isEmpty == true {
+            if userName == nil || userName == defaultUsername || userName?.isEmpty == true {
                 return .username
             }
         }
@@ -29,7 +31,8 @@ extension User {
     @available(*, deprecated, renamed: "nextProfileStep")
     func checkUserInfo() -> String {
         switch nextProfileStep {
-        case .age:      return "Gender"
+        case .gender:      return "Gender"
+        case .name: return "First Name"
         case .birthday: return "Birthday"
         case .photos:   return "Photos"
         case .username: return "userName"

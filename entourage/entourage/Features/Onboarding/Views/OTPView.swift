@@ -193,14 +193,16 @@ struct OTPView: View {
     @MainActor
     private func handlePostVerification(user: User) async {
         if user.isBlocked == true {
-            coordinator.push(.banned(username: user.user_name ?? ""))
+            coordinator.push(.banned(username: user.userName ?? ""))
             return
         }
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         appDelegate?.setUpFireBaseConfig()
 
         switch user.nextProfileStep {
-        case .age:      coordinator.push(.gender)
+        case .gender:   coordinator.push(.gender)
+        case .name:     coordinator.push(.firstName)
+        case .birthday: coordinator.push(.birthday)
         case .photos:   coordinator.push(.photos)
         case .username: coordinator.push(.username)
         case .complete:

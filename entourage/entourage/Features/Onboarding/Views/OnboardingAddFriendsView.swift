@@ -18,13 +18,13 @@ struct OnboardingAddFriendsView: View {
     private var filtered: [User] {
         guard !searchText.isEmpty else { return friends }
         return friends.filter {
-            ($0.first_name?.localizedCaseInsensitiveContains(searchText) == true) ||
-            ($0.user_name?.localizedCaseInsensitiveContains(searchText) == true)
+            ($0.firstName?.localizedCaseInsensitiveContains(searchText) == true) ||
+            ($0.userName?.localizedCaseInsensitiveContains(searchText) == true)
         }
     }
 
     private var nonEntourageContacts: [PhoneContact] {
-        let entourageNumbers = Set(friends.compactMap { $0.phone_number })
+        let entourageNumbers = Set(friends.compactMap { $0.phoneNumber })
         var seen = Set<String>()
         return contacts.filter { c in
             guard !c.phoneNumber.isEmpty,
@@ -150,7 +150,7 @@ struct OnboardingAddFriendsView: View {
 
     private func toggleFriend(_ friend: User) {
         let id = friend.id
-        guard let phone = friend.phone_number else { return }
+        guard let phone = friend.phoneNumber else { return }
         if addedIds.contains(id) {
             addedIds.remove(id)
         } else {
@@ -198,9 +198,9 @@ private struct OnboardingFriendRow: View {
             .clipShape(Circle())
 
             VStack(alignment: .leading, spacing: 2) {
-                Text("\(friend.first_name ?? "") \(friend.last_name ?? "")")
+                Text("\(friend.firstName ?? "") \(friend.lastName ?? "")")
                     .font(.system(size: 15, weight: .medium))
-                if let un = friend.user_name {
+                if let un = friend.userName {
                     Text("@\(un)")
                         .font(.system(size: 13))
                         .foregroundStyle(.secondary)

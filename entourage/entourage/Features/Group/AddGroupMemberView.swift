@@ -9,8 +9,8 @@ struct AddGroupMemberView: View {
     private var filtered: [User] {
         guard !searchText.isEmpty else { return vm.eligibleFriends }
         return vm.eligibleFriends.filter {
-            ($0.first_name?.localizedCaseInsensitiveContains(searchText) == true) ||
-            ($0.user_name?.localizedCaseInsensitiveContains(searchText) == true)
+            ($0.firstName?.localizedCaseInsensitiveContains(searchText) == true) ||
+            ($0.userName?.localizedCaseInsensitiveContains(searchText) == true)
         }
     }
 
@@ -76,7 +76,7 @@ struct AddGroupMemberView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(UserViewModel(friend).displayName)
                     .font(.system(size: 15, weight: .medium))
-                if let un = friend.user_name {
+                if let un = friend.userName {
                     Text("@\(un)")
                         .font(.system(size: 13))
                         .foregroundStyle(.secondary)

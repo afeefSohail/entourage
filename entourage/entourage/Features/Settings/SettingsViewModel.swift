@@ -34,7 +34,7 @@ final class SettingsViewModel {
         return "Build \(v)"
     }
 
-    var phoneNumber: String { EntourageManager.shared.user.phone_number ?? "" }
+    var phoneNumber: String { EntourageManager.shared.user.phoneNumber ?? "" }
 
     var genderDisplay: String { (EntourageManager.shared.user.gender ?? "").capitalizingFirstLetter() }
 

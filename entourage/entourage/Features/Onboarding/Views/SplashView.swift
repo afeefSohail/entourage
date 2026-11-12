@@ -27,20 +27,23 @@ struct SplashView: View {
             let user = try await fetchUser()
 
             if user.isBlocked == true {
-                appState.initialOnboardingStep = .banned(username: user.user_name ?? "")
+                appState.initialOnboardingStep = .banned(username: user.userName ?? "")
                 appState.phase = .onboarding
                 return
             }
 
-            let appDelegate = await UIApplication.shared.delegate as? AppDelegate
-            await appDelegate?.setUpFireBaseConfig()
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            appDelegate?.setUpFireBaseConfig()
 
             // Load settings in background — populates EntourageManager.shared.setting
             Task { _ = try? await UserRepository.shared.getUserSettings() }
 
             switch user.nextProfileStep {
-            case .age:
+            case .gender:
                 appState.initialOnboardingStep = .gender
+                appState.phase = .onboarding
+            case .name:
+                appState.initialOnboardingStep = .firstName
                 appState.phase = .onboarding
             case .birthday:
                 appState.initialOnboardingStep = .birthday

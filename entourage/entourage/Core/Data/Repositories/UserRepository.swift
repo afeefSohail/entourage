@@ -125,9 +125,9 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         var params: [String: Any] = [
             "auth_token": User.getToken(),
             "gender": user.gender ?? "male",
-            "first_name": user.first_name ?? "",
-            "user_name": user.user_name ?? "",
-            "last_name": user.last_name ?? "",
+            "first_name": user.firstName ?? "",
+            "user_name": user.userName ?? "",
+            "last_name": user.lastName ?? "",
             "bio": user.bio ?? ""
         ]
         if checkAge { if let dob = user.dob { params["dob"] = dob } }
@@ -196,7 +196,7 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
                     user.friendStatus = "no_relation"
                     merged.append(user)
                 }
-                merged.removeAll { $0.phone_number == EntourageManager.shared.user.phone_number }
+                merged.removeAll { $0.phoneNumber == EntourageManager.shared.user.phoneNumber }
                 callback(merged, nil)
             } catch { print(error) }
         }
@@ -374,13 +374,13 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
         let notification: [String: Any] = [
             "title": "Entouarge",
             "sound": "message.wav",
-            "body": "💬 \(EntourageManager.shared.user.first_name ?? "") sent you a Message"
+            "body": "💬 \(EntourageManager.shared.user.firstName ?? "") sent you a Message"
         ]
         let data: [String: Any] = [
             "notifiable_type": "Message",
             "notifiable_id": "\(matchId)",
             "group_id": "\(msgGroup)",
-            "message": "💬 \(EntourageManager.shared.user.first_name ?? "") sent you a Message",
+            "message": "💬 \(EntourageManager.shared.user.firstName ?? "") sent you a Message",
             "group_fcm_tokens": fcmToken,
             "notification": notification
         ]
@@ -460,7 +460,7 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
             do {
                 let res = try JSONDecoder().decode(APIResponse<[User]>.self, from: data)
                 var list = res.data ?? []
-                list.removeAll { $0.phone_number == EntourageManager.shared.user.phone_number }
+                list.removeAll { $0.phoneNumber == EntourageManager.shared.user.phoneNumber }
                 callback(list, nil)
             } catch { print(error) }
         }
@@ -475,7 +475,7 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
             do {
                 let res = try JSONDecoder().decode(APIResponse<FriendsWithInvitedUser>.self, from: data)
                 var result = res.data ?? FriendsWithInvitedUser()
-                result.friendships.removeAll { $0.phone_number == EntourageManager.shared.user.phone_number }
+                result.friendships.removeAll { $0.phoneNumber == EntourageManager.shared.user.phoneNumber }
                 callback(result, nil)
             } catch { print(error) }
         }
