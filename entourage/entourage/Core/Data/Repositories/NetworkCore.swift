@@ -19,6 +19,11 @@ class RepositoryBase {
         return Constants.baseURL + relative
     }
 
+    // Multipart bodies are parsed after auth on the server, so the token must travel in a header.
+    var authHeaders: HTTPHeaders {
+        ["Authorization": "Bearer \(User.getToken())"]
+    }
+
     func handle(
         parsing parsingHandler: @escaping AlamofireCallback,
         callback: @escaping RepoCallback

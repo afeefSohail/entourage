@@ -219,7 +219,7 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
                 else if let b = value as? Bool { form.append("\(b)".data(using: .utf8)!, withName: key) }
                 else if let i = value as? Int { form.append("\(i)".data(using: .utf8)!, withName: key) }
             }
-        }, to: url("/api/v1/users/report"), method: .post)
+        }, to: url("/api/v1/users/report"), method: .post, headers: authHeaders)
         .responseJSON { response in
             if response.data != nil { callback(nil, nil) }
             else if let error = response.error { callback(nil, error.localizedDescription) }
@@ -252,17 +252,24 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
                 else if let b = value as? Bool { form.append("\(b)".data(using: .utf8)!, withName: key) }
                 else if let i = value as? Int { form.append("\(i)".data(using: .utf8)!, withName: key) }
             }
-        }, to: url("/api/v1/photos/upload_photo"), method: .post)
+        }, to: url("/api/v1/photos/upload_photo"), method: .post, headers: authHeaders)
         .responseJSON { response in
-            guard let data = response.data else { callback(nil, nil); return }
+            guard let data = response.data else {
+                callback(nil, response.error?.localizedDescription ?? "Upload failed")
+                return
+            }
             do {
                 let res = try JSONDecoder().decode(APIResponse<User>.self, from: data)
                 if let u = res.data {
                     EntourageManager.shared.user.photos = u.photos
                     EntourageManager.shared.photos = u.photos
                     callback(u, nil)
-                } else { callback(nil, nil) }
-            } catch { print(error); callback(nil, nil) }
+                } else {
+                    callback(nil, res.meta.message)
+                }
+            } catch {
+                callback(nil, "Upload failed")
+            }
         }
     }
 
@@ -516,7 +523,7 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
                 else if let b = value as? Bool { form.append("\(b)".data(using: .utf8)!, withName: key) }
                 else if let i = value as? Int { form.append("\(i)".data(using: .utf8)!, withName: key) }
             }
-        }, to: url("/api/v1/friendships/block"), method: .post)
+        }, to: url("/api/v1/friendships/block"), method: .post, headers: authHeaders)
         .responseJSON { response in
             if response.error != nil {
                 callback(nil, response.error?.localizedDescription)
