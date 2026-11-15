@@ -188,14 +188,21 @@ export const deleteAccount: RequestHandler = async (req, res) => {
 
 export const updateCoordinates: RequestHandler = async (req, res) => {
   try {
-    const { latitude, longitude } = req.body as {
+    const { latitude, longitude, city, state } = req.body as {
       latitude: string;
       longitude: string;
+      city?: string;
+      state?: string;
     };
 
     const user = await prisma.user.update({
       where: { id: req.user.id },
-      data: { latitude, longitude },
+      data: {
+        latitude,
+        longitude,
+        ...(city !== undefined ? { city } : {}),
+        ...(state !== undefined ? { state } : {}),
+      },
       include: { photos: true, devices: true },
     });
 

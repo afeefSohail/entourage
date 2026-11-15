@@ -77,6 +77,8 @@ usersRouter.post(
     z.object({
       latitude: z.string().min(1),
       longitude: z.string().min(1),
+      city: z.string().optional(),
+      state: z.string().optional(),
     })
   ),
   updateCoordinates

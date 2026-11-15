@@ -176,7 +176,7 @@ export const swaggerSpec = {
         tags: ["Users"],
         summary: "Update user location",
         security: [{ bearerAuth: [] }],
-        requestBody: { required: true, content: { "application/json": { schema: { type: "object", required: ["latitude", "longitude"], properties: { latitude: { type: "string", example: "34.0522" }, longitude: { type: "string", example: "-118.2437" } } } } } },
+        requestBody: { required: true, content: { "application/json": { schema: { type: "object", required: ["latitude", "longitude"], properties: { latitude: { type: "string", example: "34.0522" }, longitude: { type: "string", example: "-118.2437" }, city: { type: "string", example: "Los Angeles", description: "Reverse geocoded by iOS via CLGeocoder" }, state: { type: "string", example: "CA", description: "Reverse geocoded by iOS via CLGeocoder" } } } } } },
         responses: { 200: { description: "Updated user" } },
       },
     },
