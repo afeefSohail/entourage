@@ -9,6 +9,8 @@ const envSchema = z.object({
   AWS_ACCESS_KEY_ID: z.string().min(1),
   AWS_SECRET_ACCESS_KEY: z.string().min(1),
   S3_ENDPOINT: z.string().optional(), // required for Cloudflare R2; omit for AWS S3
+  S3_PUBLIC_URL: z.string().url().optional(), // public bucket/CDN base; when unset photos are served through the API
+  PUBLIC_API_URL: z.string().url().default("http://localhost:3001"),
   FIREBASE_PROJECT_ID: z.string().min(1),
   FIREBASE_CLIENT_EMAIL: z.string().email(),
   FIREBASE_PRIVATE_KEY: z.string().min(1),

@@ -1,6 +1,6 @@
 import sharp from "sharp";
 import { PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
-import { s3, S3_BUCKET, s3Url } from "../config/s3";
+import { s3, S3_BUCKET, s3Url, photoKeyFromUrl } from "../config/s3";
 
 type PhotoSizes = {
   original: string;
@@ -58,12 +58,9 @@ export async function deletePhotoFromS3(urls: {
   medium: string;
   thumb: string;
 }): Promise<void> {
-  const keys = [urls.original, urls.medium, urls.thumb].map((url) =>
-    url.replace(
-      /^https?:\/\/[^/]+\.s3\.[^/]+\.amazonaws\.com\//,
-      ""
-    )
-  );
+  const keys = [urls.original, urls.medium, urls.thumb]
+    .map(photoKeyFromUrl)
+    .filter((key): key is string => key !== null);
 
   await Promise.allSettled(
     keys.map((key) =>

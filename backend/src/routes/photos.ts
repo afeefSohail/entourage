@@ -8,8 +8,37 @@ import { upload } from "../middleware/upload";
 import { uploadPhoto, deletePhotoFromS3 } from "../services/photoService";
 import { reEvaluateGroupStatus, findUserGroup } from "../services/groupService";
 import { serializeOwnUser } from "../lib/serializers";
+import { GetObjectCommand } from "@aws-sdk/client-s3";
+import { Readable } from "stream";
+import { s3, S3_BUCKET } from "../config/s3";
 
 export const photosRouter = Router();
+
+const PHOTO_KEY_PATTERN = /^photos\/\d+\/[\w.-]+\.(jpg|png)$/;
+
+// GET /file/photos/<userId>/<file> — public: image views can't attach auth headers.
+// Keys are immutable (timestamped), so responses are cached aggressively.
+photosRouter.get("/file/*", async (req, res) => {
+  const key = (req.params as Record<string, string>)[0];
+  if (!PHOTO_KEY_PATTERN.test(key)) {
+    fail(res, 404, "Not found");
+    return;
+  }
+  try {
+    const obj = await s3.send(new GetObjectCommand({ Bucket: S3_BUCKET, Key: key }));
+    res.setHeader("Content-Type", obj.ContentType ?? "image/jpeg");
+    if (obj.ContentLength !== undefined) res.setHeader("Content-Length", obj.ContentLength);
+    res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+    (obj.Body as Readable).pipe(res);
+  } catch (err) {
+    if ((err as { name?: string }).name === "NoSuchKey") {
+      fail(res, 404, "Not found");
+    } else {
+      console.error("Photo fetch error:", err);
+      fail(res, 502, "Could not load photo");
+    }
+  }
+});
 
 // POST /upload_photo
 photosRouter.post(

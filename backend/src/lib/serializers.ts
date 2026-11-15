@@ -5,6 +5,7 @@ import {
   Group,
   GroupMember,
 } from "@prisma/client";
+import { publicPhotoUrl } from "../config/s3";
 
 type UserWithRelations = User & {
   photos: Photo[];
@@ -18,6 +19,15 @@ type GroupMemberWithUser = GroupMember & {
 type GroupWithMembers = Group & {
   members: GroupMemberWithUser[];
 };
+
+function serializePhotos(photos: Photo[]): Photo[] {
+  return photos.map((p) => ({
+    ...p,
+    original: publicPhotoUrl(p.original),
+    medium: publicPhotoUrl(p.medium),
+    thumb: publicPhotoUrl(p.thumb),
+  }));
+}
 
 export function serializeOwnUser(user: UserWithRelations): Record<string, unknown> {
   return {
@@ -37,7 +47,7 @@ export function serializeOwnUser(user: UserWithRelations): Record<string, unknow
     state: user.state,
     is_blocked: user.is_blocked,
     is_banned: user.is_banned,
-    photos: user.photos,
+    photos: serializePhotos(user.photos),
     fcm_tokens: user.devices?.map((d) => d.fcm_token) ?? [],
     status: null,
     created_at: user.created_at,
@@ -66,7 +76,7 @@ export function serializeOtherUser(
     state: user.state,
     is_blocked: user.is_blocked,
     is_banned: user.is_banned,
-    photos: user.photos,
+    photos: serializePhotos(user.photos),
     fcm_tokens: [],
     status,
     created_at: user.created_at,
