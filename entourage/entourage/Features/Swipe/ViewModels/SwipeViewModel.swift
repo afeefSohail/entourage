@@ -2,6 +2,13 @@
 import Foundation
 import Observation
 
+enum SwipeGroupState: Equatable {
+    case unknown
+    case noGroup
+    case inactive
+    case ready
+}
+
 @Observable
 @MainActor
 final class SwipeViewModel {
@@ -12,6 +19,7 @@ final class SwipeViewModel {
     var lastMatch: Match?
     var showMatchBanner = false
     var errorMessage: String?
+    var groupState: SwipeGroupState = .unknown
 
     private var page = 1
     private var isLoadingMore = false
@@ -23,7 +31,7 @@ final class SwipeViewModel {
         return groups[currentIndex]
     }
 
-    var isEmpty: Bool { !isLoading && groups.isEmpty }
+    var isEmpty: Bool { !isLoading && groupState == .ready && groups.isEmpty }
     var isExhausted: Bool { !isLoading && !groups.isEmpty && currentIndex >= groups.count }
 
     // MARK: - Load
@@ -39,6 +47,22 @@ final class SwipeViewModel {
         isLoading = true
         page = 1
         do {
+            // Swiping needs an active group; without one the deck call only returns a 422.
+            let myGroup = try await GroupRepository.shared.myGroup()
+            EntourageManager.shared.myGroup = myGroup
+            guard let myGroup else {
+                groupState = .noGroup
+                groups = []
+                isLoading = false
+                return
+            }
+            guard myGroup.groupStatus == .active else {
+                groupState = .inactive
+                groups = []
+                isLoading = false
+                return
+            }
+            groupState = .ready
             let result = try await repo.findGroupsToMatch(page: page)
             groups = result?.groups ?? []
             currentIndex = 0

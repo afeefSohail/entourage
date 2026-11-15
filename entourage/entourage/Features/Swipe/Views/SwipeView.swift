@@ -10,8 +10,12 @@ struct SwipeView: View {
         ZStack {
             Color(.systemBackground).ignoresSafeArea()
 
-            if vm.isLoading && vm.groups.isEmpty {
+            if (vm.isLoading && vm.groups.isEmpty) || vm.groupState == .unknown {
                 ProgressView("Finding groups…")
+            } else if vm.groupState == .noGroup {
+                noOwnGroupView
+            } else if vm.groupState == .inactive {
+                inactiveGroupView
             } else if vm.isEmpty {
                 noGroupsView
             } else if vm.isExhausted {
@@ -113,6 +117,28 @@ struct SwipeView: View {
     }
 
     // MARK: - Empty states
+
+    private var noOwnGroupView: some View {
+        ContentUnavailableView {
+            Label("Create Your Group", systemImage: "person.3.fill")
+        } description: {
+            Text("Swiping happens as a group. Add friends to your group to start discovering other groups.")
+        } actions: {
+            Button("Set Up Group") { coordinator.push(.groupManagement) }
+                .buttonStyle(.borderedProminent)
+        }
+    }
+
+    private var inactiveGroupView: some View {
+        ContentUnavailableView {
+            Label("Your Group Isn't Active Yet", systemImage: "person.2.badge.gearshape")
+        } description: {
+            Text("A group needs at least 2 members and a profile photo before it can swipe.")
+        } actions: {
+            Button("Manage Group") { coordinator.push(.groupManagement) }
+                .buttonStyle(.borderedProminent)
+        }
+    }
 
     private var noGroupsView: some View {
         ContentUnavailableView {
