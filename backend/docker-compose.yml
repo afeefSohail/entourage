@@ -22,5 +22,14 @@ services:
     image: redis:7-alpine
     ports: ["6379:6379"]
 
+  prisma-studio:
+    build: .
+    ports: ["5557:5555"]
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://entourage:secret@postgres:5432/entourage
+    depends_on: [postgres]
+    command: npx prisma studio --port 5555 --browser none
+
 volumes:
   pgdata:

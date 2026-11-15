@@ -53,6 +53,7 @@ backend/
 │   │   ├── prisma.ts          ← Prisma client singleton
 │   │   ├── respond.ts         ← ok() / fail() response helpers
 │   │   └── pagination.ts      ← paginate() helper
+│   ├── swagger.ts             ← OpenAPI 3.0 spec (all endpoints)
 │   └── types/
 │       └── express.d.ts       ← augment req.user type
 ├── docker-compose.yml
@@ -372,12 +373,27 @@ CMD ["node", "dist/index.js"]
 
 ---
 
+## Swagger UI
+
+Interactive API docs are served at **`/api-docs`** (Swagger UI). Use it to test any endpoint from a browser without writing `curl` commands.
+
+- Local: http://localhost:3001/api-docs
+- Docker: http://localhost:3001/api-docs
+- Spec file: `src/swagger.ts` — full OpenAPI 3.0 object (paths, schemas, security)
+
+To authenticate in Swagger UI: click **Authorize**, paste the user's `authentication_token` as the Bearer value.
+
+The spec is built as a plain JS object (no YAML file, no codegen). Update `src/swagger.ts` whenever you add or change an endpoint.
+
+---
+
 ## Route Structure
 
 Mount all routes under `/api/v1`:
 
 ```typescript
 // src/app.ts
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/api/v1/users",         usersRouter);
 app.use("/api/v1/photos",        photosRouter);
 app.use("/api/v1/groups",        groupsRouter);
