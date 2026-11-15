@@ -66,11 +66,7 @@ struct SplashView: View {
                         appState.phase = .onboarding
                     } else {
                         // Update coordinates in background on every launch
-                        Task {
-                            await withCheckedContinuation { (cont: CheckedContinuation<Void, Never>) in
-                                UserRepository.shared.updateLocation { _, _ in cont.resume() }
-                            }
-                        }
+                        Task { await UserRepository.shared.syncCurrentLocation() }
                         appState.phase = .main
                     }
                 }

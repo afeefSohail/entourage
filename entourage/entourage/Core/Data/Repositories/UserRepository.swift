@@ -12,7 +12,7 @@ protocol UserRepositoryProtocol {
     func editUserProfile(checkAge: Bool, callback: @escaping RepoCallback)
     func checkUserNameAvailability(userName: String, callback: @escaping RepoCallback)
     func deleteUserAccount(reason: String, callback: @escaping RepoCallback)
-    func updateLocation(callback: @escaping RepoCallback)
+    func updateLocation(latitude: Double, longitude: Double, callback: @escaping RepoCallback)
     func searchBy(userName: String, callback: @escaping RepoCallback)
     func reportUser(userVM: UserViewModel, reason: String, image: UIImage, callback: @escaping RepoCallback)
     // Photos
@@ -163,23 +163,22 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
             .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))
     }
 
-    func updateLocation(callback: @escaping RepoCallback) {
-        let user = EntourageManager.shared.user
+    func updateLocation(latitude: Double, longitude: Double, callback: @escaping RepoCallback) {
         let params: [String: Any] = [
             "auth_token": User.getToken(),
-            "latitude": user.latitude ?? "",
-            "longitude": user.longitude ?? ""
+            "latitude": String(latitude),
+            "longitude": String(longitude)
         ]
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
-            guard let data = response.data else { return }
-            do {
-                let res = try JSONDecoder().decode(APIResponse<User>.self, from: data)
-                if let u = res.data {
-                    EntourageManager.shared.user = u
-                    EntourageManager.shared.photos = u.photos
-                    callback(u, nil)
-                }
-            } catch { print(error) }
+            guard let data = response.data,
+                  let res = try? JSONDecoder().decode(APIResponse<User>.self, from: data),
+                  let u = res.data else {
+                callback(nil, "Could not update location")
+                return
+            }
+            EntourageManager.shared.user = u
+            EntourageManager.shared.photos = u.photos
+            callback(u, nil)
         }
         session.request(url("/api/v1/users/update_coordinates"), method: .post, parameters: params)
             .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))

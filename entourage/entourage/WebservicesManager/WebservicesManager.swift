@@ -23,7 +23,6 @@ class WebServicesManager: NSObject {
     func editUserProfile(checkAge: Bool, callback: @escaping WebServicesManagerCallback) { users.editUserProfile(checkAge: checkAge, callback: callback) }
     func checkUserNameAvailablityBy(userName: String, callback: @escaping WebServicesManagerCallback) { users.checkUserNameAvailability(userName: userName, callback: callback) }
     func deleteUserAccount(reason: String, callback: @escaping WebServicesManagerCallback) { users.deleteUserAccount(reason: reason, callback: callback) }
-    func updateLocationBy(callback: @escaping WebServicesManagerCallback) { users.updateLocation(callback: callback) }
     func searchBy(userName: String, callback: @escaping WebServicesManagerCallback) { users.searchBy(userName: userName, callback: callback) }
     func reportUser(user: User, reason: String, image: UIImage, callback: @escaping WebServicesManagerCallback) { users.reportUser(userVM: UserViewModel(user), reason: reason, image: image, callback: callback) }
     func sendInviteMessage(phoneNumber: String, callback: @escaping WebServicesManagerCallback) { users.sendInviteMessage(phoneNumber: phoneNumber, callback: callback) }

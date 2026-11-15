@@ -1,6 +1,53 @@
 import SwiftUI
 import CoreLocation
 
+// One-shot device location, shared by onboarding and the launch-time coordinate refresh.
+@MainActor
+final class LocationService: NSObject, CLLocationManagerDelegate {
+    static let shared = LocationService()
+
+    private let manager = CLLocationManager()
+    private var waiters: [CheckedContinuation<CLLocationCoordinate2D?, Never>] = []
+
+    private override init() {
+        super.init()
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+    }
+
+    var isAuthorized: Bool {
+        let status = manager.authorizationStatus
+        return status == .authorizedWhenInUse || status == .authorizedAlways
+    }
+
+    func currentCoordinate() async -> CLLocationCoordinate2D? {
+        guard isAuthorized else { return nil }
+        if let recent = manager.location, recent.timestamp.timeIntervalSinceNow > -300 {
+            return recent.coordinate
+        }
+        return await withCheckedContinuation { cont in
+            waiters.append(cont)
+            if waiters.count == 1 { manager.requestLocation() }
+        }
+    }
+
+    private func finish(_ coordinate: CLLocationCoordinate2D?) {
+        let pending = waiters
+        waiters = []
+        pending.forEach { $0.resume(returning: coordinate) }
+    }
+
+    // The manager is created on the main thread, so its delegate callbacks arrive there.
+    nonisolated func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let coordinate = locations.last?.coordinate
+        MainActor.assumeIsolated { finish(coordinate) }
+    }
+
+    nonisolated func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        MainActor.assumeIsolated { finish(nil) }
+    }
+}
+
 @Observable
 final class LocationPermissionCoordinator: NSObject, CLLocationManagerDelegate {
     var status: CLAuthorizationStatus = CLLocationManager.authorizationStatus()
@@ -124,9 +171,7 @@ struct LocationPermissionView: View {
         guard !isUpdating else { return }
         isUpdating = true
         defer { isUpdating = false }
-        await withCheckedContinuation { (cont: CheckedContinuation<Void, Never>) in
-            UserRepository.shared.updateLocation { _, _ in cont.resume() }
-        }
+        await UserRepository.shared.syncCurrentLocation()
         coordinator.push(.notificationPermission)
     }
 }

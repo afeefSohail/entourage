@@ -113,6 +113,19 @@ extension MatchRepository {
 
 extension UserRepository {
 
+    /// Reads the device location and uploads it. Returns false when there is no
+    /// permission, no fix, or the upload fails.
+    @MainActor
+    @discardableResult
+    func syncCurrentLocation() async -> Bool {
+        guard let coordinate = await LocationService.shared.currentCoordinate() else { return false }
+        return await withCheckedContinuation { (cont: CheckedContinuation<Bool, Never>) in
+            updateLocation(latitude: coordinate.latitude, longitude: coordinate.longitude) { _, error in
+                cont.resume(returning: error == nil)
+            }
+        }
+    }
+
     func getUser() async throws -> User? {
         try await withCheckedThrowingContinuation { cont in
             getUser { result, error in
