@@ -43,8 +43,11 @@ struct SwipeView: View {
                 }
             }
         }
-        .task { await vm.loadInitial() }
-        .alert("Error", isPresented: .constant(vm.errorMessage != nil)) {
+        .task { await vm.loadIfNeeded() }
+        .alert("Error", isPresented: Binding(
+            get: { vm.errorMessage != nil },
+            set: { if !$0 { vm.errorMessage = nil } }
+        )) {
             Button("OK") { vm.errorMessage = nil }
         } message: {
             Text(vm.errorMessage ?? "")

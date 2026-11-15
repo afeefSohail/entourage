@@ -56,13 +56,50 @@ enum Route: Hashable {
     }
 }
 
+enum AppTab: Hashable {
+    case discover, matches, friends, profile, settings
+}
+
+// Each tab owns its own NavigationStack; push/pop act on the selected tab's stack.
 @Observable
 @MainActor
 final class AppCoordinator {
 
-    var path = NavigationPath()
+    var selectedTab: AppTab = .discover
+
+    var discoverPath = NavigationPath()
+    var matchesPath  = NavigationPath()
+    var friendsPath  = NavigationPath()
+    var profilePath  = NavigationPath()
+    var settingsPath = NavigationPath()
+
+    var path: NavigationPath {
+        get {
+            switch selectedTab {
+            case .discover: discoverPath
+            case .matches:  matchesPath
+            case .friends:  friendsPath
+            case .profile:  profilePath
+            case .settings: settingsPath
+            }
+        }
+        set {
+            switch selectedTab {
+            case .discover: discoverPath = newValue
+            case .matches:  matchesPath  = newValue
+            case .friends:  friendsPath  = newValue
+            case .profile:  profilePath  = newValue
+            case .settings: settingsPath = newValue
+            }
+        }
+    }
 
     func push(_ route: Route) { path.append(route) }
+
+    func push(_ route: Route, in tab: AppTab) {
+        selectedTab = tab
+        path.append(route)
+    }
 
     func pop() {
         guard !path.isEmpty else { return }

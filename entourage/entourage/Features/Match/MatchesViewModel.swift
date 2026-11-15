@@ -11,14 +11,22 @@ final class MatchesViewModel {
     var errorMessage: String?
 
     private let repo = MatchRepository.shared
+    private var lastLoaded: Date?
+
+    func refreshIfStale() async {
+        if let lastLoaded, Date().timeIntervalSince(lastLoaded) < 30 { return }
+        await refresh()
+    }
 
     func refresh() async {
+        guard !isLoading else { return }
         isLoading = true
         defer { isLoading = false }
         do {
             let loaded = try await repo.matchList()
             EntourageManager.shared.myMatchs = loaded
             matches = loaded
+            lastLoaded = Date()
         } catch {
             errorMessage = error.localizedDescription
         }

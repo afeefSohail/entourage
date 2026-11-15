@@ -15,6 +15,7 @@ final class SwipeViewModel {
 
     private var page = 1
     private var isLoadingMore = false
+    private var hasLoaded = false
     private let repo = MatchRepository.shared
 
     var currentGroup: Group? {
@@ -27,6 +28,12 @@ final class SwipeViewModel {
 
     // MARK: - Load
 
+    // Tab switches re-fire .task; reloading would reset the deck position and spend rate limit.
+    func loadIfNeeded() async {
+        guard !hasLoaded else { return }
+        await loadInitial()
+    }
+
     func loadInitial() async {
         guard !isLoading else { return }
         isLoading = true
@@ -35,6 +42,7 @@ final class SwipeViewModel {
             let result = try await repo.findGroupsToMatch(page: page)
             groups = result?.groups ?? []
             currentIndex = 0
+            hasLoaded = true
         } catch {
             errorMessage = error.localizedDescription
         }

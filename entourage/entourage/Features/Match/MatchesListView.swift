@@ -38,7 +38,7 @@ struct MatchesListView: View {
         }
         .navigationTitle("Matches")
         .refreshable { await vm.refresh() }
-        .task { await vm.refresh() }
+        .task { await vm.refreshIfStale() }
         .alert("Unmatch?", isPresented: $showUnmatchAlert, presenting: matchToUnmatch) { match in
             Button("Unmatch", role: .destructive) {
                 Task { await vm.unmatch(match) }

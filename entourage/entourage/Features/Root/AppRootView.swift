@@ -1,4 +1,4 @@
-// AppRootView.swift — SwiftUI root: tabs + NavigationStack coordinator
+// AppRootView.swift — SwiftUI root: tab bar with one NavigationStack per tab
 import SwiftUI
 import UIKit
 
@@ -7,17 +7,12 @@ struct AppRootView: View {
     @State private var coordinator = AppCoordinator()
 
     var body: some View {
-        NavigationStack(path: Bindable(coordinator).path) {
-            MainTabView()
-                .navigationDestination(for: Route.self) { route in
-                    destinationView(for: route)
-                }
-        }
-        .environment(coordinator)
-        .task { await loadStartupData() }
-        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
-            handlePendingDeepLink()
-        }
+        MainTabView()
+            .environment(coordinator)
+            .task { await loadStartupData() }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+                handlePendingDeepLink()
+            }
     }
 
     @MainActor
@@ -56,21 +51,21 @@ struct AppRootView: View {
             defaults.removeObject(forKey: "group_id")
 
             if let myGroup = EntourageManager.shared.myGroup, myGroup.id == groupId {
-                coordinator.push(.chat(myGroup, personalChat: true, matchId: 0))
+                coordinator.push(.chat(myGroup, personalChat: true, matchId: 0), in: .matches)
             } else if let match = EntourageManager.shared.myMatchs.first(where: { $0.chat_id == chatId }),
                       let matchedGroup = match.matcher {
-                coordinator.push(.chat(matchedGroup, personalChat: false, matchId: match.chat_id))
+                coordinator.push(.chat(matchedGroup, personalChat: false, matchId: match.chat_id), in: .matches)
             }
 
         case "MatchCreated":
             let matchId = defaults.integer(forKey: "match_id")
             defaults.removeObject(forKey: "match_id")
             if let match = EntourageManager.shared.myMatchs.first(where: { $0.id == matchId }) {
-                coordinator.push(.matchDetail(match))
+                coordinator.push(.matchDetail(match), in: .matches)
             }
 
         case "FriendshipRequest", "FriendshipAccepted":
-            coordinator.push(.friends)
+            coordinator.selectedTab = .friends
 
         case "GroupMemberAdded":
             defaults.removeObject(forKey: "group_id")
@@ -78,16 +73,62 @@ struct AppRootView: View {
                 if let g = try? await GroupRepository.shared.myGroup() {
                     EntourageManager.shared.myGroup = g
                 }
-                coordinator.push(.groupManagement)
+                coordinator.push(.groupManagement, in: .profile)
             }
 
         default:
             break
         }
     }
+}
 
-    @ViewBuilder
-    private func destinationView(for route: Route) -> some View {
+// MARK: - Main tab bar
+
+private struct MainTabView: View {
+
+    @Environment(AppCoordinator.self) private var coordinator
+
+    var body: some View {
+        @Bindable var coordinator = coordinator
+        TabView(selection: $coordinator.selectedTab) {
+            TabStack(path: $coordinator.discoverPath) { SwipeView() }
+                .tabItem { Label("Discover", systemImage: "flame.fill") }
+                .tag(AppTab.discover)
+
+            TabStack(path: $coordinator.matchesPath) { MatchesListView() }
+                .tabItem { Label("Matches", systemImage: "bubble.left.and.bubble.right.fill") }
+                .tag(AppTab.matches)
+
+            TabStack(path: $coordinator.friendsPath) { FriendsView() }
+                .tabItem { Label("Friends", systemImage: "person.2.fill") }
+                .tag(AppTab.friends)
+
+            TabStack(path: $coordinator.profilePath) { ProfileView() }
+                .tabItem { Label("Profile", systemImage: "person.fill") }
+                .tag(AppTab.profile)
+
+            TabStack(path: $coordinator.settingsPath) { SettingsView() }
+                .tabItem { Label("Settings", systemImage: "gearshape.fill") }
+                .tag(AppTab.settings)
+        }
+    }
+}
+
+private struct TabStack<Root: View>: View {
+    @Binding var path: NavigationPath
+    @ViewBuilder var root: Root
+
+    var body: some View {
+        NavigationStack(path: $path) {
+            root.navigationDestination(for: Route.self) { RouteDestination(route: $0) }
+        }
+    }
+}
+
+private struct RouteDestination: View {
+    let route: Route
+
+    var body: some View {
         switch route {
         case .swipeGroups:
             SwipeView()
@@ -118,31 +159,3 @@ struct AppRootView: View {
         }
     }
 }
-
-// MARK: - Main tab bar
-
-private struct MainTabView: View {
-
-    @Environment(AppCoordinator.self) private var coordinator
-
-    var body: some View {
-        TabView {
-            SwipeView()
-                .tabItem { Label("Discover", systemImage: "flame.fill") }
-
-            MatchesListView()
-                .tabItem { Label("Matches", systemImage: "bubble.left.and.bubble.right.fill") }
-
-            FriendsView()
-                .tabItem { Label("Friends", systemImage: "person.2.fill") }
-
-            ProfileView()
-                .tabItem { Label("Profile", systemImage: "person.fill") }
-
-            SettingsView()
-                .tabItem { Label("Settings", systemImage: "gearshape.fill") }
-        }
-    }
-}
-
-
