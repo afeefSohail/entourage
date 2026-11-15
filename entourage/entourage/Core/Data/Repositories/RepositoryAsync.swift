@@ -119,8 +119,10 @@ extension UserRepository {
     @discardableResult
     func syncCurrentLocation() async -> Bool {
         guard let coordinate = await LocationService.shared.currentCoordinate() else { return false }
+        let place = await LocationService.shared.cityAndState(for: coordinate)
         return await withCheckedContinuation { (cont: CheckedContinuation<Bool, Never>) in
-            updateLocation(latitude: coordinate.latitude, longitude: coordinate.longitude) { _, error in
+            updateLocation(latitude: coordinate.latitude, longitude: coordinate.longitude,
+                           city: place?.city, state: place?.state) { _, error in
                 cont.resume(returning: error == nil)
             }
         }

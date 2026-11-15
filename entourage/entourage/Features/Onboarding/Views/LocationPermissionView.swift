@@ -31,6 +31,13 @@ final class LocationService: NSObject, CLLocationManagerDelegate {
         }
     }
 
+    // A failed lookup (offline, throttled) still lets the coordinates upload on their own.
+    func cityAndState(for coordinate: CLLocationCoordinate2D) async -> (city: String?, state: String?)? {
+        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        guard let placemark = try? await CLGeocoder().reverseGeocodeLocation(location).first else { return nil }
+        return (placemark.locality, placemark.administrativeArea)
+    }
+
     private func finish(_ coordinate: CLLocationCoordinate2D?) {
         let pending = waiters
         waiters = []

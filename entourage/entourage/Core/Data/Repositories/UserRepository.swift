@@ -12,7 +12,7 @@ protocol UserRepositoryProtocol {
     func editUserProfile(checkAge: Bool, callback: @escaping RepoCallback)
     func checkUserNameAvailability(userName: String, callback: @escaping RepoCallback)
     func deleteUserAccount(reason: String, callback: @escaping RepoCallback)
-    func updateLocation(latitude: Double, longitude: Double, callback: @escaping RepoCallback)
+    func updateLocation(latitude: Double, longitude: Double, city: String?, state: String?, callback: @escaping RepoCallback)
     func searchBy(userName: String, callback: @escaping RepoCallback)
     func reportUser(userVM: UserViewModel, reason: String, image: UIImage, callback: @escaping RepoCallback)
     // Photos
@@ -163,12 +163,14 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
             .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))
     }
 
-    func updateLocation(latitude: Double, longitude: Double, callback: @escaping RepoCallback) {
-        let params: [String: Any] = [
+    func updateLocation(latitude: Double, longitude: Double, city: String?, state: String?, callback: @escaping RepoCallback) {
+        var params: [String: Any] = [
             "auth_token": User.getToken(),
             "latitude": String(latitude),
             "longitude": String(longitude)
         ]
+        if let city, !city.isEmpty { params["city"] = city }
+        if let state, !state.isEmpty { params["state"] = state }
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
             guard let data = response.data,
                   let res = try? JSONDecoder().decode(APIResponse<User>.self, from: data),
