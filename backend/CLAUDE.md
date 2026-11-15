@@ -7,11 +7,12 @@ TypeScript · Express · Zod · bcrypt · dotenv · Redis · Docker · PostgreSQ
 - Never commit secrets. All env vars through `.env` only.
 - Every endpoint wrapped in the standard response envelope (see API Contract).
 - Auth token in every protected route — header `Authorization: Bearer <token>` OR query/body `auth_token`.
-- All validation through Zod schemas defined alongside the route. Reject early, never trust raw input.
+- All validation through Zod schemas defined in the route file. Reject early, never trust raw input.
 - All DB access through Prisma only. No raw SQL except for the haversine distance query.
 - Redis for: auth-token lookup cache (5 min TTL), rate limiting, swipe-deck pagination cursor.
 - Push notifications go through Firebase Admin SDK (server-side), not through the iOS client's cloud function path.
 - File uploads stored on S3 (or local `/uploads` in dev). Three sizes generated per photo: original, medium (640px), thumb (200px).
+- Routes are thin: only middleware, Zod schema, and a controller reference. Business logic belongs in `controllers/`.
 
 ---
 
@@ -35,8 +36,16 @@ backend/
 │   │   ├── validate.ts        ← validateBody / validateQuery — Zod wrapper
 │   │   ├── upload.ts          ← multer config for photo endpoints
 │   │   └── rateLimiter.ts     ← Redis-backed rate limiter
+│   ├── controllers/
+│   │   ├── usersController.ts         ← 13 handlers (signup, profile, settings…)
+│   │   ├── photosController.ts        ← 4 handlers (upload, delete, set_order, serve)
+│   │   ├── groupsController.ts        ← 5 handlers (create, add_member, my_group…)
+│   │   ├── matchesController.ts       ← 5 handlers (find_groups, like, unlike…)
+│   │   ├── friendshipsController.ts   ← 14 handlers (request, accept, block…)
+│   │   ├── notificationsController.ts ← 1 handler
+│   │   └── devicesController.ts       ← 1 handler
 │   ├── routes/
-│   │   ├── users.ts
+│   │   ├── users.ts           ← middleware + Zod + controller import only
 │   │   ├── photos.ts
 │   │   ├── groups.ts
 │   │   ├── matches.ts
