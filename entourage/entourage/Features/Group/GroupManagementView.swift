@@ -38,7 +38,10 @@ struct GroupManagementView: View {
         } message: {
             Text("You will be removed from the group. This cannot be undone.")
         }
-        .alert("Error", isPresented: .constant(vm.errorMessage != nil)) {
+        .alert("Error", isPresented: Binding(
+            get: { vm.errorMessage != nil },
+            set: { if !$0 { vm.errorMessage = nil } }
+        )) {
             Button("OK") { vm.errorMessage = nil }
         } message: {
             Text(vm.errorMessage ?? "")

@@ -54,7 +54,10 @@ struct AddGroupMemberView: View {
         .navigationTitle("Add Member")
         .navigationBarTitleDisplayMode(.inline)
         .task { await vm.load() }
-        .alert("Error", isPresented: .constant(vm.errorMessage != nil)) {
+        .alert("Error", isPresented: Binding(
+            get: { vm.errorMessage != nil },
+            set: { if !$0 { vm.errorMessage = nil } }
+        )) {
             Button("OK") { vm.errorMessage = nil }
         } message: {
             Text(vm.errorMessage ?? "")
