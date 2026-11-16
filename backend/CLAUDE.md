@@ -8,6 +8,7 @@ TypeScript · Express · Zod · bcrypt · dotenv · Redis · Docker · PostgreSQ
 - Every endpoint wrapped in the standard response envelope (see API Contract).
 - Auth token in every protected route — header `Authorization: Bearer <token>` OR query/body `auth_token`.
 - All validation through Zod schemas defined in the route file. Reject early, never trust raw input.
+- The iOS client (Alamofire) sends most bodies form-encoded, so numbers arrive as strings and booleans as `"1"`/`"0"`. Use `formInt()` / `formBool()` from `src/lib/formFields.ts` for numeric and boolean body fields — never bare `z.number()` / `z.boolean()` / `z.coerce.boolean()` (the last reads `"0"` as `true`).
 - All DB access through Prisma only. No raw SQL except for the haversine distance query.
 - Redis for: auth-token lookup cache (5 min TTL), rate limiting, swipe-deck pagination cursor.
 - Push notifications go through Firebase Admin SDK (server-side), not through the iOS client's cloud function path.
@@ -61,7 +62,8 @@ backend/
 │   ├── lib/
 │   │   ├── prisma.ts          ← Prisma client singleton
 │   │   ├── respond.ts         ← ok() / fail() response helpers
-│   │   └── pagination.ts      ← paginate() helper
+│   │   ├── pagination.ts      ← paginate() helper
+│   │   └── formFields.ts      ← formInt() / formBool() for form-encoded iOS bodies
 │   ├── swagger.ts             ← OpenAPI 3.0 spec (all endpoints)
 │   └── types/
 │       └── express.d.ts       ← augment req.user type
@@ -332,6 +334,34 @@ NODE_ENV=development
 
 Validate all of these at startup with Zod in `src/config/env.ts`. If any required var is missing, throw and crash — never start with invalid config.
 
+**Database note:** `.env` `DATABASE_URL` points to Docker's Postgres (`postgresql://entourage:secret@localhost:5432/entourage`). There is no separate local Postgres database — Docker is the single database for all environments. Always have Docker running before starting dev work.
+
+---
+
+## Seed Scripts
+
+```bash
+npm run db:seed:docker   # seeds Docker's Postgres (always use this)
+npm run db:seed          # seeds whatever DATABASE_URL points to (same as above now)
+```
+
+The seed (`prisma/seed.ts`) creates 20 dummy users with DiceBear avatars. It is **idempotent** — skips any user whose `phone_number` already exists. Safe to run multiple times.
+
+- Males use DiceBear `big-ears` style, females use `lorelei`
+- Photo sizes: 400px (original), 200px (medium), 100px (thumb)
+- Seed users span Lahore, Karachi, New York, London, Toronto, Sydney — **never change their coordinates**, they are intentional for testing distance-based filtering
+
+To seed after a fresh Docker setup:
+```bash
+docker compose up -d
+npm run db:seed:docker
+```
+
+**After changing backend code**, rebuild the API container — it runs compiled `dist/`, so edits to `src/` do nothing until then:
+```bash
+docker compose up -d --build api
+```
+
 ---
 
 ## Docker Setup
@@ -463,8 +493,8 @@ Protected.
 
 #### `POST /api/v1/users/update_coordinates`
 Protected.
-- Body: `{ latitude: string, longitude: string }`
-- Logic: update user lat/lng; also re-evaluate Group `status` to `active` if the group has ≥ 2 members and user has photos
+- Body: `{ latitude: string, longitude: string, city?: string, state?: string }` — iOS reverse-geocodes on device and sends city (locality) and state (administrativeArea) when it has them
+- Logic: update user lat/lng (and city/state when present); invalidate the user's Redis token cache; re-evaluate Group `status` to `active` if the group has ≥ 2 members and user has photos
 - Response: `data: User`
 
 #### `GET /api/v1/users/search_by_user_name`
@@ -630,19 +660,21 @@ Protected.
 - Response: `data: [Group]` with pagination in `meta`
 
 ```sql
--- Haversine raw query (wrap in Prisma.$queryRaw)
-SELECT g.id,
-  3959 * acos(
-    cos(radians($userLat)) * cos(radians(u.latitude::float))
-    * cos(radians(u.longitude::float) - radians($userLng))
-    + sin(radians($userLat)) * sin(radians(u.latitude::float))
-  ) AS distance_miles
-FROM groups g
-JOIN group_members gm ON gm.group_id = g.id
-JOIN users u ON u.id = gm.user_id
+-- Haversine raw query (wrap in Prisma.$queryRaw), measured from each group's creator
+SELECT DISTINCT ON (g.id) g.id,
+  3959 * acos(GREATEST(-1, LEAST(1,
+    cos(radians($userLat)) * cos(radians(creator.latitude::float))
+    * cos(radians(creator.longitude::float) - radians($userLng))
+    + sin(radians($userLat)) * sin(radians(creator.latitude::float))
+  ))) AS distance_miles
+FROM "Group" g
+JOIN "User" creator ON creator.id = g.creator_id
 WHERE g.status = 'active'
-ORDER BY distance_miles ASC
 ```
+
+**Raw SQL table names:** Prisma creates tables named exactly after the models and case-sensitive — `"User"`, `"Group"`, `"GroupMember"`, `"Friendship"` (always double-quoted). Unquoted `groups` / `users` do not exist and crash the query with `relation "groups" does not exist`.
+
+**User location comes from the auth cache:** `find_groups` reads the caller's coordinates from `req.user`, which is the Redis-cached user (5 min). If you change a user's coordinates directly in the database, also delete `user:token:<auth_token>` and `swipe:cursor:*`, or the deck keeps using the old location and the old cached result.
 
 #### `POST /api/v1/matches/like_group`
 Protected.
@@ -737,8 +769,8 @@ Protected.
 #### `POST /api/v1/friendships/friends_and_no_relation`
 Protected.
 - Body: `{ contacts: string }` — comma-separated phone numbers
-- Logic: for each phone number in contacts, find the user (if exists in app) and classify as `friends` or `no_relation`. Used for contact list with add/added state.
-- Response: `data: { friendships: [User], non_existing: [String] }` — container object; `non_existing` is phone numbers not in the app
+- Logic: for each phone number in contacts, find the user (if exists in app) and inject their real status from the Friendship table: `friends`, `pending` (I requested), `received` (they requested), or `no_relation`. Blocked users are left out; friends are listed first. The caller's own phone number is never returned (not in `friendships`, not in `non_existing`). Matching is an exact phone-string match against `User.phone_number` (E.164).
+- Response: `data: { friendships: [User], non_existing: [String] }` — container object; `non_existing` is phone numbers not in the app (the iOS "Invite" list)
 
 #### `POST /api/v1/friendships/request`
 Protected.

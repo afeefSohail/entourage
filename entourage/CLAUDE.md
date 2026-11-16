@@ -18,6 +18,7 @@ Core loop:
 - Always commit and push changes to the **AI-Dev** branch.
 - Never add a Claude signature (`Co-Authored-By`) to commits.
 - Always use the same DerivedData folder for builds.
+- In Debug builds the splash screen must not send the device location (`syncCurrentLocation()` is wrapped in `#if !DEBUG` in `SplashView`). Seeded users' coordinates are intentional test data — never overwrite them. Only the onboarding location step sends a location in Debug.
 
 ---
 
@@ -146,6 +147,7 @@ entourage/
       GroupManagementView.swift
       GroupManagementViewModel.swift
       AddGroupMemberView.swift
+      CreateGroupView.swift      ← pick friends → POST /groups/create (route .createGroup)
 
     Friends/
       FriendsView.swift
@@ -279,8 +281,11 @@ struct Meta: Decodable {
 
 - Firestore path: `Message/{conversationId}/ChatMessages`, ordered by `createdAt` ascending.
 - `ChatView` supports two modes via `personalChat: Bool`:
-  - `true` → personal group chat (members of the same group)
-  - `false` → match cross-group chat (two matched groups talking)
+  - `true` → personal group chat (members of the same group); room `"\(group.id)"`, `group` is my group
+  - `false` → match cross-group chat (two matched groups talking); room `"Match_\(chat_id)"`, `group` is the **other** (matcher) group
+- Message side: in a match chat everything **my group** sends is on the right (`ChatViewModel.isFromMySide`); in a group chat only my own messages are. Consecutive messages from one sender are grouped, and the sender's avatar plus "Name  time" sit under the last bubble of the run.
+- Firestore security rules (Firebase project `entourage-3b915`) require a signed-in Firebase Auth user. "Missing or insufficient permissions" (`FIRFirestoreErrorDomain` code 7) means the rules rejected the request — check the rules in the Firebase Console, not the app. The chat surfaces load/send failures in an alert; never swallow them.
+- The Matches list preview listens to the newest doc in `Message/Match_<chat_id>/ChatMessages` (`MatchesViewModel.syncLastMessageListeners`); it shows "You: …" / "Name: …", or "Say hello!" when the chat is empty. Don't rely on the local `getLastMsg` cache — nothing writes it any more.
 
 ---
 
@@ -292,6 +297,32 @@ The invite model is **direct add + opt-out**:
 - Any member can call `leaveGroup()` to exit
 - There is no accept/reject/pending state
 - `group.users` is the only member list
+- Creating a group: Discover ("Set Up Group") → My Group (empty state "Create Group") → `CreateGroupView` → `POST /groups/create` with comma-separated `friend_ids`. A group needs ≥ 2 members and a creator photo to become `active` and swipe.
+- Discover's toolbar has a leading **My Group** button (`.groupManagement`), so the group stays reachable once it is active.
+
+---
+
+## Discover / Swipe Card
+
+`GroupCard` (in `SwipeView.swift`) is a rounded card with a 16pt inset on every side and a white info bar (group name via `cardsGroupName()`, city/state, distance in miles). Member photos split the photo area:
+
+| Members | Layout |
+|---|---|
+| 1 | one full tile |
+| 2 | top half / bottom half |
+| 3 | top half split in two, third member fills the bottom half |
+| 4+ | 2 × 2 (first four) |
+
+Photos are overlays on fixed-size tiles and clipped — never give a `scaledToFill` image an unbounded frame, or it widens the card past the screen. Swipe right (> 100pt) calls `like()`; swipe left calls `pass()`, which only hits `unlike_group` — passes are not stored, so a passed group can reappear.
+
+---
+
+## Backend Contract Gotchas
+
+- Alamofire sends bodies form-encoded: numbers become strings and `Bool` becomes `"1"`/`"0"`. The backend accepts this via `formInt()`/`formBool()`; keep sending native Swift types.
+- Friendship status strings from the backend (`User.friendStatus`, JSON `status`): `"friends"`, `"pending"` (I requested), `"received"` (they requested), `"blocked"`, `"no_relation"`. Compare against exactly these — not `"friend"`, `"sent"` or `"accepted"`.
+- Contacts are sent to `friends_and_no_relation` as `contacts` (comma-separated E.164 numbers). The response's `friendships` carry real statuses; `non_existing` is the invite list, and never includes my own number.
+- Blocking a friend is allowed directly (no unfriend first): the backend turns the friendship into a block and removes them from my group. The confirmation copy says so when `isFriend` is true.
 
 ---
 
