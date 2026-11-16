@@ -44,14 +44,15 @@ extension MessageFirebaseService{
     /// - Parameters:
     ///   - pageSize: size of the page
     ///   - completion: retruns the results when done
-    public func fetch(pageSize:Int,completion:@escaping ([ChatMessage]) -> Void, callCompletionIfEmptyResult:Bool = false){
-        
+    public func fetch(pageSize:Int,completion:@escaping ([ChatMessage]) -> Void, callCompletionIfEmptyResult:Bool = false, failure: ((Error) -> Void)? = nil){
+
         //fetch
         self.fetchQuery(pageSize: pageSize).getDocuments { (querySnapshot, error) in
-            
+
             //if no data
             guard let snapshot = querySnapshot else {
                 print("Error fetching snapshots: \(error!)")
+                if let error { failure?(error) }
                 return
             }
             

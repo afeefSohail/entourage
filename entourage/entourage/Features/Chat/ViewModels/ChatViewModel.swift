@@ -52,7 +52,12 @@ final class ChatViewModel {
                 self.isLoading = false
                 self.subscribeForNew()
             }
-        }, callCompletionIfEmptyResult: true)
+        }, callCompletionIfEmptyResult: true, failure: { [weak self] error in
+            Task { @MainActor in
+                self?.isLoading = false
+                self?.errorMessage = Self.describe(error)
+            }
+        })
         writeActiveMember()
     }
 
@@ -94,7 +99,23 @@ final class ChatViewModel {
         guard !text.isEmpty else { return }
         inputText = ""
         let msg = ChatMessage(text: text, sender: currentUser, emoticon: .Neutral)
-        service?.add(element: msg) { _, _ in }
+        service?.add(element: msg) { [weak self] _, error in
+            guard let error else { return }
+            Task { @MainActor in
+                guard let self else { return }
+                if self.inputText.isEmpty { self.inputText = text }
+                self.errorMessage = Self.describe(error)
+            }
+        }
+    }
+
+    // Firestore permission errors mean the project's security rules rejected this user, not a network problem.
+    private static func describe(_ error: Error) -> String {
+        let ns = error as NSError
+        if ns.domain == "FIRFirestoreErrorDomain" && ns.code == 7 {
+            return "Chat is unavailable: the server refused access to this conversation."
+        }
+        return "Couldn't reach chat. \(error.localizedDescription)"
     }
 
     // MARK: - Helpers
