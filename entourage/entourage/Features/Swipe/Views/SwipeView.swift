@@ -41,6 +41,12 @@ struct SwipeView: View {
         .navigationTitle("Discover")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button { coordinator.push(.groupManagement) } label: {
+                    Image(systemName: "person.3")
+                }
+                .accessibilityLabel("My Group")
+            }
             ToolbarItem(placement: .primaryAction) {
                 Button { coordinator.push(.filters) } label: {
                     Image(systemName: "slider.horizontal.3")
