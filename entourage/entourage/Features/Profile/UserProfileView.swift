@@ -98,14 +98,26 @@ struct UserProfileView: View {
             ProgressView()
         } else {
             switch friendStatus {
-            case "friend":
+            case "friends":
                 Label("Friends", systemImage: "person.2.fill")
                     .foregroundStyle(.green)
                     .font(.subheadline)
-            case "sent":
+            case "pending":
                 Label("Request Sent", systemImage: "clock.fill")
                     .foregroundStyle(.secondary)
                     .font(.subheadline)
+            case "received":
+                Button {
+                    Task { await acceptFriendRequest() }
+                } label: {
+                    if isSendingRequest {
+                        ProgressView()
+                    } else {
+                        Label("Accept Request", systemImage: "person.badge.plus")
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(isSendingRequest)
             default:
                 Button {
                     Task { await sendFriendRequest() }
@@ -125,7 +137,7 @@ struct UserProfileView: View {
     @ViewBuilder
     private var userActionsSection: some View {
         VStack(spacing: 0) {
-            if friendStatus == "friend" {
+            if friendStatus == "friends" {
                 actionRow(
                     title: "Remove Friend",
                     icon: "person.badge.minus",
@@ -221,7 +233,15 @@ struct UserProfileView: View {
         isSendingRequest = true
         defer { isSendingRequest = false }
         if (try? await UserRepository.shared.sendRequest(friendId: user.id)) != nil {
-            friendStatus = "sent"
+            friendStatus = "pending"
+        }
+    }
+
+    private func acceptFriendRequest() async {
+        isSendingRequest = true
+        defer { isSendingRequest = false }
+        if (try? await UserRepository.shared.acceptRequest(friendId: user.id)) != nil {
+            friendStatus = "friends"
         }
     }
 
@@ -235,7 +255,7 @@ struct UserProfileView: View {
             coordinator.pop()
         case .unfriend:
             try? await UserRepository.shared.unFriend(friendId: user.id)
-            friendStatus = ""
+            friendStatus = "no_relation"
         case .report:
             try? await UserRepository.shared.reportUser(userId: user.id, reason: selectedReportReason)
             selectedReportReason = ""
