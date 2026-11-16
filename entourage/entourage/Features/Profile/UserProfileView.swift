@@ -51,6 +51,7 @@ struct UserProfileView: View {
                 UserActionAlertView(
                     alertType: alertType,
                     username: vm.displayName,
+                    isFriend: friendStatus == "friends",
                     onConfirm: { Task { await performAction(alertType) } },
                     onCancel: { activeAlert = nil }
                 )

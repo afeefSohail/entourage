@@ -13,10 +13,11 @@ enum UserAlertType {
         }
     }
 
-    var message: String {
+    func message(isFriend: Bool) -> String {
         switch self {
         case .block:
-            return "You will no longer be able to match or view their profile including groups they're in."
+            let base = "You will no longer be able to match or view their profile including groups they're in."
+            return isFriend ? base + " They'll also be removed from your friends and your group." : base
         case .unfriend:
             return "You will be removed from each other's friend list."
         case .report:
@@ -35,6 +36,7 @@ enum UserAlertType {
 struct UserActionAlertView: View {
     let alertType: UserAlertType
     let username: String
+    var isFriend: Bool = false
     let onConfirm: () -> Void
     let onCancel: () -> Void
 
@@ -51,7 +53,7 @@ struct UserActionAlertView: View {
                 Text(alertType.title)
                     .font(.system(size: 20, weight: .bold))
 
-                Text(alertType.message)
+                Text(alertType.message(isFriend: isFriend))
                     .font(.system(size: 14))
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
