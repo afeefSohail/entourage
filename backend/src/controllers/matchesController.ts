@@ -86,8 +86,8 @@ export const findGroups: RequestHandler = async (req, res) => {
               + sin(radians(${userLat}::float)) * sin(radians(creator.latitude::float))
             ))
           ) AS distance_miles
-        FROM groups g
-        JOIN users creator ON creator.id = g.creator_id
+        FROM "Group" g
+        JOIN "User" creator ON creator.id = g.creator_id
         WHERE g.status = 'active'
           AND creator.latitude IS NOT NULL
           AND creator.longitude IS NOT NULL
