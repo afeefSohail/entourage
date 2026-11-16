@@ -2,6 +2,8 @@
 import Foundation
 import Observation
 import FirebaseMessaging
+import UIKit
+import UserNotifications
 
 @Observable
 @MainActor
@@ -30,7 +32,69 @@ final class ChatViewModel {
         personalChat ? "\(group.id)" : "Match_\(matchId)"
     }
 
-    var chatTitle: String { group.name ?? "Chat" }
+    var notificationsEnabled = true
+
+    private var myGroup: Group? { EntourageManager.shared.myGroup }
+    private var myUserIntId: Int { EntourageManager.shared.user.id }
+
+    // MARK: - Header / empty state
+
+    /// Faces shown in the top bar: the other group in a match chat, everyone but me in my group chat.
+    var headerMembers: [User] {
+        let source = personalChat ? (myGroup?.users ?? group.users) : group.users
+        return source.filter { $0.id != myUserIntId }
+    }
+
+    var headerTitle: String {
+        personalChat ? (myGroup ?? group).myGroupName() : group.matcherGroupName()
+    }
+
+    var headerSubtitle: String {
+        "Group of \(personalChat ? (myGroup ?? group).users.count : group.users.count)"
+    }
+
+    var emptyTitle: String { personalChat ? "Group Chat" : "Send a Message" }
+
+    var emptyMessage: String {
+        personalChat
+            ? "Message your group here, don't worry nobody outside your group can see."
+            : "You've matched with \(group.matcherGroupName()), send them a message."
+    }
+
+    // MARK: - Message helpers
+
+    /// Right-hand side: in a match chat everything my group sends; in my group chat only my own messages.
+    func isFromMySide(_ message: ChatMessage) -> Bool {
+        if personalChat { return message.sender.id == myUserId }
+        if let mine = myGroup {
+            if message.sender.groupId != 0 { return message.sender.groupId == mine.id }
+            return mine.users.contains { "\($0.id)" == message.sender.id }
+        }
+        return message.sender.id == myUserId
+    }
+
+    func member(for message: ChatMessage) -> User? {
+        let everyone = (myGroup?.users ?? []) + group.users
+        return everyone.first { "\($0.id)" == message.sender.id }
+    }
+
+    // MARK: - Notifications banner
+
+    func refreshNotificationStatus() async {
+        let settings = await UNUserNotificationCenter.current().notificationSettings()
+        notificationsEnabled = settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional
+    }
+
+    func enableNotifications() async {
+        let center = UNUserNotificationCenter.current()
+        let settings = await center.notificationSettings()
+        if settings.authorizationStatus == .notDetermined {
+            _ = try? await center.requestAuthorization(options: [.alert, .badge, .sound])
+            await refreshNotificationStatus()
+        } else if let url = URL(string: UIApplication.openSettingsURLString) {
+            await UIApplication.shared.open(url)
+        }
+    }
 
     init(group: Group, personalChat: Bool, matchId: Int) {
         self.group = group
