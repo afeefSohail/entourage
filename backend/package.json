@@ -11,7 +11,8 @@
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
     "db:push": "prisma db push",
-    "db:seed": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' prisma/seed.ts"
+    "db:seed": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' prisma/seed.ts",
+    "db:seed:docker": "docker cp prisma/seed.ts backend-api-1:/app/prisma/seed.ts && docker exec backend-api-1 npx ts-node --compiler-options '{\"module\":\"CommonJS\"}' prisma/seed.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.600.0",
