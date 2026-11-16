@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { z } from "zod";
+import { formInt } from "../lib/formFields";
 import { requireAuth } from "../middleware/auth";
 import { validateBody, validateQuery } from "../middleware/validate";
 import {
@@ -24,8 +25,8 @@ groupsRouter.post(
   requireAuth,
   validateBody(
     z.object({
-      group_id: z.number().int(),
-      friend_id: z.number().int(),
+      group_id: formInt(),
+      friend_id: formInt(),
     })
   ),
   addMember

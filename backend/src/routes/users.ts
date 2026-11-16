@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { z } from "zod";
+import { formBool, formInt } from "../lib/formFields";
 import { requireAuth } from "../middleware/auth";
 import { validateBody, validateQuery } from "../middleware/validate";
 import { upload } from "../middleware/upload";
@@ -51,7 +52,7 @@ usersRouter.post(
       last_name: z.string().optional(),
       user_name: z.string().optional(),
       bio: z.string().optional(),
-      dob: z.number().int().optional(),
+      dob: formInt().optional(),
     })
   ),
   editProfile
@@ -107,17 +108,17 @@ usersRouter.post(
   requireAuth,
   validateBody(
     z.object({
-      everyone: z.boolean().optional(),
-      male_only: z.boolean().optional(),
-      female_only: z.boolean().optional(),
-      min_age: z.number().int().min(18).optional(),
-      max_age: z.number().int().max(100).optional(),
-      max_distace: z.number().int().min(1).optional(),
-      general: z.boolean().optional(),
-      friendship: z.boolean().optional(),
-      match: z.boolean().optional(),
-      group: z.boolean().optional(),
-      chat: z.boolean().optional(),
+      everyone: formBool().optional(),
+      male_only: formBool().optional(),
+      female_only: formBool().optional(),
+      min_age: formInt().min(18).optional(),
+      max_age: formInt().max(100).optional(),
+      max_distace: formInt().min(1).optional(),
+      general: formBool().optional(),
+      friendship: formBool().optional(),
+      match: formBool().optional(),
+      group: formBool().optional(),
+      chat: formBool().optional(),
     })
   ),
   editSetting

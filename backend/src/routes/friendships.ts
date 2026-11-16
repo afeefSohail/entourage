@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { z } from "zod";
+import { formInt } from "../lib/formFields";
 import { requireAuth } from "../middleware/auth";
 import { validateBody, validateQuery } from "../middleware/validate";
 import { upload } from "../middleware/upload";
@@ -52,21 +53,21 @@ friendshipsRouter.post(
 friendshipsRouter.post(
   "/request",
   requireAuth,
-  validateBody(z.object({ friend_id: z.number().int() })),
+  validateBody(z.object({ friend_id: formInt() })),
   friendshipRequest
 );
 
 friendshipsRouter.post(
   "/accept",
   requireAuth,
-  validateBody(z.object({ friend_id: z.number().int() })),
+  validateBody(z.object({ friend_id: formInt() })),
   acceptFriendship
 );
 
 friendshipsRouter.post(
   "/reject",
   requireAuth,
-  validateBody(z.object({ friend_id: z.number().int() })),
+  validateBody(z.object({ friend_id: formInt() })),
   rejectFriendship
 );
 
@@ -75,7 +76,7 @@ friendshipsRouter.post("/block", requireAuth, upload.single("image"), blockUser)
 friendshipsRouter.post(
   "/unfriend",
   requireAuth,
-  validateBody(z.object({ friend_id: z.number().int() })),
+  validateBody(z.object({ friend_id: formInt() })),
   unfriend
 );
 

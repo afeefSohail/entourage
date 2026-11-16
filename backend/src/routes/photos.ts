@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { z } from "zod";
+import { formBool, formInt } from "../lib/formFields";
 import { requireAuth } from "../middleware/auth";
 import { validateBody } from "../middleware/validate";
 import { upload } from "../middleware/upload";
@@ -20,7 +21,7 @@ photosRouter.post("/upload_photo", requireAuth, upload.single("image"), uploadPh
 photosRouter.delete(
   "/delete_photo",
   requireAuth,
-  validateBody(z.object({ id: z.number().int() })),
+  validateBody(z.object({ id: formInt() })),
   deletePhoto
 );
 
@@ -29,9 +30,9 @@ photosRouter.post(
   requireAuth,
   validateBody(
     z.object({
-      id: z.number().int(),
-      order: z.number().int(),
-      is_primary: z.boolean().optional(),
+      id: formInt(),
+      order: formInt(),
+      is_primary: formBool().optional(),
     })
   ),
   setPhotoOrder
