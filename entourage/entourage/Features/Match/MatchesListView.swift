@@ -21,7 +21,7 @@ struct MatchesListView: View {
             } else {
                 List {
                     ForEach(vm.matches, id: \.id) { match in
-                        MatchRow(match: match) {
+                        MatchRow(match: match, preview: vm.preview(for: match)) {
                             coordinator.push(.matchDetail(match))
                         }
                         .swipeActions(edge: .trailing) {
@@ -54,6 +54,7 @@ struct MatchesListView: View {
 
 private struct MatchRow: View {
     let match: Match
+    let preview: String?
     let onTap: () -> Void
 
     private var mvm: MatchViewModel { MatchViewModel(match) }
@@ -76,7 +77,7 @@ private struct MatchRow: View {
                                 .frame(width: 10, height: 10)
                         }
                     }
-                    Text(mvm.lastMessage.isEmpty ? "Say hello!" : mvm.lastMessage)
+                    Text(preview ?? "Say hello!")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
