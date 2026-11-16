@@ -353,14 +353,6 @@ extension UserRepository {
         }
     }
 
-    func getFriendsListBy(contacts: String, directFriendship: Bool) async throws -> [User] {
-        try await withCheckedThrowingContinuation { cont in
-            getFriendsListBy(contacts: contacts, directFriendship: directFriendship) { result, error in
-                if let error { cont.resume(throwing: RepositoryError(message: error)); return }
-                cont.resume(returning: (result as? [User]) ?? [])
-            }
-        }
-    }
 
     func sendInviteMessage(phoneNumber: String) async throws -> String? {
         try await withCheckedThrowingContinuation { cont in

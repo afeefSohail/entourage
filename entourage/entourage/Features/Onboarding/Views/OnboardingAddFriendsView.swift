@@ -170,7 +170,7 @@ struct OnboardingAddFriendsView: View {
         contacts = PhoneContacts.getAllContacts()
         let numbers = contacts.compactMap { $0.phoneNumber.isEmpty ? nil : $0.phoneNumber }.joined(separator: ",")
 
-        friends = (try? await UserRepository.shared.getFriendsListBy(contacts: numbers, directFriendship: false)) ?? []
+        friends = (try? await UserRepository.shared.getFriendsAndInvited(contacts: numbers))?.friendships ?? []
         isLoading = false
     }
 

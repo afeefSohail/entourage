@@ -56,7 +56,6 @@ class WebServicesManager: NSObject {
     // MARK: - Friendships
     func directFriendShip(phoneNumber: String, callback: @escaping WebServicesManagerCallback) { users.directFriendShip(phoneNumber: phoneNumber, callback: callback) }
     func getFriendsList(callback: @escaping WebServicesManagerCallback) { users.getFriendsList(callback: callback) }
-    func getFriendsListBy(contacts: String, directFriendship: Bool, callback: @escaping WebServicesManagerCallback) { users.getFriendsListBy(contacts: contacts, directFriendship: directFriendship, callback: callback) }
     func getReceviedRequests(callback: @escaping WebServicesManagerCallback) { users.getReceivedRequests(callback: callback) }
     func getAppContacts(callback: @escaping WebServicesManagerCallback) { users.getAppContacts(callback: callback) }
     func getFriendsAndInvited(contacts: String, callback: @escaping WebServicesManagerCallback) { users.getFriendsAndInvited(contacts: contacts, callback: callback) }

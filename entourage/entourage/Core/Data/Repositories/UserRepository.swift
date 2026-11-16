@@ -30,7 +30,6 @@ protocol UserRepositoryProtocol {
     // Friendships
     func directFriendShip(phoneNumber: String, callback: @escaping RepoCallback)
     func getFriendsList(callback: @escaping RepoCallback)
-    func getFriendsListBy(contacts: String, directFriendship: Bool, callback: @escaping RepoCallback)
     func getReceivedRequests(callback: @escaping RepoCallback)
     func getAppContacts(callback: @escaping RepoCallback)
     func getFriendsAndInvited(contacts: String, callback: @escaping RepoCallback)
@@ -431,23 +430,6 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
             .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))
     }
 
-    func getFriendsListBy(contacts: String, directFriendship: Bool, callback: @escaping RepoCallback) {
-        let params: [String: Any] = [
-            "auth_token": User.getToken(),
-            "phone_numbers": contacts,
-            "direct_friendship": directFriendship
-        ]
-        let parsing: (DataResponse<Any, AFError>) -> Void = { response in
-            guard let data = response.data else { return }
-            do {
-                let res = try JSONDecoder().decode(APIResponse<[User]>.self, from: data)
-                callback(res.data ?? [], nil)
-            } catch { print(error) }
-        }
-        session.request(url("/api/v1/friendships/all_friends_and_requests"), method: .post, parameters: params)
-            .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))
-    }
-
     func getReceivedRequests(callback: @escaping RepoCallback) {
         let params = ["auth_token": User.getToken()]
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
@@ -477,15 +459,16 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
     }
 
     func getFriendsAndInvited(contacts: String, callback: @escaping RepoCallback) {
-        let params: [String: Any] = ["auth_token": User.getToken(), "phone_numbers": contacts]
+        let params: [String: Any] = ["auth_token": User.getToken(), "contacts": contacts]
         let parsing: (DataResponse<Any, AFError>) -> Void = { response in
-            guard let data = response.data else { return }
-            do {
-                let res = try JSONDecoder().decode(APIResponse<FriendsWithInvitedUser>.self, from: data)
-                var result = res.data ?? FriendsWithInvitedUser()
-                result.friendships.removeAll { $0.phoneNumber == EntourageManager.shared.user.phoneNumber }
-                callback(result, nil)
-            } catch { print(error) }
+            guard let data = response.data,
+                  let res = try? JSONDecoder().decode(APIResponse<FriendsWithInvitedUser>.self, from: data) else {
+                callback(nil, "Could not load contacts")
+                return
+            }
+            var result = res.data ?? FriendsWithInvitedUser()
+            result.friendships.removeAll { $0.phoneNumber == EntourageManager.shared.user.phoneNumber }
+            callback(result, nil)
         }
         session.request(url("/api/v1/friendships/friends_and_no_relation"), method: .post, parameters: params)
             .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))
