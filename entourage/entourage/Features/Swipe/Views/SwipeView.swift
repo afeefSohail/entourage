@@ -84,14 +84,15 @@ struct SwipeView: View {
                         if direction == .right { await vm.like() }
                         else { await vm.pass() }
                     }
-                } onTap: {
-                    coordinator.push(.userProfile(group.users.first ?? User(), group))
+                } onTap: { member in
+                    coordinator.push(.userProfile(member, group))
                 }
             }
         }
+        // Even 16pt inset on all sides; the bottom also clears the floating like/pass buttons.
         .padding(.horizontal, 16)
-        .padding(.top, 8)
-        .padding(.bottom, 100)
+        .padding(.top, 16)
+        .padding(.bottom, 108)
     }
 
     // MARK: - Action buttons
@@ -173,45 +174,115 @@ struct SwipeView: View {
 
 struct GroupCard: View {
     let group: Group
+    var onMemberTap: ((User) -> Void)? = nil
+
+    private let gap: CGFloat = 2
+    private var members: [User] { GroupViewModel(group).primaryMembers }
 
     var body: some View {
-        ZStack(alignment: .bottomLeading) {
-            // Primary photo
-            if let member = group.users.first,
-               let photo = member.photos.first(where: { $0.is_primary == true }) ?? member.photos.first,
-               let urlStr = photo.original, let url = URL(string: urlStr) {
-                AsyncImage(url: url) { phase in
-                    switch phase {
-                    case .success(let img): img.resizable().scaledToFill()
-                    default: Color(.secondarySystemBackground)
+        VStack(spacing: 0) {
+            memberGrid
+            infoBar
+        }
+        .background(Color(.systemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .shadow(color: .black.opacity(0.15), radius: 12, y: 6)
+    }
+
+    // 1 → full, 2 → top/bottom halves, 3 → top half split in two + full bottom, 4 → 2×2.
+    @ViewBuilder
+    private var memberGrid: some View {
+        let m = members
+        VStack(spacing: gap) {
+            switch m.count {
+            case 0:
+                Color(.secondarySystemBackground)
+            case 1:
+                tile(m[0])
+            case 2:
+                tile(m[0])
+                tile(m[1])
+            case 3:
+                HStack(spacing: gap) { tile(m[0]); tile(m[1]) }
+                tile(m[2])
+            default:
+                HStack(spacing: gap) { tile(m[0]); tile(m[1]) }
+                HStack(spacing: gap) { tile(m[2]); tile(m[3]) }
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    // Color.clear sizes the tile; the photo overlays it so a fill-scaled image can never widen the card.
+    private func tile(_ user: User) -> some View {
+        let uvm = UserViewModel(user)
+        return Color(.secondarySystemBackground)
+            .overlay {
+                AsyncImage(url: uvm.primaryPhotoURL) { phase in
+                    if case .success(let img) = phase {
+                        img.resizable().scaledToFill()
+                    } else {
+                        Image(systemName: "person.fill")
+                            .font(.system(size: 40))
+                            .foregroundStyle(.tertiary)
                     }
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .clipped()
-            } else {
-                Color(.secondarySystemBackground)
             }
-
-            // Gradient overlay
-            LinearGradient(
-                stops: [.init(color: .clear, location: 0.5), .init(color: .black.opacity(0.7), location: 1)],
-                startPoint: .top, endPoint: .bottom
-            )
-
-            // Info
-            VStack(alignment: .leading, spacing: 6) {
-                Text(group.name ?? "Group")
-                    .font(.title2.bold())
+            .overlay(alignment: .bottomLeading) {
+                Text(uvm.nameWithAge)
+                    .font(.system(size: 16, weight: .bold))
                     .foregroundStyle(.white)
-                let gvm = GroupViewModel(group)
-                Text(gvm.memberCountText)
-                    .font(.subheadline)
-                    .foregroundStyle(.white.opacity(0.9))
+                    .lineLimit(1)
+                    .shadow(color: .black.opacity(0.6), radius: 3)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 10)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(
+                        LinearGradient(colors: [.clear, .black.opacity(0.55)], startPoint: .top, endPoint: .bottom)
+                    )
             }
-            .padding(20)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .clipped()
+            .contentShape(Rectangle())
+            .onTapGesture { onMemberTap?(user) }
+    }
+
+    private var infoBar: some View {
+        HStack(alignment: .center, spacing: 12) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(group.cardsGroupName())
+                    .font(.system(size: 20, weight: .heavy))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+                if let place = placeText {
+                    Text(place)
+                        .font(.system(size: 14))
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+            if let distance = distanceText {
+                Label(distance, systemImage: "mappin.and.ellipse")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                    .fixedSize()
+            }
         }
-        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .aspectRatio(2/3, contentMode: .fit)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 14)
+    }
+
+    private var placeText: String? {
+        let parts = [group.city, group.state].compactMap { $0 }.filter { !$0.isEmpty }
+        return parts.isEmpty ? nil : parts.joined(separator: ", ")
+    }
+
+    private var distanceText: String? {
+        guard let raw = group.distance, let miles = Double(raw) else { return nil }
+        return miles < 1 ? "< 1 mi" : "\(Int(miles.rounded())) mi"
     }
 }
 
@@ -222,14 +293,14 @@ enum SwipeDirection { case left, right }
 struct DraggableGroupCard: View {
     let group: Group
     let onSwiped: (SwipeDirection) -> Void
-    let onTap: () -> Void
+    let onTap: (User) -> Void
 
     @State private var dragOffset: CGSize = .zero
     @State private var isDragging = false
     private let swipeThreshold: CGFloat = 100
 
     var body: some View {
-        GroupCard(group: group)
+        GroupCard(group: group, onMemberTap: onTap)
             .overlay(swipeIndicator)
             .rotationEffect(.degrees(Double(dragOffset.width) / 20))
             .offset(dragOffset)
@@ -258,7 +329,6 @@ struct DraggableGroupCard: View {
                         }
                     }
             )
-            .onTapGesture(perform: onTap)
             .animation(.interactiveSpring(), value: dragOffset)
     }
 
