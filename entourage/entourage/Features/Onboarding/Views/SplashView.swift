@@ -65,8 +65,10 @@ struct SplashView: View {
                         appState.initialOnboardingStep = .locationPermission
                         appState.phase = .onboarding
                     } else {
-                        // Update coordinates in background on every launch
+                        // Debug builds keep the seeded test locations instead of overwriting them with the simulator's.
+                        #if !DEBUG
                         Task { await UserRepository.shared.syncCurrentLocation() }
+                        #endif
                         appState.phase = .main
                     }
                 }
