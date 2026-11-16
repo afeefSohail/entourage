@@ -205,7 +205,6 @@ export const friendsAndNoRelation: RequestHandler = async (req, res) => {
 
     const friendships = await prisma.friendship.findMany({
       where: {
-        status: "accepted",
         OR: [
           { requester_id: myId, addressee_id: { in: matchedUsers.map((u) => u.id) } },
           { addressee_id: myId, requester_id: { in: matchedUsers.map((u) => u.id) } },
@@ -213,20 +212,25 @@ export const friendsAndNoRelation: RequestHandler = async (req, res) => {
       },
     });
 
-    const friendIds = new Set(
-      friendships.flatMap((f) => [f.requester_id, f.addressee_id]).filter((id) => id !== myId)
-    );
+    // Same rules as resolveFriendshipStatus, without one query per contact.
+    const statusMap = new Map<number, FriendshipStatus>();
+    for (const f of friendships) {
+      const otherId = f.requester_id === myId ? f.addressee_id : f.requester_id;
+      if (f.status === "accepted") statusMap.set(otherId, "friends");
+      else if (f.status === "blocked") statusMap.set(otherId, "blocked");
+      else if (f.status === "pending")
+        statusMap.set(otherId, f.requester_id === myId ? "pending" : "received");
+    }
 
-    const friendList = matchedUsers
-      .filter((u) => friendIds.has(u.id))
-      .map((u) => serializeOtherUser(u, "friends"));
-
-    const otherList = matchedUsers
-      .filter((u) => !friendIds.has(u.id))
-      .map((u) => serializeOtherUser(u, "no_relation"));
+    const statusOf = (id: number) => statusMap.get(id) ?? "no_relation";
+    const rank = (s: FriendshipStatus) => (s === "friends" ? 0 : 1);
+    const listed = matchedUsers
+      .filter((u) => statusOf(u.id) !== "blocked")
+      .sort((a, b) => rank(statusOf(a.id)) - rank(statusOf(b.id)))
+      .map((u) => serializeOtherUser(u, statusOf(u.id)));
 
     ok(res, {
-      friendships: [...friendList, ...otherList],
+      friendships: listed,
       non_existing: nonExisting,
     });
   } catch {

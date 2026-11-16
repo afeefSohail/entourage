@@ -144,11 +144,11 @@ struct FriendsView: View {
 
     private func actionForAllTab(user: User) -> FriendRowAction {
         let status = user.friendStatus ?? "no_relation"
-        if status == "accepted" {
+        if status == "friends" || status == "accepted" || vm.acceptedRequestIds.contains(user.id) {
             return .friends
-        } else if status == "pending" || status == "Request" {
-            return .pending("Pending")
-        } else if vm.sentRequestIds.contains(user.id) {
+        } else if status == "received" {
+            return .accept { Task { await vm.acceptRequest(from: user) } }
+        } else if status == "pending" || status == "Request" || vm.sentRequestIds.contains(user.id) {
             return .pending("Requested")
         } else {
             return .add { Task { await vm.sendRequest(to: user) } }
