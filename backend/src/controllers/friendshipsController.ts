@@ -149,9 +149,10 @@ export const receivedRequests: RequestHandler = async (req, res) => {
 
 export const noRelation: RequestHandler = async (req, res) => {
   try {
-    const { contacts } = req.body as { contacts: string };
+    const { contacts } = req.body as { contacts?: string };
     const myId = req.user.id;
-    const phones = contacts.split(",").map((p) => p.trim()).filter(Boolean);
+    const phones = (contacts ?? "").split(",").map((p) => p.trim()).filter(Boolean);
+    if (phones.length === 0) { ok(res, []); return; }
 
     const matchedUsers = await prisma.user.findMany({
       where: {
@@ -183,9 +184,10 @@ export const noRelation: RequestHandler = async (req, res) => {
 
 export const friendsAndNoRelation: RequestHandler = async (req, res) => {
   try {
-    const { contacts } = req.body as { contacts: string };
+    const { contacts } = req.body as { contacts?: string };
     const myId = req.user.id;
-    const phones = contacts.split(",").map((p) => p.trim()).filter(Boolean);
+    const phones = (contacts ?? "").split(",").map((p) => p.trim()).filter(Boolean);
+    if (phones.length === 0) { ok(res, { friendships: [], non_existing: [] }); return; }
 
     const matchedUsers = await prisma.user.findMany({
       where: {

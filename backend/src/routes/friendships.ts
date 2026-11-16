@@ -38,14 +38,14 @@ friendshipsRouter.post("/received_requests", requireAuth, receivedRequests);
 friendshipsRouter.post(
   "/no_relation",
   requireAuth,
-  validateBody(z.object({ contacts: z.string() })),
+  validateBody(z.object({ contacts: z.string().optional() })),
   noRelation
 );
 
 friendshipsRouter.post(
   "/friends_and_no_relation",
   requireAuth,
-  validateBody(z.object({ contacts: z.string() })),
+  validateBody(z.object({ contacts: z.string().optional() })),
   friendsAndNoRelation
 );
 
