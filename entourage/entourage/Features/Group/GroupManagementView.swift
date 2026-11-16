@@ -84,11 +84,14 @@ struct GroupManagementView: View {
     }
 
     private var noGroupView: some View {
-        ContentUnavailableView(
-            "No Group Yet",
-            systemImage: "person.3",
-            description: Text("You haven't created or joined a group. Add friends to start one.")
-        )
+        ContentUnavailableView {
+            Label("No Group Yet", systemImage: "person.3")
+        } description: {
+            Text("You haven't created or joined a group. Pick friends to start one.")
+        } actions: {
+            Button("Create Group") { coordinator.push(.createGroup) }
+                .buttonStyle(.borderedProminent)
+        }
     }
 }
 

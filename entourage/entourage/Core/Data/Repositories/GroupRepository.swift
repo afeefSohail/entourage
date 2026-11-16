@@ -25,7 +25,10 @@ final class GroupRepository: RepositoryBase, GroupRepositoryProtocol {
                 let res = try JSONDecoder().decode(APIResponse<Group>.self, from: data)
                 if let g = res.data { EntourageManager.shared.myGroup = g }
                 callback(res.data, nil)
-            } catch { print(error) }
+            } catch {
+                print(error)
+                callback(nil, "Could not read the new group")
+            }
         }
         session.request(url("/api/v1/groups/create"), method: .post, parameters: params)
             .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))

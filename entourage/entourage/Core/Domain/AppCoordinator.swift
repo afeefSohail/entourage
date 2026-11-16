@@ -12,6 +12,7 @@ enum Route: Hashable {
     case filters
     case addGroupMember
     case groupManagement
+    case createGroup
     case userProfile(User, Group?)
     case deleteAccount
     case friends
@@ -29,6 +30,7 @@ enum Route: Hashable {
         case .filters:               hasher.combine(7)
         case .addGroupMember:        hasher.combine(8)
         case .groupManagement:       hasher.combine(12)
+        case .createGroup:           hasher.combine(13)
         case .userProfile(let u, _): hasher.combine(9); hasher.combine(u.id)
         case .deleteAccount:          hasher.combine(10)
         case .friends:               hasher.combine(11)
@@ -45,6 +47,7 @@ enum Route: Hashable {
         case (.filters, .filters):             return true
         case (.addGroupMember, .addGroupMember): return true
         case (.groupManagement, .groupManagement): return true
+        case (.createGroup, .createGroup):     return true
         case (.matchDetail(let a), .matchDetail(let b)):  return a.id == b.id
         case (.chat(let g1, let p1, let m1), .chat(let g2, let p2, let m2)):
             return g1.id == g2.id && p1 == p2 && m1 == m2

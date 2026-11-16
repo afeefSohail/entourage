@@ -150,6 +150,8 @@ private struct RouteDestination: View {
             AddGroupMemberView()
         case .groupManagement:
             GroupManagementView()
+        case .createGroup:
+            CreateGroupView()
         case .userProfile(let user, let group):
             UserProfileView(user: user, group: group)
         case .deleteAccount:
