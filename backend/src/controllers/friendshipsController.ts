@@ -198,7 +198,10 @@ export const friendsAndNoRelation: RequestHandler = async (req, res) => {
     });
 
     const matchedPhones = new Set(matchedUsers.map((u) => u.phone_number));
-    const nonExisting = phones.filter((p) => !matchedPhones.has(p));
+    // The caller is excluded from matchedUsers, so their own card would otherwise land here.
+    const nonExisting = phones.filter(
+      (p) => !matchedPhones.has(p) && p !== req.user.phone_number
+    );
 
     const friendships = await prisma.friendship.findMany({
       where: {
