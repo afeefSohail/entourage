@@ -39,10 +39,17 @@ export const createGroup: RequestHandler = async (req, res) => {
 
     const verifiedFriendIds = friendIdList.filter((id) => friendSet.has(id));
 
+    const creator = await prisma.user.findUnique({
+      where: { id: myId },
+      select: { city: true, state: true },
+    });
+
     const group = await prisma.group.create({
       data: {
         creator_id: myId,
         status: "in_active",
+        city: creator?.city ?? null,
+        state: creator?.state ?? null,
         members: {
           create: [
             { user_id: myId },
