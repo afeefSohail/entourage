@@ -24,8 +24,8 @@ const PHOTO_MAP: Record<string, { original: string; medium: string; thumb: strin
   "bilal.ahmed06":     unsplashPhoto("1621960883434-e910537c8052"),
   "zain.malik98":      unsplashPhoto("1778937779326-d6d220a525b4"),
   "ayesha.khan97":     unsplashPhoto("1536766768598-e09213fdcf22"),
-  "fatima.sheikh01":   unsplashPhoto("1759840278361-f1adc75529a1"),
-  "zainab.siddiqui07": unsplashPhoto("1771958062747-198a5e04febc"),
+  "fatima.sheikh01":   unsplashPhoto("1681152299027-17efe7da7081"),
+  "zainab.siddiqui07": unsplashPhoto("1774486033344-e65e11a4fa29"),
   "hira.mahmood96":    unsplashPhoto("1613447895817-e617a4093f50"),
   "sana.chaudhry07":   unsplashPhoto("1770977666326-28a4c39ac1b8"),
   // American — New York / Newark
