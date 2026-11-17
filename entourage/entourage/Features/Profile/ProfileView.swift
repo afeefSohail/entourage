@@ -45,20 +45,20 @@ struct ProfileView: View {
                         }
                     }
 
-                    // Group
-                    if let group = vm.group {
-                        Divider()
-                        GroupInfoRow(group: group) {
-                            coordinator.push(.groupManagement)
-                        }
-                    }
-
                     // Bio
                     if let bio = vm.user.bio, !bio.isEmpty {
                         Divider()
                         Text(bio)
                             .font(.body)
                             .foregroundStyle(.secondary)
+                    }
+
+                    // Group
+                    if let group = vm.group {
+                        Divider()
+                        GroupInfoRow(group: group) {
+                            coordinator.push(.groupManagement)
+                        }
                     }
 
                     // Photo grid
