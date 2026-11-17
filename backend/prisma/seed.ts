@@ -4,13 +4,31 @@ import { randomUUID } from "crypto";
 
 const prisma = new PrismaClient();
 
-// Gender-differentiated DiceBear styles:
-// Males  → big-ears   (illustrated male faces)
-// Females → lorelei   (illustrated female faces)
-function photoUrl(username: string, gender: "Male" | "Female", size: number): string {
-  const style = gender === "Male" ? "big-ears" : "lorelei";
-  return `https://api.dicebear.com/9.x/${style}/png?seed=${encodeURIComponent(username)}&size=${size}`;
-}
+// Photos from randomuser.me — gender-correct, ethnicity-matched to location.
+// URLs are stable (same number always returns the same photo).
+// Sizes: original = /portraits/, medium = /portraits/med/, thumb = /portraits/thumb/
+const PHOTO_MAP: Record<string, { original: string; medium: string; thumb: string }> = {
+  "muhammad.usman96":  { original: "https://randomuser.me/api/portraits/men/65.jpg",    medium: "https://randomuser.me/api/portraits/med/men/65.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/65.jpg" },
+  "ali.raza96":        { original: "https://randomuser.me/api/portraits/men/75.jpg",    medium: "https://randomuser.me/api/portraits/med/men/75.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/75.jpg" },
+  "hamza.tariq94":     { original: "https://randomuser.me/api/portraits/men/10.jpg",    medium: "https://randomuser.me/api/portraits/med/men/10.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/10.jpg" },
+  "bilal.ahmed06":     { original: "https://randomuser.me/api/portraits/men/48.jpg",    medium: "https://randomuser.me/api/portraits/med/men/48.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/48.jpg" },
+  "zain.malik98":      { original: "https://randomuser.me/api/portraits/men/11.jpg",    medium: "https://randomuser.me/api/portraits/med/men/11.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/11.jpg" },
+  "ayesha.khan97":     { original: "https://randomuser.me/api/portraits/women/32.jpg",  medium: "https://randomuser.me/api/portraits/med/women/32.jpg",  thumb: "https://randomuser.me/api/portraits/thumb/women/32.jpg" },
+  "fatima.sheikh01":   { original: "https://randomuser.me/api/portraits/women/78.jpg",  medium: "https://randomuser.me/api/portraits/med/women/78.jpg",  thumb: "https://randomuser.me/api/portraits/thumb/women/78.jpg" },
+  "zainab.siddiqui07": { original: "https://randomuser.me/api/portraits/women/74.jpg",  medium: "https://randomuser.me/api/portraits/med/women/74.jpg",  thumb: "https://randomuser.me/api/portraits/thumb/women/74.jpg" },
+  "hira.mahmood96":    { original: "https://randomuser.me/api/portraits/women/87.jpg",  medium: "https://randomuser.me/api/portraits/med/women/87.jpg",  thumb: "https://randomuser.me/api/portraits/thumb/women/87.jpg" },
+  "sana.chaudhry07":   { original: "https://randomuser.me/api/portraits/women/5.jpg",   medium: "https://randomuser.me/api/portraits/med/women/5.jpg",   thumb: "https://randomuser.me/api/portraits/thumb/women/5.jpg" },
+  "liam_carter20":     { original: "https://randomuser.me/api/portraits/men/66.jpg",    medium: "https://randomuser.me/api/portraits/med/men/66.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/66.jpg" },
+  "noah_bennett56":    { original: "https://randomuser.me/api/portraits/men/28.jpg",    medium: "https://randomuser.me/api/portraits/med/men/28.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/28.jpg" },
+  "oliver_turner97":   { original: "https://randomuser.me/api/portraits/men/58.jpg",    medium: "https://randomuser.me/api/portraits/med/men/58.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/58.jpg" },
+  "ethan_reid41":      { original: "https://randomuser.me/api/portraits/men/82.jpg",    medium: "https://randomuser.me/api/portraits/med/men/82.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/82.jpg" },
+  "jack_mitchell98":   { original: "https://randomuser.me/api/portraits/men/60.jpg",    medium: "https://randomuser.me/api/portraits/med/men/60.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/60.jpg" },
+  "emma_brooks39":     { original: "https://randomuser.me/api/portraits/women/75.jpg",  medium: "https://randomuser.me/api/portraits/med/women/75.jpg",  thumb: "https://randomuser.me/api/portraits/thumb/women/75.jpg" },
+  "sophia_hayes82":    { original: "https://randomuser.me/api/portraits/women/65.jpg",  medium: "https://randomuser.me/api/portraits/med/women/65.jpg",  thumb: "https://randomuser.me/api/portraits/thumb/women/65.jpg" },
+  "amelia_clarke92":   { original: "https://randomuser.me/api/portraits/women/23.jpg",  medium: "https://randomuser.me/api/portraits/med/women/23.jpg",  thumb: "https://randomuser.me/api/portraits/thumb/women/23.jpg" },
+  "chloe_tremblay78":  { original: "https://randomuser.me/api/portraits/women/36.jpg",  medium: "https://randomuser.me/api/portraits/med/women/36.jpg",  thumb: "https://randomuser.me/api/portraits/thumb/women/36.jpg" },
+  "charlotte_kelly27": { original: "https://randomuser.me/api/portraits/women/32.jpg",  medium: "https://randomuser.me/api/portraits/med/women/32.jpg",  thumb: "https://randomuser.me/api/portraits/thumb/women/32.jpg" },
+};
 
 function normalizePhone(phone: string): string {
   return phone.replace(/-/g, "");
@@ -155,9 +173,7 @@ async function main() {
         setting: { create: {} },
         photos: {
           create: {
-            original: photoUrl(u.username, u.gender, 400),
-            medium:   photoUrl(u.username, u.gender, 200),
-            thumb:    photoUrl(u.username, u.gender, 100),
+            ...PHOTO_MAP[u.username.toLowerCase()],
             is_primary: true,
             order: 0,
           },
