@@ -500,8 +500,10 @@ struct NonAppContactRow: View {
 
 private struct ShareSheet: UIViewControllerRepresentable {
     let items: [Any]
-    func makeUIViewController(context: Context) -> UIActivityViewController {
-        UIActivityViewController(activityItems: items, applicationActivities: nil)
+    func makeUIViewController(context: Context) -> UIViewController { UIViewController() }
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        guard uiViewController.presentedViewController == nil else { return }
+        let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        uiViewController.present(vc, animated: true)
     }
-    func updateUIViewController(_ vc: UIActivityViewController, context: Context) {}
 }
