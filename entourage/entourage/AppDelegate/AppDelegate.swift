@@ -55,6 +55,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if FirebaseApp.app() == nil {
             
             FirebaseApp.configure()
+            #if DEBUG
+            // Skips the reCAPTCHA redirect so the seed users' Firebase test numbers sign in directly.
+            // Only numbers listed under "Phone numbers for testing" in the console work while this is on.
+            Auth.auth().settings?.isAppVerificationDisabledForTesting = true
+            #endif
 
         }else{
             
