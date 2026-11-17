@@ -19,15 +19,15 @@ function unsplashPhoto(id: string): { original: string; medium: string; thumb: s
 const PHOTO_MAP: Record<string, { original: string; medium: string; thumb: string }> = {
   // Pakistani — Lahore / Karachi
   "muhammad.usman96":  unsplashPhoto("1653055645127-54ec96add7b5"),
-  "ali.raza96":        unsplashPhoto("1609224871627-4f69e57d9380"),
+  "ali.raza96":        unsplashPhoto("1607346256330-dee7af15f7c5"),
   "hamza.tariq94":     unsplashPhoto("1761435756843-0ca5f4ff1d59"),
-  "bilal.ahmed06":     unsplashPhoto("1609154799087-7b665c57eef9"),
+  "bilal.ahmed06":     unsplashPhoto("1621960883434-e910537c8052"),
   "zain.malik98":      unsplashPhoto("1778937779326-d6d220a525b4"),
   "ayesha.khan97":     unsplashPhoto("1536766768598-e09213fdcf22"),
   "fatima.sheikh01":   unsplashPhoto("1759840278361-f1adc75529a1"),
   "zainab.siddiqui07": unsplashPhoto("1771958062747-198a5e04febc"),
-  "hira.mahmood96":    unsplashPhoto("1463335361701-e90f4c5045d0"),
-  "sana.chaudhry07":   unsplashPhoto("1552113125-81af17f36b57"),
+  "hira.mahmood96":    unsplashPhoto("1613447895817-e617a4093f50"),
+  "sana.chaudhry07":   unsplashPhoto("1770977666326-28a4c39ac1b8"),
   // American — New York / Newark
   "liam_carter20":     unsplashPhoto("1528900403525-dc523d4f18d6"),
   "noah_bennett56":    unsplashPhoto("1590086782957-93c06ef21604"),
