@@ -2,7 +2,7 @@
 import SwiftUI
 
 private enum ChatStyle {
-    static let outgoing = Color(red: 0.165, green: 0.718, blue: 0.996)   // #2AB7FE
+    static let outgoing = Color("themeColor")
     static let incoming = Color(.systemGray5)                              // #E9E9EB in light mode
     static let avatarSize: CGFloat = 34
     static let avatarGap: CGFloat = 6

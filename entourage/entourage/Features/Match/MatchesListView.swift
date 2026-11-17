@@ -73,7 +73,7 @@ private struct MatchRow: View {
                         Spacer()
                         if mvm.isUnread {
                             Circle()
-                                .fill(Color.blue)
+                                .fill(Color("themeColor"))
                                 .frame(width: 10, height: 10)
                         }
                     }

@@ -7,7 +7,7 @@ struct SplashView: View {
 
     var body: some View {
         ZStack {
-            Color("themeColor").ignoresSafeArea()
+            Color("brandColor").ignoresSafeArea()
             Image("splashIcon")
                 .resizable()
                 .scaledToFit()

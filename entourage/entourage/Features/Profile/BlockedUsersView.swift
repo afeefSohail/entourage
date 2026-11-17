@@ -84,7 +84,7 @@ private struct BlockedUserRow: View {
             }
             Spacer()
             Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                .foregroundStyle(isSelected ? .blue : .secondary)
+                .foregroundStyle(isSelected ? Color("themeColor") : .secondary)
         }
         .contentShape(Rectangle())
         .onTapGesture(perform: onTap)

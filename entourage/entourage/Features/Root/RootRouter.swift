@@ -15,6 +15,7 @@ struct RootRouter: View {
             }
         }
         .environment(appState)
+        .tint(Color("themeColor"))
         .animation(.easeInOut(duration: 0.3), value: appState.phase == .main)
     }
 }

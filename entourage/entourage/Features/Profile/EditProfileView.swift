@@ -130,7 +130,7 @@ struct EditProfileView: View {
                     .font(.caption2.bold())
                     .foregroundStyle(.white)
                     .padding(.horizontal, 6).padding(.vertical, 2)
-                    .background(Color.accentColor)
+                    .background(Color("themeColor"))
                     .clipShape(Capsule())
                     .padding(6)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
