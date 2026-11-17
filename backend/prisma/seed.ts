@@ -4,30 +4,44 @@ import { randomUUID } from "crypto";
 
 const prisma = new PrismaClient();
 
-// Photos from randomuser.me — gender-correct, ethnicity-matched to location.
-// URLs are stable (same number always returns the same photo).
-// Sizes: original = /portraits/, medium = /portraits/med/, thumb = /portraits/thumb/
+// High-res Unsplash portraits — ethnicity & location matched.
+// Unsplash serves resized crops server-side; URLs are stable per photo ID.
+function unsplashPhoto(id: string): { original: string; medium: string; thumb: string } {
+  const base = `https://images.unsplash.com/photo-${id}`;
+  const crop = "fit=crop&crop=faces&auto=format&q=85";
+  return {
+    original: `${base}?w=600&h=750&${crop}`,
+    medium:   `${base}?w=300&h=375&${crop}`,
+    thumb:    `${base}?w=150&h=150&${crop}`,
+  };
+}
+
 const PHOTO_MAP: Record<string, { original: string; medium: string; thumb: string }> = {
-  "muhammad.usman96":  { original: "https://randomuser.me/api/portraits/men/65.jpg",    medium: "https://randomuser.me/api/portraits/med/men/65.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/65.jpg" },
-  "ali.raza96":        { original: "https://randomuser.me/api/portraits/men/75.jpg",    medium: "https://randomuser.me/api/portraits/med/men/75.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/75.jpg" },
-  "hamza.tariq94":     { original: "https://randomuser.me/api/portraits/men/10.jpg",    medium: "https://randomuser.me/api/portraits/med/men/10.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/10.jpg" },
-  "bilal.ahmed06":     { original: "https://randomuser.me/api/portraits/men/48.jpg",    medium: "https://randomuser.me/api/portraits/med/men/48.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/48.jpg" },
-  "zain.malik98":      { original: "https://randomuser.me/api/portraits/men/11.jpg",    medium: "https://randomuser.me/api/portraits/med/men/11.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/11.jpg" },
-  "ayesha.khan97":     { original: "https://randomuser.me/api/portraits/women/32.jpg",  medium: "https://randomuser.me/api/portraits/med/women/32.jpg",  thumb: "https://randomuser.me/api/portraits/thumb/women/32.jpg" },
-  "fatima.sheikh01":   { original: "https://randomuser.me/api/portraits/women/78.jpg",  medium: "https://randomuser.me/api/portraits/med/women/78.jpg",  thumb: "https://randomuser.me/api/portraits/thumb/women/78.jpg" },
-  "zainab.siddiqui07": { original: "https://randomuser.me/api/portraits/women/74.jpg",  medium: "https://randomuser.me/api/portraits/med/women/74.jpg",  thumb: "https://randomuser.me/api/portraits/thumb/women/74.jpg" },
-  "hira.mahmood96":    { original: "https://randomuser.me/api/portraits/women/87.jpg",  medium: "https://randomuser.me/api/portraits/med/women/87.jpg",  thumb: "https://randomuser.me/api/portraits/thumb/women/87.jpg" },
-  "sana.chaudhry07":   { original: "https://randomuser.me/api/portraits/women/5.jpg",   medium: "https://randomuser.me/api/portraits/med/women/5.jpg",   thumb: "https://randomuser.me/api/portraits/thumb/women/5.jpg" },
-  "liam_carter20":     { original: "https://randomuser.me/api/portraits/men/66.jpg",    medium: "https://randomuser.me/api/portraits/med/men/66.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/66.jpg" },
-  "noah_bennett56":    { original: "https://randomuser.me/api/portraits/men/28.jpg",    medium: "https://randomuser.me/api/portraits/med/men/28.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/28.jpg" },
-  "oliver_turner97":   { original: "https://randomuser.me/api/portraits/men/58.jpg",    medium: "https://randomuser.me/api/portraits/med/men/58.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/58.jpg" },
-  "ethan_reid41":      { original: "https://randomuser.me/api/portraits/men/82.jpg",    medium: "https://randomuser.me/api/portraits/med/men/82.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/82.jpg" },
-  "jack_mitchell98":   { original: "https://randomuser.me/api/portraits/men/60.jpg",    medium: "https://randomuser.me/api/portraits/med/men/60.jpg",    thumb: "https://randomuser.me/api/portraits/thumb/men/60.jpg" },
-  "emma_brooks39":     { original: "https://randomuser.me/api/portraits/women/75.jpg",  medium: "https://randomuser.me/api/portraits/med/women/75.jpg",  thumb: "https://randomuser.me/api/portraits/thumb/women/75.jpg" },
-  "sophia_hayes82":    { original: "https://randomuser.me/api/portraits/women/65.jpg",  medium: "https://randomuser.me/api/portraits/med/women/65.jpg",  thumb: "https://randomuser.me/api/portraits/thumb/women/65.jpg" },
-  "amelia_clarke92":   { original: "https://randomuser.me/api/portraits/women/23.jpg",  medium: "https://randomuser.me/api/portraits/med/women/23.jpg",  thumb: "https://randomuser.me/api/portraits/thumb/women/23.jpg" },
-  "chloe_tremblay78":  { original: "https://randomuser.me/api/portraits/women/36.jpg",  medium: "https://randomuser.me/api/portraits/med/women/36.jpg",  thumb: "https://randomuser.me/api/portraits/thumb/women/36.jpg" },
-  "charlotte_kelly27": { original: "https://randomuser.me/api/portraits/women/32.jpg",  medium: "https://randomuser.me/api/portraits/med/women/32.jpg",  thumb: "https://randomuser.me/api/portraits/thumb/women/32.jpg" },
+  // Pakistani — Lahore / Karachi
+  "muhammad.usman96":  unsplashPhoto("1653055645127-54ec96add7b5"),
+  "ali.raza96":        unsplashPhoto("1609224871627-4f69e57d9380"),
+  "hamza.tariq94":     unsplashPhoto("1761435756843-0ca5f4ff1d59"),
+  "bilal.ahmed06":     unsplashPhoto("1609154799087-7b665c57eef9"),
+  "zain.malik98":      unsplashPhoto("1778937779326-d6d220a525b4"),
+  "ayesha.khan97":     unsplashPhoto("1536766768598-e09213fdcf22"),
+  "fatima.sheikh01":   unsplashPhoto("1759840278361-f1adc75529a1"),
+  "zainab.siddiqui07": unsplashPhoto("1771958062747-198a5e04febc"),
+  "hira.mahmood96":    unsplashPhoto("1463335361701-e90f4c5045d0"),
+  "sana.chaudhry07":   unsplashPhoto("1552113125-81af17f36b57"),
+  // American — New York / Newark
+  "liam_carter20":     unsplashPhoto("1528900403525-dc523d4f18d6"),
+  "noah_bennett56":    unsplashPhoto("1590086782957-93c06ef21604"),
+  "emma_brooks39":     unsplashPhoto("1544005313-94ddf0286df2"),
+  "sophia_hayes82":    unsplashPhoto("1552699611-e2c208d5d9cf"),
+  // British — London
+  "oliver_turner97":   unsplashPhoto("1535713875002-d1d0cf377fde"),
+  "amelia_clarke92":   unsplashPhoto("1612203304476-2ed23c55b5b9"),
+  // Canadian — Toronto / Mississauga
+  "ethan_reid41":      unsplashPhoto("1614321375197-c5083895b054"),
+  "chloe_tremblay78":  unsplashPhoto("1611456531646-2a68d6df2723"),
+  // Australian — Sydney
+  "jack_mitchell98":   unsplashPhoto("1590873803005-539ede4d828a"),
+  "charlotte_kelly27": unsplashPhoto("1615464670798-6e92fafa2a89"),
 };
 
 function normalizePhone(phone: string): string {
