@@ -1,6 +1,16 @@
 // ChatView.swift — SwiftUI chat screen (personal group chat + match cross-group chat)
 import SwiftUI
 
+private struct HideTabBarModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 18.0, *) {
+            content.toolbarVisibility(.hidden, for: .tabBar)
+        } else {
+            content
+        }
+    }
+}
+
 private enum ChatStyle {
     static let outgoing = Color("themeColor")
     static let incoming = Color(.systemGray5)                              // #E9E9EB in light mode
@@ -30,7 +40,8 @@ struct ChatView: View {
                     emptyState
                 }
             }
-
+        }
+        .safeAreaInset(edge: .bottom, spacing: 0) {
             inputBar
         }
         .background(Color(.systemBackground))
@@ -38,6 +49,7 @@ struct ChatView: View {
         .toolbar {
             ToolbarItem(placement: .principal) { header }
         }
+        .modifier(HideTabBarModifier())
         .overlay {
             if vm.isLoading && vm.messages.isEmpty {
                 ProgressView()

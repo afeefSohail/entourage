@@ -77,28 +77,7 @@ struct MatchDetailView: View {
                         }
                     }
 
-                    // Action buttons
-                    Divider()
-                    HStack(spacing: 12) {
-                        Button {
-                            if let g = group {
-                                coordinator.push(.chat(g, personalChat: false, matchId: match.chat_id))
-                            }
-                        } label: {
-                            Label("Message", systemImage: "message.fill")
-                                .frame(maxWidth: .infinity)
-                        }
-                        .buttonStyle(.borderedProminent)
-
-                        Button(role: .destructive) {
-                            showUnmatch = true
-                        } label: {
-                            Label("Unmatch", systemImage: "xmark.circle")
-                                .frame(maxWidth: .infinity)
-                        }
-                        .buttonStyle(.bordered)
-                        .tint(.red)
-                    }
+                    Spacer(minLength: 90)
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 16)
@@ -106,6 +85,40 @@ struct MatchDetailView: View {
         }
         .navigationTitle(mvm.otherGroupName)
         .navigationBarTitleDisplayMode(.inline)
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            VStack(spacing: 0) {
+                Divider()
+                HStack(spacing: 12) {
+                    Button {
+                        if let g = group {
+                            coordinator.push(.chat(g, personalChat: false, matchId: match.chat_id))
+                        }
+                    } label: {
+                        Label("Message", systemImage: "message.fill")
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 10)
+                            .background(Color.accentColor)
+                            .foregroundStyle(.white)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                    .buttonStyle(.plain)
+
+                    Button { showUnmatch = true } label: {
+                        Label("Unmatch", systemImage: "xmark.circle")
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 10)
+                            .background(Color(.secondarySystemBackground))
+                            .foregroundStyle(.red)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.red.opacity(0.4), lineWidth: 1))
+                    }
+                    .buttonStyle(.plain)
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 12)
+                .background(.regularMaterial)
+            }
+        }
         .alert("Unmatch?", isPresented: $showUnmatch) {
             Button("Unmatch", role: .destructive) {
                 Task {
