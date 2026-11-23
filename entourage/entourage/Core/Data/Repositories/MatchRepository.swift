@@ -72,7 +72,7 @@ final class MatchRepository: RepositoryBase, MatchRepositoryProtocol {
     func unMatchTheGroup(groupId: String, callback: @escaping RepoCallback) {
         let params: [String: Any] = ["auth_token": User.getToken(), "group_id": groupId]
         let parsing: (DataResponse<Any, AFError>) -> Void = { _ in callback(nil, nil) }
-        session.request(url("/api/v1/matches/unmatch_group"), method: .delete, parameters: params)
+        session.request(url("/api/v1/matches/unmatch_group"), method: .delete, parameters: params, encoding: URLEncoding.httpBody)
             .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))
     }
 }

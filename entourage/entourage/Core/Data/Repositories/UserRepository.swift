@@ -158,7 +158,7 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
     func deleteUserAccount(reason: String, callback: @escaping RepoCallback) {
         let params: [String: Any] = ["auth_token": User.getToken(), "reason": reason]
         let parsing: (DataResponse<Any, AFError>) -> Void = { _ in callback(nil, nil) }
-        session.request(url("/api/v1/users/delete_account"), method: .delete, parameters: params)
+        session.request(url("/api/v1/users/delete_account"), method: .delete, parameters: params, encoding: URLEncoding.httpBody)
             .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))
     }
 
@@ -286,7 +286,7 @@ final class UserRepository: RepositoryBase, UserRepositoryProtocol {
                 callback(nil, nil)
             } catch { print(error) }
         }
-        session.request(url("/api/v1/photos/delete_photo"), method: .delete, parameters: params)
+        session.request(url("/api/v1/photos/delete_photo"), method: .delete, parameters: params, encoding: URLEncoding.httpBody)
             .validate().responseJSON(completionHandler: handle(parsing: parsing, callback: callback))
     }
 
