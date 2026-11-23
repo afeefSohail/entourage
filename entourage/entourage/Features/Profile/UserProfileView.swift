@@ -27,19 +27,24 @@ struct UserProfileView: View {
                     photoSection
 
                     VStack(alignment: .leading, spacing: 16) {
-                        Text(vm.nameWithAge).font(.title2.bold())
-
-                        friendActionSection
+                        HStack(alignment: .center) {
+                            Text(vm.nameWithAge).font(.title2.bold())
+                            Spacer()
+                            friendStatusBadge
+                        }
 
                         if vm.hasBio {
                             Divider()
                             Text(vm.bioText).font(.body).foregroundStyle(.secondary)
                         }
 
+                        friendActionButton
+
                         Divider()
                         userActionsSection
 
-                        Spacer(minLength: 32)
+                        // Keeps the last rows clear of the floating tab bar.
+                        Spacer(minLength: 110)
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 16)
@@ -93,45 +98,49 @@ struct UserProfileView: View {
         .indexViewStyle(.page(backgroundDisplayMode: .always))
     }
 
+    /// Passive status next to the name; actions live in `friendActionButton` below the bio.
     @ViewBuilder
-    private var friendActionSection: some View {
+    private var friendStatusBadge: some View {
         if isLoadingStatus {
             ProgressView()
-        } else {
-            switch friendStatus {
-            case "friends":
-                Label("Friends", systemImage: "person.2.fill")
-                    .foregroundStyle(.green)
-                    .font(.subheadline)
-            case "pending":
-                Label("Request Sent", systemImage: "clock.fill")
-                    .foregroundStyle(.secondary)
-                    .font(.subheadline)
-            case "received":
-                Button {
-                    Task { await acceptFriendRequest() }
-                } label: {
+        } else if friendStatus == "friends" {
+            statusPill("Friends", icon: "person.2.fill", color: .green)
+        } else if friendStatus == "pending" {
+            statusPill("Request Sent", icon: "clock.fill", color: .secondary)
+        }
+    }
+
+    private func statusPill(_ title: String, icon: String, color: Color) -> some View {
+        Label(title, systemImage: icon)
+            .font(.subheadline.weight(.medium))
+            .foregroundStyle(color)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
+            .background(Color(.secondarySystemBackground), in: Capsule())
+    }
+
+    @ViewBuilder
+    private var friendActionButton: some View {
+        if !isLoadingStatus && (friendStatus == "received" || !["friends", "pending", "blocked"].contains(friendStatus)) {
+            let accepting = friendStatus == "received"
+            Button {
+                Task { accepting ? await acceptFriendRequest() : await sendFriendRequest() }
+            } label: {
+                SwiftUI.Group {
                     if isSendingRequest {
-                        ProgressView()
+                        ProgressView().tint(.white)
                     } else {
-                        Label("Accept Request", systemImage: "person.badge.plus")
+                        Label(accepting ? "Accept Friend Request" : "Add Friend", systemImage: "person.badge.plus")
+                            .font(.headline)
                     }
                 }
-                .buttonStyle(.borderedProminent)
-                .disabled(isSendingRequest)
-            default:
-                Button {
-                    Task { await sendFriendRequest() }
-                } label: {
-                    if isSendingRequest {
-                        ProgressView()
-                    } else {
-                        Label("Add Friend", systemImage: "person.badge.plus")
-                    }
-                }
-                .buttonStyle(.borderedProminent)
-                .disabled(isSendingRequest)
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+                .foregroundStyle(.white)
+                .background(Color("themeColor"), in: RoundedRectangle(cornerRadius: 14))
             }
+            .disabled(isSendingRequest)
+            .padding(.top, 4)
         }
     }
 
